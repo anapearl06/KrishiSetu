@@ -1,0 +1,18 @@
+CREATE TABLE farmers (
+    id BIGSERIAL PRIMARY KEY,
+
+    name VARCHAR(100) NOT NULL,
+
+    phone VARCHAR(20) NOT NULL UNIQUE,
+
+    password_hash TEXT NOT NULL,
+
+    state VARCHAR(100) NOT NULL,
+
+    district VARCHAR(100) NOT NULL,
+
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
