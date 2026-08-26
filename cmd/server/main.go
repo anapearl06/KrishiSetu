@@ -1,12 +1,13 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/joho/godotenv"
 
 	"github.com/raaj2493/KrishiSetu/internal/config"
+	"github.com/raaj2493/KrishiSetu/internal/database"
+	"github.com/raaj2493/KrishiSetu/internal/server"
 )
 
 
@@ -17,7 +18,15 @@ func main() {
 
 	cfg := config.Load()
 
-	fmt.Println("Environment:", cfg.AppEnv)
-	fmt.Println("Port:", cfg.AppPort)
-	fmt.Println("Database:", cfg.DBName)
+	_, err := database.Connect(cfg)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	router := server.New()
+	log.Printf("KrishiSetu server starting on :%s", cfg.AppPort)
+
+	if err := router.Run(":" + cfg.AppPort); err != nil {
+		log.Fatal(err)
+	}
 }
