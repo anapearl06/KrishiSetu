@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: krishisetu-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: krishisetu
+      POSTGRES_PASSWORD: development-only-password
+      POSTGRES_DB: krishisetu
+    ports:
+      - "5432:5432"
+    volumes:
+      - krishisetu-postgres-data:/var/lib/postgresql/data
+
+volumes:
+  krishisetu-postgres-data:
