@@ -23,9 +23,17 @@ func Load() Config {
 		}
 	}
 
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = os.Getenv("APP_PORT")
+	}
+	if port == "" {
+		port = "8080"
+	}
+
 	return Config{
 		AppEnv:             os.Getenv("APP_ENV"),
-		AppPort:            os.Getenv("APP_PORT"),
+		AppPort:            port,
 		DatabaseURL:        os.Getenv("DATABASE_URL"),
 		JWTSecret:          os.Getenv("JWT_SECRET"),
 		JWTExpirationHours: time.Duration(expirationHours) * time.Hour,
