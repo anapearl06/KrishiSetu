@@ -65,3 +65,35 @@ func (h *Handler) Register(c *gin.Context) {
 		f,
 	)
 }
+
+func (h *Handler) Login(c *gin.Context) {
+	var input struct {
+		Phone    string `json:"phone"`
+		Password string `json:"password"`
+	}
+
+	if err := c.ShouldBindJSON(&input); err != nil {
+		response.Error(c, 400, "invalid request body" , err.Error())
+		return
+	}
+
+	result, err := h.service.Login(LoginInput{
+		Phone:    input.Phone,
+		Password: input.Password,
+	})
+	if err != nil {
+		response.Error(c, 401, "invalid credentials" , err.Error())
+		return
+	}
+
+	response.Success(c, 200, gin.H{
+		"token": result.Token,
+		"farmer": gin.H{
+			"id":       result.Farmer.ID,
+			"name":     result.Farmer.Name,
+			"phone":    result.Farmer.Phone,
+			"state":    result.Farmer.State,
+			"district": result.Farmer.District,
+		},
+	})
+}

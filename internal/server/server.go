@@ -1,8 +1,6 @@
 package server
 
 import (
-	"time"
-
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 
@@ -25,15 +23,20 @@ func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 	farmerService := farmer.NewService(
 		farmerRepo,
 		cfg.JWTSecret,
-		24*time.Hour,
+		cfg.JWTExpiration,
 	)
 
 	farmerHandler := farmer.NewHandler(farmerService)
 
-	router.POST(
-		"/api/v1/farmers/register",
-		farmerHandler.Register,
-	)
+router.POST(
+	"/api/v1/farmers/register",
+	farmerHandler.Register,
+)
+
+router.POST(
+	"/api/v1/farmers/login",
+	farmerHandler.Login,
+)
 
 	return router
 }
