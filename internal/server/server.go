@@ -6,6 +6,7 @@ import (
 
 	"github.com/raaj2493/KrishiSetu/internal/config"
 	"github.com/raaj2493/KrishiSetu/internal/farmer"
+	"github.com/raaj2493/KrishiSetu/internal/middleware"
 	"github.com/raaj2493/KrishiSetu/internal/server/response"
 )
 
@@ -28,15 +29,24 @@ func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 
 	farmerHandler := farmer.NewHandler(farmerService)
 
-router.POST(
-	"/api/v1/farmers/register",
-	farmerHandler.Register,
-)
+	farmerRoutes := router.Group("/api/v1/farmers")
+	{
+		farmerRoutes.POST(
+			"/register",
+			farmerHandler.Register,
+		)
 
-router.POST(
-	"/api/v1/farmers/login",
-	farmerHandler.Login,
-)
+		farmerRoutes.POST(
+			"/login",
+			farmerHandler.Login,
+		)
+
+		farmerRoutes.GET(
+			"/me",
+			middleware.JWTAuth(cfg.JWTSecret),
+			farmerHandler.Me,
+		)
+	}
 
 	return router
 }

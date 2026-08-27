@@ -8,15 +8,6 @@ import (
 	"github.com/raaj2493/KrishiSetu/internal/server/response"
 )
 
-type RegisterRequest struct {
-	Name     string `json:"name"`
-	Phone    string `json:"phone"`
-	Password string `json:"password"`
-	State    string `json:"state"`
-	District string `json:"district"`
-}
-
-
 type Handler struct {
 	service *Service
 }
@@ -27,34 +18,26 @@ func NewHandler(service *Service) *Handler {
 	}
 }
 
-
 func (h *Handler) Register(c *gin.Context) {
-	var req RegisterRequest
+	var input RegisterInput
 
-	if err := c.ShouldBindJSON(&req); err != nil {
+	if err := c.ShouldBindJSON(&input); err != nil {
 		response.Error(
 			c,
 			http.StatusBadRequest,
-			"INVALID_REQUEST",
-			"Invalid request body",
+			"BAD_REQUEST",
+			"invalid request body",
 		)
 		return
 	}
 
-	f, err := h.service.Register(RegisterInput{
-		Name:     req.Name,
-		Phone:    req.Phone,
-		Password: req.Password,
-		State:    req.State,
-		District: req.District,
-	})
-
+	farmer, err := h.service.Register(input)
 	if err != nil {
 		response.Error(
 			c,
 			http.StatusInternalServerError,
-			"REGISTRATION_FAILED",
-			"Failed to register farmer",
+			"INTERNAL_ERROR",
+			err.Error(),
 		)
 		return
 	}
@@ -62,38 +45,69 @@ func (h *Handler) Register(c *gin.Context) {
 	response.Success(
 		c,
 		http.StatusCreated,
-		f,
+		farmer,
 	)
 }
 
 func (h *Handler) Login(c *gin.Context) {
-	var input struct {
-		Phone    string `json:"phone"`
-		Password string `json:"password"`
-	}
+	var input LoginInput
 
 	if err := c.ShouldBindJSON(&input); err != nil {
-		response.Error(c, 400, "invalid request body" , err.Error())
+		response.Error(
+			c,
+			http.StatusBadRequest,
+			"BAD_REQUEST",
+			"invalid request body",
+		)
 		return
 	}
 
-	result, err := h.service.Login(LoginInput{
-		Phone:    input.Phone,
-		Password: input.Password,
-	})
+	result, err := h.service.Login(input)
 	if err != nil {
-		response.Error(c, 401, "invalid credentials" , err.Error())
+		response.Error(
+			c,
+			http.StatusUnauthorized,
+			"UNAUTHORIZED",
+			"invalid credentials",
+		)
 		return
 	}
 
-	response.Success(c, 200, gin.H{
-		"token": result.Token,
-		"farmer": gin.H{
-			"id":       result.Farmer.ID,
-			"name":     result.Farmer.Name,
-			"phone":    result.Farmer.Phone,
-			"state":    result.Farmer.State,
-			"district": result.Farmer.District,
+	response.Success(
+		c,
+		http.StatusOK,
+		gin.H{
+			"token": result.Token,
+			"farmer": gin.H{
+				"id":       result.Farmer.ID,
+				"name":     result.Farmer.Name,
+				"phone":    result.Farmer.Phone,
+				"state":    result.Farmer.State,
+				"district": result.Farmer.District,
+			},
 		},
-	})
+	)
+}
+
+func (h *Handler) Me(c *gin.Context) {
+	userID, exists := c.Get("user_id")
+
+	if !exists {
+		response.Error(
+			c,
+			http.StatusUnauthorized,
+			"UNAUTHORIZED",
+			"unauthorized",
+		)
+		return
+	}
+
+	response.Success(
+		c,
+		http.StatusOK,
+		gin.H{
+			"user_id": userID,
+			"role":    c.MustGet("role"),
+		},
+	)
 }
