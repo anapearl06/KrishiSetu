@@ -1,13 +1,16 @@
 package farmer
 
-import 
-(
-"github.com/raaj2493/KrishiSetu/internal/auth"
-"errors"
+import (
+	"errors"
+	"time"
+
+	"github.com/raaj2493/KrishiSetu/internal/auth"
 )
 
 type Service struct {
-	repo Repository
+	repo      Repository
+	jwtSecret string
+	jwtExpiry time.Duration
 }
 
 type RegisterInput struct {
@@ -23,9 +26,20 @@ type LoginInput struct {
 	Password string
 }
 
-func NewService(repo Repository) *Service {
+type LoginResult struct {
+	Farmer *Farmer
+	Token  string
+}
+
+func NewService(
+	repo Repository,
+	jwtSecret string,
+	jwtExpiry time.Duration,
+) *Service {
 	return &Service{
-		repo: repo,
+		repo:      repo,
+		jwtSecret: jwtSecret,
+		jwtExpiry: jwtExpiry,
 	}
 }
 
@@ -50,8 +64,7 @@ func (s *Service) Register(input RegisterInput) (*Farmer, error) {
 	return f, nil
 }
 
-
-func (s *Service) Login(input LoginInput) (*Farmer, error) {
+func (s *Service) Login(input LoginInput) (*LoginResult, error) {
 	farmer, err := s.repo.FindByPhone(input.Phone)
 	if err != nil {
 		return nil, err
@@ -61,5 +74,18 @@ func (s *Service) Login(input LoginInput) (*Farmer, error) {
 		return nil, errors.New("invalid credentials")
 	}
 
-	return farmer, nil
+	token, err := auth.GenerateToken(
+		farmer.ID,
+		"farmer",
+		s.jwtSecret,
+		s.jwtExpiry,
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	return &LoginResult{
+		Farmer: farmer,
+		Token:  token,
+	}, nil
 }

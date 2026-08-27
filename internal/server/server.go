@@ -1,14 +1,17 @@
 package server
 
 import (
+	"time"
+
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 
+	"github.com/raaj2493/KrishiSetu/internal/config"
 	"github.com/raaj2493/KrishiSetu/internal/farmer"
 	"github.com/raaj2493/KrishiSetu/internal/server/response"
 )
 
-func New(db *gorm.DB) *gin.Engine {
+func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 	router := gin.Default()
 
 	router.GET("/health", func(c *gin.Context) {
@@ -18,7 +21,13 @@ func New(db *gorm.DB) *gin.Engine {
 	})
 
 	farmerRepo := farmer.NewRepository(db)
-	farmerService := farmer.NewService(farmerRepo)
+
+	farmerService := farmer.NewService(
+		farmerRepo,
+		cfg.JWTSecret,
+		24*time.Hour,
+	)
+
 	farmerHandler := farmer.NewHandler(farmerService)
 
 	router.POST(
