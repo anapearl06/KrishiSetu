@@ -24,7 +24,7 @@ func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 	farmerService := farmer.NewService(
 		farmerRepo,
 		cfg.JWTSecret,
-		cfg.JWTExpiration,
+		cfg.JWTExpirationHours,
 	)
 
 	farmerHandler := farmer.NewHandler(farmerService)
