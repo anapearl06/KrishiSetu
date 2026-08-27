@@ -1,6 +1,10 @@
 package farmer
 
-import "github.com/raaj2493/KrishiSetu/internal/auth"
+import 
+(
+"github.com/raaj2493/KrishiSetu/internal/auth"
+"errors"
+)
 
 type Service struct {
 	repo Repository
@@ -12,6 +16,11 @@ type RegisterInput struct {
 	Password string
 	State    string
 	District string
+}
+
+type LoginInput struct {
+	Phone    string
+	Password string
 }
 
 func NewService(repo Repository) *Service {
@@ -39,4 +48,18 @@ func (s *Service) Register(input RegisterInput) (*Farmer, error) {
 	}
 
 	return f, nil
+}
+
+
+func (s *Service) Login(input LoginInput) (*Farmer, error) {
+	farmer, err := s.repo.FindByPhone(input.Phone)
+	if err != nil {
+		return nil, err
+	}
+
+	if !auth.CheckPassword(input.Password, farmer.PasswordHash) {
+		return nil, errors.New("invalid credentials")
+	}
+
+	return farmer, nil
 }
