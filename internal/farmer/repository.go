@@ -30,7 +30,7 @@ func (r *postgresRepository) FindByPhone(phone string) (*Farmer, error) {
 	var farmer Farmer
 
 	// Note: Make sure your column name matches your migration (e.g., phone_number vs phone)
-	if err := r.db.Where("phone_number = ?", phone).First(&farmer).Error; err != nil {
+	if err := r.db.Where("phone = ?", phone).First(&farmer).Error; err != nil {
 		return nil, err
 	}
 

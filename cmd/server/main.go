@@ -24,7 +24,10 @@ func main() {
 
 	router := server.New(db, cfg)
 
-	log.Printf("KrishiSetu server starting on :%s", cfg.AppPort)
+	log.Printf(
+		"KrishiSetu server starting on :%s",
+		cfg.AppPort,
+	)
 
 	if err := router.Run(":" + cfg.AppPort); err != nil {
 		log.Fatal(err)
