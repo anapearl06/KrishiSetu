@@ -22,7 +22,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	router := server.New(db)
+	router := server.New(db, cfg)
 
 	log.Printf("KrishiSetu server starting on :%s", cfg.AppPort)
 
