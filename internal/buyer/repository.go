@@ -6,21 +6,34 @@ import (
 	"gorm.io/gorm"
 )
 
-type Repository struct {
+type Repository interface {
+	Create(ctx context.Context, buyer *Buyer) error
+	FindByID(ctx context.Context, id uint) (*Buyer, error)
+	FindByPhone(ctx context.Context, phone string) (*Buyer, error)
+	Update(ctx context.Context, buyer *Buyer) error
+}
+
+type postgresRepository struct {
 	db *gorm.DB
 }
 
-func NewRepository(db *gorm.DB) *Repository {
-	return &Repository{
+func NewRepository(db *gorm.DB) Repository {
+	return &postgresRepository{
 		db: db,
 	}
 }
 
-func (r *Repository) Create(ctx context.Context, buyer *Buyer) error {
+func (r *postgresRepository) Create(
+	ctx context.Context,
+	buyer *Buyer,
+) error {
 	return r.db.WithContext(ctx).Create(buyer).Error
 }
 
-func (r *Repository) FindByID(ctx context.Context, id uint) (*Buyer, error) {
+func (r *postgresRepository) FindByID(
+	ctx context.Context,
+	id uint,
+) (*Buyer, error) {
 	var buyer Buyer
 
 	err := r.db.WithContext(ctx).
@@ -34,7 +47,10 @@ func (r *Repository) FindByID(ctx context.Context, id uint) (*Buyer, error) {
 	return &buyer, nil
 }
 
-func (r *Repository) FindByPhone(ctx context.Context, phone string) (*Buyer, error) {
+func (r *postgresRepository) FindByPhone(
+	ctx context.Context,
+	phone string,
+) (*Buyer, error) {
 	var buyer Buyer
 
 	err := r.db.WithContext(ctx).
@@ -49,6 +65,9 @@ func (r *Repository) FindByPhone(ctx context.Context, phone string) (*Buyer, err
 	return &buyer, nil
 }
 
-func (r *Repository) Update(ctx context.Context, buyer *Buyer) error {
+func (r *postgresRepository) Update(
+	ctx context.Context,
+	buyer *Buyer,
+) error {
 	return r.db.WithContext(ctx).Save(buyer).Error
 }
