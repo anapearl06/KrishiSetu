@@ -16,15 +16,14 @@ type Service struct {
 }
 
 type RegisterInput struct {
-	Name         string
-	Phone        string
-	Password     string
-	BusinessName string
-	BusinessType string
-	State        string
-	District     string
+	Name         string `json:"name"`
+	Phone        string `json:"phone"`
+	Password     string `json:"password"`
+	BusinessName string `json:"business_name"`
+	BusinessType string `json:"business_type"`
+	State        string `json:"state"`
+	District     string `json:"district"`
 }
-
 type LoginInput struct {
 	Phone    string
 	Password string
