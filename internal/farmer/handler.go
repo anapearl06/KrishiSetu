@@ -112,7 +112,6 @@ func (h *Handler) Me(c *gin.Context) {
 	)
 }
 
-
 func (h *Handler) UpdateProfile(c *gin.Context) {
 	userID, exists := c.Get(middleware.UserIDKey)
 	if !exists {

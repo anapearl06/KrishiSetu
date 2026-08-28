@@ -152,4 +152,3 @@ func (s *Service) UpdateProfile(
 
 	return farmer, nil
 }
-
