@@ -80,8 +80,8 @@ func (s *Service) Register(ctx context.Context, input RegisterInput) (*Buyer, er
 	}
 
 	if input.BusinessType == "" {
-	return nil, errors.New("business type is required")
-}
+		return nil, errors.New("business type is required")
+	}
 
 	if input.State == "" {
 		return nil, errors.New("state is required")

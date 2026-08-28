@@ -21,8 +21,6 @@ func ComparePassword(hash string, password string) error {
 	)
 }
 
-
-
 func CheckPassword(password, hash string) bool {
 	err := bcrypt.CompareHashAndPassword(
 		[]byte(hash),
