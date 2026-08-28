@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-
+	"github.com/raaj2493/KrishiSetu/internal/middleware"
 	"github.com/raaj2493/KrishiSetu/internal/server/response"
 )
 
@@ -109,5 +109,59 @@ func (h *Handler) Me(c *gin.Context) {
 			"user_id": userID,
 			"role":    c.MustGet("role"),
 		},
+	)
+}
+
+
+func (h *Handler) UpdateProfile(c *gin.Context) {
+	userID, exists := c.Get(middleware.UserIDKey)
+	if !exists {
+		response.Error(
+			c,
+			http.StatusUnauthorized,
+			"UNAUTHORIZED",
+			"unauthorized",
+		)
+		return
+	}
+
+	id, ok := userID.(uint)
+	if !ok {
+		response.Error(
+			c,
+			http.StatusUnauthorized,
+			"UNAUTHORIZED",
+			"invalid user identity",
+		)
+		return
+	}
+
+	var input UpdateProfileInput
+
+	if err := c.ShouldBindJSON(&input); err != nil {
+		response.Error(
+			c,
+			http.StatusBadRequest,
+			"BAD_REQUEST",
+			"invalid request body",
+		)
+		return
+	}
+
+	farmer, err := h.service.UpdateProfile(id, input)
+	if err != nil {
+		response.Error(
+			c,
+			http.StatusBadRequest,
+			"BAD_REQUEST",
+			err.Error(),
+		)
+		return
+	}
+
+	response.Success(
+		c,
+		http.StatusOK,
+		farmer,
 	)
 }
