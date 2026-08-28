@@ -31,6 +31,12 @@ type LoginResult struct {
 	Token  string
 }
 
+type UpdateProfileInput struct {
+	Name     string `json:"name"`
+	State    string `json:"state"`
+	District string `json:"district"`
+}
+
 func NewService(
 	repo Repository,
 	jwtSecret string,
@@ -44,6 +50,26 @@ func NewService(
 }
 
 func (s *Service) Register(input RegisterInput) (*Farmer, error) {
+	if input.Name == "" {
+		return nil, errors.New("name is required")
+	}
+
+	if input.Phone == "" {
+		return nil, errors.New("phone is required")
+	}
+
+	if input.Password == "" {
+		return nil, errors.New("password is required")
+	}
+
+	if input.State == "" {
+		return nil, errors.New("state is required")
+	}
+
+	if input.District == "" {
+		return nil, errors.New("district is required")
+	}
+
 	passwordHash, err := auth.HashPassword(input.Password)
 	if err != nil {
 		return nil, err
@@ -89,3 +115,41 @@ func (s *Service) Login(input LoginInput) (*LoginResult, error) {
 		Token:  token,
 	}, nil
 }
+
+func (s *Service) GetProfile(id uint) (*Farmer, error) {
+	return s.repo.FindByID(id)
+}
+
+func (s *Service) UpdateProfile(
+	id uint,
+	input UpdateProfileInput,
+) (*Farmer, error) {
+
+	if input.Name == "" {
+		return nil, errors.New("name is required")
+	}
+
+	if input.State == "" {
+		return nil, errors.New("state is required")
+	}
+
+	if input.District == "" {
+		return nil, errors.New("district is required")
+	}
+
+	farmer, err := s.repo.FindByID(id)
+	if err != nil {
+		return nil, err
+	}
+
+	farmer.Name = input.Name
+	farmer.State = input.State
+	farmer.District = input.District
+
+	if err := s.repo.Update(farmer); err != nil {
+		return nil, err
+	}
+
+	return farmer, nil
+}
+
