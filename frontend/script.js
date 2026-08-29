@@ -77,7 +77,9 @@ document.addEventListener("DOMContentLoaded", function () {
         if (response.ok) {
           alert("Farmer Login Successful!");
           if (data.token) localStorage.setItem("token", data.token);
-          // Redirect to Dashboard when screen is ready
+
+          // AUTOMATIC REDIRECT TO FARMER DASHBOARD
+          window.location.href = "./farmer-dashboard.html";
         } else {
           alert(
             data.message || "Login failed! Please check phone and password.",
@@ -114,6 +116,9 @@ document.addEventListener("DOMContentLoaded", function () {
         if (response.ok) {
           alert("Buyer Login Successful!");
           if (data.token) localStorage.setItem("token", data.token);
+
+          // AUTOMATIC REDIRECT TO BUYER DASHBOARD
+          window.location.href = "./buyer-dashboard.html";
         } else {
           alert(
             data.message || "Login failed! Please check phone and password.",
