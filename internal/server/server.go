@@ -2,13 +2,13 @@ package server
 
 import (
 	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
-	"github.com/raaj2493/KrishiSetu/internal/listing"
 	"github.com/raaj2493/KrishiSetu/internal/buyer"
 	"github.com/raaj2493/KrishiSetu/internal/config"
 	"github.com/raaj2493/KrishiSetu/internal/farmer"
+	"github.com/raaj2493/KrishiSetu/internal/listing"
 	"github.com/raaj2493/KrishiSetu/internal/middleware"
 	"github.com/raaj2493/KrishiSetu/internal/server/response"
+	"gorm.io/gorm"
 )
 
 func New(db *gorm.DB, cfg config.Config) *gin.Engine {
@@ -20,6 +20,9 @@ func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 			"status": "ok",
 		})
 	})
+
+	// API version 1 root group
+	api := router.Group("/api/v1")
 
 	// =========================
 	// Farmer
@@ -33,11 +36,9 @@ func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 		cfg.JWTExpirationHours,
 	)
 
-
-
 	farmerHandler := farmer.NewHandler(farmerService)
 
-	farmerRoutes := router.Group("/api/v1/farmers")
+	farmerRoutes := api.Group("/farmers")
 	{
 		farmerRoutes.POST(
 			"/register",
@@ -76,7 +77,7 @@ func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 
 	buyerHandler := buyer.NewHandler(buyerService)
 
-	buyerRoutes := router.Group("/api/v1/buyers")
+	buyerRoutes := api.Group("/buyers")
 	{
 		buyerRoutes.POST(
 			"/register",
@@ -101,38 +102,24 @@ func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 		)
 	}
 
-	return router
-}
+	// =========================
+	// Listings
+	// =========================
 
 	listingRepo := listing.NewRepository(db)
-listingService := listing.NewService(listingRepo)
-listingHandler := listing.NewHandler(listingService)
+	listingService := listing.NewService(listingRepo)
+	listingHandler := listing.NewHandler(listingService)
 
+	listings := api.Group("/listings")
+	listings.Use(middleware.JWTAuth(cfg.JWTSecret))
+	{
+		listings.POST("", listingHandler.CreateListing)
+		listings.GET("", listingHandler.ListListings)
+		listings.GET("/my", listingHandler.GetMyListings)
+		listings.GET("/:id", listingHandler.GetListing)
+		listings.PUT("/:id", listingHandler.UpdateListing)
+		listings.DELETE("/:id", listingHandler.CancelListing)
+	}
 
-listings := api.Group("/listings")
-listings.Use(authMiddleware)
-{
-	listings.POST("", listingHandler.CreateListing)
-	listings.GET("", listingHandler.ListListings)
-	listings.GET("/my", listingHandler.GetMyListings)
-	listings.GET("/:id", listingHandler.GetListing)
-	listings.PUT("/:id", listingHandler.UpdateListing)
-	listings.DELETE("/:id", listingHandler.CancelListing)
+	return router
 }
-
-
-demandRepo := demand.NewRepository(db)
-demandService := demand.NewService(demandRepo)
-demandHandler := demand.NewHandler(demandService)
-
-demands := api.Group("/demands")
-demands.Use(authMiddleware)
-{
-	demands.POST("", demandHandler.CreateDemand)
-	demands.GET("", demandHandler.ListDemands)
-	demands.GET("/my", demandHandler.GetMyDemands)
-	demands.GET("/:id", demandHandler.GetDemand)
-	demands.PUT("/:id", demandHandler.UpdateDemand)
-	demands.DELETE("/:id", demandHandler.CancelDemand)
-}
-
