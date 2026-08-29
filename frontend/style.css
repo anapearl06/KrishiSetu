@@ -81,7 +81,7 @@
    ============================================================ */
 
 .login-background-image {
-  filter: blur(10x);
+  filter: blur(10px);
   transform: scale(1.06);
 }
 
