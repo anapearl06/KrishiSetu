@@ -15,6 +15,7 @@
 
   <body class="bg-[#FAFAF5] text-[#1E1E1E]">
     <!-- ================= NAVBAR ================= -->
+
     <nav
       class="sticky top-0 z-50 w-full bg-[#FAFAF5] border-b border-[#E0E4DA]"
     >
@@ -22,7 +23,8 @@
         class="max-w-7xl mx-auto px-4 md:px-8 py-4 flex items-center justify-between"
       >
         <!-- LOGO -->
-        <a href="#" class="flex items-center gap-2">
+
+        <a href="./index.html" class="flex items-center gap-2">
           <img
             src="./assets/images/krishisetu_logo.png"
             alt="KrishiSetu Logo"
@@ -33,37 +35,38 @@
         </a>
 
         <!-- NAVIGATION LINKS -->
+
         <div class="hidden md:flex items-center gap-6">
           <a
-            href="#"
+            href="./index.html"
             class="text-[#0D631B] font-medium border-b-2 border-[#0D631B] pb-1 hover:text-[#2E7D32] transition-colors"
           >
             Home
           </a>
 
           <a
-            href="#"
+            href="#how-it-works"
             class="text-[#40493D] font-medium hover:text-[#0D631B] transition-colors"
           >
             How It Works
           </a>
 
           <a
-            href="#"
+            href="#farmers"
             class="text-[#40493D] font-medium hover:text-[#0D631B] transition-colors"
           >
             For Farmers
           </a>
 
           <a
-            href="#"
+            href="#buyers"
             class="text-[#40493D] font-medium hover:text-[#0D631B] transition-colors"
           >
             For Buyers
           </a>
 
           <a
-            href="#"
+            href="#market-prices"
             class="text-[#40493D] font-medium hover:text-[#0D631B] transition-colors"
           >
             Market Prices
@@ -71,29 +74,39 @@
         </div>
 
         <!-- ACTION BUTTONS -->
+
         <div class="flex items-center gap-2 md:gap-4">
-          <button
+          <!-- LOGIN -->
+
+          <a
+            href="./login.html"
             class="text-[#0D631B] font-medium px-4 py-2 hover:opacity-80 transition-opacity"
           >
             Login
-          </button>
+          </a>
 
-          <button
+          <!-- REGISTER -->
+
+          <a
+            href="./login.html"
             class="bg-[#0D631B] text-white font-medium px-5 py-2.5 rounded-md hover:bg-[#2E7D32] transition-colors"
           >
             Register
-          </button>
+          </a>
         </div>
       </div>
     </nav>
 
     <!-- ================= MAIN ================= -->
+
     <main>
       <!-- ================= HERO SECTION ================= -->
+
       <section
         class="relative w-full min-h-[70vh] flex items-center justify-center overflow-hidden"
       >
         <!-- Background Image -->
+
         <div class="absolute inset-0 z-0">
           <img
             src="./assets/images/background.png"
@@ -102,12 +115,14 @@
           />
 
           <!-- Overlay -->
+
           <div
             class="absolute inset-0 bg-[#FAFAF5]/80 backdrop-blur-[2px]"
           ></div>
         </div>
 
         <!-- Hero Content -->
+
         <div
           class="relative z-10 max-w-4xl mx-auto px-4 md:px-8 text-center flex flex-col items-center gap-6 md:gap-8"
         >
@@ -127,27 +142,37 @@
           </p>
 
           <!-- CTA BUTTONS -->
+
           <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mt-2">
-            <!-- Farmer -->
-            <button
-              class="bg-[#0D631B] text-white font-medium px-8 py-4 rounded-md w-48 hover:bg-[#2E7D32] transition-all shadow-sm hover:shadow-md"
+            <!-- FARMER -->
+
+            <a
+              href="./login.html"
+              class="bg-[#0D631B] text-white font-medium px-8 py-4 rounded-md w-48 text-center hover:bg-[#2E7D32] transition-all shadow-sm hover:shadow-md"
             >
               I'm a Farmer
-            </button>
+            </a>
 
-            <!-- Buyer -->
-            <button
-              class="bg-[#75584D] text-white font-medium px-8 py-4 rounded-md w-48 hover:opacity-90 transition-all shadow-sm hover:shadow-md"
+            <!-- BUYER -->
+
+            <a
+              href="./login.html"
+              class="bg-[#75584D] text-white font-medium px-8 py-4 rounded-md w-48 text-center hover:opacity-90 transition-all shadow-sm hover:shadow-md"
             >
               I'm a Buyer
-            </button>
+            </a>
           </div>
         </div>
       </section>
 
       <!-- ================= FEATURES SECTION ================= -->
-      <section class="max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-20">
+
+      <section
+        id="how-it-works"
+        class="max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-20"
+      >
         <!-- Section Heading -->
+
         <div class="text-center mb-12">
           <h2 class="text-2xl md:text-3xl font-semibold text-[#0D631B] mb-4">
             Empowering Ground Level Operations
@@ -160,9 +185,12 @@
         </div>
 
         <!-- Feature Cards -->
+
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <!-- CARD 1 -->
+
           <div
+            id="farmers"
             class="bg-white rounded-xl p-8 border border-[#E0E4DA] shadow-[0_4px_24px_rgba(0,0,0,0.02)] hover:border-[#0D631B]/30 transition-colors"
           >
             <div
@@ -183,7 +211,9 @@
           </div>
 
           <!-- CARD 2 -->
+
           <div
+            id="buyers"
             class="bg-white rounded-xl p-8 border border-[#E0E4DA] shadow-[0_4px_24px_rgba(0,0,0,0.02)] hover:border-[#0D631B]/30 transition-colors"
           >
             <div
@@ -203,7 +233,9 @@
           </div>
 
           <!-- CARD 3 -->
+
           <div
+            id="market-prices"
             class="bg-white rounded-xl p-8 border border-[#E0E4DA] shadow-[0_4px_24px_rgba(0,0,0,0.02)] hover:border-[#0D631B]/30 transition-colors"
           >
             <div
@@ -226,11 +258,16 @@
     </main>
 
     <!-- ================= FOOTER ================= -->
+
     <footer class="bg-[#E0E4DA] mt-auto">
       <div
         class="max-w-7xl mx-auto px-4 md:px-8 py-10 flex flex-col md:flex-row justify-between items-center gap-6"
       >
+        <!-- BRAND -->
+
         <div class="text-xl font-bold text-[#0D631B]">KrishiSetu</div>
+
+        <!-- FOOTER LINKS -->
 
         <div class="flex flex-wrap justify-center gap-6 text-sm">
           <a href="#" class="text-[#40493D] hover:text-[#0D631B]"> About Us </a>
@@ -248,11 +285,14 @@
           </a>
         </div>
 
+        <!-- COPYRIGHT -->
+
         <div class="text-sm text-[#0D631B]">© 2026 KrishiSetu.</div>
       </div>
     </footer>
 
     <!-- JavaScript -->
+
     <script src="./script.js"></script>
   </body>
 </html>
