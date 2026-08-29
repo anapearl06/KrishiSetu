@@ -1,4 +1,5 @@
 <!doctype html>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -8,6 +9,7 @@
     <title>KrishiSetu | Create Account</title>
 
     <link rel="stylesheet" href="./output.css" />
+
     <link rel="stylesheet" href="./style.css" />
   </head>
 
@@ -21,12 +23,12 @@
       <img
         src="./assets/images/background.png"
         alt=""
-        class="register-background-image absolute inset-0 w-full h-full object-cover opacity-15"
+        class="register-background-image absolute inset-0 w-full h-full object-cover opacity-45"
       />
 
       <div
         id="registerBackgroundOverlay"
-        class="absolute inset-0 bg-[#F4F8F0]/90 backdrop-blur-sm transition-colors duration-500"
+        class="absolute inset-0 bg-[#F4F8F0]/55 backdrop-blur-sm transition-colors duration-500"
       ></div>
     </div>
 
@@ -84,7 +86,7 @@
         id="registerCard"
         class="register-card w-full max-w-md bg-white rounded-xl border border-[#BFCABA]/60 shadow-sm p-6 md:p-8 transition-all duration-500"
       >
-        <!-- HEADER -->
+        <!-- ================= HEADER ================= -->
 
         <div class="text-center mb-8">
           <h1
@@ -97,12 +99,14 @@
           <p class="text-base text-[#40493D]">Join the agricultural network</p>
         </div>
 
-        <!-- ROLE TABS -->
+        <!-- ================= ROLE TABS ================= -->
 
         <div
           class="flex mb-6 bg-[#F1F5EB] rounded-lg p-1 gap-1 transition-colors duration-500"
           id="registerTabs"
         >
+          <!-- FARMER -->
+
           <button
             id="registerFarmerTab"
             type="button"
@@ -110,6 +114,8 @@
           >
             Farmer
           </button>
+
+          <!-- BUYER -->
 
           <button
             id="registerBuyerTab"
@@ -120,9 +126,13 @@
           </button>
         </div>
 
-        <!-- ================= FARMER FORM ================= -->
+        <!-- ================================================= -->
+        <!-- FARMER FORM -->
+        <!-- ================================================= -->
 
         <form id="farmerForm" class="flex flex-col gap-4">
+          <!-- FULL NAME -->
+
           <div>
             <label
               for="farmerName"
@@ -141,6 +151,8 @@
               class="w-full h-12 px-4 rounded-md bg-white border border-[#BFCABA] outline-none text-[#181D17] focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B] transition-colors"
             />
           </div>
+
+          <!-- PHONE -->
 
           <div>
             <label
@@ -163,6 +175,8 @@
             />
           </div>
 
+          <!-- VILLAGE -->
+
           <div>
             <label
               for="farmerVillage"
@@ -181,6 +195,8 @@
             />
           </div>
 
+          <!-- STATE -->
+
           <div>
             <label
               for="farmerState"
@@ -196,24 +212,18 @@
               class="w-full h-12 px-4 rounded-md bg-white border border-[#BFCABA] outline-none text-[#181D17] focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B] transition-colors"
             >
               <option value="">Select your state</option>
-
               <option value="uttar-pradesh">Uttar Pradesh</option>
-
               <option value="uttarakhand">Uttarakhand</option>
-
               <option value="haryana">Haryana</option>
-
               <option value="punjab">Punjab</option>
-
               <option value="rajasthan">Rajasthan</option>
-
               <option value="madhya-pradesh">Madhya Pradesh</option>
-
               <option value="bihar">Bihar</option>
-
               <option value="other">Other</option>
             </select>
           </div>
+
+          <!-- MAIN CROP -->
 
           <div>
             <label
@@ -230,7 +240,6 @@
               class="w-full h-12 px-4 rounded-md bg-white border border-[#BFCABA] outline-none text-[#181D17] focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B] transition-colors"
             >
               <option value="">Select your main crop</option>
-
               <option value="wheat">Wheat</option>
               <option value="rice">Rice</option>
               <option value="potato">Potato</option>
@@ -240,6 +249,8 @@
               <option value="other">Other</option>
             </select>
           </div>
+
+          <!-- PASSWORD -->
 
           <div>
             <label
@@ -260,6 +271,8 @@
             />
           </div>
 
+          <!-- CONFIRM PASSWORD -->
+
           <div>
             <label
               for="farmerConfirmPassword"
@@ -279,6 +292,8 @@
             />
           </div>
 
+          <!-- REGISTER -->
+
           <button
             type="submit"
             class="register-submit farmer-register-submit w-full min-h-[48px] mt-2 rounded-md bg-[#0D631B] text-white font-semibold shadow-sm"
@@ -287,9 +302,13 @@
           </button>
         </form>
 
-        <!-- ================= BUYER FORM ================= -->
+        <!-- ================================================= -->
+        <!-- BUYER FORM -->
+        <!-- ================================================= -->
 
         <form id="buyerForm" class="hidden flex-col gap-4">
+          <!-- FULL NAME -->
+
           <div>
             <label
               for="buyerName"
@@ -309,6 +328,8 @@
             />
           </div>
 
+          <!-- BUSINESS NAME -->
+
           <div>
             <label
               for="businessName"
@@ -327,6 +348,8 @@
             />
           </div>
 
+          <!-- BUSINESS TYPE -->
+
           <div>
             <label
               for="businessType"
@@ -342,7 +365,6 @@
               class="w-full h-12 px-4 rounded-md bg-white border border-[#CDBDB4] outline-none text-[#181D17] focus:border-[#75584D] focus:ring-1 focus:ring-[#75584D] transition-colors"
             >
               <option value="">Select business type</option>
-
               <option value="retailer">Retailer</option>
               <option value="wholesaler">Wholesaler</option>
               <option value="restaurant">Restaurant</option>
@@ -351,6 +373,8 @@
               <option value="other">Other</option>
             </select>
           </div>
+
+          <!-- PHONE -->
 
           <div>
             <label
@@ -373,6 +397,8 @@
             />
           </div>
 
+          <!-- CITY -->
+
           <div>
             <label
               for="buyerCity"
@@ -391,6 +417,8 @@
             />
           </div>
 
+          <!-- STATE -->
+
           <div>
             <label
               for="buyerState"
@@ -406,24 +434,18 @@
               class="w-full h-12 px-4 rounded-md bg-white border border-[#CDBDB4] outline-none text-[#181D17] focus:border-[#75584D] focus:ring-1 focus:ring-[#75584D] transition-colors"
             >
               <option value="">Select your state</option>
-
               <option value="uttar-pradesh">Uttar Pradesh</option>
-
               <option value="uttarakhand">Uttarakhand</option>
-
               <option value="haryana">Haryana</option>
-
               <option value="punjab">Punjab</option>
-
               <option value="rajasthan">Rajasthan</option>
-
               <option value="madhya-pradesh">Madhya Pradesh</option>
-
               <option value="bihar">Bihar</option>
-
               <option value="other">Other</option>
             </select>
           </div>
+
+          <!-- PASSWORD -->
 
           <div>
             <label
@@ -444,6 +466,8 @@
             />
           </div>
 
+          <!-- CONFIRM PASSWORD -->
+
           <div>
             <label
               for="buyerConfirmPassword"
@@ -463,6 +487,8 @@
             />
           </div>
 
+          <!-- REGISTER -->
+
           <button
             type="submit"
             class="register-submit buyer-register-submit w-full min-h-[48px] mt-2 rounded-md bg-[#75584D] text-white font-semibold shadow-sm"
@@ -471,7 +497,7 @@
           </button>
         </form>
 
-        <!-- LOGIN LINK -->
+        <!-- ================= LOGIN LINK ================= -->
 
         <div class="mt-6 text-center text-sm text-[#40493D]">
           Already have an account?
@@ -485,6 +511,8 @@
         </div>
       </div>
     </main>
+
+    <!-- ================= JAVASCRIPT ================= -->
 
     <script src="./script.js"></script>
   </body>

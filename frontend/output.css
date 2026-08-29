@@ -492,9 +492,6 @@
   .bg-\[\#F4F8F0\]\/55 {
     background-color: color-mix(in oklab, #F4F8F0 55%, transparent);
   }
-  .bg-\[\#F4F8F0\]\/90 {
-    background-color: color-mix(in oklab, #F4F8F0 90%, transparent);
-  }
   .bg-\[\#FAFAF5\] {
     background-color: #FAFAF5;
   }
@@ -644,12 +641,6 @@
   }
   .text-white {
     color: var(--color-white);
-  }
-  .opacity-15 {
-    opacity: 15%;
-  }
-  .opacity-20 {
-    opacity: 20%;
   }
   .opacity-45 {
     opacity: 45%;
