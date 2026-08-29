@@ -1,12 +1,22 @@
-// ========================================
-// KRISHISETU ROLE TAB SWITCHING
-// LOGIN + REGISTRATION
-// ========================================
+// ============================================================
+// KRISHISETU
+// LOGIN + REGISTER
+// FARMER / BUYER ROLE SWITCHING
+// ============================================================
 
 document.addEventListener("DOMContentLoaded", function () {
-  // ========================================
+  // ============================================================
+  // HELPER
+  // ============================================================
+
+  function getRoleFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("role");
+  }
+
+  // ============================================================
   // LOGIN PAGE
-  // ========================================
+  // ============================================================
 
   const loginFarmerTab = document.getElementById("loginFarmerTab");
   const loginBuyerTab = document.getElementById("loginBuyerTab");
@@ -14,181 +24,260 @@ document.addEventListener("DOMContentLoaded", function () {
   const farmerLoginForm = document.getElementById("farmerLoginForm");
   const buyerLoginForm = document.getElementById("buyerLoginForm");
 
-  // ----------------------------------------
-  // LOGIN - FARMER
-  // ----------------------------------------
+  const loginTitle = document.getElementById("loginTitle");
+  const loginRegisterLink = document.getElementById("loginRegisterLink");
 
-  if (loginFarmerTab && loginBuyerTab && farmerLoginForm && buyerLoginForm) {
-    loginFarmerTab.addEventListener("click", function () {
-      // Show Farmer form
-      farmerLoginForm.classList.remove("hidden");
-      buyerLoginForm.classList.add("hidden");
+  // ============================================================
+  // LOGIN — FARMER
+  // ============================================================
 
-      // Farmer active
-      loginFarmerTab.classList.add(
-        "text-[#0D631B]",
-        "font-bold",
-        "border-b-2",
-        "border-[#0D631B]",
-        "bg-[#0D631B]/5",
-      );
+  function activateFarmerLogin() {
+    if (!farmerLoginForm || !buyerLoginForm) return;
 
-      // Buyer inactive
-      loginBuyerTab.classList.remove(
-        "text-[#0D631B]",
-        "font-bold",
-        "border-b-2",
-        "border-[#0D631B]",
-        "bg-[#0D631B]/5",
-      );
+    farmerLoginForm.classList.remove("hidden");
+    buyerLoginForm.classList.add("hidden");
 
-      loginBuyerTab.classList.add("text-[#40493D]", "font-medium");
-    });
+    if (loginFarmerTab) {
+      loginFarmerTab.classList.add("active");
+    }
 
-    // ----------------------------------------
-    // LOGIN - BUYER
-    // ----------------------------------------
+    if (loginBuyerTab) {
+      loginBuyerTab.classList.remove("active");
+    }
 
-    loginBuyerTab.addEventListener("click", function () {
-      // Show Buyer form
-      buyerLoginForm.classList.remove("hidden");
-      farmerLoginForm.classList.add("hidden");
+    if (loginTitle) {
+      loginTitle.textContent = "Farmer Login";
+    }
 
-      // Buyer active
-      loginBuyerTab.classList.add(
-        "text-[#0D631B]",
-        "font-bold",
-        "border-b-2",
-        "border-[#0D631B]",
-        "bg-[#0D631B]/5",
-      );
+    if (loginRegisterLink) {
+      loginRegisterLink.href = "./register.html?role=farmer";
+    }
 
-      // Farmer inactive
-      loginFarmerTab.classList.remove(
-        "text-[#0D631B]",
-        "font-bold",
-        "border-b-2",
-        "border-[#0D631B]",
-        "bg-[#0D631B]/5",
-      );
+    document.body.classList.remove("buyer-theme");
+    document.body.classList.add("farmer-theme");
+  }
 
-      loginFarmerTab.classList.add("text-[#40493D]", "font-medium");
-    });
+  // ============================================================
+  // LOGIN — BUYER
+  // ============================================================
 
-    // ----------------------------------------
-    // FARMER LOGIN SUBMIT
-    // ----------------------------------------
+  function activateBuyerLogin() {
+    if (!farmerLoginForm || !buyerLoginForm) return;
 
+    buyerLoginForm.classList.remove("hidden");
+    farmerLoginForm.classList.add("hidden");
+
+    if (loginBuyerTab) {
+      loginBuyerTab.classList.add("active");
+    }
+
+    if (loginFarmerTab) {
+      loginFarmerTab.classList.remove("active");
+    }
+
+    if (loginTitle) {
+      loginTitle.textContent = "Buyer Login";
+    }
+
+    if (loginRegisterLink) {
+      loginRegisterLink.href = "./register.html?role=buyer";
+    }
+
+    document.body.classList.remove("farmer-theme");
+    document.body.classList.add("buyer-theme");
+  }
+
+  // ============================================================
+  // LOGIN TAB EVENTS
+  // ============================================================
+
+  if (loginFarmerTab) {
+    loginFarmerTab.addEventListener("click", activateFarmerLogin);
+  }
+
+  if (loginBuyerTab) {
+    loginBuyerTab.addEventListener("click", activateBuyerLogin);
+  }
+
+  // ============================================================
+  // LOGIN URL ROLE
+  // ============================================================
+
+  if (loginFarmerTab && loginBuyerTab) {
+    const role = getRoleFromURL();
+
+    if (role === "buyer") {
+      activateBuyerLogin();
+    } else {
+      activateFarmerLogin();
+    }
+  }
+
+  // ============================================================
+  // LOGIN FORM SUBMIT
+  // ============================================================
+
+  if (farmerLoginForm) {
     farmerLoginForm.addEventListener("submit", function (event) {
       event.preventDefault();
 
-      alert("Farmer Login UI is ready.");
-    });
-
-    // ----------------------------------------
-    // BUYER LOGIN SUBMIT
-    // ----------------------------------------
-
-    buyerLoginForm.addEventListener("submit", function (event) {
-      event.preventDefault();
-
-      alert("Buyer Login UI is ready.");
+      alert("Farmer login UI is ready.");
     });
   }
 
-  // ========================================
-  // REGISTRATION PAGE
-  // ========================================
+  if (buyerLoginForm) {
+    buyerLoginForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      alert("Buyer login UI is ready.");
+    });
+  }
+
+  // ============================================================
+  // REGISTER PAGE
+  // ============================================================
 
   const registerFarmerTab = document.getElementById("registerFarmerTab");
+
   const registerBuyerTab = document.getElementById("registerBuyerTab");
 
   const farmerForm = document.getElementById("farmerForm");
+
   const buyerForm = document.getElementById("buyerForm");
 
-  // ----------------------------------------
-  // REGISTRATION - FARMER
-  // ----------------------------------------
+  // ============================================================
+  // REGISTER — FARMER
+  // ============================================================
 
-  if (registerFarmerTab && registerBuyerTab && farmerForm && buyerForm) {
-    registerFarmerTab.addEventListener("click", function () {
-      // Show Farmer form
-      farmerForm.classList.remove("hidden");
-      buyerForm.classList.add("hidden");
+  function activateFarmerRegister() {
+    if (!farmerForm || !buyerForm) return;
 
-      // Farmer active
-      registerFarmerTab.classList.add(
-        "bg-white",
-        "text-[#0D631B]",
-        "border",
-        "border-[#BFCABA]",
-        "shadow-sm",
-        "font-semibold",
-      );
+    farmerForm.classList.remove("hidden");
+    farmerForm.classList.add("flex");
 
-      // Buyer inactive
-      registerBuyerTab.classList.remove(
-        "bg-white",
-        "text-[#0D631B]",
-        "border",
-        "border-[#BFCABA]",
-        "shadow-sm",
-        "font-semibold",
-      );
+    buyerForm.classList.add("hidden");
+    buyerForm.classList.remove("flex");
 
-      registerBuyerTab.classList.add("text-[#40493D]", "font-medium");
-    });
+    if (registerFarmerTab) {
+      registerFarmerTab.classList.add("active");
+    }
 
-    // ----------------------------------------
-    // REGISTRATION - BUYER
-    // ----------------------------------------
+    if (registerBuyerTab) {
+      registerBuyerTab.classList.remove("active");
+    }
 
-    registerBuyerTab.addEventListener("click", function () {
-      // Show Buyer form
-      buyerForm.classList.remove("hidden");
-      farmerForm.classList.add("hidden");
+    document.body.classList.remove("buyer-theme");
+    document.body.classList.add("farmer-theme");
+  }
 
-      // Buyer active
-      registerBuyerTab.classList.add(
-        "bg-white",
-        "text-[#0D631B]",
-        "border",
-        "border-[#BFCABA]",
-        "shadow-sm",
-        "font-semibold",
-      );
+  // ============================================================
+  // REGISTER — BUYER
+  // ============================================================
 
-      // Farmer inactive
-      registerFarmerTab.classList.remove(
-        "bg-white",
-        "text-[#0D631B]",
-        "border",
-        "border-[#BFCABA]",
-        "shadow-sm",
-        "font-semibold",
-      );
+  function activateBuyerRegister() {
+    if (!farmerForm || !buyerForm) return;
 
-      registerFarmerTab.classList.add("text-[#40493D]", "font-medium");
-    });
+    buyerForm.classList.remove("hidden");
+    buyerForm.classList.add("flex");
 
-    // ----------------------------------------
-    // FARMER REGISTRATION SUBMIT
-    // ----------------------------------------
+    farmerForm.classList.add("hidden");
+    farmerForm.classList.remove("flex");
 
+    if (registerBuyerTab) {
+      registerBuyerTab.classList.add("active");
+    }
+
+    if (registerFarmerTab) {
+      registerFarmerTab.classList.remove("active");
+    }
+
+    document.body.classList.remove("farmer-theme");
+    document.body.classList.add("buyer-theme");
+  }
+
+  // ============================================================
+  // REGISTER TAB EVENTS
+  // ============================================================
+
+  if (registerFarmerTab) {
+    registerFarmerTab.addEventListener("click", activateFarmerRegister);
+  }
+
+  if (registerBuyerTab) {
+    registerBuyerTab.addEventListener("click", activateBuyerRegister);
+  }
+
+  // ============================================================
+  // REGISTER URL ROLE
+  // ============================================================
+
+  if (registerFarmerTab && registerBuyerTab) {
+    const role = getRoleFromURL();
+
+    if (role === "buyer") {
+      activateBuyerRegister();
+    } else {
+      activateFarmerRegister();
+    }
+  }
+
+  // ============================================================
+  // REGISTER FORM SUBMIT
+  // ============================================================
+
+  if (farmerForm) {
     farmerForm.addEventListener("submit", function (event) {
       event.preventDefault();
 
+      const password = document.getElementById("farmerPassword");
+
+      const confirmPassword = document.getElementById("farmerConfirmPassword");
+
+      if (
+        password &&
+        confirmPassword &&
+        password.value !== confirmPassword.value
+      ) {
+        alert("Passwords do not match.");
+        confirmPassword.focus();
+        return;
+      }
+
       alert("Farmer registration UI is ready.");
     });
+  }
 
-    // ----------------------------------------
-    // BUYER REGISTRATION SUBMIT
-    // ----------------------------------------
-
+  if (buyerForm) {
     buyerForm.addEventListener("submit", function (event) {
       event.preventDefault();
+
+      const password = document.getElementById("buyerPassword");
+
+      const confirmPassword = document.getElementById("buyerConfirmPassword");
+
+      if (
+        password &&
+        confirmPassword &&
+        password.value !== confirmPassword.value
+      ) {
+        alert("Passwords do not match.");
+        confirmPassword.focus();
+        return;
+      }
 
       alert("Buyer registration UI is ready.");
     });
   }
+
+  // ============================================================
+  // PHONE NUMBER — ONLY NUMBERS
+  // ============================================================
+
+  const phoneInputs = document.querySelectorAll('input[type="tel"]');
+
+  phoneInputs.forEach(function (input) {
+    input.addEventListener("input", function () {
+      input.value = input.value.replace(/\D/g, "").slice(0, 10);
+    });
+  });
 });

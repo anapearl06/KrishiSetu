@@ -1,1 +1,174 @@
 @import "tailwindcss";
+
+/* ============================================================
+   KRISHISETU CUSTOM STYLES
+   ============================================================ */
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+
+.nav-link {
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #0d631b;
+  transform: translateY(-1px);
+}
+
+.action-link {
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.action-link:hover {
+  background-color: rgba(13, 99, 27, 0.08);
+  transform: translateY(-1px);
+}
+
+.action-button {
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.action-button:hover {
+  background-color: #095516;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(13, 99, 27, 0.18);
+}
+
+/* ============================================================
+   HERO CTA BUTTONS
+   ============================================================ */
+
+.cta-button {
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* ============================================================
+   FEATURE CARDS
+   ============================================================ */
+
+.feature-card {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+/* ============================================================
+   LOGIN / REGISTER BACKGROUND
+   HEAVY BLUR
+   ============================================================ */
+
+.login-background-image {
+  filter: blur(12px);
+  transform: scale(1.06);
+}
+
+.register-background-image {
+  filter: blur(12px);
+  transform: scale(1.06);
+}
+
+/* ============================================================
+   LOGIN / REGISTER THEME
+   ============================================================ */
+
+.farmer-theme {
+  --theme-color: #0d631b;
+}
+
+.buyer-theme {
+  --theme-color: #75584d;
+}
+
+/* ============================================================
+   LOGIN ROLE TABS
+   ============================================================ */
+
+.role-tab {
+  color: #40493d;
+}
+
+.role-tab:hover {
+  background-color: rgba(13, 99, 27, 0.06);
+}
+
+.role-tab.active {
+  color: #0d631b;
+  background-color: rgba(13, 99, 27, 0.08);
+}
+
+/* ============================================================
+   REGISTER ROLE TABS
+   ============================================================ */
+
+.register-role-tab {
+  color: #40493d;
+}
+
+.register-role-tab:hover {
+  background-color: rgba(13, 99, 27, 0.06);
+}
+
+.register-role-tab.active {
+  color: #0d631b;
+  background-color: #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* ============================================================
+   LOGIN / REGISTER BUTTONS
+   ============================================================ */
+
+.login-submit,
+.register-submit {
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.login-submit:hover,
+.register-submit:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.1);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.footer-link {
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.footer-link:hover {
+  color: #0d631b;
+  transform: translateY(-1px);
+}

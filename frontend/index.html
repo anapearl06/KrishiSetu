@@ -1,15 +1,15 @@
 <!doctype html>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>KrishiSetu | Connecting Farmers & Buyers</title>
 
-    <!-- Tailwind generated CSS -->
     <link rel="stylesheet" href="./output.css" />
 
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="./style.css" />
   </head>
 
@@ -17,70 +17,63 @@
     <!-- ================= NAVBAR ================= -->
 
     <nav
-      class="sticky top-0 z-50 w-full bg-[#FAFAF5] border-b border-[#E0E4DA]"
+      class="sticky top-0 z-50 w-full bg-[#FAFAF5]/95 backdrop-blur-sm border-b border-[#E0E4DA]"
     >
       <div
-        class="max-w-7xl mx-auto px-4 md:px-8 py-4 flex items-center justify-between"
+        class="max-w-7xl mx-auto px-4 md:px-8 py-4 flex items-center justify-between gap-4"
       >
         <!-- LOGO -->
 
-        <a href="./index.html" class="flex items-center gap-2">
+        <a
+          href="./index.html"
+          class="flex items-center gap-2 shrink-0 transition-transform duration-200 hover:scale-[1.02]"
+        >
           <img
             src="./assets/images/krishisetu_logo.png"
             alt="KrishiSetu Logo"
             class="h-9 w-9 object-contain"
           />
 
-          <span class="text-2xl font-bold text-[#0D631B]"> KrishiSetu </span>
+          <span class="text-xl md:text-2xl font-bold text-[#0D631B]">
+            KrishiSetu
+          </span>
         </a>
 
-        <!-- NAVIGATION LINKS -->
+        <!-- DESKTOP NAVIGATION -->
 
-        <div class="hidden md:flex items-center gap-6">
+        <div class="hidden lg:flex items-center gap-5 xl:gap-6">
           <a
             href="./index.html"
-            class="text-[#0D631B] font-medium border-b-2 border-[#0D631B] pb-1 hover:text-[#2E7D32] transition-colors"
+            class="nav-link text-[#0D631B] font-medium border-b-2 border-[#0D631B] pb-1"
           >
             Home
           </a>
 
-          <a
-            href="#how-it-works"
-            class="text-[#40493D] font-medium hover:text-[#0D631B] transition-colors"
-          >
+          <a href="#how-it-works" class="nav-link text-[#40493D] font-medium">
             How It Works
           </a>
 
-          <a
-            href="#farmers"
-            class="text-[#40493D] font-medium hover:text-[#0D631B] transition-colors"
-          >
+          <a href="#farmers" class="nav-link text-[#40493D] font-medium">
             For Farmers
           </a>
 
-          <a
-            href="#buyers"
-            class="text-[#40493D] font-medium hover:text-[#0D631B] transition-colors"
-          >
+          <a href="#buyers" class="nav-link text-[#40493D] font-medium">
             For Buyers
           </a>
 
-          <a
-            href="#market-prices"
-            class="text-[#40493D] font-medium hover:text-[#0D631B] transition-colors"
-          >
+          <a href="#market-prices" class="nav-link text-[#40493D] font-medium">
             Market Prices
           </a>
         </div>
 
         <!-- ACTION BUTTONS -->
 
-        <div class="flex items-center gap-2 md:gap-4">
+        <div class="flex items-center gap-1 sm:gap-2 shrink-0">
           <!-- LOGIN -->
 
           <a
             href="./login.html"
-            class="text-[#0D631B] font-medium px-4 py-2 hover:opacity-80 transition-opacity"
+            class="action-link text-[#0D631B] font-medium px-3 sm:px-4 py-2 rounded-md"
           >
             Login
           </a>
@@ -88,8 +81,8 @@
           <!-- REGISTER -->
 
           <a
-            href="./login.html"
-            class="bg-[#0D631B] text-white font-medium px-5 py-2.5 rounded-md hover:bg-[#2E7D32] transition-colors"
+            href="./register.html"
+            class="action-button bg-[#0D631B] text-white font-medium px-4 sm:px-5 py-2.5 rounded-md"
           >
             Register
           </a>
@@ -105,7 +98,7 @@
       <section
         class="relative w-full min-h-[70vh] flex items-center justify-center overflow-hidden"
       >
-        <!-- Background Image -->
+        <!-- BACKGROUND -->
 
         <div class="absolute inset-0 z-0">
           <img
@@ -114,14 +107,12 @@
             class="w-full h-full object-cover"
           />
 
-          <!-- Overlay -->
-
           <div
             class="absolute inset-0 bg-[#FAFAF5]/80 backdrop-blur-[2px]"
           ></div>
         </div>
 
-        <!-- Hero Content -->
+        <!-- HERO CONTENT -->
 
         <div
           class="relative z-10 max-w-4xl mx-auto px-4 md:px-8 text-center flex flex-col items-center gap-6 md:gap-8"
@@ -147,8 +138,8 @@
             <!-- FARMER -->
 
             <a
-              href="./login.html"
-              class="bg-[#0D631B] text-white font-medium px-8 py-4 rounded-md w-48 text-center hover:bg-[#2E7D32] transition-all shadow-sm hover:shadow-md"
+              href="./login.html?role=farmer"
+              class="cta-button farmer-cta bg-[#0D631B] text-white font-medium px-8 py-4 rounded-md w-full sm:w-48 text-center shadow-sm"
             >
               I'm a Farmer
             </a>
@@ -156,8 +147,8 @@
             <!-- BUYER -->
 
             <a
-              href="./login.html"
-              class="bg-[#75584D] text-white font-medium px-8 py-4 rounded-md w-48 text-center hover:opacity-90 transition-all shadow-sm hover:shadow-md"
+              href="./login.html?role=buyer"
+              class="cta-button buyer-cta bg-[#75584D] text-white font-medium px-8 py-4 rounded-md w-full sm:w-48 text-center shadow-sm"
             >
               I'm a Buyer
             </a>
@@ -171,7 +162,7 @@
         id="how-it-works"
         class="max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-20"
       >
-        <!-- Section Heading -->
+        <!-- SECTION HEADING -->
 
         <div class="text-center mb-12">
           <h2 class="text-2xl md:text-3xl font-semibold text-[#0D631B] mb-4">
@@ -184,17 +175,17 @@
           </p>
         </div>
 
-        <!-- Feature Cards -->
+        <!-- FEATURE CARDS -->
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <!-- CARD 1 -->
 
           <div
             id="farmers"
-            class="bg-white rounded-xl p-8 border border-[#E0E4DA] shadow-[0_4px_24px_rgba(0,0,0,0.02)] hover:border-[#0D631B]/30 transition-colors"
+            class="feature-card farmer-card bg-white rounded-xl p-8 border border-[#E0E4DA] shadow-[0_4px_24px_rgba(0,0,0,0.02)]"
           >
             <div
-              class="w-12 h-12 bg-[#2E7D32]/10 rounded-lg flex items-center justify-center text-[#0D631B] mb-6"
+              class="feature-icon w-12 h-12 bg-[#2E7D32]/10 rounded-lg flex items-center justify-center text-[#0D631B] mb-6"
             >
               🔎
             </div>
@@ -214,10 +205,10 @@
 
           <div
             id="buyers"
-            class="bg-white rounded-xl p-8 border border-[#E0E4DA] shadow-[0_4px_24px_rgba(0,0,0,0.02)] hover:border-[#0D631B]/30 transition-colors"
+            class="feature-card buyer-card bg-white rounded-xl p-8 border border-[#E0E4DA] shadow-[0_4px_24px_rgba(0,0,0,0.02)]"
           >
             <div
-              class="w-12 h-12 bg-[#75584D]/10 rounded-lg flex items-center justify-center text-[#75584D] mb-6"
+              class="feature-icon w-12 h-12 bg-[#75584D]/10 rounded-lg flex items-center justify-center text-[#75584D] mb-6"
             >
               🤝
             </div>
@@ -236,10 +227,10 @@
 
           <div
             id="market-prices"
-            class="bg-white rounded-xl p-8 border border-[#E0E4DA] shadow-[0_4px_24px_rgba(0,0,0,0.02)] hover:border-[#0D631B]/30 transition-colors"
+            class="feature-card market-card bg-white rounded-xl p-8 border border-[#E0E4DA] shadow-[0_4px_24px_rgba(0,0,0,0.02)]"
           >
             <div
-              class="w-12 h-12 bg-[#923357]/10 rounded-lg flex items-center justify-center text-[#923357] mb-6"
+              class="feature-icon w-12 h-12 bg-[#923357]/10 rounded-lg flex items-center justify-center text-[#923357] mb-6"
             >
               📈
             </div>
@@ -263,35 +254,23 @@
       <div
         class="max-w-7xl mx-auto px-4 md:px-8 py-10 flex flex-col md:flex-row justify-between items-center gap-6"
       >
-        <!-- BRAND -->
-
         <div class="text-xl font-bold text-[#0D631B]">KrishiSetu</div>
 
-        <!-- FOOTER LINKS -->
-
         <div class="flex flex-wrap justify-center gap-6 text-sm">
-          <a href="#" class="text-[#40493D] hover:text-[#0D631B]"> About Us </a>
+          <a href="#" class="footer-link text-[#40493D]"> About Us </a>
 
-          <a href="#" class="text-[#40493D] hover:text-[#0D631B]">
-            Contact Support
-          </a>
+          <a href="#" class="footer-link text-[#40493D]"> Contact Support </a>
 
-          <a href="#" class="text-[#40493D] hover:text-[#0D631B]">
-            Privacy Policy
-          </a>
+          <a href="#" class="footer-link text-[#40493D]"> Privacy Policy </a>
 
-          <a href="#" class="text-[#40493D] hover:text-[#0D631B]">
-            Terms of Service
-          </a>
+          <a href="#" class="footer-link text-[#40493D]"> Terms of Service </a>
         </div>
-
-        <!-- COPYRIGHT -->
 
         <div class="text-sm text-[#0D631B]">© 2026 KrishiSetu.</div>
       </div>
     </footer>
 
-    <!-- JavaScript -->
+    <!-- JAVASCRIPT -->
 
     <script src="./script.js"></script>
   </body>

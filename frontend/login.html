@@ -11,6 +11,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
@@ -18,36 +19,41 @@
   </head>
 
   <body
-    class="min-h-screen flex items-center justify-center relative overflow-hidden bg-[#FAFAF5] text-[#181D17] font-['Inter']"
+    id="loginPage"
+    class="login-page min-h-screen flex items-center justify-center relative overflow-x-hidden bg-[#F4F8F0] text-[#181D17] font-['Inter'] transition-colors duration-500"
   >
     <!-- ================= BACKGROUND ================= -->
 
-    <div class="absolute inset-0 z-0">
+    <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
       <img
         src="./assets/images/background.png"
         alt=""
-        class="w-full h-full object-cover opacity-30"
+        class="login-background-image absolute inset-0 w-full h-full object-cover opacity-20"
       />
 
-      <div class="absolute inset-0 bg-[#FAFAF5]/80"></div>
+      <div
+        id="loginBackgroundOverlay"
+        class="absolute inset-0 bg-[#F4F8F0]/90 transition-colors duration-500"
+      ></div>
     </div>
 
     <!-- ================= LOGIN CONTAINER ================= -->
 
-    <main class="relative z-10 w-full max-w-md mx-4">
+    <main class="relative z-10 w-full max-w-md mx-4 py-8 sm:py-10">
       <!-- ================= LOGO / HEADER ================= -->
 
-      <div class="text-center mb-8">
+      <div class="text-center mb-7 sm:mb-8">
         <div class="flex justify-center mb-4">
           <img
             src="./assets/images/krishisetu_logo.png"
             alt="KrishiSetu Logo"
-            class="w-14 h-14 object-contain"
+            class="w-14 h-14 object-contain transition-transform duration-300 hover:scale-105"
           />
         </div>
 
         <h1
-          class="text-[32px] md:text-[44px] leading-tight font-bold text-[#0D631B] mb-2"
+          id="loginBrand"
+          class="text-[32px] md:text-[44px] leading-tight font-bold text-[#0D631B] mb-2 transition-colors duration-500"
         >
           KrishiSetu
         </h1>
@@ -60,33 +66,30 @@
       <!-- ================= LOGIN CARD ================= -->
 
       <div
-        class="bg-white rounded-xl border border-[#BFCABA]/30 shadow-sm overflow-hidden"
+        id="loginCard"
+        class="login-card bg-white rounded-xl border border-[#BFCABA]/50 shadow-sm overflow-hidden transition-all duration-500"
       >
-        <!-- ================= ROLE TABS ================= -->
+        <!-- ROLE TABS -->
 
-        <div class="flex border-b border-[#BFCABA]/30">
-          <!-- FARMER TAB -->
-
+        <div id="loginTabs" class="flex border-b border-[#BFCABA]/40">
           <button
             id="loginFarmerTab"
             type="button"
-            class="flex-1 py-4 text-center text-sm font-bold text-[#0D631B] border-b-2 border-[#0D631B] bg-[#0D631B]/5 transition-colors"
+            class="role-tab active flex-1 py-4 px-3 text-center text-sm font-bold transition-all duration-200"
           >
             Farmer
           </button>
 
-          <!-- BUYER TAB -->
-
           <button
             id="loginBuyerTab"
             type="button"
-            class="flex-1 py-4 text-center text-sm font-medium text-[#40493D] hover:bg-[#F1F5EB] transition-colors"
+            class="role-tab flex-1 py-4 px-3 text-center text-sm font-medium transition-all duration-200"
           >
             Buyer
           </button>
         </div>
 
-        <!-- ================= FORM AREA ================= -->
+        <!-- FORM AREA -->
 
         <div class="p-6 sm:p-8">
           <h2
@@ -96,11 +99,9 @@
             Farmer Login
           </h2>
 
-          <!-- ================= FARMER LOGIN FORM ================= -->
+          <!-- ================= FARMER LOGIN ================= -->
 
           <form id="farmerLoginForm" class="space-y-5">
-            <!-- PHONE -->
-
             <div>
               <label
                 for="farmerLoginPhone"
@@ -121,14 +122,14 @@
                   name="farmerLoginPhone"
                   type="tel"
                   maxlength="10"
+                  inputmode="numeric"
+                  autocomplete="tel"
                   placeholder="Enter your 10-digit number"
                   required
                   class="flex-1 min-h-[48px] block w-full rounded-none rounded-r-lg border border-[#BFCABA] bg-white text-[#181D17] px-4 outline-none focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B]"
                 />
               </div>
             </div>
-
-            <!-- PASSWORD -->
 
             <div>
               <div class="flex justify-between items-center mb-2">
@@ -141,7 +142,7 @@
 
                 <a
                   href="#"
-                  class="text-sm font-medium text-[#0D631B] hover:underline"
+                  class="forgot-link text-sm font-medium text-[#0D631B] hover:underline"
                 >
                   Forgot?
                 </a>
@@ -151,29 +152,27 @@
                 id="farmerLoginPassword"
                 name="farmerLoginPassword"
                 type="password"
+                autocomplete="current-password"
                 placeholder="Enter your password"
                 required
                 class="block w-full min-h-[48px] rounded-lg border border-[#BFCABA] bg-white text-[#181D17] px-4 outline-none focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B]"
               />
             </div>
 
-            <!-- LOGIN BUTTON -->
-
             <div class="pt-2">
               <button
                 type="submit"
-                class="w-full min-h-[48px] flex items-center justify-center rounded-lg bg-[#0D631B] px-4 py-3 text-sm font-bold text-white shadow-sm hover:bg-[#2E7D32] transition-colors"
+                id="farmerLoginButton"
+                class="login-submit farmer-submit w-full min-h-[48px] flex items-center justify-center rounded-lg bg-[#0D631B] px-4 py-3 text-sm font-bold text-white shadow-sm"
               >
                 Login as Farmer
               </button>
             </div>
           </form>
 
-          <!-- ================= BUYER LOGIN FORM ================= -->
+          <!-- ================= BUYER LOGIN ================= -->
 
           <form id="buyerLoginForm" class="hidden space-y-5">
-            <!-- PHONE -->
-
             <div>
               <label
                 for="buyerLoginPhone"
@@ -184,7 +183,7 @@
 
               <div class="flex">
                 <span
-                  class="inline-flex items-center px-4 rounded-l-lg border border-r-0 border-[#BFCABA] bg-[#F1F5EB] text-[#40493D] text-base"
+                  class="inline-flex items-center px-4 rounded-l-lg border border-r-0 border-[#CDBDB4] bg-[#F4ECE8] text-[#5D4A42] text-base"
                 >
                   +91
                 </span>
@@ -194,14 +193,14 @@
                   name="buyerLoginPhone"
                   type="tel"
                   maxlength="10"
+                  inputmode="numeric"
+                  autocomplete="tel"
                   placeholder="Enter your 10-digit number"
                   required
-                  class="flex-1 min-h-[48px] block w-full rounded-none rounded-r-lg border border-[#BFCABA] bg-white text-[#181D17] px-4 outline-none focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B]"
+                  class="flex-1 min-h-[48px] block w-full rounded-none rounded-r-lg border border-[#CDBDB4] bg-white text-[#181D17] px-4 outline-none focus:border-[#75584D] focus:ring-1 focus:ring-[#75584D]"
                 />
               </div>
             </div>
-
-            <!-- PASSWORD -->
 
             <div>
               <div class="flex justify-between items-center mb-2">
@@ -214,7 +213,7 @@
 
                 <a
                   href="#"
-                  class="text-sm font-medium text-[#0D631B] hover:underline"
+                  class="forgot-link buyer-forgot-link text-sm font-medium text-[#75584D] hover:underline"
                 >
                   Forgot?
                 </a>
@@ -224,34 +223,35 @@
                 id="buyerLoginPassword"
                 name="buyerLoginPassword"
                 type="password"
+                autocomplete="current-password"
                 placeholder="Enter your password"
                 required
-                class="block w-full min-h-[48px] rounded-lg border border-[#BFCABA] bg-white text-[#181D17] px-4 outline-none focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B]"
+                class="block w-full min-h-[48px] rounded-lg border border-[#CDBDB4] bg-white text-[#181D17] px-4 outline-none focus:border-[#75584D] focus:ring-1 focus:ring-[#75584D]"
               />
             </div>
-
-            <!-- LOGIN BUTTON -->
 
             <div class="pt-2">
               <button
                 type="submit"
-                class="w-full min-h-[48px] flex items-center justify-center rounded-lg bg-[#0D631B] px-4 py-3 text-sm font-bold text-white shadow-sm hover:bg-[#2E7D32] transition-colors"
+                id="buyerLoginButton"
+                class="login-submit buyer-submit w-full min-h-[48px] flex items-center justify-center rounded-lg bg-[#75584D] px-4 py-3 text-sm font-bold text-white shadow-sm"
               >
                 Login as Buyer
               </button>
             </div>
           </form>
 
-          <!-- ================= REGISTER ================= -->
+          <!-- REGISTER -->
 
           <div
-            class="mt-6 flex items-center justify-center text-sm text-[#40493D]"
+            class="mt-6 flex flex-wrap items-center justify-center text-sm text-[#40493D]"
           >
             <span> Don't have an account? </span>
 
             <a
-              href="./register.html"
-              class="ml-1 font-bold text-[#0D631B] hover:underline"
+              id="loginRegisterLink"
+              href="./register.html?role=farmer"
+              class="ml-1 font-bold text-[#0D631B] hover:underline transition-colors duration-300"
             >
               Register
             </a>
@@ -259,19 +259,17 @@
         </div>
       </div>
 
-      <!-- ================= SUPPORT ================= -->
+      <!-- SUPPORT -->
 
-      <div class="mt-8 text-center">
+      <div class="mt-7 sm:mt-8 text-center">
         <a
-          href="#"
+          href="./index.html"
           class="text-sm text-[#40493D] hover:text-[#0D631B] transition-colors"
         >
-          Need Help? Contact Support
+          ← Back to Home
         </a>
       </div>
     </main>
-
-    <!-- ================= JAVASCRIPT ================= -->
 
     <script src="./script.js"></script>
   </body>
