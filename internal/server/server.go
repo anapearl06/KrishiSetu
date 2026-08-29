@@ -119,3 +119,20 @@ listings.Use(authMiddleware)
 	listings.PUT("/:id", listingHandler.UpdateListing)
 	listings.DELETE("/:id", listingHandler.CancelListing)
 }
+
+
+demandRepo := demand.NewRepository(db)
+demandService := demand.NewService(demandRepo)
+demandHandler := demand.NewHandler(demandService)
+
+demands := api.Group("/demands")
+demands.Use(authMiddleware)
+{
+	demands.POST("", demandHandler.CreateDemand)
+	demands.GET("", demandHandler.ListDemands)
+	demands.GET("/my", demandHandler.GetMyDemands)
+	demands.GET("/:id", demandHandler.GetDemand)
+	demands.PUT("/:id", demandHandler.UpdateDemand)
+	demands.DELETE("/:id", demandHandler.CancelDemand)
+}
+
