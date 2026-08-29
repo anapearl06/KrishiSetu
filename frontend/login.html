@@ -1,51 +1,35 @@
 <!doctype html>
-
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title>KrishiSetu | Login</title>
-
     <link rel="stylesheet" href="./output.css" />
-
     <link rel="stylesheet" href="./style.css" />
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
   </head>
-
   <body
     id="loginPage"
     class="login-page min-h-screen flex items-center justify-center relative overflow-x-hidden bg-[#F4F8F0] text-[#181D17] font-['Inter'] transition-colors duration-500"
   >
-    <!-- ================= BACKGROUND ================= -->
-
     <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
       <img
         src="./assets/images/background.png"
         alt=""
         class="login-background-image absolute inset-0 w-full h-full object-cover opacity-45"
       />
-
       <div
         id="loginBackgroundOverlay"
         class="absolute inset-0 bg-[#F4F8F0]/55 transition-colors duration-500"
       ></div>
     </div>
 
-    <!-- ================= LOGIN CONTAINER ================= -->
-
     <main class="relative z-10 w-full max-w-md mx-4 py-8 sm:py-10">
-      <!-- ================= LOGO / HEADER ================= -->
-
       <div class="text-center mb-7 sm:mb-8">
         <div class="flex justify-center mb-4">
           <img
@@ -54,30 +38,22 @@
             class="w-14 h-14 object-contain transition-transform duration-300 hover:scale-105"
           />
         </div>
-
         <h1
           id="loginBrand"
           class="text-[32px] md:text-[44px] leading-tight font-bold text-[#0D631B] mb-2 transition-colors duration-500"
         >
           KrishiSetu
         </h1>
-
         <p class="text-base leading-relaxed text-[#40493D]">
           Agriculture Simplified
         </p>
       </div>
 
-      <!-- ================= LOGIN CARD ================= -->
-
       <div
         id="loginCard"
         class="login-card bg-white rounded-xl border border-[#BFCABA]/50 shadow-sm overflow-hidden transition-all duration-500"
       >
-        <!-- ================= ROLE TABS ================= -->
-
         <div id="loginTabs" class="flex border-b border-[#BFCABA]/40">
-          <!-- FARMER TAB -->
-
           <button
             id="loginFarmerTab"
             type="button"
@@ -85,9 +61,6 @@
           >
             Farmer
           </button>
-
-          <!-- BUYER TAB -->
-
           <button
             id="loginBuyerTab"
             type="button"
@@ -97,11 +70,7 @@
           </button>
         </div>
 
-        <!-- ================= FORM AREA ================= -->
-
         <div class="p-6 sm:p-8">
-          <!-- LOGIN TITLE -->
-
           <h2
             id="loginTitle"
             class="text-2xl leading-tight font-semibold text-[#181D17] mb-6"
@@ -109,195 +78,93 @@
             Farmer Login
           </h2>
 
-          <!-- ================================================= -->
-          <!-- FARMER LOGIN FORM -->
-          <!-- ================================================= -->
-
-          <form id="farmerLoginForm" class="space-y-5">
-            <!-- PHONE -->
-
+          <form id="farmerLoginForm" class="flex flex-col gap-4">
             <div>
               <label
-                for="farmerLoginPhone"
-                class="block text-sm font-medium text-[#181D17] mb-2"
+                for="farmerPhone"
+                class="block text-sm font-medium text-[#181D17] mb-1"
+                >Phone Number</label
               >
-                Phone Number
-              </label>
-
-              <div class="flex">
-                <span
-                  class="inline-flex items-center px-4 rounded-l-lg border border-r-0 border-[#BFCABA] bg-[#F1F5EB] text-[#40493D] text-base"
-                >
-                  +91
-                </span>
-
-                <input
-                  id="farmerLoginPhone"
-                  name="farmerLoginPhone"
-                  type="tel"
-                  maxlength="10"
-                  inputmode="numeric"
-                  autocomplete="tel"
-                  placeholder="Enter your 10-digit number"
-                  required
-                  class="flex-1 min-h-[48px] block w-full rounded-none rounded-r-lg border border-[#BFCABA] bg-white text-[#181D17] px-4 outline-none focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B]"
-                />
-              </div>
-            </div>
-
-            <!-- PASSWORD -->
-
-            <div>
-              <div class="flex justify-between items-center mb-2">
-                <label
-                  for="farmerLoginPassword"
-                  class="block text-sm font-medium text-[#181D17]"
-                >
-                  Password
-                </label>
-
-                <a
-                  href="#"
-                  class="forgot-link text-sm font-medium text-[#0D631B] hover:underline"
-                >
-                  Forgot?
-                </a>
-              </div>
-
               <input
-                id="farmerLoginPassword"
-                name="farmerLoginPassword"
-                type="password"
-                autocomplete="current-password"
-                placeholder="Enter your password"
+                id="farmerPhone"
+                type="tel"
+                maxlength="10"
+                placeholder="Enter phone number"
                 required
-                class="block w-full min-h-[48px] rounded-lg border border-[#BFCABA] bg-white text-[#181D17] px-4 outline-none focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B]"
+                class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
               />
             </div>
-
-            <!-- LOGIN BUTTON -->
-
-            <div class="pt-2">
-              <button
-                type="submit"
-                id="farmerLoginButton"
-                class="login-submit farmer-submit w-full min-h-[48px] flex items-center justify-center rounded-lg bg-[#0D631B] px-4 py-3 text-sm font-bold text-white shadow-sm"
-              >
-                Login as Farmer
-              </button>
-            </div>
-          </form>
-
-          <!-- ================================================= -->
-          <!-- BUYER LOGIN FORM -->
-          <!-- ================================================= -->
-
-          <form id="buyerLoginForm" class="hidden space-y-5">
-            <!-- PHONE -->
-
             <div>
               <label
-                for="buyerLoginPhone"
-                class="block text-sm font-medium text-[#181D17] mb-2"
+                for="farmerPassword"
+                class="block text-sm font-medium text-[#181D17] mb-1"
+                >Password</label
               >
-                Phone Number
-              </label>
-
-              <div class="flex">
-                <span
-                  class="inline-flex items-center px-4 rounded-l-lg border border-r-0 border-[#CDBDB4] bg-[#F4ECE8] text-[#5D4A42] text-base"
-                >
-                  +91
-                </span>
-
-                <input
-                  id="buyerLoginPhone"
-                  name="buyerLoginPhone"
-                  type="tel"
-                  maxlength="10"
-                  inputmode="numeric"
-                  autocomplete="tel"
-                  placeholder="Enter your 10-digit number"
-                  required
-                  class="flex-1 min-h-[48px] block w-full rounded-none rounded-r-lg border border-[#CDBDB4] bg-white text-[#181D17] px-4 outline-none focus:border-[#75584D] focus:ring-1 focus:ring-[#75584D]"
-                />
-              </div>
-            </div>
-
-            <!-- PASSWORD -->
-
-            <div>
-              <div class="flex justify-between items-center mb-2">
-                <label
-                  for="buyerLoginPassword"
-                  class="block text-sm font-medium text-[#181D17]"
-                >
-                  Password
-                </label>
-
-                <a
-                  href="#"
-                  class="forgot-link buyer-forgot-link text-sm font-medium text-[#75584D] hover:underline"
-                >
-                  Forgot?
-                </a>
-              </div>
-
               <input
-                id="buyerLoginPassword"
-                name="buyerLoginPassword"
+                id="farmerPassword"
                 type="password"
-                autocomplete="current-password"
-                placeholder="Enter your password"
+                placeholder="Enter password"
                 required
-                class="block w-full min-h-[48px] rounded-lg border border-[#CDBDB4] bg-white text-[#181D17] px-4 outline-none focus:border-[#75584D] focus:ring-1 focus:ring-[#75584D]"
+                class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
               />
             </div>
-
-            <!-- LOGIN BUTTON -->
-
-            <div class="pt-2">
-              <button
-                type="submit"
-                id="buyerLoginButton"
-                class="login-submit buyer-submit w-full min-h-[48px] flex items-center justify-center rounded-lg bg-[#75584D] px-4 py-3 text-sm font-bold text-white shadow-sm"
-              >
-                Login as Buyer
-              </button>
-            </div>
+            <button
+              type="submit"
+              class="w-full h-12 bg-[#0D631B] text-white font-bold rounded-lg shadow-sm hover:bg-[#095516] transition-colors"
+            >
+              Login as Farmer
+            </button>
           </form>
 
-          <!-- ================= REGISTER ================= -->
+          <form id="buyerLoginForm" class="flex flex-col gap-4 hidden">
+            <div>
+              <label
+                for="buyerPhone"
+                class="block text-sm font-medium text-[#181D17] mb-1"
+                >Phone / Email</label
+              >
+              <input
+                id="buyerPhone"
+                type="text"
+                placeholder="Enter phone or email"
+                required
+                class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
+              />
+            </div>
+            <div>
+              <label
+                for="buyerPassword"
+                class="block text-sm font-medium text-[#181D17] mb-1"
+                >Password</label
+              >
+              <input
+                id="buyerPassword"
+                type="password"
+                placeholder="Enter password"
+                required
+                class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
+              />
+            </div>
+            <button
+              type="submit"
+              class="w-full h-12 bg-[#75584D] text-white font-bold rounded-lg shadow-sm hover:bg-[#5c443b] transition-colors"
+            >
+              Login as Buyer
+            </button>
+          </form>
 
-          <div
-            class="mt-6 flex flex-wrap items-center justify-center text-sm text-[#40493D]"
-          >
-            <span> Don't have an account? </span>
-
+          <div class="mt-6 text-center text-sm text-[#40493D]">
+            <span>Don't have an account? </span>
             <a
               id="loginRegisterLink"
               href="./register.html?role=farmer"
-              class="ml-1 font-bold text-[#0D631B] hover:underline transition-colors duration-300"
+              class="font-bold text-[#0D631B] hover:underline"
+              >Register</a
             >
-              Register
-            </a>
           </div>
         </div>
       </div>
-
-      <!-- ================= SUPPORT ================= -->
-
-      <div class="mt-7 sm:mt-8 text-center">
-        <a
-          href="#"
-          class="text-sm text-[#40493D] hover:text-[#0D631B] transition-colors"
-        >
-          Need Help? Contact Support
-        </a>
-      </div>
     </main>
-
-    <!-- ================= JAVASCRIPT ================= -->
 
     <script src="./script.js"></script>
   </body>
