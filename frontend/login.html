@@ -6,13 +6,9 @@
 
     <title>KrishiSetu | Login</title>
 
-    <!-- Tailwind generated CSS -->
     <link rel="stylesheet" href="./output.css" />
-
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="./style.css" />
 
-    <!-- Inter Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -69,20 +65,20 @@
         <!-- ================= ROLE TABS ================= -->
 
         <div class="flex border-b border-[#BFCABA]/30">
-          <!-- Farmer Tab -->
+          <!-- FARMER TAB -->
 
           <button
-            id="farmerTab"
+            id="loginFarmerTab"
             type="button"
             class="flex-1 py-4 text-center text-sm font-bold text-[#0D631B] border-b-2 border-[#0D631B] bg-[#0D631B]/5 transition-colors"
           >
             Farmer
           </button>
 
-          <!-- Buyer Tab -->
+          <!-- BUYER TAB -->
 
           <button
-            id="buyerTab"
+            id="loginBuyerTab"
             type="button"
             class="flex-1 py-4 text-center text-sm font-medium text-[#40493D] hover:bg-[#F1F5EB] transition-colors"
           >
@@ -93,49 +89,51 @@
         <!-- ================= FORM AREA ================= -->
 
         <div class="p-6 sm:p-8">
-          <h2 class="text-2xl leading-tight font-semibold text-[#181D17] mb-6">
-            Welcome Back
+          <h2
+            id="loginTitle"
+            class="text-2xl leading-tight font-semibold text-[#181D17] mb-6"
+          >
+            Farmer Login
           </h2>
 
-          <form id="loginForm" class="space-y-5">
-            <!-- ================= PHONE ================= -->
+          <!-- ================= FARMER LOGIN FORM ================= -->
+
+          <form id="farmerLoginForm" class="space-y-5">
+            <!-- PHONE -->
 
             <div>
               <label
-                for="phone"
+                for="farmerLoginPhone"
                 class="block text-sm font-medium text-[#181D17] mb-2"
               >
                 Phone Number
               </label>
 
               <div class="flex">
-                <!-- Country Code -->
-
                 <span
                   class="inline-flex items-center px-4 rounded-l-lg border border-r-0 border-[#BFCABA] bg-[#F1F5EB] text-[#40493D] text-base"
                 >
                   +91
                 </span>
 
-                <!-- Phone Input -->
-
                 <input
-                  id="phone"
-                  name="phone"
+                  id="farmerLoginPhone"
+                  name="farmerLoginPhone"
                   type="tel"
                   maxlength="10"
                   placeholder="Enter your 10-digit number"
+                  required
                   class="flex-1 min-h-[48px] block w-full rounded-none rounded-r-lg border border-[#BFCABA] bg-white text-[#181D17] px-4 outline-none focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B]"
                 />
               </div>
             </div>
 
-            <!-- ================= PASSWORD ================= -->
+            <!-- PASSWORD -->
 
             <div>
               <div class="flex justify-between items-center mb-2">
                 <label
-                  for="password"
+                  for="farmerLoginPassword"
                   class="block text-sm font-medium text-[#181D17]"
                 >
                   Password
@@ -150,22 +148,96 @@
               </div>
 
               <input
-                id="password"
-                name="password"
+                id="farmerLoginPassword"
+                name="farmerLoginPassword"
                 type="password"
                 placeholder="Enter your password"
+                required
                 class="block w-full min-h-[48px] rounded-lg border border-[#BFCABA] bg-white text-[#181D17] px-4 outline-none focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B]"
               />
             </div>
 
-            <!-- ================= LOGIN BUTTON ================= -->
+            <!-- LOGIN BUTTON -->
 
             <div class="pt-2">
               <button
                 type="submit"
-                class="w-full min-h-[48px] flex items-center justify-center rounded-lg bg-[#0D631B] px-4 py-3 text-sm font-bold text-white shadow-sm hover:bg-[#2E7D32] transition-colors focus:outline-none focus:ring-2 focus:ring-[#0D631B] focus:ring-offset-2"
+                class="w-full min-h-[48px] flex items-center justify-center rounded-lg bg-[#0D631B] px-4 py-3 text-sm font-bold text-white shadow-sm hover:bg-[#2E7D32] transition-colors"
               >
-                Login
+                Login as Farmer
+              </button>
+            </div>
+          </form>
+
+          <!-- ================= BUYER LOGIN FORM ================= -->
+
+          <form id="buyerLoginForm" class="hidden space-y-5">
+            <!-- PHONE -->
+
+            <div>
+              <label
+                for="buyerLoginPhone"
+                class="block text-sm font-medium text-[#181D17] mb-2"
+              >
+                Phone Number
+              </label>
+
+              <div class="flex">
+                <span
+                  class="inline-flex items-center px-4 rounded-l-lg border border-r-0 border-[#BFCABA] bg-[#F1F5EB] text-[#40493D] text-base"
+                >
+                  +91
+                </span>
+
+                <input
+                  id="buyerLoginPhone"
+                  name="buyerLoginPhone"
+                  type="tel"
+                  maxlength="10"
+                  placeholder="Enter your 10-digit number"
+                  required
+                  class="flex-1 min-h-[48px] block w-full rounded-none rounded-r-lg border border-[#BFCABA] bg-white text-[#181D17] px-4 outline-none focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B]"
+                />
+              </div>
+            </div>
+
+            <!-- PASSWORD -->
+
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <label
+                  for="buyerLoginPassword"
+                  class="block text-sm font-medium text-[#181D17]"
+                >
+                  Password
+                </label>
+
+                <a
+                  href="#"
+                  class="text-sm font-medium text-[#0D631B] hover:underline"
+                >
+                  Forgot?
+                </a>
+              </div>
+
+              <input
+                id="buyerLoginPassword"
+                name="buyerLoginPassword"
+                type="password"
+                placeholder="Enter your password"
+                required
+                class="block w-full min-h-[48px] rounded-lg border border-[#BFCABA] bg-white text-[#181D17] px-4 outline-none focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B]"
+              />
+            </div>
+
+            <!-- LOGIN BUTTON -->
+
+            <div class="pt-2">
+              <button
+                type="submit"
+                class="w-full min-h-[48px] flex items-center justify-center rounded-lg bg-[#0D631B] px-4 py-3 text-sm font-bold text-white shadow-sm hover:bg-[#2E7D32] transition-colors"
+              >
+                Login as Buyer
               </button>
             </div>
           </form>
@@ -177,7 +249,10 @@
           >
             <span> Don't have an account? </span>
 
-            <a href="#" class="ml-1 font-bold text-[#0D631B] hover:underline">
+            <a
+              href="./register.html"
+              class="ml-1 font-bold text-[#0D631B] hover:underline"
+            >
               Register
             </a>
           </div>

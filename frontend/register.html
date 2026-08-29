@@ -35,9 +35,7 @@
             class="h-8 w-8 object-contain"
           />
 
-          <span class="text-xl font-bold text-[#0D631B] tracking-tight">
-            KrishiSetu
-          </span>
+          <span class="text-xl font-bold text-[#0D631B]"> KrishiSetu </span>
         </a>
 
         <!-- HEADER ACTIONS -->
@@ -112,6 +110,7 @@
 
             <input
               id="farmerName"
+              name="farmerName"
               type="text"
               placeholder="Enter your full name"
               required
@@ -130,6 +129,7 @@
 
             <input
               id="farmerPhone"
+              name="farmerPhone"
               type="tel"
               maxlength="10"
               placeholder="Enter your phone number"
@@ -149,6 +149,7 @@
 
             <input
               id="farmerPassword"
+              name="farmerPassword"
               type="password"
               placeholder="Create a password"
               required
@@ -167,6 +168,7 @@
 
             <input
               id="farmerConfirmPassword"
+              name="farmerConfirmPassword"
               type="password"
               placeholder="Confirm your password"
               required
@@ -174,7 +176,7 @@
             />
           </div>
 
-          <!-- REGISTER BUTTON -->
+          <!-- REGISTER -->
           <button
             type="submit"
             class="w-full min-h-[48px] mt-2 rounded-md bg-[#0D631B] text-white font-semibold hover:bg-[#2E7D32] transition-colors shadow-sm"
@@ -184,7 +186,7 @@
         </form>
 
         <!-- ================= BUYER FORM ================= -->
-        <form id="buyerForm" class="flex flex-col gap-4" style="display: none">
+        <form id="buyerForm" class="hidden flex-col gap-4">
           <!-- FULL NAME -->
           <div>
             <label
@@ -196,6 +198,7 @@
 
             <input
               id="buyerName"
+              name="buyerName"
               type="text"
               placeholder="Enter your full name"
               required
@@ -214,6 +217,7 @@
 
             <input
               id="businessName"
+              name="businessName"
               type="text"
               placeholder="Enter your business name"
               required
@@ -232,19 +236,15 @@
 
             <select
               id="businessType"
+              name="businessType"
               required
               class="w-full h-12 px-4 rounded-md bg-white border border-[#BFCABA] outline-none text-[#181D17] focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B] transition-colors"
             >
               <option value="">Select business type</option>
-
               <option value="retailer">Retailer</option>
-
               <option value="wholesaler">Wholesaler</option>
-
               <option value="restaurant">Restaurant</option>
-
               <option value="processor">Food Processor</option>
-
               <option value="other">Other</option>
             </select>
           </div>
@@ -260,6 +260,7 @@
 
             <input
               id="buyerPhone"
+              name="buyerPhone"
               type="tel"
               maxlength="10"
               placeholder="Enter your phone number"
@@ -279,6 +280,7 @@
 
             <input
               id="buyerPassword"
+              name="buyerPassword"
               type="password"
               placeholder="Create a password"
               required
@@ -297,6 +299,7 @@
 
             <input
               id="buyerConfirmPassword"
+              name="buyerConfirmPassword"
               type="password"
               placeholder="Confirm your password"
               required
@@ -304,7 +307,7 @@
             />
           </div>
 
-          <!-- REGISTER BUTTON -->
+          <!-- REGISTER -->
           <button
             type="submit"
             class="w-full min-h-[48px] mt-2 rounded-md bg-[#0D631B] text-white font-semibold hover:bg-[#2E7D32] transition-colors shadow-sm"
@@ -327,7 +330,7 @@
       </div>
     </main>
 
-    <!-- JavaScript -->
+    <!-- ================= JAVASCRIPT ================= -->
     <script src="./script.js"></script>
   </body>
 </html>
