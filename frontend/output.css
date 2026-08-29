@@ -44,6 +44,7 @@
     --radius-md: 0.375rem;
     --radius-lg: 0.5rem;
     --radius-xl: 0.75rem;
+    --blur-sm: 8px;
     --default-transition-duration: 150ms;
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --default-font-family: var(--font-sans);
@@ -202,6 +203,9 @@
   .absolute {
     position: absolute;
   }
+  .fixed {
+    position: fixed;
+  }
   .relative {
     position: relative;
   }
@@ -213,6 +217,9 @@
   }
   .top-0 {
     top: 0px;
+  }
+  .-z-10 {
+    z-index: calc(10 * -1);
   }
   .z-0 {
     z-index: 0;
@@ -240,6 +247,9 @@
   }
   .mt-auto {
     margin-top: auto;
+  }
+  .mb-1 {
+    margin-bottom: var(--spacing);
   }
   .mb-2 {
     margin-bottom: calc(var(--spacing) * 2);
@@ -277,8 +287,14 @@
   .inline-flex {
     display: inline-flex;
   }
+  .h-8 {
+    height: calc(var(--spacing) * 8);
+  }
   .h-9 {
     height: calc(var(--spacing) * 9);
+  }
+  .h-10 {
+    height: calc(var(--spacing) * 10);
   }
   .h-12 {
     height: calc(var(--spacing) * 12);
@@ -286,8 +302,14 @@
   .h-14 {
     height: calc(var(--spacing) * 14);
   }
+  .h-16 {
+    height: calc(var(--spacing) * 16);
+  }
   .h-full {
     height: 100%;
+  }
+  .min-h-\[44px\] {
+    min-height: 44px;
   }
   .min-h-\[48px\] {
     min-height: 48px;
@@ -298,8 +320,14 @@
   .min-h-screen {
     min-height: 100vh;
   }
+  .w-8 {
+    width: calc(var(--spacing) * 8);
+  }
   .w-9 {
     width: calc(var(--spacing) * 9);
+  }
+  .w-10 {
+    width: calc(var(--spacing) * 10);
   }
   .w-12 {
     width: calc(var(--spacing) * 12);
@@ -346,8 +374,14 @@
   .justify-center {
     justify-content: center;
   }
+  .gap-1 {
+    gap: var(--spacing);
+  }
   .gap-2 {
     gap: calc(var(--spacing) * 2);
+  }
+  .gap-3 {
+    gap: calc(var(--spacing) * 3);
   }
   .gap-4 {
     gap: calc(var(--spacing) * 4);
@@ -362,6 +396,9 @@
   }
   .overflow-hidden {
     overflow: hidden;
+  }
+  .rounded-full {
+    border-radius: calc(infinity * 1px);
   }
   .rounded-lg {
     border-radius: var(--radius-lg);
@@ -441,6 +478,12 @@
   .bg-\[\#FAFAF5\]\/80 {
     background-color: color-mix(in oklab, #FAFAF5 80%, transparent);
   }
+  .bg-\[\#FAFAF5\]\/85 {
+    background-color: color-mix(in oklab, #FAFAF5 85%, transparent);
+  }
+  .bg-\[\#FAFAF5\]\/95 {
+    background-color: color-mix(in oklab, #FAFAF5 95%, transparent);
+  }
   .bg-white {
     background-color: var(--color-white);
   }
@@ -449,6 +492,9 @@
   }
   .object-cover {
     object-fit: cover;
+  }
+  .p-1 {
+    padding: var(--spacing);
   }
   .p-6 {
     padding: calc(var(--spacing) * 6);
@@ -486,8 +532,14 @@
   .pt-2 {
     padding-top: calc(var(--spacing) * 2);
   }
+  .pt-24 {
+    padding-top: calc(var(--spacing) * 24);
+  }
   .pb-1 {
     padding-bottom: var(--spacing);
+  }
+  .pb-12 {
+    padding-bottom: calc(var(--spacing) * 12);
   }
   .text-center {
     text-align: center;
@@ -583,6 +635,11 @@
     -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
     backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
   }
+  .backdrop-blur-sm {
+    --tw-backdrop-blur: blur(var(--blur-sm));
+    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
+    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
+  }
   .transition-all {
     transition-property: all;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
@@ -608,6 +665,9 @@
     }
     .hover\:bg-\[\#2E7D32\]:hover {
       background-color: #2E7D32;
+    }
+    .hover\:bg-\[\#E0E4DA\]:hover {
+      background-color: #E0E4DA;
     }
     .hover\:bg-\[\#F1F5EB\]:hover {
       background-color: #F1F5EB;
@@ -683,6 +743,9 @@
     }
     .md\:gap-8 {
       gap: calc(var(--spacing) * 8);
+    }
+    .md\:p-8 {
+      padding: calc(var(--spacing) * 8);
     }
     .md\:px-8 {
       padding-inline: calc(var(--spacing) * 8);
