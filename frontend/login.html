@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>KrishiSetu | Login</title>
+
+    <!-- Tailwind generated CSS -->
+    <link rel="stylesheet" href="./output.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./style.css" />
+
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body
+    class="min-h-screen flex items-center justify-center relative overflow-hidden bg-[#FAFAF5] text-[#181D17] font-['Inter']"
+  >
+    <!-- ================= BACKGROUND ================= -->
+
+    <div class="absolute inset-0 z-0">
+      <img
+        src="./assets/images/background.png"
+        alt=""
+        class="w-full h-full object-cover opacity-30"
+      />
+
+      <div class="absolute inset-0 bg-[#FAFAF5]/80"></div>
+    </div>
+
+    <!-- ================= LOGIN CONTAINER ================= -->
+
+    <main class="relative z-10 w-full max-w-md mx-4">
+      <!-- ================= LOGO / HEADER ================= -->
+
+      <div class="text-center mb-8">
+        <div class="flex justify-center mb-4">
+          <img
+            src="./assets/images/krishisetu_logo.png"
+            alt="KrishiSetu Logo"
+            class="w-14 h-14 object-contain"
+          />
+        </div>
+
+        <h1
+          class="text-[32px] md:text-[44px] leading-tight font-bold text-[#0D631B] mb-2"
+        >
+          KrishiSetu
+        </h1>
+
+        <p class="text-base leading-relaxed text-[#40493D]">
+          Agriculture Simplified
+        </p>
+      </div>
+
+      <!-- ================= LOGIN CARD ================= -->
+
+      <div
+        class="bg-white rounded-xl border border-[#BFCABA]/30 shadow-sm overflow-hidden"
+      >
+        <!-- ================= ROLE TABS ================= -->
+
+        <div class="flex border-b border-[#BFCABA]/30">
+          <!-- Farmer Tab -->
+
+          <button
+            id="farmerTab"
+            type="button"
+            class="flex-1 py-4 text-center text-sm font-bold text-[#0D631B] border-b-2 border-[#0D631B] bg-[#0D631B]/5 transition-colors"
+          >
+            Farmer
+          </button>
+
+          <!-- Buyer Tab -->
+
+          <button
+            id="buyerTab"
+            type="button"
+            class="flex-1 py-4 text-center text-sm font-medium text-[#40493D] hover:bg-[#F1F5EB] transition-colors"
+          >
+            Buyer
+          </button>
+        </div>
+
+        <!-- ================= FORM AREA ================= -->
+
+        <div class="p-6 sm:p-8">
+          <h2 class="text-2xl leading-tight font-semibold text-[#181D17] mb-6">
+            Welcome Back
+          </h2>
+
+          <form id="loginForm" class="space-y-5">
+            <!-- ================= PHONE ================= -->
+
+            <div>
+              <label
+                for="phone"
+                class="block text-sm font-medium text-[#181D17] mb-2"
+              >
+                Phone Number
+              </label>
+
+              <div class="flex">
+                <!-- Country Code -->
+
+                <span
+                  class="inline-flex items-center px-4 rounded-l-lg border border-r-0 border-[#BFCABA] bg-[#F1F5EB] text-[#40493D] text-base"
+                >
+                  +91
+                </span>
+
+                <!-- Phone Input -->
+
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  maxlength="10"
+                  placeholder="Enter your 10-digit number"
+                  class="flex-1 min-h-[48px] block w-full rounded-none rounded-r-lg border border-[#BFCABA] bg-white text-[#181D17] px-4 outline-none focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B]"
+                />
+              </div>
+            </div>
+
+            <!-- ================= PASSWORD ================= -->
+
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <label
+                  for="password"
+                  class="block text-sm font-medium text-[#181D17]"
+                >
+                  Password
+                </label>
+
+                <a
+                  href="#"
+                  class="text-sm font-medium text-[#0D631B] hover:underline"
+                >
+                  Forgot?
+                </a>
+              </div>
+
+              <input
+                id="password"
+                name="password"
+                type="password"
+                placeholder="Enter your password"
+                class="block w-full min-h-[48px] rounded-lg border border-[#BFCABA] bg-white text-[#181D17] px-4 outline-none focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B]"
+              />
+            </div>
+
+            <!-- ================= LOGIN BUTTON ================= -->
+
+            <div class="pt-2">
+              <button
+                type="submit"
+                class="w-full min-h-[48px] flex items-center justify-center rounded-lg bg-[#0D631B] px-4 py-3 text-sm font-bold text-white shadow-sm hover:bg-[#2E7D32] transition-colors focus:outline-none focus:ring-2 focus:ring-[#0D631B] focus:ring-offset-2"
+              >
+                Login
+              </button>
+            </div>
+          </form>
+
+          <!-- ================= REGISTER ================= -->
+
+          <div
+            class="mt-6 flex items-center justify-center text-sm text-[#40493D]"
+          >
+            <span> Don't have an account? </span>
+
+            <a href="#" class="ml-1 font-bold text-[#0D631B] hover:underline">
+              Register
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= SUPPORT ================= -->
+
+      <div class="mt-8 text-center">
+        <a
+          href="#"
+          class="text-sm text-[#40493D] hover:text-[#0D631B] transition-colors"
+        >
+          Need Help? Contact Support
+        </a>
+      </div>
+    </main>
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script src="./script.js"></script>
+  </body>
+</html>
