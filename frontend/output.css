@@ -849,7 +849,7 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
 }
 .login-background-image {
-  filter: blur(12px);
+  filter: blur(10x);
   transform: scale(1.06);
 }
 .register-background-image {
