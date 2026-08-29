@@ -1,45 +1,32 @@
 <!doctype html>
-
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title>KrishiSetu | Create Account</title>
-
     <link rel="stylesheet" href="./output.css" />
-
     <link rel="stylesheet" href="./style.css" />
   </head>
-
   <body
     id="registerPage"
     class="register-page min-h-screen bg-[#F4F8F0] text-[#181D17] transition-colors duration-500"
   >
-    <!-- ================= BACKGROUND ================= -->
-
     <div class="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
       <img
         src="./assets/images/background.png"
         alt=""
         class="register-background-image absolute inset-0 w-full h-full object-cover opacity-45"
       />
-
       <div
         id="registerBackgroundOverlay"
         class="absolute inset-0 bg-[#F4F8F0]/55 backdrop-blur-sm transition-colors duration-500"
       ></div>
     </div>
 
-    <!-- ================= HEADER ================= -->
-
     <header
       class="fixed top-0 z-50 w-full h-16 bg-[#FAFAF5]/95 backdrop-blur-sm border-b border-[#E0E4DA] shadow-sm"
     >
       <div class="h-full px-4 md:px-8 flex items-center justify-between gap-4">
-        <!-- LOGO -->
-
         <a
           href="./index.html"
           class="flex items-center gap-3 shrink-0 transition-transform duration-200 hover:scale-[1.02]"
@@ -49,45 +36,18 @@
             alt="KrishiSetu Logo"
             class="h-8 w-8 object-contain"
           />
-
-          <span class="text-xl font-bold text-[#0D631B]"> KrishiSetu </span>
+          <span class="text-xl font-bold text-[#0D631B]">KrishiSetu</span>
         </a>
-
-        <!-- HEADER ACTIONS -->
-
-        <div class="flex items-center gap-2">
-          <button
-            type="button"
-            class="w-10 h-10 rounded-full flex items-center justify-center text-[#40493D] hover:bg-[#F1F5EB] transition-all duration-200 hover:scale-105"
-            title="Help"
-          >
-            ?
-          </button>
-
-          <button
-            type="button"
-            class="w-10 h-10 rounded-full flex items-center justify-center text-[#40493D] hover:bg-[#F1F5EB] transition-all duration-200 hover:scale-105"
-            title="Language"
-          >
-            🌐
-          </button>
-        </div>
       </div>
     </header>
-
-    <!-- ================= MAIN ================= -->
 
     <main
       class="min-h-screen flex items-center justify-center pt-24 pb-12 px-4"
     >
-      <!-- ================= REGISTRATION CARD ================= -->
-
       <div
         id="registerCard"
         class="register-card w-full max-w-md bg-white rounded-xl border border-[#BFCABA]/60 shadow-sm p-6 md:p-8 transition-all duration-500"
       >
-        <!-- ================= HEADER ================= -->
-
         <div class="text-center mb-8">
           <h1
             id="registerTitle"
@@ -95,18 +55,13 @@
           >
             Create an Account
           </h1>
-
           <p class="text-base text-[#40493D]">Join the agricultural network</p>
         </div>
-
-        <!-- ================= ROLE TABS ================= -->
 
         <div
           class="flex mb-6 bg-[#F1F5EB] rounded-lg p-1 gap-1 transition-colors duration-500"
           id="registerTabs"
         >
-          <!-- FARMER -->
-
           <button
             id="registerFarmerTab"
             type="button"
@@ -114,9 +69,6 @@
           >
             Farmer
           </button>
-
-          <!-- BUYER -->
-
           <button
             id="registerBuyerTab"
             type="button"
@@ -126,393 +78,156 @@
           </button>
         </div>
 
-        <!-- ================================================= -->
-        <!-- FARMER FORM -->
-        <!-- ================================================= -->
-
         <form id="farmerForm" class="flex flex-col gap-4">
-          <!-- FULL NAME -->
-
           <div>
             <label
               for="farmerName"
               class="block text-sm font-medium text-[#181D17] mb-1"
+              >Full Name</label
             >
-              Full Name
-            </label>
-
             <input
               id="farmerName"
               name="farmerName"
               type="text"
-              autocomplete="name"
-              placeholder="Enter your full name"
+              placeholder="Enter full name"
               required
-              class="w-full h-12 px-4 rounded-md bg-white border border-[#BFCABA] outline-none text-[#181D17] focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B] transition-colors"
+              class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
             />
           </div>
-
-          <!-- PHONE -->
-
           <div>
             <label
               for="farmerPhone"
               class="block text-sm font-medium text-[#181D17] mb-1"
+              >Phone Number</label
             >
-              Phone Number
-            </label>
-
             <input
               id="farmerPhone"
               name="farmerPhone"
               type="tel"
               maxlength="10"
-              inputmode="numeric"
-              autocomplete="tel"
-              placeholder="Enter your phone number"
+              placeholder="Enter phone number"
               required
-              class="w-full h-12 px-4 rounded-md bg-white border border-[#BFCABA] outline-none text-[#181D17] focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B] transition-colors"
+              class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
             />
           </div>
-
-          <!-- VILLAGE -->
-
-          <div>
-            <label
-              for="farmerVillage"
-              class="block text-sm font-medium text-[#181D17] mb-1"
-            >
-              Village / Area
-            </label>
-
-            <input
-              id="farmerVillage"
-              name="farmerVillage"
-              type="text"
-              placeholder="Enter your village or area"
-              required
-              class="w-full h-12 px-4 rounded-md bg-white border border-[#BFCABA] outline-none text-[#181D17] focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B] transition-colors"
-            />
-          </div>
-
-          <!-- STATE -->
-
-          <div>
-            <label
-              for="farmerState"
-              class="block text-sm font-medium text-[#181D17] mb-1"
-            >
-              State
-            </label>
-
-            <select
-              id="farmerState"
-              name="farmerState"
-              required
-              class="w-full h-12 px-4 rounded-md bg-white border border-[#BFCABA] outline-none text-[#181D17] focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B] transition-colors"
-            >
-              <option value="">Select your state</option>
-              <option value="uttar-pradesh">Uttar Pradesh</option>
-              <option value="uttarakhand">Uttarakhand</option>
-              <option value="haryana">Haryana</option>
-              <option value="punjab">Punjab</option>
-              <option value="rajasthan">Rajasthan</option>
-              <option value="madhya-pradesh">Madhya Pradesh</option>
-              <option value="bihar">Bihar</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-
-          <!-- MAIN CROP -->
-
-          <div>
-            <label
-              for="farmerCrop"
-              class="block text-sm font-medium text-[#181D17] mb-1"
-            >
-              Main Crop
-            </label>
-
-            <select
-              id="farmerCrop"
-              name="farmerCrop"
-              required
-              class="w-full h-12 px-4 rounded-md bg-white border border-[#BFCABA] outline-none text-[#181D17] focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B] transition-colors"
-            >
-              <option value="">Select your main crop</option>
-              <option value="wheat">Wheat</option>
-              <option value="rice">Rice</option>
-              <option value="potato">Potato</option>
-              <option value="vegetables">Vegetables</option>
-              <option value="fruits">Fruits</option>
-              <option value="sugarcane">Sugarcane</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-
-          <!-- PASSWORD -->
-
           <div>
             <label
               for="farmerPassword"
               class="block text-sm font-medium text-[#181D17] mb-1"
+              >Password</label
             >
-              Password
-            </label>
-
             <input
               id="farmerPassword"
               name="farmerPassword"
               type="password"
-              autocomplete="new-password"
-              placeholder="Create a password"
+              placeholder="Create password"
               required
-              class="w-full h-12 px-4 rounded-md bg-white border border-[#BFCABA] outline-none text-[#181D17] focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B] transition-colors"
+              class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
             />
           </div>
-
-          <!-- CONFIRM PASSWORD -->
-
           <div>
             <label
               for="farmerConfirmPassword"
               class="block text-sm font-medium text-[#181D17] mb-1"
+              >Confirm Password</label
             >
-              Confirm Password
-            </label>
-
             <input
               id="farmerConfirmPassword"
               name="farmerConfirmPassword"
               type="password"
-              autocomplete="new-password"
-              placeholder="Confirm your password"
+              placeholder="Confirm password"
               required
-              class="w-full h-12 px-4 rounded-md bg-white border border-[#BFCABA] outline-none text-[#181D17] focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B] transition-colors"
+              class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
             />
           </div>
-
-          <!-- REGISTER -->
-
           <button
             type="submit"
-            class="register-submit farmer-register-submit w-full min-h-[48px] mt-2 rounded-md bg-[#0D631B] text-white font-semibold shadow-sm"
+            class="w-full min-h-[48px] mt-2 rounded-md bg-[#0D631B] text-white font-semibold shadow-sm hover:bg-[#095516] transition-colors"
           >
             Create Farmer Account
           </button>
         </form>
 
-        <!-- ================================================= -->
-        <!-- BUYER FORM -->
-        <!-- ================================================= -->
-
-        <form id="buyerForm" class="hidden flex flex-col gap-4">
-          <!-- FULL NAME -->
-
+        <form id="buyerForm" class="flex flex-col gap-4 hidden">
           <div>
             <label
               for="buyerName"
               class="block text-sm font-medium text-[#181D17] mb-1"
+              >Company / Full Name</label
             >
-              Full Name
-            </label>
-
             <input
               id="buyerName"
               name="buyerName"
               type="text"
-              autocomplete="name"
-              placeholder="Enter your full name"
+              placeholder="Enter company or name"
               required
-              class="w-full h-12 px-4 rounded-md bg-white border border-[#CDBDB4] outline-none text-[#181D17] focus:border-[#75584D] focus:ring-1 focus:ring-[#75584D] transition-colors"
+              class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
             />
           </div>
-
-          <!-- BUSINESS NAME -->
-
-          <div>
-            <label
-              for="businessName"
-              class="block text-sm font-medium text-[#181D17] mb-1"
-            >
-              Business Name
-            </label>
-
-            <input
-              id="businessName"
-              name="businessName"
-              type="text"
-              placeholder="Enter your business name"
-              required
-              class="w-full h-12 px-4 rounded-md bg-white border border-[#CDBDB4] outline-none text-[#181D17] focus:border-[#75584D] focus:ring-1 focus:ring-[#75584D] transition-colors"
-            />
-          </div>
-
-          <!-- BUSINESS TYPE -->
-
-          <div>
-            <label
-              for="businessType"
-              class="block text-sm font-medium text-[#181D17] mb-1"
-            >
-              Business Type
-            </label>
-
-            <select
-              id="businessType"
-              name="businessType"
-              required
-              class="w-full h-12 px-4 rounded-md bg-white border border-[#CDBDB4] outline-none text-[#181D17] focus:border-[#75584D] focus:ring-1 focus:ring-[#75584D] transition-colors"
-            >
-              <option value="">Select business type</option>
-              <option value="retailer">Retailer</option>
-              <option value="wholesaler">Wholesaler</option>
-              <option value="restaurant">Restaurant</option>
-              <option value="processor">Food Processor</option>
-              <option value="distributor">Distributor</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-
-          <!-- PHONE -->
-
           <div>
             <label
               for="buyerPhone"
               class="block text-sm font-medium text-[#181D17] mb-1"
+              >Phone Number</label
             >
-              Phone Number
-            </label>
-
             <input
               id="buyerPhone"
               name="buyerPhone"
               type="tel"
               maxlength="10"
-              inputmode="numeric"
-              autocomplete="tel"
-              placeholder="Enter your phone number"
+              placeholder="Enter phone number"
               required
-              class="w-full h-12 px-4 rounded-md bg-white border border-[#CDBDB4] outline-none text-[#181D17] focus:border-[#75584D] focus:ring-1 focus:ring-[#75584D] transition-colors"
+              class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
             />
           </div>
-
-          <!-- CITY -->
-
-          <div>
-            <label
-              for="buyerCity"
-              class="block text-sm font-medium text-[#181D17] mb-1"
-            >
-              City / Area
-            </label>
-
-            <input
-              id="buyerCity"
-              name="buyerCity"
-              type="text"
-              placeholder="Enter your city or area"
-              required
-              class="w-full h-12 px-4 rounded-md bg-white border border-[#CDBDB4] outline-none text-[#181D17] focus:border-[#75584D] focus:ring-1 focus:ring-[#75584D] transition-colors"
-            />
-          </div>
-
-          <!-- STATE -->
-
-          <div>
-            <label
-              for="buyerState"
-              class="block text-sm font-medium text-[#181D17] mb-1"
-            >
-              State
-            </label>
-
-            <select
-              id="buyerState"
-              name="buyerState"
-              required
-              class="w-full h-12 px-4 rounded-md bg-white border border-[#CDBDB4] outline-none text-[#181D17] focus:border-[#75584D] focus:ring-1 focus:ring-[#75584D] transition-colors"
-            >
-              <option value="">Select your state</option>
-              <option value="uttar-pradesh">Uttar Pradesh</option>
-              <option value="uttarakhand">Uttarakhand</option>
-              <option value="haryana">Haryana</option>
-              <option value="punjab">Punjab</option>
-              <option value="rajasthan">Rajasthan</option>
-              <option value="madhya-pradesh">Madhya Pradesh</option>
-              <option value="bihar">Bihar</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-
-          <!-- PASSWORD -->
-
           <div>
             <label
               for="buyerPassword"
               class="block text-sm font-medium text-[#181D17] mb-1"
+              >Password</label
             >
-              Password
-            </label>
-
             <input
               id="buyerPassword"
               name="buyerPassword"
               type="password"
-              autocomplete="new-password"
-              placeholder="Create a password"
+              placeholder="Create password"
               required
-              class="w-full h-12 px-4 rounded-md bg-white border border-[#CDBDB4] outline-none text-[#181D17] focus:border-[#75584D] focus:ring-1 focus:ring-[#75584D] transition-colors"
+              class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
             />
           </div>
-
-          <!-- CONFIRM PASSWORD -->
-
           <div>
             <label
               for="buyerConfirmPassword"
               class="block text-sm font-medium text-[#181D17] mb-1"
+              >Confirm Password</label
             >
-              Confirm Password
-            </label>
-
             <input
               id="buyerConfirmPassword"
               name="buyerConfirmPassword"
               type="password"
-              autocomplete="new-password"
-              placeholder="Confirm your password"
+              placeholder="Confirm password"
               required
-              class="w-full h-12 px-4 rounded-md bg-white border border-[#CDBDB4] outline-none text-[#181D17] focus:border-[#75584D] focus:ring-1 focus:ring-[#75584D] transition-colors"
+              class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
             />
           </div>
-
-          <!-- REGISTER -->
-
           <button
             type="submit"
-            class="register-submit buyer-register-submit w-full min-h-[48px] mt-2 rounded-md bg-[#75584D] text-white font-semibold shadow-sm"
+            class="w-full min-h-[48px] mt-2 rounded-md bg-[#75584D] text-white font-semibold shadow-sm hover:bg-[#5c443b] transition-colors"
           >
             Create Buyer Account
           </button>
         </form>
 
-        <!-- ================= LOGIN LINK ================= -->
-
         <div class="mt-6 text-center text-sm text-[#40493D]">
           Already have an account?
-
           <a
             href="./login.html"
-            class="font-semibold text-[#0D631B] hover:underline transition-colors"
+            class="font-semibold text-[#0D631B] hover:underline"
+            >Login</a
           >
-            Login
-          </a>
         </div>
       </div>
     </main>
-
-    <!-- ================= JAVASCRIPT ================= -->
 
     <script src="./script.js"></script>
   </body>
