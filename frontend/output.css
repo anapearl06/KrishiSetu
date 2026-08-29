@@ -489,6 +489,9 @@
   .bg-\[\#F4F8F0\] {
     background-color: #F4F8F0;
   }
+  .bg-\[\#F4F8F0\]\/55 {
+    background-color: color-mix(in oklab, #F4F8F0 55%, transparent);
+  }
   .bg-\[\#F4F8F0\]\/90 {
     background-color: color-mix(in oklab, #F4F8F0 90%, transparent);
   }
@@ -647,6 +650,9 @@
   }
   .opacity-20 {
     opacity: 20%;
+  }
+  .opacity-45 {
+    opacity: 45%;
   }
   .shadow-\[0_4px_24px_rgba\(0\,0\,0\,0\.02\)\] {
     --tw-shadow: 0 4px 24px var(--tw-shadow-color, rgba(0,0,0,0.02));

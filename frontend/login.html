@@ -1,15 +1,19 @@
 <!doctype html>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>KrishiSetu | Login</title>
 
     <link rel="stylesheet" href="./output.css" />
+
     <link rel="stylesheet" href="./style.css" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <link
@@ -28,12 +32,12 @@
       <img
         src="./assets/images/background.png"
         alt=""
-        class="login-background-image absolute inset-0 w-full h-full object-cover opacity-20"
+        class="login-background-image absolute inset-0 w-full h-full object-cover opacity-45"
       />
 
       <div
         id="loginBackgroundOverlay"
-        class="absolute inset-0 bg-[#F4F8F0]/90 transition-colors duration-500"
+        class="absolute inset-0 bg-[#F4F8F0]/55 transition-colors duration-500"
       ></div>
     </div>
 
@@ -69,9 +73,11 @@
         id="loginCard"
         class="login-card bg-white rounded-xl border border-[#BFCABA]/50 shadow-sm overflow-hidden transition-all duration-500"
       >
-        <!-- ROLE TABS -->
+        <!-- ================= ROLE TABS ================= -->
 
         <div id="loginTabs" class="flex border-b border-[#BFCABA]/40">
+          <!-- FARMER TAB -->
+
           <button
             id="loginFarmerTab"
             type="button"
@@ -79,6 +85,8 @@
           >
             Farmer
           </button>
+
+          <!-- BUYER TAB -->
 
           <button
             id="loginBuyerTab"
@@ -89,9 +97,11 @@
           </button>
         </div>
 
-        <!-- FORM AREA -->
+        <!-- ================= FORM AREA ================= -->
 
         <div class="p-6 sm:p-8">
+          <!-- LOGIN TITLE -->
+
           <h2
             id="loginTitle"
             class="text-2xl leading-tight font-semibold text-[#181D17] mb-6"
@@ -99,9 +109,13 @@
             Farmer Login
           </h2>
 
-          <!-- ================= FARMER LOGIN ================= -->
+          <!-- ================================================= -->
+          <!-- FARMER LOGIN FORM -->
+          <!-- ================================================= -->
 
           <form id="farmerLoginForm" class="space-y-5">
+            <!-- PHONE -->
+
             <div>
               <label
                 for="farmerLoginPhone"
@@ -131,6 +145,8 @@
               </div>
             </div>
 
+            <!-- PASSWORD -->
+
             <div>
               <div class="flex justify-between items-center mb-2">
                 <label
@@ -159,6 +175,8 @@
               />
             </div>
 
+            <!-- LOGIN BUTTON -->
+
             <div class="pt-2">
               <button
                 type="submit"
@@ -170,9 +188,13 @@
             </div>
           </form>
 
-          <!-- ================= BUYER LOGIN ================= -->
+          <!-- ================================================= -->
+          <!-- BUYER LOGIN FORM -->
+          <!-- ================================================= -->
 
           <form id="buyerLoginForm" class="hidden space-y-5">
+            <!-- PHONE -->
+
             <div>
               <label
                 for="buyerLoginPhone"
@@ -202,6 +224,8 @@
               </div>
             </div>
 
+            <!-- PASSWORD -->
+
             <div>
               <div class="flex justify-between items-center mb-2">
                 <label
@@ -230,6 +254,8 @@
               />
             </div>
 
+            <!-- LOGIN BUTTON -->
+
             <div class="pt-2">
               <button
                 type="submit"
@@ -241,7 +267,7 @@
             </div>
           </form>
 
-          <!-- REGISTER -->
+          <!-- ================= REGISTER ================= -->
 
           <div
             class="mt-6 flex flex-wrap items-center justify-center text-sm text-[#40493D]"
@@ -259,17 +285,19 @@
         </div>
       </div>
 
-      <!-- SUPPORT -->
+      <!-- ================= SUPPORT ================= -->
 
       <div class="mt-7 sm:mt-8 text-center">
         <a
-          href="./index.html"
+          href="#"
           class="text-sm text-[#40493D] hover:text-[#0D631B] transition-colors"
         >
-          ← Back to Home
+          Need Help? Contact Support
         </a>
       </div>
     </main>
+
+    <!-- ================= JAVASCRIPT ================= -->
 
     <script src="./script.js"></script>
   </body>
