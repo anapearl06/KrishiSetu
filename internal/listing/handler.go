@@ -30,7 +30,6 @@ func NewHandler(service Service) *Handler {
 	}
 }
 
-
 func (h *Handler) CreateListing(c *gin.Context) {
 	var req CreateListingRequest
 
@@ -111,7 +110,6 @@ func (h *Handler) GetListing(c *gin.Context) {
 	c.JSON(http.StatusOK, listing)
 }
 
-
 func (h *Handler) GetMyListings(c *gin.Context) {
 	farmerIDValue, exists := c.Get("user_id")
 
@@ -144,6 +142,34 @@ func (h *Handler) GetMyListings(c *gin.Context) {
 	c.JSON(http.StatusOK, listings)
 }
 
+func (h *Handler) ListListings(c *gin.Context) {
+	filters := ListingFilters{
+		CropName: c.Query("crop"),
+		State:    c.Query("state"),
+		District: c.Query("district"),
+		Status:   c.Query("status"),
+	}
+
+	if minPriceStr := c.Query("min_price"); minPriceStr != "" {
+		if val, err := strconv.ParseFloat(minPriceStr, 64); err == nil {
+			filters.MinPrice = &val
+		}
+	}
+
+	if maxPriceStr := c.Query("max_price"); maxPriceStr != "" {
+		if val, err := strconv.ParseFloat(maxPriceStr, 64); err == nil {
+			filters.MaxPrice = &val
+		}
+	}
+
+	listings, err := h.service.ListListings(c.Request.Context(), filters)
+	if err != nil {
+		handleServiceError(c, err)
+		return
+	}
+
+	c.JSON(http.StatusOK, listings)
+}
 
 func (h *Handler) UpdateListing(c *gin.Context) {
 	id, err := strconv.ParseUint(c.Param("id"), 10, 64)
@@ -225,9 +251,6 @@ func (h *Handler) UpdateListing(c *gin.Context) {
 	c.JSON(http.StatusOK, updatedListing)
 }
 
-
-
-
 func (h *Handler) CancelListing(c *gin.Context) {
 	id, err := strconv.ParseUint(c.Param("id"), 10, 64)
 
@@ -270,11 +293,9 @@ func (h *Handler) CancelListing(c *gin.Context) {
 	})
 }
 
-
 func parseHarvestDate(value string) (time.Time, error) {
 	return time.Parse("2006-01-02", value)
 }
-
 
 func handleServiceError(c *gin.Context, err error) {
 	switch {
@@ -310,5 +331,3 @@ func handleServiceError(c *gin.Context, err error) {
 		})
 	}
 }
-
-
