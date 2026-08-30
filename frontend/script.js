@@ -386,3 +386,328 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+// ============================================================
+// F5 — CREATE CROP LISTING (POST /api/v1/listings)
+// ============================================================
+const API_BASE_URL = "https://krishisetu-api-tiau.onrender.com";
+
+document
+  .getElementById("createListingForm")
+  ?.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Session expired. Kripya login karein.");
+      window.location.href = "./login.html?role=farmer";
+      return;
+    }
+
+    const listingPayload = {
+      crop: document.getElementById("produceName")?.value.trim(),
+      quantity: parseFloat(document.getElementById("produceQuantity")?.value),
+      unit: document.getElementById("produceUnit")?.value,
+      price: parseFloat(document.getElementById("producePrice")?.value),
+      state: document.getElementById("produceLocation")?.value.trim(),
+      district: document.getElementById("produceLocation")?.value.trim(),
+      description: document.getElementById("produceDesc")?.value || "",
+    };
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/v1/listings`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(listingPayload),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Crop listed successfully! 🌾");
+        const drawer = document.getElementById("createListingDrawer");
+        if (drawer) drawer.classList.add("translate-x-full");
+        e.target.reset();
+        window.dispatchEvent(new Event("listingCreated"));
+      } else {
+        alert(data.message || data.error || "Failed to create crop listing.");
+      }
+    } catch (err) {
+      console.error("Error creating listing:", err);
+      alert("Server error! Connection verify karein.");
+    }
+  });
+// ============================================================
+// MY PRODUCE (F6 — GET /api/v1/listings/my) INTEGRATION
+// ============================================================
+async function renderMyProduce() {
+  const produceGrid = document.getElementById("produceGrid");
+  if (!produceGrid) return;
+
+  const token = localStorage.getItem("token");
+  if (!token) {
+    produceGrid.innerHTML = `<p class="text-red-600 font-medium">Please login to view your produce listings.</p>`;
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      "https://krishisetu-api-tiau.onrender.com/api/v1/listings/my",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    const data = await response.json();
+
+    if (response.ok && Array.isArray(data)) {
+      if (data.length === 0) {
+        produceGrid.innerHTML = `<p class="text-[#40493D]">No produce items added yet. Use "+ Sell Produce" to post your crop.</p>`;
+        return;
+      }
+
+      produceGrid.innerHTML = data
+        .map(
+          (item) => `
+        <div class="bg-white rounded-xl border border-[#E0E4DA] p-5 shadow-sm hover:shadow-md transition-shadow">
+          <div class="flex justify-between items-start mb-2">
+            <span class="px-2.5 py-0.5 text-xs font-semibold rounded bg-green-100 text-[#0D631B] uppercase">${item.status || "ACTIVE"}</span>
+            <span class="text-xs text-[#40493D]">${item.district || ""}, ${item.state || ""}</span>
+          </div>
+          <h3 class="text-lg font-bold text-[#181D17]">${item.crop}</h3>
+          <p class="text-xs text-[#40493D] mt-1">${item.description || "No description provided"}</p>
+
+          <div class="mt-4 pt-4 border-t border-[#F1F5EB] flex justify-between items-center">
+            <div>
+              <p class="text-xs text-[#40493D]">Quantity: <strong>${item.quantity} ${item.unit}</strong></p>
+              <p class="text-lg font-bold text-[#0D631B]">₹${item.price} / ${item.unit}</p>
+            </div>
+          </div>
+        </div>
+      `,
+        )
+        .join("");
+    } else {
+      produceGrid.innerHTML = `<p class="text-red-600">Failed to load produce: ${data.message || "Error occurred"}</p>`;
+    }
+  } catch (err) {
+    console.error("Error fetching My Produce:", err);
+    produceGrid.innerHTML = `<p class="text-red-600">Server error loading produce grid.</p>`;
+  }
+}
+
+document.addEventListener("DOMContentLoaded", renderMyProduce);
+window.addEventListener("listingCreated", renderMyProduce);
+// ============================================================
+// F5 — CREATE CROP LISTING INTEGRATION (POST /api/v1/listings)
+// ============================================================
+const API_BASE_URL = "https://krishisetu-api-tiau.onrender.com";
+
+document
+  .getElementById("createListingForm")
+  ?.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    // 1. LocalStorage se JWT Token extract karein
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Session expired. Kripya login karein.");
+      window.location.href = "./login.html?role=farmer";
+      return;
+    }
+
+    // 2. Form input fields se values read karein
+    const listingPayload = {
+      crop: document.getElementById("cropName")?.value.trim(),
+      quantity: parseFloat(document.getElementById("quantity")?.value),
+      unit: document.getElementById("unit")?.value,
+      price: parseFloat(document.getElementById("price")?.value),
+      state: document.getElementById("state")?.value.trim(),
+      district: document.getElementById("district")?.value.trim(),
+      description: document.getElementById("description")?.value || "",
+    };
+
+    try {
+      // 3. Render API par POST request bhejein
+      const response = await fetch(`${API_BASE_URL}/api/v1/listings`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(listingPayload),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Crop listing created successfully! 🌾");
+
+        // Drawer close karein aur form reset karein
+        const drawer = document.getElementById("createListingDrawer");
+        if (drawer) drawer.classList.add("hidden");
+        e.target.reset();
+
+        // Event trigger karein taaki My Produce screen sync ho sake
+        window.dispatchEvent(new Event("listingCreated"));
+      } else {
+        alert(data.message || data.error || "Failed to create crop listing.");
+      }
+    } catch (err) {
+      console.error("Error creating listing:", err);
+      alert("Server error! Connection verify karein.");
+    }
+  });
+// ============================================================
+// F6, F8, F9 — MY PRODUCE GRID, EDIT & DELETE INTEGRATION
+// ============================================================
+
+// 1. Render My Produce Cards with Action Buttons (F6)
+async function renderMyProduce() {
+  const produceGrid = document.getElementById("produceGrid");
+  if (!produceGrid) return;
+
+  const token = localStorage.getItem("token");
+  if (!token) {
+    produceGrid.innerHTML = `<p class="text-red-600 font-medium">Please login to view your produce listings.</p>`;
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      "https://krishisetu-api-tiau.onrender.com/api/v1/listings/my",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    const data = await response.json();
+
+    if (response.ok && Array.isArray(data)) {
+      if (data.length === 0) {
+        produceGrid.innerHTML = `<p class="text-[#40493D]">No produce items added yet. Use "+ Sell Produce" to post your crop.</p>`;
+        return;
+      }
+
+      produceGrid.innerHTML = data
+        .map(
+          (item) => `
+        <div class="bg-white rounded-xl border border-[#E0E4DA] p-5 shadow-sm hover:shadow-md transition-shadow">
+          <div class="flex justify-between items-start mb-2">
+            <span class="px-2.5 py-0.5 text-xs font-semibold rounded bg-green-100 text-[#0D631B] uppercase">${item.status || "ACTIVE"}</span>
+            <span class="text-xs text-[#40493D]">${item.district || ""}, ${item.state || ""}</span>
+          </div>
+          <h3 class="text-lg font-bold text-[#181D17]">${item.crop}</h3>
+          <p class="text-xs text-[#40493D] mt-1">${item.description || "No description provided"}</p>
+
+          <div class="mt-4 pt-4 border-t border-[#F1F5EB] flex justify-between items-center">
+            <div>
+              <p class="text-xs text-[#40493D]">Quantity: <strong>${item.quantity} ${item.unit}</strong></p>
+              <p class="text-lg font-bold text-[#0D631B]">₹${item.price} / ${item.unit}</p>
+            </div>
+            <div class="flex gap-2">
+              <button onclick="openEditModal('${item.id}', ${item.price}, ${item.quantity})" class="px-3 py-1.5 bg-amber-50 text-amber-700 border border-amber-200 text-xs font-semibold rounded-md hover:bg-amber-100">Edit</button>
+              <button onclick="deleteListing('${item.id}')" class="px-3 py-1.5 bg-red-50 text-red-600 border border-red-200 text-xs font-semibold rounded-md hover:bg-red-100">Cancel</button>
+            </div>
+          </div>
+        </div>
+      `,
+        )
+        .join("");
+    } else {
+      produceGrid.innerHTML = `<p class="text-red-600">Failed to load produce: ${data.message || "Error occurred"}</p>`;
+    }
+  } catch (err) {
+    console.error("Error fetching My Produce:", err);
+    produceGrid.innerHTML = `<p class="text-red-600">Server error loading produce grid.</p>`;
+  }
+}
+
+// 2. Open / Close Edit Modal (F8)
+function openEditModal(id, price, quantity) {
+  document.getElementById("editId").value = id;
+  document.getElementById("editPrice").value = price;
+  document.getElementById("editQuantity").value = quantity;
+  document.getElementById("editModal").classList.remove("hidden");
+}
+
+function closeEditModal() {
+  document.getElementById("editModal").classList.add("hidden");
+}
+
+// 3. Edit Form Submit (PUT /api/v1/listings/:id) (F8)
+document
+  .getElementById("editForm")
+  ?.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const id = document.getElementById("editId").value;
+    const token = localStorage.getItem("token");
+
+    const payload = {
+      price: parseFloat(document.getElementById("editPrice").value),
+      quantity: parseFloat(document.getElementById("editQuantity").value),
+    };
+
+    try {
+      const res = await fetch(
+        `https://krishisetu-api-tiau.onrender.com/api/v1/listings/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(payload),
+        },
+      );
+
+      if (res.ok) {
+        alert("Listing updated successfully!");
+        closeEditModal();
+        renderMyProduce();
+      } else {
+        alert("Failed to update listing.");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  });
+
+// 4. Cancel/Delete Listing (DELETE /api/v1/listings/:id) (F9)
+async function deleteListing(id) {
+  if (!confirm("Are you sure you want to cancel this crop listing?")) return;
+
+  const token = localStorage.getItem("token");
+  try {
+    const res = await fetch(
+      `https://krishisetu-api-tiau.onrender.com/api/v1/listings/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    if (res.ok) {
+      alert("Listing canceled successfully!");
+      renderMyProduce();
+    } else {
+      alert("Failed to cancel listing.");
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", renderMyProduce);

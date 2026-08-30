@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KrishiSetu | My Produce</title>
+    <link rel="stylesheet" href="./output.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body
+    class="bg-[#F4F8F0] text-[#181D17] font-['Inter'] min-h-screen flex flex-col lg:flex-row"
+  >
+    <!-- DESKTOP SIDEBAR -->
+    <aside
+      class="hidden lg:flex flex-col w-64 bg-white border-r border-[#E0E4DA] min-h-screen p-5 fixed left-0 top-0 bottom-0 z-40"
+    >
+      <a href="./index.html" class="flex items-center gap-3 mb-8 px-2">
+        <img
+          src="./assets/images/krishisetu_logo.png"
+          alt="Logo"
+          class="h-9 w-9 object-contain"
+        />
+        <span class="text-xl font-bold text-[#0D631B]">KrishiSetu</span>
+      </a>
+      <nav class="flex flex-col gap-2 flex-1">
+        <a
+          href="./farmer-dashboard.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#40493D] hover:bg-[#F1F5EB] font-medium"
+        >
+          <span>📊</span> Dashboard
+        </a>
+        <a
+          href="./my-listings.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-lg bg-[#0D631B] text-white font-medium shadow-sm"
+        >
+          <span>🌾</span> My Produce
+        </a>
+      </nav>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <div class="flex-1 lg:ml-64 pb-20 lg:pb-8">
+      <header
+        class="bg-white/90 backdrop-blur-sm border-b border-[#E0E4DA] sticky top-0 z-30 px-4 md:px-8 py-4 flex items-center justify-between"
+      >
+        <div>
+          <h1 class="text-xl md:text-2xl font-bold text-[#181D17]">
+            My Produce
+          </h1>
+          <p class="text-xs md:text-sm text-[#40493D]">
+            Manage all crops listed by you in the marketplace
+          </p>
+        </div>
+      </header>
+
+      <main class="max-w-7xl mx-auto px-4 md:px-8 py-6">
+        <!-- PRODUCE CARDS GRID -->
+        <div
+          id="produceGrid"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
+          <!-- Dynamically filled via script.js -->
+        </div>
+      </main>
+    </div>
+
+    <!-- EDIT MODAL (F8) -->
+    <div
+      id="editModal"
+      class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4"
+    >
+      <div class="bg-white rounded-xl max-w-md w-full p-6 shadow-xl space-y-4">
+        <h3 class="text-lg font-bold text-[#181D17]">Edit Produce Listing</h3>
+        <form id="editForm" class="space-y-3">
+          <input type="hidden" id="editId" />
+          <div>
+            <label class="block text-xs font-semibold text-[#40493D]"
+              >Price (₹)</label
+            >
+            <input
+              type="number"
+              id="editPrice"
+              required
+              class="w-full h-10 px-3 border border-[#E0E4DA] rounded-lg text-sm"
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-[#40493D]"
+              >Quantity</label
+            >
+            <input
+              type="number"
+              id="editQuantity"
+              required
+              class="w-full h-10 px-3 border border-[#E0E4DA] rounded-lg text-sm"
+            />
+          </div>
+          <div class="flex justify-end gap-2 pt-3">
+            <button
+              type="button"
+              onclick="closeEditModal()"
+              class="px-4 py-2 text-sm bg-gray-100 rounded-lg"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="px-4 py-2 text-sm bg-[#0D631B] text-white rounded-lg font-medium"
+            >
+              Save Changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
