@@ -386,3 +386,56 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+// ============================================================
+// F5 — CREATE CROP LISTING (POST /api/v1/listings)
+// ============================================================
+const API_BASE_URL = "https://krishisetu-api-tiau.onrender.com";
+
+document
+  .getElementById("createListingForm")
+  ?.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Session expired. Kripya login karein.");
+      window.location.href = "./login.html?role=farmer";
+      return;
+    }
+
+    const listingPayload = {
+      crop: document.getElementById("produceName")?.value.trim(),
+      quantity: parseFloat(document.getElementById("produceQuantity")?.value),
+      unit: document.getElementById("produceUnit")?.value,
+      price: parseFloat(document.getElementById("producePrice")?.value),
+      state: document.getElementById("produceLocation")?.value.trim(),
+      district: document.getElementById("produceLocation")?.value.trim(),
+      description: document.getElementById("produceDesc")?.value || "",
+    };
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/v1/listings`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(listingPayload),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Crop listed successfully! 🌾");
+        const drawer = document.getElementById("createListingDrawer");
+        if (drawer) drawer.classList.add("translate-x-full");
+        e.target.reset();
+        window.dispatchEvent(new Event("listingCreated"));
+      } else {
+        alert(data.message || data.error || "Failed to create crop listing.");
+      }
+    } catch (err) {
+      console.error("Error creating listing:", err);
+      alert("Server error! Connection verify karein.");
+    }
+  });
