@@ -21,22 +21,20 @@
         id="registerBackgroundOverlay"
         class="absolute inset-0 bg-[#F4F8F0]/55 backdrop-blur-sm transition-colors duration-500"
       ></div>
+      <div id="farmScenery" class="farm-scenery"></div>
+      <div class="empower-blob b1"></div>
+      <div class="empower-blob b2"></div>
     </div>
 
-    <header
-      class="fixed top-0 z-50 w-full h-16 bg-[#FAFAF5]/95 backdrop-blur-sm border-b border-[#E0E4DA] shadow-sm"
-    >
+    <header class="navbar-shell fixed top-0 z-50 w-full h-16">
       <div class="h-full px-4 md:px-8 flex items-center justify-between gap-4">
-        <a
-          href="./index.html"
-          class="flex items-center gap-3 shrink-0 transition-transform duration-200 hover:scale-[1.02]"
-        >
+        <a href="./index.html" class="brand shrink-0">
           <img
             src="./assets/images/krishisetu_logo.png"
             alt="KrishiSetu Logo"
-            class="h-8 w-8 object-contain"
+            class="brand-logo"
           />
-          <span class="text-xl font-bold text-[#0D631B]">KrishiSetu</span>
+          <span class="brand-name text-xl font-bold">KrishiSetu</span>
         </a>
       </div>
     </header>
@@ -46,12 +44,12 @@
     >
       <div
         id="registerCard"
-        class="register-card w-full max-w-md bg-white rounded-xl border border-[#BFCABA]/60 shadow-sm p-6 md:p-8 transition-all duration-500"
+        class="register-card auth-panel auth-pad w-full border-[#BFCABA]/60 transition-all duration-500"
       >
         <div class="text-center mb-8">
           <h1
             id="registerTitle"
-            class="text-2xl md:text-3xl font-semibold text-[#1E1E1E] mb-2"
+            class="auth-title font-semibold text-[#1E1E1E] mb-2"
           >
             Create an Account
           </h1>
@@ -116,14 +114,24 @@
               class="block text-sm font-medium text-[#181D17] mb-1"
               >Password</label
             >
-            <input
-              id="farmerPassword"
-              name="farmerPassword"
-              type="password"
-              placeholder="Create password"
-              required
-              class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
-            />
+            <div class="password-wrap">
+              <input
+                id="farmerPassword"
+                name="farmerPassword"
+                type="password"
+                placeholder="Create password"
+                required
+                class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
+              />
+              <button
+                type="button"
+                class="password-toggle"
+                data-target="farmerPassword"
+                aria-label="Show password"
+              >
+                👁️
+              </button>
+            </div>
           </div>
           <div>
             <label
@@ -142,7 +150,7 @@
           </div>
           <button
             type="submit"
-            class="w-full min-h-[48px] mt-2 rounded-md bg-[#0D631B] text-white font-semibold shadow-sm hover:bg-[#095516] transition-colors"
+            class="register-submit w-full min-h-[48px] mt-2 rounded-md bg-[#0D631B] text-white font-semibold shadow-sm hover:bg-[#095516] transition-colors"
           >
             Create Farmer Account
           </button>
@@ -186,14 +194,24 @@
               class="block text-sm font-medium text-[#181D17] mb-1"
               >Password</label
             >
-            <input
-              id="buyerPassword"
-              name="buyerPassword"
-              type="password"
-              placeholder="Create password"
-              required
-              class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
-            />
+            <div class="password-wrap">
+              <input
+                id="buyerPassword"
+                name="buyerPassword"
+                type="password"
+                placeholder="Create password"
+                required
+                class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
+              />
+              <button
+                type="button"
+                class="password-toggle"
+                data-target="buyerPassword"
+                aria-label="Show password"
+              >
+                👁️
+              </button>
+            </div>
           </div>
           <div>
             <label
@@ -212,7 +230,7 @@
           </div>
           <button
             type="submit"
-            class="w-full min-h-[48px] mt-2 rounded-md bg-[#75584D] text-white font-semibold shadow-sm hover:bg-[#5c443b] transition-colors"
+            class="register-submit w-full min-h-[48px] mt-2 rounded-md bg-[#75584D] text-white font-semibold shadow-sm hover:bg-[#5c443b] transition-colors"
           >
             Create Buyer Account
           </button>

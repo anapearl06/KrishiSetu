@@ -1,12 +1,96 @@
 // ============================================================
 // KRISHISETU - BACKEND API CONNECTED SCRIPT
 // Backend Render URL: https://krishisetu-api-tiau.onrender.com
+// Neon DB Endpoint Connected
 // ============================================================
 
 const API_BASE_URL = "https://krishisetu-api-tiau.onrender.com";
 
+// ============================================================
+// ANIMATED FARM SCENERY (login / register backgrounds)
+// ============================================================
+function buildFarmland() {
+  const container = document.getElementById("farmScenery");
+  if (!container) return;
+
+  let html = '<div class="sun"></div>';
+  html += '<div class="farm-hill-back"></div>';
+  html += '<div class="farm-field"></div>';
+
+  // Back row (small, higher) + front row (bigger, lower)
+  const rows = [
+    { top: 12, count: 10, size: 15 },
+    { top: 32, count: 7, size: 23 },
+  ];
+
+  rows.forEach(function (row) {
+    for (let i = 0; i < row.count; i++) {
+      const frac = (i + 0.5) / row.count;
+      const x = frac * 100 + (Math.random() * 6 - 3);
+      const delay = (Math.random() * 2.5).toFixed(2);
+      html +=
+        '<div class="crop" style="left:' +
+        x.toFixed(1) +
+        "%;top:" +
+        row.top +
+        "%;font-size:" +
+        row.size +
+        "px;--delay:" +
+        delay +
+        's">';
+      html +=
+        '<div class="stalk"></div><div class="leaf l"></div><div class="leaf r"></div><div class="head"></div>';
+      html += "</div>";
+    }
+  });
+
+  // Small floating sparkles
+  for (let s = 0; s < 4; s++) {
+    const sx = 10 + Math.random() * 80;
+    const sy = 6 + Math.random() * 26;
+    const sd = (Math.random() * 3).toFixed(2);
+    const size = 4 + Math.random() * 6;
+    html +=
+      '<div class="sparkle" style="left:' +
+      sx.toFixed(1) +
+      "%;top:" +
+      sy.toFixed(1) +
+      "%;width:" +
+      size.toFixed(1) +
+      "px;height:" +
+      size.toFixed(1) +
+      "px;--delay:" +
+      sd +
+      's"></div>';
+  }
+
+  container.innerHTML = html;
+}
+
+// ============================================================
+// SHOW / HIDE PASSWORD TOGGLES
+// ============================================================
+function setupPasswordToggles() {
+  document.querySelectorAll(".password-toggle").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      const id = this.getAttribute("data-target");
+      const input = document.getElementById(id);
+      if (!input) return;
+      const wasHidden = input.type === "password";
+      input.type = wasHidden ? "text" : "password";
+      this.textContent = wasHidden ? "🙈" : "👁️";
+    });
+  });
+}
+
 document.addEventListener("DOMContentLoaded", function () {
-  // HELPER: URL se role fetch karne ke liye
+  // Build the animated farm scene (login / register pages only)
+  buildFarmland();
+
+  // Wire up password eye toggles
+  setupPasswordToggles();
+
+  // HELPER: Fetch role from URL query params
   function getRoleFromURL() {
     const params = new URLSearchParams(window.location.search);
     return params.get("role");
@@ -67,29 +151,29 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("farmerPassword")?.value;
 
       try {
-        const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+        const response = await fetch(`${API_BASE_URL}/api/v1/farmers/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ phone, password, role: "farmer" }),
+          body: JSON.stringify({ phone, password }),
         });
 
         const data = await response.json();
         if (response.ok) {
           alert("Farmer Login Successful!");
           if (data.token) localStorage.setItem("token", data.token);
-
-          // AUTOMATIC REDIRECT TO FARMER DASHBOARD
           window.location.href = "./farmer-dashboard.html";
         } else {
-          alert(
-            data.message || "Login failed! Please check phone and password.",
-          );
+          const errorMsg =
+            typeof data.error === "object"
+              ? JSON.stringify(data.error)
+              : data.error ||
+                data.message ||
+                "Login failed! Check credentials.";
+          alert(errorMsg);
         }
       } catch (error) {
         console.error("Error connecting to backend:", error);
-        alert(
-          "Server Error! Render API might be starting up, please try again in 15 seconds.",
-        );
+        alert("Server Error! Render API is waking up, please try again.");
       }
     });
   }
@@ -106,23 +190,25 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("buyerPassword")?.value;
 
       try {
-        const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+        const response = await fetch(`${API_BASE_URL}/api/v1/buyers/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ phone, password, role: "buyer" }),
+          body: JSON.stringify({ phone, password }),
         });
 
         const data = await response.json();
         if (response.ok) {
           alert("Buyer Login Successful!");
           if (data.token) localStorage.setItem("token", data.token);
-
-          // AUTOMATIC REDIRECT TO BUYER DASHBOARD
           window.location.href = "./buyer-dashboard.html";
         } else {
-          alert(
-            data.message || "Login failed! Please check phone and password.",
-          );
+          const errorMsg =
+            typeof data.error === "object"
+              ? JSON.stringify(data.error)
+              : data.error ||
+                data.message ||
+                "Login failed! Check credentials.";
+          alert(errorMsg);
         }
       } catch (error) {
         console.error("Error connecting to backend:", error);
@@ -132,7 +218,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // ============================================================
-  // REGISTER PAGE LOGIC
+  // REGISTER PAGE LOGIC (WITH REQUIRED DISTRICT FIELD)
   // ============================================================
   const registerFarmerTab = document.getElementById("registerFarmerTab");
   const registerBuyerTab = document.getElementById("registerBuyerTab");
@@ -174,15 +260,21 @@ document.addEventListener("DOMContentLoaded", function () {
   if (farmerForm) {
     farmerForm.addEventListener("submit", async function (event) {
       event.preventDefault();
-      const name = document.getElementById("farmerName")?.value;
-      const phone = document.getElementById("farmerPhone")?.value;
-      const village = document.getElementById("farmerVillage")?.value;
-      const state = document.getElementById("farmerState")?.value;
-      const crop = document.getElementById("farmerCrop")?.value;
-      const password = document.getElementById("farmerPassword")?.value;
-      const confirmPassword = document.getElementById(
-        "farmerConfirmPassword",
-      )?.value;
+      const name = document.getElementById("farmerName")?.value || "";
+      const phone = document.getElementById("farmerPhone")?.value || "";
+      const village =
+        document.getElementById("farmerVillage")?.value || "Default Village";
+      const district =
+        document.getElementById("farmerDistrict")?.value ||
+        village ||
+        "Default District";
+      const state =
+        document.getElementById("farmerState")?.value || "Uttar Pradesh";
+      const crop =
+        document.getElementById("farmerCrop")?.value || "General Crop";
+      const password = document.getElementById("farmerPassword")?.value || "";
+      const confirmPassword =
+        document.getElementById("farmerConfirmPassword")?.value || "";
 
       if (password !== confirmPassword) {
         alert("Passwords do not match!");
@@ -190,30 +282,37 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       try {
-        const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name,
-            phone,
-            village,
-            state,
-            crop,
-            password,
-            role: "farmer",
-          }),
-        });
+        const response = await fetch(
+          `${API_BASE_URL}/api/v1/farmers/register`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name: name,
+              phone: phone,
+              village: village,
+              district: district,
+              state: state,
+              crop: crop,
+              password: password,
+            }),
+          },
+        );
 
         const data = await response.json();
         if (response.ok) {
           alert("Farmer Registration Successful! Redirecting to Login...");
           window.location.href = "./login.html?role=farmer";
         } else {
-          alert(data.message || "Registration failed!");
+          const errorMsg =
+            typeof data.error === "object"
+              ? JSON.stringify(data.error)
+              : data.error || data.message || "Registration failed!";
+          alert(errorMsg);
         }
       } catch (error) {
         console.error("Error connecting to backend:", error);
-        alert("Server Error! Render backend might be waking up.");
+        alert("Server Error! Render backend waking up.");
       }
     });
   }
@@ -222,16 +321,23 @@ document.addEventListener("DOMContentLoaded", function () {
   if (buyerForm) {
     buyerForm.addEventListener("submit", async function (event) {
       event.preventDefault();
-      const name = document.getElementById("buyerName")?.value;
-      const businessName = document.getElementById("businessName")?.value;
-      const businessType = document.getElementById("businessType")?.value;
-      const phone = document.getElementById("buyerPhone")?.value;
-      const city = document.getElementById("buyerCity")?.value;
-      const state = document.getElementById("buyerState")?.value;
-      const password = document.getElementById("buyerPassword")?.value;
-      const confirmPassword = document.getElementById(
-        "buyerConfirmPassword",
-      )?.value;
+      const name = document.getElementById("buyerName")?.value || "";
+      const businessName =
+        document.getElementById("businessName")?.value || name;
+      const businessType =
+        document.getElementById("businessType")?.value || "Retailer";
+      const phone = document.getElementById("buyerPhone")?.value || "";
+      const city =
+        document.getElementById("buyerCity")?.value || "Default City";
+      const district =
+        document.getElementById("buyerDistrict")?.value ||
+        city ||
+        "Default District";
+      const state =
+        document.getElementById("buyerState")?.value || "Uttar Pradesh";
+      const password = document.getElementById("buyerPassword")?.value || "";
+      const confirmPassword =
+        document.getElementById("buyerConfirmPassword")?.value || "";
 
       if (password !== confirmPassword) {
         alert("Passwords do not match!");
@@ -239,18 +345,18 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       try {
-        const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
+        const response = await fetch(`${API_BASE_URL}/api/v1/buyers/register`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            name,
-            businessName,
-            businessType,
-            phone,
-            city,
-            state,
-            password,
-            role: "buyer",
+            name: name,
+            business_name: businessName,
+            business_type: businessType,
+            phone: phone,
+            city: city,
+            district: district,
+            state: state,
+            password: password,
           }),
         });
 
@@ -259,7 +365,11 @@ document.addEventListener("DOMContentLoaded", function () {
           alert("Buyer Registration Successful! Redirecting to Login...");
           window.location.href = "./login.html?role=buyer";
         } else {
-          alert(data.message || "Registration failed!");
+          const errorMsg =
+            typeof data.error === "object"
+              ? JSON.stringify(data.error)
+              : data.error || data.message || "Registration failed!";
+          alert(errorMsg);
         }
       } catch (error) {
         console.error("Error connecting to backend:", error);
@@ -268,7 +378,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Phone input restricts to numbers only
+  // Restrict phone input to numbers only
   const phoneInputs = document.querySelectorAll('input[type="tel"]');
   phoneInputs.forEach((input) => {
     input.addEventListener("input", function () {
