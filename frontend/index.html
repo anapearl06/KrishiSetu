@@ -54,7 +54,7 @@
     <main>
       <!-- HERO SECTION -->
       <section
-        class="relative w-full min-h-[70vh] flex items-center justify-center overflow-hidden"
+        class="relative w-full min-h-[72vh] flex items-center justify-center overflow-hidden"
       >
         <div class="absolute inset-0 z-0">
           <img
@@ -62,16 +62,35 @@
             alt="Agricultural field at sunrise"
             class="w-full h-full object-cover"
           />
-          <div
-            class="absolute inset-0 bg-[#FAFAF5]/80 backdrop-blur-[2px]"
-          ></div>
+          <div class="hero-overlay absolute inset-0"></div>
+        </div>
+
+        <!-- FLOATING CHIPS (desktop only) -->
+        <div class="hero-chip chip1">
+          <span class="text-xl">🌾</span>
+          <div>
+            <div class="font-bold text-[#1E1E1E] leading-tight">2,400+</div>
+            <div class="text-sm text-[#40493D]">Active Listings</div>
+          </div>
+        </div>
+        <div class="hero-chip chip2">
+          <span class="text-xl">📈</span>
+          <div>
+            <div class="font-bold text-[#1E1E1E] leading-tight">
+              Wheat ₹2,350/q
+            </div>
+            <div class="text-sm text-[#40493D]">Today's Mandi Price</div>
+          </div>
         </div>
 
         <div
-          class="relative z-10 max-w-4xl mx-auto px-4 md:px-8 text-center flex flex-col items-center gap-6 md:gap-8 py-12"
+          class="relative z-10 max-w-4xl mx-auto px-4 md:px-8 text-center flex flex-col items-center gap-6 md:gap-7 py-12"
         >
+          <span class="empower-badge"
+            >🌾 Trusted by Farmers & Buyers across India</span
+          >
           <h1
-            class="text-4xl md:text-[44px] leading-tight font-bold tracking-tight text-[#0D631B]"
+            class="gradient-heading text-4xl md:text-[44px] leading-tight font-bold tracking-tight"
           >
             Connect Your Produce <br class="hidden sm:block" />
             With The Right Buyer.
@@ -85,16 +104,38 @@
           <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mt-2">
             <a
               href="./login.html?role=farmer"
-              class="cta-button farmer-cta bg-[#0D631B] text-white font-medium px-8 py-4 rounded-md w-full sm:w-48 text-center shadow-sm hover:bg-[#095516] transition-colors"
+              class="cta-button farmer-cta bg-[#0D631B] text-white font-medium px-8 py-4 rounded-md w-full sm:w-48 text-center hover:bg-[#095516] transition-colors"
             >
-              I'm a Farmer!
+              🌾 I'm a Farmer!
             </a>
             <a
               href="./login.html?role=buyer"
-              class="cta-button buyer-cta bg-[#75584D] text-white font-medium px-8 py-4 rounded-md w-full sm:w-48 text-center shadow-sm hover:bg-[#5c443b] transition-colors"
+              class="cta-button buyer-cta bg-[#75584D] text-white font-medium px-8 py-4 rounded-md w-full sm:w-48 text-center hover:bg-[#5c443b] transition-colors"
             >
-              I'm a Buyer!
+              🛒 I'm a Buyer!
             </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- STATS STRIP -->
+      <section style="margin-top: -3rem" class="relative z-10 px-4 md:px-8">
+        <div class="max-w-7xl mx-auto hero-stats hero-stats-grid">
+          <div class="text-center">
+            <div class="hero-stat-value">12K+</div>
+            <div class="hero-stat-label">Registered Farmers</div>
+          </div>
+          <div class="text-center">
+            <div class="hero-stat-value">5.2K+</div>
+            <div class="hero-stat-label">Verified Buyers</div>
+          </div>
+          <div class="text-center">
+            <div class="hero-stat-value">50+</div>
+            <div class="hero-stat-label">Mandi Prices Live</div>
+          </div>
+          <div class="text-center">
+            <div class="hero-stat-value">₹38 Cr</div>
+            <div class="hero-stat-label">Transactions Done</div>
           </div>
         </div>
       </section>
