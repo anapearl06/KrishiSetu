@@ -1,12 +1,13 @@
 // ============================================================
 // KRISHISETU - BACKEND API CONNECTED SCRIPT
 // Backend Render URL: https://krishisetu-api-tiau.onrender.com
+// Neon DB Endpoint Connected
 // ============================================================
 
 const API_BASE_URL = "https://krishisetu-api-tiau.onrender.com";
 
 document.addEventListener("DOMContentLoaded", function () {
-  // HELPER: URL se role fetch karne ke liye
+  // HELPER: Fetch role from URL query params
   function getRoleFromURL() {
     const params = new URLSearchParams(window.location.search);
     return params.get("role");
@@ -77,16 +78,17 @@ document.addEventListener("DOMContentLoaded", function () {
         if (response.ok) {
           alert("Farmer Login Successful!");
           if (data.token) localStorage.setItem("token", data.token);
-
           window.location.href = "./farmer-dashboard.html";
         } else {
           alert(
-            data.message || "Login failed! Please check phone and password.",
+            data.message ||
+              data.error ||
+              "Login failed! Please check phone and password.",
           );
         }
       } catch (error) {
         console.error("Error connecting to backend:", error);
-        alert("Server Error! Render backend waking up.");
+        alert("Server Error! Render API waking up...");
       }
     });
   }
@@ -113,11 +115,12 @@ document.addEventListener("DOMContentLoaded", function () {
         if (response.ok) {
           alert("Buyer Login Successful!");
           if (data.token) localStorage.setItem("token", data.token);
-
           window.location.href = "./buyer-dashboard.html";
         } else {
           alert(
-            data.message || "Login failed! Please check phone and password.",
+            data.message ||
+              data.error ||
+              "Login failed! Please check phone and password.",
           );
         }
       } catch (error) {
@@ -128,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // ============================================================
-  // REGISTER PAGE LOGIC
+  // REGISTER PAGE LOGIC (GO STRUCT MATCHED)
   // ============================================================
   const registerFarmerTab = document.getElementById("registerFarmerTab");
   const registerBuyerTab = document.getElementById("registerBuyerTab");
@@ -170,15 +173,17 @@ document.addEventListener("DOMContentLoaded", function () {
   if (farmerForm) {
     farmerForm.addEventListener("submit", async function (event) {
       event.preventDefault();
-      const name = document.getElementById("farmerName")?.value;
-      const phone = document.getElementById("farmerPhone")?.value;
-      const village = document.getElementById("farmerVillage")?.value;
-      const state = document.getElementById("farmerState")?.value;
-      const crop = document.getElementById("farmerCrop")?.value;
-      const password = document.getElementById("farmerPassword")?.value;
-      const confirmPassword = document.getElementById(
-        "farmerConfirmPassword",
-      )?.value;
+      const name = document.getElementById("farmerName")?.value || "";
+      const phone = document.getElementById("farmerPhone")?.value || "";
+      const village =
+        document.getElementById("farmerVillage")?.value || "Default Village";
+      const state =
+        document.getElementById("farmerState")?.value || "Uttar Pradesh";
+      const crop =
+        document.getElementById("farmerCrop")?.value || "General Crop";
+      const password = document.getElementById("farmerPassword")?.value || "";
+      const confirmPassword =
+        document.getElementById("farmerConfirmPassword")?.value || "";
 
       if (password !== confirmPassword) {
         alert("Passwords do not match!");
@@ -192,12 +197,12 @@ document.addEventListener("DOMContentLoaded", function () {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              name,
-              phone,
-              village,
-              state,
-              crop,
-              password,
+              name: name,
+              phone: phone,
+              village: village,
+              state: state,
+              crop: crop,
+              password: password,
             }),
           },
         );
@@ -207,11 +212,11 @@ document.addEventListener("DOMContentLoaded", function () {
           alert("Farmer Registration Successful! Redirecting to Login...");
           window.location.href = "./login.html?role=farmer";
         } else {
-          alert(data.message || "Registration failed!");
+          alert(data.error || data.message || "Registration failed!");
         }
       } catch (error) {
         console.error("Error connecting to backend:", error);
-        alert("Server Error!");
+        alert("Server Error! Render backend waking up.");
       }
     });
   }
@@ -220,16 +225,19 @@ document.addEventListener("DOMContentLoaded", function () {
   if (buyerForm) {
     buyerForm.addEventListener("submit", async function (event) {
       event.preventDefault();
-      const name = document.getElementById("buyerName")?.value;
-      const businessName = document.getElementById("businessName")?.value;
-      const businessType = document.getElementById("businessType")?.value;
-      const phone = document.getElementById("buyerPhone")?.value;
-      const city = document.getElementById("buyerCity")?.value;
-      const state = document.getElementById("buyerState")?.value;
-      const password = document.getElementById("buyerPassword")?.value;
-      const confirmPassword = document.getElementById(
-        "buyerConfirmPassword",
-      )?.value;
+      const name = document.getElementById("buyerName")?.value || "";
+      const businessName =
+        document.getElementById("businessName")?.value || name;
+      const businessType =
+        document.getElementById("businessType")?.value || "Retailer";
+      const phone = document.getElementById("buyerPhone")?.value || "";
+      const city =
+        document.getElementById("buyerCity")?.value || "Default City";
+      const state =
+        document.getElementById("buyerState")?.value || "Uttar Pradesh";
+      const password = document.getElementById("buyerPassword")?.value || "";
+      const confirmPassword =
+        document.getElementById("buyerConfirmPassword")?.value || "";
 
       if (password !== confirmPassword) {
         alert("Passwords do not match!");
@@ -241,13 +249,13 @@ document.addEventListener("DOMContentLoaded", function () {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            name,
-            businessName,
-            businessType,
-            phone,
-            city,
-            state,
-            password,
+            name: name,
+            business_name: businessName,
+            business_type: businessType,
+            phone: phone,
+            city: city,
+            state: state,
+            password: password,
           }),
         });
 
@@ -256,7 +264,7 @@ document.addEventListener("DOMContentLoaded", function () {
           alert("Buyer Registration Successful! Redirecting to Login...");
           window.location.href = "./login.html?role=buyer";
         } else {
-          alert(data.message || "Registration failed!");
+          alert(data.error || data.message || "Registration failed!");
         }
       } catch (error) {
         console.error("Error connecting to backend:", error);
@@ -273,3 +281,4 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
