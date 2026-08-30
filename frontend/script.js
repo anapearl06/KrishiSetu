@@ -80,15 +80,17 @@ document.addEventListener("DOMContentLoaded", function () {
           if (data.token) localStorage.setItem("token", data.token);
           window.location.href = "./farmer-dashboard.html";
         } else {
-          alert(
-            data.message ||
-              data.error ||
-              "Login failed! Please check phone and password.",
-          );
+          const errorMsg =
+            typeof data.error === "object"
+              ? JSON.stringify(data.error)
+              : data.error ||
+                data.message ||
+                "Login failed! Check credentials.";
+          alert(errorMsg);
         }
       } catch (error) {
         console.error("Error connecting to backend:", error);
-        alert("Server Error! Render API waking up...");
+        alert("Server Error! Render API is waking up, please try again.");
       }
     });
   }
@@ -117,11 +119,13 @@ document.addEventListener("DOMContentLoaded", function () {
           if (data.token) localStorage.setItem("token", data.token);
           window.location.href = "./buyer-dashboard.html";
         } else {
-          alert(
-            data.message ||
-              data.error ||
-              "Login failed! Please check phone and password.",
-          );
+          const errorMsg =
+            typeof data.error === "object"
+              ? JSON.stringify(data.error)
+              : data.error ||
+                data.message ||
+                "Login failed! Check credentials.";
+          alert(errorMsg);
         }
       } catch (error) {
         console.error("Error connecting to backend:", error);
@@ -131,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // ============================================================
-  // REGISTER PAGE LOGIC (GO STRUCT MATCHED)
+  // REGISTER PAGE LOGIC
   // ============================================================
   const registerFarmerTab = document.getElementById("registerFarmerTab");
   const registerBuyerTab = document.getElementById("registerBuyerTab");
@@ -212,7 +216,11 @@ document.addEventListener("DOMContentLoaded", function () {
           alert("Farmer Registration Successful! Redirecting to Login...");
           window.location.href = "./login.html?role=farmer";
         } else {
-          alert(data.error || data.message || "Registration failed!");
+          const errorMsg =
+            typeof data.error === "object"
+              ? JSON.stringify(data.error)
+              : data.error || data.message || "Registration failed!";
+          alert(errorMsg);
         }
       } catch (error) {
         console.error("Error connecting to backend:", error);
@@ -264,7 +272,11 @@ document.addEventListener("DOMContentLoaded", function () {
           alert("Buyer Registration Successful! Redirecting to Login...");
           window.location.href = "./login.html?role=buyer";
         } else {
-          alert(data.error || data.message || "Registration failed!");
+          const errorMsg =
+            typeof data.error === "object"
+              ? JSON.stringify(data.error)
+              : data.error || data.message || "Registration failed!";
+          alert(errorMsg);
         }
       } catch (error) {
         console.error("Error connecting to backend:", error);
@@ -273,7 +285,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Phone input restricts to numbers only
+  // Restrict phone input to numbers only
   const phoneInputs = document.querySelectorAll('input[type="tel"]');
   phoneInputs.forEach((input) => {
     input.addEventListener("input", function () {
@@ -281,4 +293,3 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
-
