@@ -9,58 +9,41 @@
   </head>
   <body class="bg-[#FAFAF5] text-[#1E1E1E]">
     <!-- ================= NAVBAR ================= -->
-    <nav
-      class="sticky top-0 z-50 w-full bg-[#FAFAF5]/95 backdrop-blur-sm border-b border-[#E0E4DA]"
-    >
+    <nav class="navbar-shell sticky top-0 z-50 w-full">
       <div
         class="max-w-7xl mx-auto px-4 md:px-8 py-4 flex items-center justify-between gap-4"
       >
         <!-- LOGO -->
-        <a
-          href="./index.html"
-          class="flex items-center gap-2 shrink-0 transition-transform duration-200 hover:scale-[1.02]"
-        >
+        <a href="./index.html" class="brand shrink-0">
           <img
             src="./assets/images/krishisetu_logo.png"
             alt="KrishiSetu Logo"
-            class="h-9 w-9 object-contain"
+            class="brand-logo"
           />
-          <span class="text-xl md:text-2xl font-bold text-[#0D631B]"
+          <span class="brand-name text-xl md:text-2xl font-bold"
             >KrishiSetu</span
           >
         </a>
 
         <!-- DESKTOP NAVIGATION -->
         <div class="hidden lg:flex items-center gap-5 xl:gap-6">
-          <a
-            href="./index.html"
-            class="nav-link text-[#0D631B] font-medium border-b-2 border-[#0D631B] pb-1"
-            >Home</a
-          >
-          <a href="#how-it-works" class="nav-link text-[#40493D] font-medium"
-            >How It Works</a
-          >
-          <a href="#farmers" class="nav-link text-[#40493D] font-medium"
-            >For Farmers</a
-          >
-          <a href="#buyers" class="nav-link text-[#40493D] font-medium"
-            >For Buyers</a
-          >
-          <a href="#market-prices" class="nav-link text-[#40493D] font-medium"
-            >Market Prices</a
-          >
+          <a href="./index.html" class="nav-link is-active">Home</a>
+          <a href="#how-it-works" class="nav-link">How It Works</a>
+          <a href="#farmers" class="nav-link">For Farmers</a>
+          <a href="#buyers" class="nav-link">For Buyers</a>
+          <a href="#market-prices" class="nav-link">Market Prices</a>
         </div>
 
         <!-- ACTION BUTTONS -->
         <div class="flex items-center gap-1 sm:gap-2 shrink-0">
           <a
             href="./login.html"
-            class="action-link text-[#0D631B] font-medium px-3 sm:px-4 py-2 rounded-md hover:bg-[#0D631B]/5 transition-colors"
+            class="action-link text-[#0D631B] font-medium px-3 sm:px-4 py-2 rounded-md"
             >Login</a
           >
           <a
             href="./register.html"
-            class="action-button bg-[#0D631B] text-white font-medium px-4 sm:px-5 py-2.5 rounded-md hover:bg-[#095516] transition-colors"
+            class="action-button bg-[#0D631B] text-white font-semibold px-4 sm:px-5 py-2.5 rounded-md"
             >Register</a
           >
         </div>
@@ -119,81 +102,101 @@
       <!-- FEATURES SECTION -->
       <section
         id="how-it-works"
-        class="max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-20"
+        class="empower-section w-full px-4 md:px-8 py-16 md:py-20"
       >
-        <div class="text-center mb-12">
-          <h2 class="text-2xl md:text-3xl font-semibold text-[#0D631B] mb-4">
-            Empowering Ground Level Operations
-          </h2>
-          <p class="max-w-2xl mx-auto text-[#40493D]">
-            A robust platform designed for utility and reliability in the
-            agricultural ecosystem.
-          </p>
-        </div>
+        <div class="empower-blob b1"></div>
+        <div class="empower-blob b2"></div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <!-- CARD 1 -->
-          <div
-            id="farmers"
-            class="feature-card farmer-card bg-white rounded-xl p-8 border border-[#E0E4DA] shadow-[0_4px_24px_rgba(0,0,0,0.02)] hover:shadow-md transition-shadow"
-          >
-            <!-- SOFT MINT PASTEL (INLINE STYLE) -->
-            <div
-              class="w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-6 shadow-sm"
-              style="background-color: #e8f5e9; border: 1px solid #c8e6c9"
+        <div class="relative max-w-7xl mx-auto">
+          <div class="text-center mb-12">
+            <span class="empower-badge">🌱 Empowering Agriculture</span>
+            <h2
+              class="gradient-heading text-2xl md:text-3xl font-semibold mt-5 mb-4"
             >
-              🔎
-            </div>
-            <h3 class="text-lg font-semibold text-[#1E1E1E] mb-3">
-              Discovery Network
-            </h3>
-            <p class="text-sm leading-relaxed text-[#40493D]">
-              Seamlessly find verified buyers and local farmers in your region.
-              Our network bridges the gap between produce and demand
-              efficiently.
+              Empowering Ground Level Operations
+            </h2>
+            <p class="max-w-2xl mx-auto text-[#40493D]">
+              A robust platform designed for utility and reliability in the
+              agricultural ecosystem.
             </p>
           </div>
 
-          <!-- CARD 2 -->
-          <div
-            id="buyers"
-            class="feature-card buyer-card bg-white rounded-xl p-8 border border-[#E0E4DA] shadow-[0_4px_24px_rgba(0,0,0,0.02)] hover:shadow-md transition-shadow"
-          >
-            <!-- SOFT PEACH PASTEL (INLINE STYLE) -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- CARD 1 · DISCOVERY (SOFT BROWN) -->
             <div
-              class="w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-6 shadow-sm"
-              style="background-color: #fff3e0; border: 1px solid #ffe0b2"
+              id="farmers"
+              class="premium-card rounded-xl p-8"
+              style="
+                --card-accent: linear-gradient(90deg, #a9744f, #d8a87c);
+                --card-glow: rgba(169, 116, 79, 0.14);
+                --card-shadow: rgba(169, 116, 79, 0.16);
+              "
             >
-              🤝
+              <div
+                class="premium-icon w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-6 shadow-sm"
+                style="background-color: #f3e5db; border: 1px solid #e4ccb3"
+              >
+                🔎
+              </div>
+              <h3 class="text-lg font-semibold text-[#1E1E1E] mb-3">
+                Discovery Network
+              </h3>
+              <p class="text-sm leading-relaxed text-[#40493D]">
+                Seamlessly find verified buyers and local farmers in your
+                region. Our network bridges the gap between produce and demand
+                efficiently.
+              </p>
             </div>
-            <h3 class="text-lg font-semibold text-[#1E1E1E] mb-3">
-              Offer Management
-            </h3>
-            <p class="text-sm leading-relaxed text-[#40493D]">
-              Negotiate and manage deals transparently. Keep track of active,
-              pending and completed transactions in one organized dashboard.
-            </p>
-          </div>
 
-          <!-- CARD 3 -->
-          <div
-            id="market-prices"
-            class="feature-card market-card bg-white rounded-xl p-8 border border-[#E0E4DA] shadow-[0_4px_24px_rgba(0,0,0,0.02)] hover:shadow-md transition-shadow"
-          >
-            <!-- SOFT LAVENDER PASTEL (INLINE STYLE) -->
+            <!-- CARD 2 · OFFER MANAGEMENT (LIGHT GREEN) -->
             <div
-              class="w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-6 shadow-sm"
-              style="background-color: #f3e5f5; border: 1px solid #e1bee7"
+              id="buyers"
+              class="premium-card rounded-xl p-8"
+              style="
+                --card-accent: linear-gradient(90deg, #2e9e4f, #8bd07c);
+                --card-glow: rgba(46, 158, 79, 0.14);
+                --card-shadow: rgba(46, 158, 79, 0.16);
+              "
             >
-              📈
+              <div
+                class="premium-icon w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-6 shadow-sm"
+                style="background-color: #e7f6ea; border: 1px solid #bfe3c6"
+              >
+                🤝
+              </div>
+              <h3 class="text-lg font-semibold text-[#1E1E1E] mb-3">
+                Offer Management
+              </h3>
+              <p class="text-sm leading-relaxed text-[#40493D]">
+                Negotiate and manage deals transparently. Keep track of active,
+                pending and completed transactions in one organized dashboard.
+              </p>
             </div>
-            <h3 class="text-lg font-semibold text-[#1E1E1E] mb-3">
-              Market Prices
-            </h3>
-            <p class="text-sm leading-relaxed text-[#40493D]">
-              Access real-time commodity pricing across different mandis. Make
-              informed decisions based on current agricultural market trends.
-            </p>
+
+            <!-- CARD 3 · MARKET PRICES (SOFT SKY BLUE) -->
+            <div
+              id="market-prices"
+              class="premium-card rounded-xl p-8"
+              style="
+                --card-accent: linear-gradient(90deg, #4e99d9, #9cc7ee);
+                --card-glow: rgba(78, 153, 217, 0.14);
+                --card-shadow: rgba(78, 153, 217, 0.16);
+              "
+            >
+              <div
+                class="premium-icon w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-6 shadow-sm"
+                style="background-color: #e4effb; border: 1px solid #c4ddf3"
+              >
+                📈
+              </div>
+              <h3 class="text-lg font-semibold text-[#1E1E1E] mb-3">
+                Market Prices
+              </h3>
+              <p class="text-sm leading-relaxed text-[#40493D]">
+                Access real-time commodity pricing across different mandis. Make
+                informed decisions based on current agricultural market trends.
+              </p>
+            </div>
           </div>
         </div>
       </section>
