@@ -22,6 +22,8 @@
         class="absolute inset-0 bg-[#F4F8F0]/55 backdrop-blur-sm transition-colors duration-500"
       ></div>
       <div id="farmScenery" class="farm-scenery"></div>
+      <div class="empower-blob b1"></div>
+      <div class="empower-blob b2"></div>
     </div>
 
     <header class="navbar-shell fixed top-0 z-50 w-full h-16">
@@ -42,12 +44,12 @@
     >
       <div
         id="registerCard"
-        class="register-card w-full max-w-md bg-white rounded-xl border border-[#BFCABA]/60 shadow-sm p-6 md:p-8 transition-all duration-500"
+        class="register-card auth-panel auth-pad w-full border-[#BFCABA]/60 transition-all duration-500"
       >
         <div class="text-center mb-8">
           <h1
             id="registerTitle"
-            class="text-2xl md:text-3xl font-semibold text-[#1E1E1E] mb-2"
+            class="auth-title font-semibold text-[#1E1E1E] mb-2"
           >
             Create an Account
           </h1>
@@ -137,28 +139,18 @@
               class="block text-sm font-medium text-[#181D17] mb-1"
               >Confirm Password</label
             >
-            <div class="password-wrap">
-              <input
-                id="farmerConfirmPassword"
-                name="farmerConfirmPassword"
-                type="password"
-                placeholder="Confirm password"
-                required
-                class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
-              />
-              <button
-                type="button"
-                class="password-toggle"
-                data-target="farmerConfirmPassword"
-                aria-label="Show password"
-              >
-                👁️
-              </button>
-            </div>
+            <input
+              id="farmerConfirmPassword"
+              name="farmerConfirmPassword"
+              type="password"
+              placeholder="Confirm password"
+              required
+              class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
+            />
           </div>
           <button
             type="submit"
-            class="w-full min-h-[48px] mt-2 rounded-md bg-[#0D631B] text-white font-semibold shadow-sm hover:bg-[#095516] transition-colors"
+            class="register-submit w-full min-h-[48px] mt-2 rounded-md bg-[#0D631B] text-white font-semibold shadow-sm hover:bg-[#095516] transition-colors"
           >
             Create Farmer Account
           </button>
@@ -227,28 +219,18 @@
               class="block text-sm font-medium text-[#181D17] mb-1"
               >Confirm Password</label
             >
-            <div class="password-wrap">
-              <input
-                id="buyerConfirmPassword"
-                name="buyerConfirmPassword"
-                type="password"
-                placeholder="Confirm password"
-                required
-                class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
-              />
-              <button
-                type="button"
-                class="password-toggle"
-                data-target="buyerConfirmPassword"
-                aria-label="Show password"
-              >
-                👁️
-              </button>
-            </div>
+            <input
+              id="buyerConfirmPassword"
+              name="buyerConfirmPassword"
+              type="password"
+              placeholder="Confirm password"
+              required
+              class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
+            />
           </div>
           <button
             type="submit"
-            class="w-full min-h-[48px] mt-2 rounded-md bg-[#75584D] text-white font-semibold shadow-sm hover:bg-[#5c443b] transition-colors"
+            class="register-submit w-full min-h-[48px] mt-2 rounded-md bg-[#75584D] text-white font-semibold shadow-sm hover:bg-[#5c443b] transition-colors"
           >
             Create Buyer Account
           </button>
