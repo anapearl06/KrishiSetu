@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // ============================================================
-  // REGISTER PAGE LOGIC
+  // REGISTER PAGE LOGIC (WITH REQUIRED DISTRICT FIELD)
   // ============================================================
   const registerFarmerTab = document.getElementById("registerFarmerTab");
   const registerBuyerTab = document.getElementById("registerBuyerTab");
@@ -181,6 +181,10 @@ document.addEventListener("DOMContentLoaded", function () {
       const phone = document.getElementById("farmerPhone")?.value || "";
       const village =
         document.getElementById("farmerVillage")?.value || "Default Village";
+      const district =
+        document.getElementById("farmerDistrict")?.value ||
+        village ||
+        "Default District";
       const state =
         document.getElementById("farmerState")?.value || "Uttar Pradesh";
       const crop =
@@ -204,6 +208,7 @@ document.addEventListener("DOMContentLoaded", function () {
               name: name,
               phone: phone,
               village: village,
+              district: district,
               state: state,
               crop: crop,
               password: password,
@@ -241,6 +246,10 @@ document.addEventListener("DOMContentLoaded", function () {
       const phone = document.getElementById("buyerPhone")?.value || "";
       const city =
         document.getElementById("buyerCity")?.value || "Default City";
+      const district =
+        document.getElementById("buyerDistrict")?.value ||
+        city ||
+        "Default District";
       const state =
         document.getElementById("buyerState")?.value || "Uttar Pradesh";
       const password = document.getElementById("buyerPassword")?.value || "";
@@ -262,6 +271,7 @@ document.addEventListener("DOMContentLoaded", function () {
             business_type: businessType,
             phone: phone,
             city: city,
+            district: district,
             state: state,
             password: password,
           }),
