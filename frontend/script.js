@@ -67,10 +67,10 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("farmerPassword")?.value;
 
       try {
-        const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+        const response = await fetch(`${API_BASE_URL}/api/v1/farmers/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ phone, password, role: "farmer" }),
+          body: JSON.stringify({ phone, password }),
         });
 
         const data = await response.json();
@@ -106,10 +106,10 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("buyerPassword")?.value;
 
       try {
-        const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+        const response = await fetch(`${API_BASE_URL}/api/v1/buyers/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ phone, password, role: "buyer" }),
+          body: JSON.stringify({ phone, password }),
         });
 
         const data = await response.json();
@@ -190,19 +190,21 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       try {
-        const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name,
-            phone,
-            village,
-            state,
-            crop,
-            password,
-            role: "farmer",
-          }),
-        });
+        const response = await fetch(
+          `${API_BASE_URL}/api/v1/farmers/register`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name,
+              phone,
+              village,
+              state,
+              crop,
+              password,
+            }),
+          },
+        );
 
         const data = await response.json();
         if (response.ok) {
@@ -239,7 +241,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       try {
-        const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
+        const response = await fetch(`${API_BASE_URL}/api/v1/buyers/register`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -250,7 +252,6 @@ document.addEventListener("DOMContentLoaded", function () {
             city,
             state,
             password,
-            role: "buyer",
           }),
         });
 
