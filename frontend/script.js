@@ -439,3 +439,68 @@ document
       alert("Server error! Connection verify karein.");
     }
   });
+// ============================================================
+// MY PRODUCE (F6 — GET /api/v1/listings/my) INTEGRATION
+// ============================================================
+async function renderMyProduce() {
+  const produceGrid = document.getElementById("produceGrid");
+  if (!produceGrid) return;
+
+  const token = localStorage.getItem("token");
+  if (!token) {
+    produceGrid.innerHTML = `<p class="text-red-600 font-medium">Please login to view your produce listings.</p>`;
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      "https://krishisetu-api-tiau.onrender.com/api/v1/listings/my",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    const data = await response.json();
+
+    if (response.ok && Array.isArray(data)) {
+      if (data.length === 0) {
+        produceGrid.innerHTML = `<p class="text-[#40493D]">No produce items added yet. Use "+ Sell Produce" to post your crop.</p>`;
+        return;
+      }
+
+      produceGrid.innerHTML = data
+        .map(
+          (item) => `
+        <div class="bg-white rounded-xl border border-[#E0E4DA] p-5 shadow-sm hover:shadow-md transition-shadow">
+          <div class="flex justify-between items-start mb-2">
+            <span class="px-2.5 py-0.5 text-xs font-semibold rounded bg-green-100 text-[#0D631B] uppercase">${item.status || "ACTIVE"}</span>
+            <span class="text-xs text-[#40493D]">${item.district || ""}, ${item.state || ""}</span>
+          </div>
+          <h3 class="text-lg font-bold text-[#181D17]">${item.crop}</h3>
+          <p class="text-xs text-[#40493D] mt-1">${item.description || "No description provided"}</p>
+
+          <div class="mt-4 pt-4 border-t border-[#F1F5EB] flex justify-between items-center">
+            <div>
+              <p class="text-xs text-[#40493D]">Quantity: <strong>${item.quantity} ${item.unit}</strong></p>
+              <p class="text-lg font-bold text-[#0D631B]">₹${item.price} / ${item.unit}</p>
+            </div>
+          </div>
+        </div>
+      `,
+        )
+        .join("");
+    } else {
+      produceGrid.innerHTML = `<p class="text-red-600">Failed to load produce: ${data.message || "Error occurred"}</p>`;
+    }
+  } catch (err) {
+    console.error("Error fetching My Produce:", err);
+    produceGrid.innerHTML = `<p class="text-red-600">Server error loading produce grid.</p>`;
+  }
+}
+
+document.addEventListener("DOMContentLoaded", renderMyProduce);
+window.addEventListener("listingCreated", renderMyProduce);

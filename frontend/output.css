@@ -613,6 +613,9 @@
   .border-\[\#E0E4DA\] {
     border-color: #E0E4DA;
   }
+  .border-\[\#F1F5EB\] {
+    border-color: #F1F5EB;
+  }
   .border-red-200 {
     border-color: var(--color-red-200);
   }
@@ -896,6 +899,9 @@
   .text-white {
     color: var(--color-white);
   }
+  .uppercase {
+    text-transform: uppercase;
+  }
   .underline {
     text-decoration-line: underline;
   }
@@ -1087,6 +1093,9 @@
     .sm\:w-auto {
       width: auto;
     }
+    .sm\:grid-cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
     .sm\:grid-cols-3 {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
@@ -1183,6 +1192,9 @@
     }
     .lg\:hidden {
       display: none;
+    }
+    .lg\:grid-cols-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
     .lg\:flex-row {
       flex-direction: row;
