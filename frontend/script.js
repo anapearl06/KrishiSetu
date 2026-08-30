@@ -504,3 +504,63 @@ async function renderMyProduce() {
 
 document.addEventListener("DOMContentLoaded", renderMyProduce);
 window.addEventListener("listingCreated", renderMyProduce);
+// ============================================================
+// F5 — CREATE CROP LISTING INTEGRATION (POST /api/v1/listings)
+// ============================================================
+const API_BASE_URL = "https://krishisetu-api-tiau.onrender.com";
+
+document
+  .getElementById("createListingForm")
+  ?.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    // 1. LocalStorage se JWT Token extract karein
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Session expired. Kripya login karein.");
+      window.location.href = "./login.html?role=farmer";
+      return;
+    }
+
+    // 2. Form input fields se values read karein
+    const listingPayload = {
+      crop: document.getElementById("cropName")?.value.trim(),
+      quantity: parseFloat(document.getElementById("quantity")?.value),
+      unit: document.getElementById("unit")?.value,
+      price: parseFloat(document.getElementById("price")?.value),
+      state: document.getElementById("state")?.value.trim(),
+      district: document.getElementById("district")?.value.trim(),
+      description: document.getElementById("description")?.value || "",
+    };
+
+    try {
+      // 3. Render API par POST request bhejein
+      const response = await fetch(`${API_BASE_URL}/api/v1/listings`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(listingPayload),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Crop listing created successfully! 🌾");
+
+        // Drawer close karein aur form reset karein
+        const drawer = document.getElementById("createListingDrawer");
+        if (drawer) drawer.classList.add("hidden");
+        e.target.reset();
+
+        // Event trigger karein taaki My Produce screen sync ho sake
+        window.dispatchEvent(new Event("listingCreated"));
+      } else {
+        alert(data.message || data.error || "Failed to create crop listing.");
+      }
+    } catch (err) {
+      console.error("Error creating listing:", err);
+      alert("Server error! Connection verify karein.");
+    }
+  });
