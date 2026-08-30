@@ -1,18 +1,50 @@
 package server
 
 import (
+	"time"
+
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+
 	"github.com/raaj2493/KrishiSetu/internal/buyer"
 	"github.com/raaj2493/KrishiSetu/internal/config"
 	"github.com/raaj2493/KrishiSetu/internal/farmer"
 	"github.com/raaj2493/KrishiSetu/internal/listing"
 	"github.com/raaj2493/KrishiSetu/internal/middleware"
 	"github.com/raaj2493/KrishiSetu/internal/server/response"
+
 	"gorm.io/gorm"
 )
 
 func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 	router := gin.Default()
+
+	// =========================
+	// CORS
+	// =========================
+
+	router.Use(cors.New(cors.Config{
+		AllowOrigins: []string{
+			"http://localhost:3000",
+			"http://localhost:5173",
+			"https://krishisetuio.vercel.app",
+		},
+		AllowMethods: []string{
+			"GET",
+			"POST",
+			"PUT",
+			"DELETE",
+			"OPTIONS",
+		},
+		AllowHeaders: []string{
+			"Origin",
+			"Content-Type",
+			"Accept",
+			"Authorization",
+		},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
 
 	// Health check
 	router.GET("/health", func(c *gin.Context) {
@@ -107,17 +139,26 @@ func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 	// =========================
 
 	listingRepo := listing.NewRepository(db)
+
 	listingService := listing.NewService(listingRepo)
+
 	listingHandler := listing.NewHandler(listingService)
 
 	listings := api.Group("/listings")
+
 	listings.Use(middleware.JWTAuth(cfg.JWTSecret))
+
 	{
 		listings.POST("", listingHandler.CreateListing)
+
 		listings.GET("", listingHandler.ListListings)
+
 		listings.GET("/my", listingHandler.GetMyListings)
+
 		listings.GET("/:id", listingHandler.GetListing)
+
 		listings.PUT("/:id", listingHandler.UpdateListing)
+
 		listings.DELETE("/:id", listingHandler.CancelListing)
 	}
 
