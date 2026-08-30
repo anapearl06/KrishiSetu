@@ -711,3 +711,126 @@ async function deleteListing(id) {
 }
 
 document.addEventListener("DOMContentLoaded", renderMyProduce);
+// ============================================================
+// F10, F11, F12 — BUYER MARKETPLACE CATALOG & DETAILS DRAWER
+// ============================================================
+const BASE_API_URL = "https://krishisetu-api-tiau.onrender.com";
+
+async function loadBrowseCatalog(crop = "", state = "") {
+  const grid = document.getElementById("marketplaceCatalogGrid");
+  if (!grid) return;
+
+  const token = localStorage.getItem("token");
+
+  let params = new URLSearchParams();
+  if (crop) params.append("crop", crop);
+  if (state) params.append("state", state);
+  params.append("status", "ACTIVE");
+
+  try {
+    const res = await fetch(
+      `${BASE_API_URL}/api/v1/listings?${params.toString()}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+      },
+    );
+
+    const data = await res.json();
+
+    if (res.ok && Array.isArray(data)) {
+      if (data.length === 0) {
+        grid.innerHTML = `<p class="text-[#40493D]">No produce available matching criteria.</p>`;
+        return;
+      }
+
+      grid.innerHTML = data
+        .map(
+          (item) => `
+        <div class="bg-white rounded-xl border border-[#E0E4DA] p-5 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start mb-2">
+              <span class="px-2.5 py-0.5 text-xs font-semibold rounded bg-green-100 text-[#0D631B]">VERIFIED FARMER</span>
+              <span class="text-xs text-[#40493D]">${item.district || ""}, ${item.state || ""}</span>
+            </div>
+            <h3 class="text-lg font-bold text-[#181D17]">${item.crop}</h3>
+            <p class="text-xs text-[#40493D] mt-1">${item.description || "Fresh farm harvest"}</p>
+            <div class="mt-4 pt-4 border-t border-[#F1F5EB]">
+              <p class="text-xs text-[#40493D]">Quantity: <strong>${item.quantity} ${item.unit}</strong></p>
+              <p class="text-xl font-bold text-[#75584D]">₹${item.price} / ${item.unit}</p>
+            </div>
+          </div>
+          <button onclick="showListingDetails('${item.crop}', '${item.quantity} ${item.unit}', '₹${item.price} / ${item.unit}', '${item.district || ""}, ${item.state || ""}')" class="w-full mt-4 py-2 bg-[#75584D] text-white text-xs font-bold rounded-lg hover:bg-[#5c443b]">
+            View Details
+          </button>
+        </div>
+      `,
+        )
+        .join("");
+    } else {
+      grid.innerHTML = `<p class="text-red-600">Failed to fetch marketplace catalog.</p>`;
+    }
+  } catch (err) {
+    console.error("Fetch Catalog Error:", err);
+  }
+}
+
+// Search Filter Form Event Listener (F11)
+document
+  .getElementById("marketplaceFilterForm")
+  ?.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const crop = document.getElementById("searchCrop")?.value.trim() || "";
+    const state = document.getElementById("searchState")?.value.trim() || "";
+    loadBrowseCatalog(crop, state);
+  });
+
+// Drawer Controls (F12)
+function showListingDetails(crop, qty, price, location) {
+  document.getElementById("drawerCropTitle").textContent = crop;
+  document.getElementById("drawerQty").textContent = qty;
+  document.getElementById("drawerPrice").textContent = price;
+  document.getElementById("drawerLocation").textContent = location;
+
+  const backdrop = document.getElementById("listingDrawerBackdrop");
+  const drawer = document.getElementById("listingDetailsDrawer");
+
+  backdrop?.classList.remove("hidden");
+  setTimeout(() => {
+    backdrop?.classList.remove("opacity-0");
+    drawer?.classList.remove("translate-x-full");
+  }, 10);
+}
+
+function closeListingDrawer() {
+  const backdrop = document.getElementById("listingDrawerBackdrop");
+  const drawer = document.getElementById("listingDetailsDrawer");
+
+  drawer?.classList.add("translate-x-full");
+  backdrop?.classList.add("opacity-0");
+  setTimeout(() => backdrop?.classList.add("hidden"), 300);
+}
+
+// Offer Modal Handlers (UI Only placeholder)
+function openOfferModal() {
+  document.getElementById("offerModalBackdrop")?.classList.remove("hidden");
+}
+
+function closeOfferModal() {
+  document.getElementById("offerModalBackdrop")?.classList.add("hidden");
+}
+
+function submitOfferPlaceholder() {
+  alert("Offer sent successfully! (UI feature placeholder)");
+  closeOfferModal();
+  closeListingDrawer();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (document.getElementById("marketplaceCatalogGrid")) {
+    loadBrowseCatalog();
+  }
+}); 
