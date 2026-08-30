@@ -639,3 +639,180 @@
 .premium-card:hover .premium-icon {
   transform: scale(1.1) rotate(-5deg);
 }
+
+/* ============================================================
+   HOME HERO (PREMIUM)
+   ============================================================ */
+
+.hero-overlay {
+  background:
+    radial-gradient(
+      60rem 26rem at 50% 32%,
+      rgba(232, 242, 226, 0.32) 0%,
+      rgba(250, 250, 245, 0) 70%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(250, 250, 245, 0.96) 0%,
+      rgba(250, 250, 245, 0.5) 46%,
+      rgba(250, 250, 245, 0.9) 100%
+    );
+}
+
+.hero-chip {
+  display: none;
+  position: absolute;
+  align-items: center;
+  gap: 0.6rem;
+  background: #ffffff;
+  border: 1px solid #e0e4da;
+  border-radius: 1rem;
+  padding: 0.7rem 1rem;
+  box-shadow: 0 12px 30px -12px rgba(13, 99, 27, 0.28);
+  z-index: 5;
+  animation: chipFloat 5s ease-in-out infinite;
+}
+
+@media (min-width: 768px) {
+  .hero-chip {
+    display: flex;
+  }
+}
+
+.hero-chip.chip1 {
+  top: 16%;
+  left: 5%;
+  animation-delay: 0.3s;
+}
+
+.hero-chip.chip2 {
+  top: 32%;
+  right: 4%;
+  animation-delay: 1.2s;
+}
+
+@keyframes chipFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* ---- Stats strip ---- */
+
+.hero-stats {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid #e0e4da;
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  box-shadow: 0 20px 46px -22px rgba(13, 99, 27, 0.32);
+}
+
+.hero-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .hero-stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.hero-stat-value {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #0d631b;
+  line-height: 1.1;
+}
+
+.hero-stat-label {
+  font-size: 0.8rem;
+  color: #40493d;
+  margin-top: 0.25rem;
+}
+
+/* ============================================================
+   LOGIN / REGISTER (BIGGER & POLISHED)
+   ============================================================ */
+
+.auth-outer {
+  width: 100%;
+  max-width: 38rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.auth-panel {
+  position: relative;
+  width: 100%;
+  max-width: 38rem;
+  background: #ffffff;
+  border: 1px solid rgba(191, 202, 186, 0.6);
+  border-radius: 1.25rem;
+  box-shadow:
+    0 22px 48px -20px rgba(13, 99, 27, 0.28),
+    0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.auth-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: linear-gradient(90deg, #2e9e4f, #8bd07c);
+  z-index: 1;
+}
+
+.auth-pad {
+  padding: 1.75rem;
+}
+
+@media (min-width: 640px) {
+  .auth-pad {
+    padding: 2.25rem;
+  }
+}
+
+.auth-title {
+  font-size: 1.75rem;
+  line-height: 1.2;
+}
+
+@media (min-width: 768px) {
+  .auth-title {
+    font-size: 1.9rem;
+  }
+}
+
+.auth-panel input {
+  height: 3.35rem;
+  font-size: 0.95rem;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.auth-panel input:focus {
+  border-color: #2e9e4f;
+  box-shadow: 0 0 0 3px rgba(46, 158, 79, 0.14);
+}
+
+.auth-panel button[type="submit"] {
+  height: 3.35rem;
+  font-size: 1rem;
+  border-radius: 0.65rem;
+}
+
+.role-tab {
+  padding-top: 1.05rem;
+  padding-bottom: 1.05rem;
+}
