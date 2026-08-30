@@ -78,7 +78,6 @@ document.addEventListener("DOMContentLoaded", function () {
           alert("Farmer Login Successful!");
           if (data.token) localStorage.setItem("token", data.token);
 
-          // AUTOMATIC REDIRECT TO FARMER DASHBOARD
           window.location.href = "./farmer-dashboard.html";
         } else {
           alert(
@@ -87,9 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       } catch (error) {
         console.error("Error connecting to backend:", error);
-        alert(
-          "Server Error! Render API might be starting up, please try again in 15 seconds.",
-        );
+        alert("Server Error! Render backend waking up.");
       }
     });
   }
@@ -117,7 +114,6 @@ document.addEventListener("DOMContentLoaded", function () {
           alert("Buyer Login Successful!");
           if (data.token) localStorage.setItem("token", data.token);
 
-          // AUTOMATIC REDIRECT TO BUYER DASHBOARD
           window.location.href = "./buyer-dashboard.html";
         } else {
           alert(
@@ -215,7 +211,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       } catch (error) {
         console.error("Error connecting to backend:", error);
-        alert("Server Error! Render backend might be waking up.");
+        alert("Server Error!");
       }
     });
   }
