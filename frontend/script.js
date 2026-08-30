@@ -6,7 +6,90 @@
 
 const API_BASE_URL = "https://krishisetu-api-tiau.onrender.com";
 
+// ============================================================
+// ANIMATED FARM SCENERY (login / register backgrounds)
+// ============================================================
+function buildFarmland() {
+  const container = document.getElementById("farmScenery");
+  if (!container) return;
+
+  let html = '<div class="sun"></div>';
+  html += '<div class="farm-hill-back"></div>';
+  html += '<div class="farm-field"></div>';
+
+  // Back row (small, higher) + front row (bigger, lower)
+  const rows = [
+    { top: 12, count: 10, size: 15 },
+    { top: 32, count: 7, size: 23 },
+  ];
+
+  rows.forEach(function (row) {
+    for (let i = 0; i < row.count; i++) {
+      const frac = (i + 0.5) / row.count;
+      const x = frac * 100 + (Math.random() * 6 - 3);
+      const delay = (Math.random() * 2.5).toFixed(2);
+      html +=
+        '<div class="crop" style="left:' +
+        x.toFixed(1) +
+        "%;top:" +
+        row.top +
+        "%;font-size:" +
+        row.size +
+        "px;--delay:" +
+        delay +
+        's">';
+      html +=
+        '<div class="stalk"></div><div class="leaf l"></div><div class="leaf r"></div><div class="head"></div>';
+      html += "</div>";
+    }
+  });
+
+  // Small floating sparkles
+  for (let s = 0; s < 4; s++) {
+    const sx = 10 + Math.random() * 80;
+    const sy = 6 + Math.random() * 26;
+    const sd = (Math.random() * 3).toFixed(2);
+    const size = 4 + Math.random() * 6;
+    html +=
+      '<div class="sparkle" style="left:' +
+      sx.toFixed(1) +
+      "%;top:" +
+      sy.toFixed(1) +
+      "%;width:" +
+      size.toFixed(1) +
+      "px;height:" +
+      size.toFixed(1) +
+      "px;--delay:" +
+      sd +
+      's"></div>';
+  }
+
+  container.innerHTML = html;
+}
+
+// ============================================================
+// SHOW / HIDE PASSWORD TOGGLES
+// ============================================================
+function setupPasswordToggles() {
+  document.querySelectorAll(".password-toggle").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      const id = this.getAttribute("data-target");
+      const input = document.getElementById(id);
+      if (!input) return;
+      const wasHidden = input.type === "password";
+      input.type = wasHidden ? "text" : "password";
+      this.textContent = wasHidden ? "🙈" : "👁️";
+    });
+  });
+}
+
 document.addEventListener("DOMContentLoaded", function () {
+  // Build the animated farm scene (login / register pages only)
+  buildFarmland();
+
+  // Wire up password eye toggles
+  setupPasswordToggles();
+
   // HELPER: Fetch role from URL query params
   function getRoleFromURL() {
     const params = new URLSearchParams(window.location.search);
