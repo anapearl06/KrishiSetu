@@ -27,6 +27,7 @@
         id="loginBackgroundOverlay"
         class="absolute inset-0 bg-[#F4F8F0]/55 transition-colors duration-500"
       ></div>
+      <div id="farmScenery" class="farm-scenery"></div>
     </div>
 
     <main class="relative z-10 w-full max-w-md mx-4 py-8 sm:py-10">
@@ -35,12 +36,12 @@
           <img
             src="./assets/images/krishisetu_logo.png"
             alt="KrishiSetu Logo"
-            class="w-14 h-14 object-contain transition-transform duration-300 hover:scale-105"
+            class="login-logo"
           />
         </div>
         <h1
           id="loginBrand"
-          class="text-[32px] md:text-[44px] leading-tight font-bold text-[#0D631B] mb-2 transition-colors duration-500"
+          class="brand-name text-[32px] md:text-[44px] leading-tight font-bold mb-2 transition-colors duration-500"
         >
           KrishiSetu
         </h1>
@@ -100,13 +101,23 @@
                 class="block text-sm font-medium text-[#181D17] mb-1"
                 >Password</label
               >
-              <input
-                id="farmerPassword"
-                type="password"
-                placeholder="Enter password"
-                required
-                class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
-              />
+              <div class="password-wrap">
+                <input
+                  id="farmerPassword"
+                  type="password"
+                  placeholder="Enter password"
+                  required
+                  class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
+                />
+                <button
+                  type="button"
+                  class="password-toggle"
+                  data-target="farmerPassword"
+                  aria-label="Show password"
+                >
+                  👁️
+                </button>
+              </div>
             </div>
             <button
               type="submit"
@@ -137,13 +148,23 @@
                 class="block text-sm font-medium text-[#181D17] mb-1"
                 >Password</label
               >
-              <input
-                id="buyerPassword"
-                type="password"
-                placeholder="Enter password"
-                required
-                class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
-              />
+              <div class="password-wrap">
+                <input
+                  id="buyerPassword"
+                  type="password"
+                  placeholder="Enter password"
+                  required
+                  class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
+                />
+                <button
+                  type="button"
+                  class="password-toggle"
+                  data-target="buyerPassword"
+                  aria-label="Show password"
+                >
+                  👁️
+                </button>
+              </div>
             </div>
             <button
               type="submit"
