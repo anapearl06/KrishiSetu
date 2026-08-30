@@ -564,3 +564,150 @@ document
       alert("Server error! Connection verify karein.");
     }
   });
+// ============================================================
+// F6, F8, F9 — MY PRODUCE GRID, EDIT & DELETE INTEGRATION
+// ============================================================
+
+// 1. Render My Produce Cards with Action Buttons (F6)
+async function renderMyProduce() {
+  const produceGrid = document.getElementById("produceGrid");
+  if (!produceGrid) return;
+
+  const token = localStorage.getItem("token");
+  if (!token) {
+    produceGrid.innerHTML = `<p class="text-red-600 font-medium">Please login to view your produce listings.</p>`;
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      "https://krishisetu-api-tiau.onrender.com/api/v1/listings/my",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    const data = await response.json();
+
+    if (response.ok && Array.isArray(data)) {
+      if (data.length === 0) {
+        produceGrid.innerHTML = `<p class="text-[#40493D]">No produce items added yet. Use "+ Sell Produce" to post your crop.</p>`;
+        return;
+      }
+
+      produceGrid.innerHTML = data
+        .map(
+          (item) => `
+        <div class="bg-white rounded-xl border border-[#E0E4DA] p-5 shadow-sm hover:shadow-md transition-shadow">
+          <div class="flex justify-between items-start mb-2">
+            <span class="px-2.5 py-0.5 text-xs font-semibold rounded bg-green-100 text-[#0D631B] uppercase">${item.status || "ACTIVE"}</span>
+            <span class="text-xs text-[#40493D]">${item.district || ""}, ${item.state || ""}</span>
+          </div>
+          <h3 class="text-lg font-bold text-[#181D17]">${item.crop}</h3>
+          <p class="text-xs text-[#40493D] mt-1">${item.description || "No description provided"}</p>
+
+          <div class="mt-4 pt-4 border-t border-[#F1F5EB] flex justify-between items-center">
+            <div>
+              <p class="text-xs text-[#40493D]">Quantity: <strong>${item.quantity} ${item.unit}</strong></p>
+              <p class="text-lg font-bold text-[#0D631B]">₹${item.price} / ${item.unit}</p>
+            </div>
+            <div class="flex gap-2">
+              <button onclick="openEditModal('${item.id}', ${item.price}, ${item.quantity})" class="px-3 py-1.5 bg-amber-50 text-amber-700 border border-amber-200 text-xs font-semibold rounded-md hover:bg-amber-100">Edit</button>
+              <button onclick="deleteListing('${item.id}')" class="px-3 py-1.5 bg-red-50 text-red-600 border border-red-200 text-xs font-semibold rounded-md hover:bg-red-100">Cancel</button>
+            </div>
+          </div>
+        </div>
+      `,
+        )
+        .join("");
+    } else {
+      produceGrid.innerHTML = `<p class="text-red-600">Failed to load produce: ${data.message || "Error occurred"}</p>`;
+    }
+  } catch (err) {
+    console.error("Error fetching My Produce:", err);
+    produceGrid.innerHTML = `<p class="text-red-600">Server error loading produce grid.</p>`;
+  }
+}
+
+// 2. Open / Close Edit Modal (F8)
+function openEditModal(id, price, quantity) {
+  document.getElementById("editId").value = id;
+  document.getElementById("editPrice").value = price;
+  document.getElementById("editQuantity").value = quantity;
+  document.getElementById("editModal").classList.remove("hidden");
+}
+
+function closeEditModal() {
+  document.getElementById("editModal").classList.add("hidden");
+}
+
+// 3. Edit Form Submit (PUT /api/v1/listings/:id) (F8)
+document
+  .getElementById("editForm")
+  ?.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const id = document.getElementById("editId").value;
+    const token = localStorage.getItem("token");
+
+    const payload = {
+      price: parseFloat(document.getElementById("editPrice").value),
+      quantity: parseFloat(document.getElementById("editQuantity").value),
+    };
+
+    try {
+      const res = await fetch(
+        `https://krishisetu-api-tiau.onrender.com/api/v1/listings/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(payload),
+        },
+      );
+
+      if (res.ok) {
+        alert("Listing updated successfully!");
+        closeEditModal();
+        renderMyProduce();
+      } else {
+        alert("Failed to update listing.");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  });
+
+// 4. Cancel/Delete Listing (DELETE /api/v1/listings/:id) (F9)
+async function deleteListing(id) {
+  if (!confirm("Are you sure you want to cancel this crop listing?")) return;
+
+  const token = localStorage.getItem("token");
+  try {
+    const res = await fetch(
+      `https://krishisetu-api-tiau.onrender.com/api/v1/listings/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    if (res.ok) {
+      alert("Listing canceled successfully!");
+      renderMyProduce();
+    } else {
+      alert("Failed to cancel listing.");
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", renderMyProduce);
