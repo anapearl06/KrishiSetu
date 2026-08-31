@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KrishiSetu | Sent Offers</title>
+    <link rel="stylesheet" href="./output.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body
+    class="bg-[#FAFAF5] text-[#181D17] font-['Inter'] min-h-screen flex flex-col lg:flex-row"
+  >
+    <!-- DESKTOP SIDEBAR -->
+    <aside
+      class="hidden lg:flex flex-col w-64 bg-white border-r border-[#E0E4DA] min-h-screen p-5 fixed left-0 top-0 bottom-0 z-40"
+    >
+      <a href="./index.html" class="flex items-center gap-3 mb-8 px-2">
+        <img
+          src="./assets/images/krishisetu_logo.png"
+          alt="Logo"
+          class="h-9 w-9 object-contain"
+        />
+        <span class="text-xl font-bold text-[#75584D]">KrishiSetu</span>
+      </a>
+      <nav class="flex flex-col gap-2 flex-1">
+        <a
+          href="./buyer-dashboard.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#40493D] hover:bg-[#F1F5EB] font-medium"
+        >
+          <span>📊</span> Dashboard
+        </a>
+        <a
+          href="./browse-produce.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#40493D] hover:bg-[#F1F5EB] font-medium"
+        >
+          <span>🛒</span> Browse Produce
+        </a>
+        <a
+          href="./buyer-offers.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-lg bg-[#75584D] text-white font-medium shadow-sm"
+        >
+          <span>🤝</span> Sent Offers
+        </a>
+        <a
+          href="./buyer-orders.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#40493D] hover:bg-[#F1F5EB] font-medium"
+        >
+          <span>📦</span> My Orders
+        </a>
+      </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="flex-1 lg:ml-64 pb-20 lg:pb-8">
+      <header
+        class="bg-white/90 backdrop-blur-sm border-b border-[#E0E4DA] sticky top-0 z-30 px-4 md:px-8 py-4"
+      >
+        <h1 class="text-xl md:text-2xl font-bold text-[#181D17]">
+          Sent Offers
+        </h1>
+        <p class="text-xs md:text-sm text-[#40493D]">
+          Track status of offers submitted to farmers
+        </p>
+      </header>
+
+      <main class="max-w-7xl mx-auto px-4 md:px-8 py-6">
+        <div id="sentOffersContainer" class="space-y-4">
+          <p class="text-sm text-gray-500">Loading sent offers...</p>
+        </div>
+      </main>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
