@@ -1,9 +1,15 @@
 package server
 
 import (
+	"time"
+
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+<<<<<<< HEAD
 	"gorm.io/gorm"
 
+=======
+>>>>>>> tmp-pr-merge
 	"github.com/raaj2493/KrishiSetu/internal/buyer"
 	"github.com/raaj2493/KrishiSetu/internal/config"
 	"github.com/raaj2493/KrishiSetu/internal/demand"
@@ -11,14 +17,49 @@ import (
 	"github.com/raaj2493/KrishiSetu/internal/listing"
 	"github.com/raaj2493/KrishiSetu/internal/middleware"
 	"github.com/raaj2493/KrishiSetu/internal/offer"
+<<<<<<< HEAD
+=======
+	"github.com/raaj2493/KrishiSetu/internal/order"
+>>>>>>> tmp-pr-merge
 	"github.com/raaj2493/KrishiSetu/internal/server/response"
+
+	"gorm.io/gorm"
 )
 
 func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 	router := gin.Default()
 
+<<<<<<< HEAD
 	// CORS middleware for Vercel frontend
 	router.Use(middleware.CORS())
+=======
+	// =========================
+	// CORS
+	// =========================
+
+	router.Use(cors.New(cors.Config{
+		AllowOrigins: []string{
+			"http://localhost:3000",
+			"http://localhost:5173",
+			"https://krishisetuio.vercel.app",
+		},
+		AllowMethods: []string{
+			"GET",
+			"POST",
+			"PUT",
+			"DELETE",
+			"OPTIONS",
+		},
+		AllowHeaders: []string{
+			"Origin",
+			"Content-Type",
+			"Accept",
+			"Authorization",
+		},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
+>>>>>>> tmp-pr-merge
 
 	// Health check
 	router.GET("/health", func(c *gin.Context) {
@@ -26,6 +67,9 @@ func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 			"status": "ok",
 		})
 	})
+
+	// API version 1 root group
+	api := router.Group("/api/v1")
 
 	// =========================
 	// Farmer
@@ -41,7 +85,7 @@ func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 
 	farmerHandler := farmer.NewHandler(farmerService)
 
-	farmerRoutes := router.Group("/api/v1/farmers")
+	farmerRoutes := api.Group("/farmers")
 	{
 		farmerRoutes.POST(
 			"/register",
@@ -80,7 +124,7 @@ func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 
 	buyerHandler := buyer.NewHandler(buyerService)
 
-	buyerRoutes := router.Group("/api/v1/buyers")
+	buyerRoutes := api.Group("/buyers")
 	{
 		buyerRoutes.POST(
 			"/register",
@@ -113,7 +157,7 @@ func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 	listingService := listing.NewService(listingRepo)
 	listingHandler := listing.NewHandler(listingService)
 
-	listingRoutes := router.Group("/api/v1/listings")
+	listingRoutes := api.Group("/listings")
 	{
 		// Public: browse marketplace
 		listingRoutes.GET(
@@ -155,7 +199,11 @@ func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 	demandService := demand.NewService(demandRepo)
 	demandHandler := demand.NewHandler(demandService)
 
+<<<<<<< HEAD
 	demandRoutes := router.Group("/api/v1/demands")
+=======
+	demandRoutes := api.Group("/demands")
+>>>>>>> tmp-pr-merge
 	{
 		// Public: browse all demands
 		demandRoutes.GET(
@@ -209,9 +257,15 @@ func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 		return listing.FarmerID, nil
 	})
 
+<<<<<<< HEAD
 	offerRoutes := router.Group("/api/v1/offers")
 	{
 		// Public: view offers for a listing (optional auth handled in handlers)
+=======
+	offerRoutes := api.Group("/offers")
+	{
+		// View offers for a listing
+>>>>>>> tmp-pr-merge
 		offerRoutes.GET(
 			"/listing/:id",
 			middleware.JWTAuth(cfg.JWTSecret),
@@ -244,5 +298,45 @@ func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 		)
 	}
 
+<<<<<<< HEAD
 	return router
 }
+=======
+	// =========================
+	// Orders
+	// =========================
+
+	orderRepo := order.NewRepository(db)
+	orderService := order.NewService(orderRepo)
+	orderHandler := order.NewHandler(orderService)
+
+	orderRoutes := api.Group("/orders")
+	{
+		orderRoutes.GET(
+			"",
+			middleware.JWTAuth(cfg.JWTSecret),
+			orderHandler.ListOrders,
+		)
+
+		orderRoutes.GET(
+			"/:id",
+			middleware.JWTAuth(cfg.JWTSecret),
+			orderHandler.GetOrder,
+		)
+
+		orderRoutes.POST(
+			"",
+			middleware.JWTAuth(cfg.JWTSecret),
+			orderHandler.CreateOrder,
+		)
+
+		orderRoutes.PUT(
+			"/:id/status",
+			middleware.JWTAuth(cfg.JWTSecret),
+			orderHandler.UpdateOrderStatus,
+		)
+	}
+
+	return router
+}
+>>>>>>> tmp-pr-merge
