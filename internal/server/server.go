@@ -5,12 +5,13 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/raaj2493/KrishiSetu/internal/offer"
 	"github.com/raaj2493/KrishiSetu/internal/buyer"
 	"github.com/raaj2493/KrishiSetu/internal/config"
+	"github.com/raaj2493/KrishiSetu/internal/demand"
 	"github.com/raaj2493/KrishiSetu/internal/farmer"
 	"github.com/raaj2493/KrishiSetu/internal/listing"
 	"github.com/raaj2493/KrishiSetu/internal/middleware"
+	"github.com/raaj2493/KrishiSetu/internal/offer"
 	"github.com/raaj2493/KrishiSetu/internal/order"
 	"github.com/raaj2493/KrishiSetu/internal/server/response"
 
@@ -133,6 +134,34 @@ func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 			middleware.JWTAuth(cfg.JWTSecret),
 			buyerHandler.UpdateProfile,
 		)
+	}
+
+	// =========================
+	// Demands
+	// =========================
+
+	demandRepo := demand.NewRepository(db)
+
+	demandService := demand.NewService(demandRepo)
+
+	demandHandler := demand.NewHandler(demandService)
+
+	demands := api.Group("/demands")
+
+	demands.Use(middleware.JWTAuth(cfg.JWTSecret))
+
+	{
+		demands.POST("", demandHandler.CreateDemand)
+
+		demands.GET("", demandHandler.ListDemands)
+
+		demands.GET("/my", demandHandler.GetMyDemands)
+
+		demands.GET("/:id", demandHandler.GetDemand)
+
+		demands.PUT("/:id", demandHandler.UpdateDemand)
+
+		demands.DELETE("/:id", demandHandler.CancelDemand)
 	}
 
 	// =========================
