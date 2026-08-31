@@ -845,3 +845,206 @@ async function renderMyDemands() {
 }
 
 document.addEventListener("DOMContentLoaded", renderMyDemands);
+// ============================================================
+// F20, F21 & F22 — OFFERS MANAGEMENT API INTEGRATION
+// ============================================================
+
+// 1. MAKE OFFER (F20 — POST /api/v1/offers)
+async function submitOffer(listingId, quantity, price, message = "") {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    alert("Session expired. Please login as buyer.");
+    window.location.href = "./login.html?role=buyer";
+    return;
+  }
+
+  const payload = {
+    listing_id: listingId,
+    quantity: parseFloat(quantity),
+    offered_price: parseFloat(price),
+    message: message,
+  };
+
+  try {
+    const res = await fetch(
+      "https://krishisetu-api-tiau.onrender.com/api/v1/offers",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(payload),
+      },
+    );
+
+    const data = await res.json();
+    if (res.ok) {
+      alert("Offer sent successfully to the farmer! 🎉");
+      if (typeof closeOfferModal === "function") closeOfferModal();
+    } else {
+      alert(data.message || data.error || "Failed to send offer.");
+    }
+  } catch (err) {
+    console.error("Error sending offer:", err);
+  }
+}
+
+// 2. BUYER SENT OFFERS (F21 — GET /api/v1/offers/buyer)
+async function renderBuyerOffers() {
+  const container = document.getElementById("buyerOffersList");
+  if (!container) return;
+
+  const token = localStorage.getItem("token");
+  if (!token) {
+    container.innerHTML = `<p class="text-red-600 font-medium">Please login to view sent offers.</p>`;
+    return;
+  }
+
+  try {
+    const res = await fetch(
+      "https://krishisetu-api-tiau.onrender.com/api/v1/offers/buyer",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    const data = await res.json();
+    if (res.ok && Array.isArray(data)) {
+      if (data.length === 0) {
+        container.innerHTML = `<p class="text-[#40493D]">No offers sent yet.</p>`;
+        return;
+      }
+
+      container.innerHTML = data
+        .map(
+          (item) => `
+        <div class="bg-white rounded-xl border border-[#E0E4DA] p-5 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div>
+            <span class="px-2.5 py-0.5 text-xs font-semibold rounded ${
+              item.status === "ACCEPTED"
+                ? "bg-green-100 text-green-800"
+                : item.status === "REJECTED"
+                  ? "bg-red-100 text-red-800"
+                  : "bg-amber-100 text-amber-800"
+            } uppercase">${item.status || "PENDING"}</span>
+            <h3 class="text-lg font-bold text-[#181D17] mt-2">${item.crop || "Produce Listing"}</h3>
+            <p class="text-xs text-[#40493D] mt-1">${item.message || "No additional message"}</p>
+          </div>
+          <div class="text-right">
+            <p class="text-xs text-[#40493D]">Offered Qty: <strong>${item.quantity}</strong></p>
+            <p class="text-lg font-bold text-[#0D631B]">₹${item.offered_price} / unit</p>
+          </div>
+        </div>
+      `,
+        )
+        .join("");
+    } else {
+      container.innerHTML = `<p class="text-red-600">Failed to load offers.</p>`;
+    }
+  } catch (err) {
+    console.error("Error fetching buyer offers:", err);
+  }
+}
+
+// 3. FARMER RECEIVED OFFERS (F22 — GET /api/v1/offers/farmer & POST Accept/Reject)
+async function renderFarmerOffers() {
+  const container = document.getElementById("farmerOffersList");
+  if (!container) return;
+
+  const token = localStorage.getItem("token");
+  if (!token) {
+    container.innerHTML = `<p class="text-red-600 font-medium">Please login to view incoming offers.</p>`;
+    return;
+  }
+
+  try {
+    const res = await fetch(
+      "https://krishisetu-api-tiau.onrender.com/api/v1/offers/farmer",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    const data = await res.json();
+    if (res.ok && Array.isArray(data)) {
+      if (data.length === 0) {
+        container.innerHTML = `<p class="text-[#40493D]">No incoming offers received yet.</p>`;
+        return;
+      }
+
+      container.innerHTML = data
+        .map(
+          (item) => `
+        <div class="bg-white rounded-xl border border-[#E0E4DA] p-5 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div>
+            <span class="px-2.5 py-0.5 text-xs font-semibold rounded bg-amber-100 text-amber-800 uppercase">${item.status || "PENDING"}</span>
+            <h3 class="text-lg font-bold text-[#181D17] mt-1">${item.crop || "Produce Listing"}</h3>
+            <p class="text-xs text-[#40493D]">Offer from Buyer: <strong>${item.buyer_name || "Buyer"}</strong></p>
+            <p class="text-xs text-[#40493D] mt-1">Note: ${item.message || "None"}</p>
+          </div>
+          <div class="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end">
+            <div>
+              <p class="text-xs text-[#40493D]">Qty: <strong>${item.quantity}</strong></p>
+              <p class="text-lg font-bold text-[#0D631B]">₹${item.offered_price} / unit</p>
+            </div>
+            ${
+              item.status === "PENDING"
+                ? `
+              <div class="flex gap-2">
+                <button onclick="handleOfferAction('${item.id}', 'accept')" class="px-4 py-2 bg-[#0D631B] text-white text-xs font-bold rounded-lg hover:bg-[#095516]">Accept</button>
+                <button onclick="handleOfferAction('${item.id}', 'reject')" class="px-4 py-2 bg-red-50 text-red-600 border border-red-200 text-xs font-bold rounded-lg hover:bg-red-100">Reject</button>
+              </div>
+            `
+                : ""
+            }
+          </div>
+        </div>
+      `,
+        )
+        .join("");
+    } else {
+      container.innerHTML = `<p class="text-red-600">Failed to load received offers.</p>`;
+    }
+  } catch (err) {
+    console.error("Error fetching farmer offers:", err);
+  }
+}
+
+// 4. ACCEPT / REJECT OFFER ACTION
+async function handleOfferAction(offerId, action) {
+  const token = localStorage.getItem("token");
+  try {
+    const res = await fetch(
+      `https://krishisetu-api-tiau.onrender.com/api/v1/offers/${offerId}/${action}`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    if (res.ok) {
+      alert(`Offer ${action}ed successfully!`);
+      renderFarmerOffers();
+    } else {
+      alert(`Failed to ${action} offer.`);
+    }
+  } catch (err) {
+    console.error(`Error during offer ${action}:`, err);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderBuyerOffers();
+  renderFarmerOffers();
+});
