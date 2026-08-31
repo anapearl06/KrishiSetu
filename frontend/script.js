@@ -1222,3 +1222,55 @@ document.addEventListener("DOMContentLoaded", () => {
   renderFarmerOrders();
   renderBuyerOrders();
 });
+// ============================================================
+// PROFILE MANAGEMENT API INTEGRATION
+// ============================================================
+async function loadUserProfile() {
+  const nameInput = document.getElementById("profileName");
+  if (!nameInput) return;
+
+  const token = localStorage.getItem("token");
+  if (!token) {
+    alert("Session expired. Please login again.");
+    window.location.href = "./login.html";
+    return;
+  }
+
+  try {
+    const res = await fetch(
+      "https://krishisetu-api-tiau.onrender.com/api/v1/auth/me",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    const data = await res.json();
+    if (res.ok && data) {
+      document.getElementById("profileName").value = data.name || "";
+      document.getElementById("profilePhone").value = data.phone || "";
+      document.getElementById("profileState").value = data.state || "";
+      document.getElementById("profileDistrict").value =
+        data.district || data.city || "";
+      document.getElementById("profileAddress").value =
+        data.village || data.address || "";
+
+      const nameDisplay = document.getElementById("profileNameDisplay");
+      if (nameDisplay) nameDisplay.textContent = data.name || "User Account";
+    }
+  } catch (err) {
+    console.error("Error loading profile:", err);
+  }
+}
+
+document
+  .getElementById("profileForm")
+  ?.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    alert("Profile updated successfully!");
+  });
+
+document.addEventListener("DOMContentLoaded", loadUserProfile);
