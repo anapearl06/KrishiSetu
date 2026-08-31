@@ -7,6 +7,7 @@ import (
 	"github.com/raaj2493/KrishiSetu/internal/buyer"
 	"github.com/raaj2493/KrishiSetu/internal/config"
 	"github.com/raaj2493/KrishiSetu/internal/farmer"
+	"github.com/raaj2493/KrishiSetu/internal/listing"
 	"github.com/raaj2493/KrishiSetu/internal/middleware"
 	"github.com/raaj2493/KrishiSetu/internal/server/response"
 )
@@ -96,6 +97,48 @@ func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 			"/me",
 			middleware.JWTAuth(cfg.JWTSecret),
 			buyerHandler.UpdateProfile,
+		)
+	}
+
+	// =========================
+	// Listings
+	// =========================
+
+	listingRepo := listing.NewRepository(db)
+	listingService := listing.NewService(listingRepo)
+	listingHandler := listing.NewHandler(listingService)
+
+	listingRoutes := router.Group("/api/v1/listings")
+	{
+		// Public: browse marketplace
+		listingRoutes.GET(
+			"",
+			listingHandler.Browse,
+		)
+
+		// Protected: farmer listing management
+		listingRoutes.POST(
+			"",
+			middleware.JWTAuth(cfg.JWTSecret),
+			listingHandler.Create,
+		)
+
+		listingRoutes.GET(
+			"/my",
+			middleware.JWTAuth(cfg.JWTSecret),
+			listingHandler.GetMyListings,
+		)
+
+		listingRoutes.PUT(
+			"/:id",
+			middleware.JWTAuth(cfg.JWTSecret),
+			listingHandler.Update,
+		)
+
+		listingRoutes.DELETE(
+			"/:id",
+			middleware.JWTAuth(cfg.JWTSecret),
+			listingHandler.Delete,
 		)
 	}
 
