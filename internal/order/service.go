@@ -59,7 +59,7 @@ func (s *service) AcceptOffer(
 
 	var createdOrder *Order
 
-		err := s.db.WithContext(c).Transaction(func(tx *gorm.DB) error {
+	err := s.db.WithContext(c).Transaction(func(tx *gorm.DB) error {
 
 		// --------------------------------
 		// 1. Get Offer
