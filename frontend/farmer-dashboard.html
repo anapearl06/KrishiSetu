@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KrishiSetu | Farmer Dashboard</title>
+    <link rel="stylesheet" href="./output.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body
+    class="bg-[#F4F8F0] text-[#181D17] font-['Inter'] min-h-screen flex flex-col lg:flex-row"
+  >
+    <!-- ================= DESKTOP SIDEBAR ================= -->
+    <aside
+      class="hidden lg:flex flex-col w-64 bg-white border-r border-[#E0E4DA] min-h-screen p-5 fixed left-0 top-0 bottom-0 z-40"
+    >
+      <!-- LOGO -->
+      <a href="./index.html" class="brand mb-8 px-2">
+        <img
+          src="./assets/images/krishisetu_logo.png"
+          alt="KrishiSetu Logo"
+          class="brand-logo"
+        />
+        <span class="brand-name text-xl font-bold">KrishiSetu</span>
+      </a>
+
+      <!-- NAVIGATION LINKS -->
+      <nav class="flex flex-col gap-2 flex-1">
+        <a
+          href="./farmer-dashboard.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-lg bg-[#0D631B] text-white font-medium shadow-sm"
+        >
+          <span>📊</span> Dashboard
+        </a>
+        <a
+          href="./my-listings.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#40493D] hover:bg-[#F1F5EB] font-medium transition-colors"
+        >
+          <span>🌾</span> My Produce
+        </a>
+        <a
+          href="#my-offers"
+          class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#40493D] hover:bg-[#F1F5EB] font-medium transition-colors"
+        >
+          <span>🤝</span> Incoming Offers
+        </a>
+        <a
+          href="#my-orders"
+          class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#40493D] hover:bg-[#F1F5EB] font-medium transition-colors"
+        >
+          <span>📦</span> My Orders
+        </a>
+        <a
+          href="#market-prices"
+          class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#40493D] hover:bg-[#F1F5EB] font-medium transition-colors"
+        >
+          <span>📈</span> Market Prices
+        </a>
+        <a
+          href="#profile"
+          class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#40493D] hover:bg-[#F1F5EB] font-medium transition-colors"
+        >
+          <span>👤</span> Profile
+        </a>
+      </nav>
+
+      <!-- USER PROFILE MINI CARD -->
+      <div
+        class="border-t border-[#E0E4DA] pt-4 flex items-center justify-between"
+      >
+        <div class="flex items-center gap-3">
+          <div
+            class="w-10 h-10 rounded-full bg-[#0D631B]/10 flex items-center justify-center font-bold text-[#0D631B]"
+          >
+            R
+          </div>
+          <div>
+            <p class="text-sm font-semibold text-[#181D17]">Ramesh Kumar</p>
+            <p class="text-xs text-[#40493D]">Farmer Account</p>
+          </div>
+        </div>
+        <a
+          href="./login.html"
+          class="text-xs text-red-600 font-medium hover:underline"
+          >Logout</a
+        >
+      </div>
+    </aside>
+
+    <!-- ================= MAIN CONTENT AREA ================= -->
+    <div class="flex-1 lg:ml-64 pb-20 lg:pb-8">
+      <!-- TOP BAR -->
+      <header
+        class="bg-white/90 backdrop-blur-sm border-b border-[#E0E4DA] sticky top-0 z-30 px-4 md:px-8 py-4 flex items-center justify-between"
+      >
+        <div>
+          <h1 class="text-xl md:text-2xl font-bold text-[#181D17]">
+            Farmer Dashboard
+          </h1>
+          <p class="text-xs md:text-sm text-[#40493D]">
+            Welcome back, Ramesh 👋
+          </p>
+        </div>
+
+        <button
+          id="openDrawerBtn"
+          class="bg-[#0D631B] text-white font-medium px-4 md:px-5 py-2.5 rounded-lg shadow-sm hover:bg-[#095516] transition-transform duration-200 active:scale-95 flex items-center gap-2 text-sm"
+        >
+          <span class="text-lg">+</span> Sell Produce
+        </button>
+      </header>
+
+      <!-- DASHBOARD BODY CONTENT -->
+      <main class="max-w-7xl mx-auto px-4 md:px-8 py-6 space-y-8">
+        <!-- SUMMARY CARDS GRID -->
+        <section class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+          <!-- CARD 1 -->
+          <div
+            class="bg-white p-6 rounded-xl border border-[#E0E4DA] shadow-sm flex items-center justify-between"
+          >
+            <div>
+              <p class="text-sm text-[#40493D] font-medium">Active Listings</p>
+              <h3 class="text-3xl font-bold text-[#0D631B] mt-1">4</h3>
+            </div>
+            <div
+              class="w-12 h-12 rounded-lg bg-[#0D631B]/10 flex items-center justify-center text-xl"
+            >
+              🌾
+            </div>
+          </div>
+
+          <!-- CARD 2 -->
+          <div
+            class="bg-white p-6 rounded-xl border border-[#E0E4DA] shadow-sm flex items-center justify-between"
+          >
+            <div>
+              <p class="text-sm text-[#40493D] font-medium">New Offers</p>
+              <h3 class="text-3xl font-bold text-[#75584D] mt-1">3</h3>
+            </div>
+            <div
+              class="w-12 h-12 rounded-lg bg-[#75584D]/10 flex items-center justify-center text-xl"
+            >
+              🤝
+            </div>
+          </div>
+
+          <!-- CARD 3 -->
+          <div
+            class="bg-white p-6 rounded-xl border border-[#E0E4DA] shadow-sm flex items-center justify-between"
+          >
+            <div>
+              <p class="text-sm text-[#40493D] font-medium">Active Orders</p>
+              <h3 class="text-3xl font-bold text-[#181D17] mt-1">2</h3>
+            </div>
+            <div
+              class="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center text-xl"
+            >
+              📦
+            </div>
+          </div>
+        </section>
+
+        <!-- RECENT OFFERS SECTION -->
+        <section
+          class="bg-white rounded-xl border border-[#E0E4DA] p-6 shadow-sm"
+        >
+          <div class="flex items-center justify-between mb-5">
+            <h2 class="text-lg font-bold text-[#181D17]">
+              Recent Incoming Offers
+            </h2>
+            <a
+              href="#my-offers"
+              class="text-sm text-[#0D631B] font-medium hover:underline"
+              >View All</a
+            >
+          </div>
+
+          <div class="space-y-4">
+            <!-- OFFER CARD 1 -->
+            <div
+              class="border border-[#E0E4DA] p-4 rounded-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-4 hover:border-[#0D631B]/40 transition-colors"
+            >
+              <div>
+                <span
+                  class="inline-block px-2.5 py-0.5 text-xs font-semibold rounded bg-amber-100 text-amber-800 mb-2"
+                  >Pending</span
+                >
+                <h4 class="font-bold text-[#181D17]">
+                  Sharma Organics — Wheat (Sharbati)
+                </h4>
+                <p class="text-sm text-[#40493D]">
+                  Offered:
+                  <strong class="text-[#0D631B]">₹2,450 / Quintal</strong> (Qty:
+                  50 Quintals)
+                </p>
+              </div>
+              <div class="flex gap-2 w-full md:w-auto">
+                <button
+                  class="flex-1 md:flex-none px-4 py-2 bg-[#0D631B] text-white text-sm font-medium rounded-md hover:bg-[#095516] transition-colors"
+                >
+                  Accept
+                </button>
+                <button
+                  class="flex-1 md:flex-none px-4 py-2 bg-red-50 text-red-600 border border-red-200 text-sm font-medium rounded-md hover:bg-red-100 transition-colors"
+                >
+                  Reject
+                </button>
+              </div>
+            </div>
+
+            <!-- OFFER CARD 2 -->
+            <div
+              class="border border-[#E0E4DA] p-4 rounded-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-4 hover:border-[#0D631B]/40 transition-colors"
+            >
+              <div>
+                <span
+                  class="inline-block px-2.5 py-0.5 text-xs font-semibold rounded bg-amber-100 text-amber-800 mb-2"
+                  >Pending</span
+                >
+                <h4 class="font-bold text-[#181D17]">
+                  Apex Retailers — Fresh Potatoes
+                </h4>
+                <p class="text-sm text-[#40493D]">
+                  Offered:
+                  <strong class="text-[#0D631B]">₹1,200 / Quintal</strong> (Qty:
+                  100 Quintals)
+                </p>
+              </div>
+              <div class="flex gap-2 w-full md:w-auto">
+                <button
+                  class="flex-1 md:flex-none px-4 py-2 bg-[#0D631B] text-white text-sm font-medium rounded-md hover:bg-[#095516] transition-colors"
+                >
+                  Accept
+                </button>
+                <button
+                  class="flex-1 md:flex-none px-4 py-2 bg-red-50 text-red-600 border border-red-200 text-sm font-medium rounded-md hover:bg-red-100 transition-colors"
+                >
+                  Reject
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- MARKET SNAPSHOT SECTION -->
+        <section
+          class="bg-white rounded-xl border border-[#E0E4DA] p-6 shadow-sm"
+        >
+          <div class="flex items-center justify-between mb-5">
+            <h2 class="text-lg font-bold text-[#181D17]">
+              Mandi Market Prices
+            </h2>
+            <a
+              href="#market-prices"
+              class="text-sm text-[#0D631B] font-medium hover:underline"
+              >Explore Mandis</a
+            >
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-lg bg-[#F4F8F0] border border-[#E0E4DA]">
+              <p class="text-xs font-semibold text-[#40493D]">Meerut Mandi</p>
+              <h4 class="text-base font-bold text-[#181D17] mt-1">Wheat</h4>
+              <p class="text-sm font-bold text-[#0D631B] mt-2">
+                ₹2,400 - ₹2,550
+                <span class="text-xs font-normal text-[#40493D]"
+                  >/ Quintal</span
+                >
+              </p>
+            </div>
+            <div class="p-4 rounded-lg bg-[#F4F8F0] border border-[#E0E4DA]">
+              <p class="text-xs font-semibold text-[#40493D]">Agra Mandi</p>
+              <h4 class="text-base font-bold text-[#181D17] mt-1">Potato</h4>
+              <p class="text-sm font-bold text-[#0D631B] mt-2">
+                ₹1,150 - ₹1,300
+                <span class="text-xs font-normal text-[#40493D]"
+                  >/ Quintal</span
+                >
+              </p>
+            </div>
+            <div class="p-4 rounded-lg bg-[#F4F8F0] border border-[#E0E4DA]">
+              <p class="text-xs font-semibold text-[#40493D]">Karnal Mandi</p>
+              <h4 class="text-base font-bold text-[#181D17] mt-1">
+                Basmati Rice
+              </h4>
+              <p class="text-sm font-bold text-[#0D631B] mt-2">
+                ₹3,800 - ₹4,200
+                <span class="text-xs font-normal text-[#40493D]"
+                  >/ Quintal</span
+                >
+              </p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- ================= MOBILE BOTTOM NAVIGATION ================= -->
+    <nav
+      class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-[#E0E4DA] z-40 flex justify-around py-2.5 px-2 text-center text-xs"
+    >
+      <a
+        href="./farmer-dashboard.html"
+        class="flex flex-col items-center text-[#0D631B] font-bold"
+      >
+        <span class="text-base">📊</span> Home
+      </a>
+      <a href="./my-listings.html" class="flex flex-col items-center text-[#40493D]">
+        <span class="text-base">🌾</span> Produce
+      </a>
+      <a href="#my-offers" class="flex flex-col items-center text-[#40493D]">
+        <span class="text-base">🤝</span> Offers
+      </a>
+      <a href="#my-orders" class="flex flex-col items-center text-[#40493D]">
+        <span class="text-base">📦</span> Orders
+      </a>
+      <a href="#profile" class="flex flex-col items-center text-[#40493D]">
+        <span class="text-base">👤</span> Profile
+      </a>
+    </nav>
+
+    <!-- ================= SLIDE-IN CREATE LISTING DRAWER COMPONENT ================= -->
+    <div
+      id="drawerBackdrop"
+      class="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 hidden opacity-0 transition-opacity duration-300"
+    ></div>
+
+    <div
+      id="createListingDrawer"
+      class="fixed inset-y-0 right-0 w-full sm:w-[480px] bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col"
+    >
+      <div
+        class="p-5 border-b border-[#E0E4DA] flex items-center justify-between bg-[#FAFAF5]"
+      >
+        <div>
+          <h2 class="text-xl font-bold text-[#0D631B]">Sell Produce</h2>
+          <p class="text-xs text-[#40493D]">
+            Create a new listing for buyers to discover
+          </p>
+        </div>
+        <button
+          id="closeDrawerBtn"
+          class="w-9 h-9 rounded-full hover:bg-gray-200 flex items-center justify-center text-lg font-bold text-gray-500"
+        >
+          ✕
+        </button>
+      </div>
+
+      <form id="createListingForm" class="flex-1 overflow-y-auto p-6 space-y-4">
+        <div>
+          <label
+            for="produceName"
+            class="block text-sm font-medium text-[#181D17] mb-1"
+            >Produce Name</label
+          >
+          <input
+            id="produceName"
+            type="text"
+            placeholder="e.g. Sharbati Wheat, Red Potatoes"
+            required
+            class="w-full h-11 px-4 rounded-md border border-[#BFCABA] outline-none text-sm focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B]"
+          />
+        </div>
+
+        <div>
+          <label
+            for="produceVariety"
+            class="block text-sm font-medium text-[#181D17] mb-1"
+            >Variety / Grade</label
+          >
+          <input
+            id="produceVariety"
+            type="text"
+            placeholder="e.g. Grade A, Organic"
+            required
+            class="w-full h-11 px-4 rounded-md border border-[#BFCABA] outline-none text-sm focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B]"
+          />
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label
+              for="produceQuantity"
+              class="block text-sm font-medium text-[#181D17] mb-1"
+              >Quantity</label
+            >
+            <input
+              id="produceQuantity"
+              type="number"
+              min="1"
+              placeholder="100"
+              required
+              class="w-full h-11 px-4 rounded-md border border-[#BFCABA] outline-none text-sm focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B]"
+            />
+          </div>
+          <div>
+            <label
+              for="produceUnit"
+              class="block text-sm font-medium text-[#181D17] mb-1"
+              >Unit</label
+            >
+            <select
+              id="produceUnit"
+              required
+              class="w-full h-11 px-3 rounded-md border border-[#BFCABA] outline-none text-sm focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B] bg-white"
+            >
+              <option value="quintal">Quintals</option>
+              <option value="kg">Kg</option>
+              <option value="ton">Tons</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label
+            for="producePrice"
+            class="block text-sm font-medium text-[#181D17] mb-1"
+            >Expected Price (₹)</label
+          >
+          <input
+            id="producePrice"
+            type="number"
+            placeholder="Price per unit (e.g. 2400)"
+            required
+            class="w-full h-11 px-4 rounded-md border border-[#BFCABA] outline-none text-sm focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B]"
+          />
+        </div>
+
+        <div>
+          <label
+            for="produceLocation"
+            class="block text-sm font-medium text-[#181D17] mb-1"
+            >Mandi / Location</label
+          >
+          <input
+            id="produceLocation"
+            type="text"
+            placeholder="e.g. Meerut Mandi, Uttar Pradesh"
+            required
+            class="w-full h-11 px-4 rounded-md border border-[#BFCABA] outline-none text-sm focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B]"
+          />
+        </div>
+
+        <div>
+          <label
+            for="produceDesc"
+            class="block text-sm font-medium text-[#181D17] mb-1"
+            >Crop Description (Optional)</label
+          >
+          <textarea
+            id="produceDesc"
+            rows="3"
+            placeholder="Add details about quality, harvest date, packaging..."
+            class="w-full p-3 rounded-md border border-[#BFCABA] outline-none text-sm focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B]"
+          ></textarea>
+        </div>
+
+        <div class="pt-4">
+          <button
+            type="submit"
+            id="publishBtn"
+            class="w-full min-h-[48px] bg-[#0D631B] text-white font-bold rounded-lg shadow-sm hover:bg-[#095516] transition-colors"
+          >
+            Publish Produce
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- DRAWER TOGGLE SCRIPT -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const openDrawerBtn = document.getElementById("openDrawerBtn");
+        const closeDrawerBtn = document.getElementById("closeDrawerBtn");
+        const drawerBackdrop = document.getElementById("drawerBackdrop");
+        const createListingDrawer = document.getElementById(
+          "createListingDrawer",
+        );
+
+        function openDrawer() {
+          drawerBackdrop.classList.remove("hidden");
+          setTimeout(() => {
+            drawerBackdrop.classList.remove("opacity-0");
+            createListingDrawer.classList.remove("translate-x-full");
+          }, 10);
+        }
+
+        function closeDrawer() {
+          createListingDrawer.classList.add("translate-x-full");
+          drawerBackdrop.classList.add("opacity-0");
+          setTimeout(() => {
+            drawerBackdrop.classList.add("hidden");
+          }, 300);
+        }
+
+        if (openDrawerBtn) openDrawerBtn.addEventListener("click", openDrawer);
+        if (closeDrawerBtn)
+          closeDrawerBtn.addEventListener("click", closeDrawer);
+        if (drawerBackdrop)
+          drawerBackdrop.addEventListener("click", closeDrawer);
+      });
+    </script>
+  </body>
+</html>

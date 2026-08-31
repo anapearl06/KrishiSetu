@@ -3,331 +3,250 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title>KrishiSetu | Create Account</title>
-
     <link rel="stylesheet" href="./output.css" />
     <link rel="stylesheet" href="./style.css" />
   </head>
-
-  <body class="min-h-screen bg-[#FAFAF5] text-[#181D17]">
-    <!-- ================= BACKGROUND ================= -->
-    <div class="fixed inset-0 -z-10">
+  <body
+    id="registerPage"
+    class="register-page min-h-screen bg-[#F4F8F0] text-[#181D17] transition-colors duration-500"
+  >
+    <div class="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
       <img
         src="./assets/images/background.png"
         alt=""
-        class="w-full h-full object-cover"
+        class="register-background-image absolute inset-0 w-full h-full object-cover opacity-45"
       />
-
-      <div class="absolute inset-0 bg-[#FAFAF5]/85 backdrop-blur-sm"></div>
+      <div
+        id="registerBackgroundOverlay"
+        class="absolute inset-0 bg-[#F4F8F0]/55 backdrop-blur-sm transition-colors duration-500"
+      ></div>
+      <div id="farmScenery" class="farm-scenery"></div>
+      <div class="empower-blob b1"></div>
+      <div class="empower-blob b2"></div>
     </div>
 
-    <!-- ================= HEADER ================= -->
-    <header
-      class="fixed top-0 z-50 w-full h-16 bg-[#FAFAF5]/95 border-b border-[#E0E4DA] shadow-sm"
-    >
-      <div class="h-full px-4 md:px-8 flex items-center justify-between">
-        <!-- LOGO -->
-        <a href="./index.html" class="flex items-center gap-3">
+    <header class="navbar-shell fixed top-0 z-50 w-full h-16">
+      <div class="h-full px-4 md:px-8 flex items-center justify-between gap-4">
+        <a href="./index.html" class="brand shrink-0">
           <img
             src="./assets/images/krishisetu_logo.png"
             alt="KrishiSetu Logo"
-            class="h-8 w-8 object-contain"
+            class="brand-logo"
           />
-
-          <span class="text-xl font-bold text-[#0D631B] tracking-tight">
-            KrishiSetu
-          </span>
+          <span class="brand-name text-xl font-bold">KrishiSetu</span>
         </a>
-
-        <!-- HEADER ACTIONS -->
-        <div class="flex items-center gap-2">
-          <button
-            type="button"
-            class="w-10 h-10 rounded-full flex items-center justify-center text-[#40493D] hover:bg-[#F1F5EB] transition-colors"
-            title="Help"
-          >
-            ?
-          </button>
-
-          <button
-            type="button"
-            class="w-10 h-10 rounded-full flex items-center justify-center text-[#40493D] hover:bg-[#F1F5EB] transition-colors"
-            title="Language"
-          >
-            🌐
-          </button>
-        </div>
       </div>
     </header>
 
-    <!-- ================= MAIN ================= -->
     <main
       class="min-h-screen flex items-center justify-center pt-24 pb-12 px-4"
     >
-      <!-- ================= REGISTRATION CARD ================= -->
       <div
-        class="w-full max-w-md bg-white rounded-xl border border-[#BFCABA] shadow-sm p-6 md:p-8"
+        id="registerCard"
+        class="register-card auth-panel auth-pad w-full border-[#BFCABA]/60 transition-all duration-500"
       >
-        <!-- HEADER -->
         <div class="text-center mb-8">
-          <h1 class="text-2xl md:text-3xl font-semibold text-[#1E1E1E] mb-2">
+          <h1
+            id="registerTitle"
+            class="auth-title font-semibold text-[#1E1E1E] mb-2"
+          >
             Create an Account
           </h1>
-
           <p class="text-base text-[#40493D]">Join the agricultural network</p>
         </div>
 
-        <!-- ================= ROLE TABS ================= -->
-        <div class="flex mb-6 bg-[#F1F5EB] rounded-lg p-1 gap-1">
-          <!-- FARMER TAB -->
+        <div
+          class="flex mb-6 bg-[#F1F5EB] rounded-lg p-1 gap-1 transition-colors duration-500"
+          id="registerTabs"
+        >
           <button
             id="registerFarmerTab"
             type="button"
-            class="flex-1 min-h-[44px] rounded-md px-4 py-2 text-sm font-semibold bg-white text-[#0D631B] border border-[#BFCABA] shadow-sm transition-all"
+            class="register-role-tab active flex-1 min-h-[44px] rounded-md px-4 py-2 text-sm font-semibold transition-all duration-200"
           >
             Farmer
           </button>
-
-          <!-- BUYER TAB -->
           <button
             id="registerBuyerTab"
             type="button"
-            class="flex-1 min-h-[44px] rounded-md px-4 py-2 text-sm font-medium text-[#40493D] hover:bg-[#E0E4DA] transition-all"
+            class="register-role-tab flex-1 min-h-[44px] rounded-md px-4 py-2 text-sm font-medium transition-all duration-200"
           >
             Buyer
           </button>
         </div>
 
-        <!-- ================= FARMER FORM ================= -->
         <form id="farmerForm" class="flex flex-col gap-4">
-          <!-- FULL NAME -->
           <div>
             <label
               for="farmerName"
               class="block text-sm font-medium text-[#181D17] mb-1"
+              >Full Name</label
             >
-              Full Name
-            </label>
-
             <input
               id="farmerName"
+              name="farmerName"
               type="text"
-              placeholder="Enter your full name"
+              placeholder="Enter full name"
               required
-              class="w-full h-12 px-4 rounded-md bg-white border border-[#BFCABA] outline-none text-[#181D17] focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B] transition-colors"
+              class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
             />
           </div>
-
-          <!-- PHONE -->
           <div>
             <label
               for="farmerPhone"
               class="block text-sm font-medium text-[#181D17] mb-1"
+              >Phone Number</label
             >
-              Phone Number
-            </label>
-
             <input
               id="farmerPhone"
+              name="farmerPhone"
               type="tel"
               maxlength="10"
-              placeholder="Enter your phone number"
+              placeholder="Enter phone number"
               required
-              class="w-full h-12 px-4 rounded-md bg-white border border-[#BFCABA] outline-none text-[#181D17] focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B] transition-colors"
+              class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
             />
           </div>
-
-          <!-- PASSWORD -->
           <div>
             <label
               for="farmerPassword"
               class="block text-sm font-medium text-[#181D17] mb-1"
+              >Password</label
             >
-              Password
-            </label>
-
-            <input
-              id="farmerPassword"
-              type="password"
-              placeholder="Create a password"
-              required
-              class="w-full h-12 px-4 rounded-md bg-white border border-[#BFCABA] outline-none text-[#181D17] focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B] transition-colors"
-            />
+            <div class="password-wrap">
+              <input
+                id="farmerPassword"
+                name="farmerPassword"
+                type="password"
+                placeholder="Create password"
+                required
+                class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
+              />
+              <button
+                type="button"
+                class="password-toggle"
+                data-target="farmerPassword"
+                aria-label="Show password"
+              >
+                👁️
+              </button>
+            </div>
           </div>
-
-          <!-- CONFIRM PASSWORD -->
           <div>
             <label
               for="farmerConfirmPassword"
               class="block text-sm font-medium text-[#181D17] mb-1"
+              >Confirm Password</label
             >
-              Confirm Password
-            </label>
-
             <input
               id="farmerConfirmPassword"
+              name="farmerConfirmPassword"
               type="password"
-              placeholder="Confirm your password"
+              placeholder="Confirm password"
               required
-              class="w-full h-12 px-4 rounded-md bg-white border border-[#BFCABA] outline-none text-[#181D17] focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B] transition-colors"
+              class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
             />
           </div>
-
-          <!-- REGISTER BUTTON -->
           <button
             type="submit"
-            class="w-full min-h-[48px] mt-2 rounded-md bg-[#0D631B] text-white font-semibold hover:bg-[#2E7D32] transition-colors shadow-sm"
+            class="register-submit w-full min-h-[48px] mt-2 rounded-md bg-[#0D631B] text-white font-semibold shadow-sm hover:bg-[#095516] transition-colors"
           >
             Create Farmer Account
           </button>
         </form>
 
-        <!-- ================= BUYER FORM ================= -->
-        <form id="buyerForm" class="flex flex-col gap-4" style="display: none">
-          <!-- FULL NAME -->
+        <form id="buyerForm" class="flex flex-col gap-4 hidden">
           <div>
             <label
               for="buyerName"
               class="block text-sm font-medium text-[#181D17] mb-1"
+              >Company / Full Name</label
             >
-              Full Name
-            </label>
-
             <input
               id="buyerName"
+              name="buyerName"
               type="text"
-              placeholder="Enter your full name"
+              placeholder="Enter company or name"
               required
-              class="w-full h-12 px-4 rounded-md bg-white border border-[#BFCABA] outline-none text-[#181D17] focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B] transition-colors"
+              class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
             />
           </div>
-
-          <!-- BUSINESS NAME -->
-          <div>
-            <label
-              for="businessName"
-              class="block text-sm font-medium text-[#181D17] mb-1"
-            >
-              Business Name
-            </label>
-
-            <input
-              id="businessName"
-              type="text"
-              placeholder="Enter your business name"
-              required
-              class="w-full h-12 px-4 rounded-md bg-white border border-[#BFCABA] outline-none text-[#181D17] focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B] transition-colors"
-            />
-          </div>
-
-          <!-- BUSINESS TYPE -->
-          <div>
-            <label
-              for="businessType"
-              class="block text-sm font-medium text-[#181D17] mb-1"
-            >
-              Business Type
-            </label>
-
-            <select
-              id="businessType"
-              required
-              class="w-full h-12 px-4 rounded-md bg-white border border-[#BFCABA] outline-none text-[#181D17] focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B] transition-colors"
-            >
-              <option value="">Select business type</option>
-
-              <option value="retailer">Retailer</option>
-
-              <option value="wholesaler">Wholesaler</option>
-
-              <option value="restaurant">Restaurant</option>
-
-              <option value="processor">Food Processor</option>
-
-              <option value="other">Other</option>
-            </select>
-          </div>
-
-          <!-- PHONE -->
           <div>
             <label
               for="buyerPhone"
               class="block text-sm font-medium text-[#181D17] mb-1"
+              >Phone Number</label
             >
-              Phone Number
-            </label>
-
             <input
               id="buyerPhone"
+              name="buyerPhone"
               type="tel"
               maxlength="10"
-              placeholder="Enter your phone number"
+              placeholder="Enter phone number"
               required
-              class="w-full h-12 px-4 rounded-md bg-white border border-[#BFCABA] outline-none text-[#181D17] focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B] transition-colors"
+              class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
             />
           </div>
-
-          <!-- PASSWORD -->
           <div>
             <label
               for="buyerPassword"
               class="block text-sm font-medium text-[#181D17] mb-1"
+              >Password</label
             >
-              Password
-            </label>
-
-            <input
-              id="buyerPassword"
-              type="password"
-              placeholder="Create a password"
-              required
-              class="w-full h-12 px-4 rounded-md bg-white border border-[#BFCABA] outline-none text-[#181D17] focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B] transition-colors"
-            />
+            <div class="password-wrap">
+              <input
+                id="buyerPassword"
+                name="buyerPassword"
+                type="password"
+                placeholder="Create password"
+                required
+                class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
+              />
+              <button
+                type="button"
+                class="password-toggle"
+                data-target="buyerPassword"
+                aria-label="Show password"
+              >
+                👁️
+              </button>
+            </div>
           </div>
-
-          <!-- CONFIRM PASSWORD -->
           <div>
             <label
               for="buyerConfirmPassword"
               class="block text-sm font-medium text-[#181D17] mb-1"
+              >Confirm Password</label
             >
-              Confirm Password
-            </label>
-
             <input
               id="buyerConfirmPassword"
+              name="buyerConfirmPassword"
               type="password"
-              placeholder="Confirm your password"
+              placeholder="Confirm password"
               required
-              class="w-full h-12 px-4 rounded-md bg-white border border-[#BFCABA] outline-none text-[#181D17] focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B] transition-colors"
+              class="w-full h-12 px-4 rounded-md border border-[#BFCABA] outline-none"
             />
           </div>
-
-          <!-- REGISTER BUTTON -->
           <button
             type="submit"
-            class="w-full min-h-[48px] mt-2 rounded-md bg-[#0D631B] text-white font-semibold hover:bg-[#2E7D32] transition-colors shadow-sm"
+            class="register-submit w-full min-h-[48px] mt-2 rounded-md bg-[#75584D] text-white font-semibold shadow-sm hover:bg-[#5c443b] transition-colors"
           >
             Create Buyer Account
           </button>
         </form>
 
-        <!-- ================= LOGIN LINK ================= -->
         <div class="mt-6 text-center text-sm text-[#40493D]">
           Already have an account?
-
           <a
             href="./login.html"
             class="font-semibold text-[#0D631B] hover:underline"
+            >Login</a
           >
-            Login
-          </a>
         </div>
       </div>
     </main>
 
-    <!-- JavaScript -->
     <script src="./script.js"></script>
   </body>
 </html>

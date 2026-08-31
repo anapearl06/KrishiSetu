@@ -1,122 +1,68 @@
 package listing
 
-import (
-	"context"
-	"gorm.io/gorm"
-)
+import "gorm.io/gorm"
 
 type Repository interface {
-	Create(ctx context.Context, listing *CropListing) error
-	FindByID(ctx context.Context, id uint) (*CropListing, error)
-	FindByFarmer(ctx context.Context, farmerID uint) ([]CropListing, error)
-	Update(ctx context.Context, listing *CropListing) error
-	Cancel(ctx context.Context, id uint) error
-	List(ctx context.Context, filters ListingFilters) ([]CropListing, error)
+	Create(l *CropListing) error
+	FindByID(id uint) (*CropListing, error)
+	FindByFarmerID(farmerID uint) ([]CropListing, error)
+	FindAll(crop, state, status string) ([]CropListing, error)
+	Update(l *CropListing) error
+	Delete(id uint) error
 }
 
-type ListingFilters struct {
-	CropName string
-	State    string
-	District string
-	Status   string
-	MinPrice *float64
-	MaxPrice *float64
-}
-
-type repository struct {
+type postgresRepository struct {
 	db *gorm.DB
 }
 
 func NewRepository(db *gorm.DB) Repository {
-	return &repository{
-		db: db,
-	}
+	return &postgresRepository{db: db}
 }
 
-func (r *repository) Create(ctx context.Context , listing *CropListing) error {
-	return r.db.WithContext(ctx).Create(listing).Error
+func (r *postgresRepository) Create(l *CropListing) error {
+	return r.db.Create(l).Error
 }
 
-
-func (r *repository) FindByID(ctx context.Context, id uint) (*CropListing, error) {
+func (r *postgresRepository) FindByID(id uint) (*CropListing, error) {
 	var listing CropListing
-
-	err := r.db.WithContext(ctx).
-		First(&listing, id).Error
-
-	if err != nil {
+	if err := r.db.First(&listing, id).Error; err != nil {
 		return nil, err
 	}
-
 	return &listing, nil
 }
 
-
-
-func (r *repository) FindByFarmer(ctx context.Context, farmerID uint) ([]CropListing, error) {
+func (r *postgresRepository) FindByFarmerID(farmerID uint) ([]CropListing, error) {
 	var listings []CropListing
-
-	err := r.db.WithContext(ctx).
-		Where("farmer_id = ?", farmerID).
-		Order("created_at DESC").
-		Find(&listings).Error
-
-	return listings, err
+	if err := r.db.Where("farmer_id = ?", farmerID).Order("created_at DESC").Find(&listings).Error; err != nil {
+		return nil, err
+	}
+	return listings, nil
 }
 
-
-func (r *repository) Update(ctx context.Context, listing *CropListing) error {
-	return r.db.WithContext(ctx).
-		Save(listing).Error
-}
-
-
-func (r *repository) Cancel(ctx context.Context, id uint) error {
-	return r.db.WithContext(ctx).
-		Model(&CropListing{}).
-		Where("id = ?", id).
-		Update("status", "CANCELLED").Error
-}
-
-
-func (r *repository) List(ctx context.Context, filters ListingFilters) ([]CropListing, error) {
+func (r *postgresRepository) FindAll(crop, state, status string) ([]CropListing, error) {
 	var listings []CropListing
+	query := r.db.Model(&CropListing{})
 
-	query := r.db.WithContext(ctx).
-		Model(&CropListing{})
-
-	if filters.CropName != "" {
-		query = query.Where("LOWER(crop_name) = LOWER(?)", filters.CropName)
+	if crop != "" {
+		query = query.Where("LOWER(crop_name) LIKE ?", "%"+crop+"%")
+	}
+	if state != "" {
+		query = query.Where("LOWER(state) LIKE ?", "%"+state+"%")
+	}
+	if status != "" {
+		query = query.Where("status = ?", status)
 	}
 
-	if filters.State != "" {
-		query = query.Where("LOWER(state) = LOWER(?)", filters.State)
+	if err := query.Order("created_at DESC").Find(&listings).Error; err != nil {
+		return nil, err
 	}
-
-	if filters.District != "" {
-		query = query.Where("LOWER(district) = LOWER(?)", filters.District)
-	}
-
-	if filters.Status != "" {
-		query = query.Where("status = ?", filters.Status)
-	}
-
-	if filters.MinPrice != nil {
-		query = query.Where("expected_price >= ?", *filters.MinPrice)
-	}
-
-	if filters.MaxPrice != nil {
-		query = query.Where("expected_price <= ?", *filters.MaxPrice)
-	}
-
-	err := query.
-		Order("created_at DESC").
-		Find(&listings).Error
-
-	return listings, err
+	return listings, nil
 }
 
+func (r *postgresRepository) Update(l *CropListing) error {
+	return r.db.Save(l).Error
+}
 
-
-
-
+func (r *postgresRepository) Delete(id uint) error {
+	return r.db.Delete(&CropListing{}, id).Error
+}

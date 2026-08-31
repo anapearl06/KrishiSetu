@@ -1,1 +1,818 @@
-@import "tailwindcss";
+/* ============================================================
+   KRISHISETU CUSTOM STYLES
+   ============================================================ */
+
+/* ============================================================
+   NAVBAR / PREMIUM BRAND
+   ============================================================ */
+
+.navbar-shell {
+  background: linear-gradient(
+    180deg,
+    rgba(250, 250, 245, 0.97),
+    rgba(250, 250, 245, 0.85)
+  );
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(224, 228, 218, 0.9);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 8px 26px -14px rgba(13, 99, 27, 0.14);
+}
+
+/* ---- Premium brand logo ---- */
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.brand:hover {
+  transform: translateY(-1px) scale(1.02);
+}
+
+.brand-logo {
+  height: 2.45rem;
+  width: 2.45rem;
+  object-fit: contain;
+  border-radius: 9999px;
+  background: #ffffff;
+  padding: 3px;
+  box-shadow:
+    0 0 0 2px #ffffff,
+    0 4px 12px -3px rgba(13, 99, 27, 0.45),
+    0 0 0 1px rgba(224, 228, 218, 0.9);
+  transition: box-shadow 0.25s ease;
+}
+
+@media (min-width: 768px) {
+  .brand-logo {
+    height: 2.7rem;
+    width: 2.7rem;
+  }
+}
+
+.brand:hover .brand-logo {
+  box-shadow:
+    0 0 0 2px #ffffff,
+    0 6px 18px -3px rgba(13, 99, 27, 0.55),
+    0 0 18px rgba(46, 158, 79, 0.35);
+}
+
+.brand-name {
+  background: linear-gradient(135deg, #0a5c18 0%, #2e9e4f 45%, #0d631b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: -0.01em;
+}
+
+.brand-name-warm {
+  background: linear-gradient(135deg, #6b4a3a 0%, #9a6b57 50%, #75584d 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---- Nav links with animated underline ---- */
+
+.nav-link {
+  position: relative;
+  font-weight: 500;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+  padding-bottom: 4px;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #0d631b, #4e9c46);
+  transition: width 0.25s ease;
+}
+
+.nav-link:hover {
+  color: #0d631b;
+  transform: translateY(-1px);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link.is-active {
+  color: #0d631b;
+  font-weight: 600;
+}
+
+.nav-link.is-active::after {
+  width: 100%;
+}
+
+.action-link {
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.action-link:hover {
+  background-color: rgba(13, 99, 27, 0.08);
+  transform: translateY(-1px);
+}
+
+.action-button {
+  background-image: linear-gradient(135deg, #0d7a22, #0d631b);
+  box-shadow: 0 6px 16px -6px rgba(13, 99, 27, 0.5);
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+.action-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px -8px rgba(13, 99, 27, 0.6);
+  filter: brightness(1.06);
+}
+
+/* ============================================================
+   HERO CTA BUTTONS
+   ============================================================ */
+
+.cta-button {
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* ============================================================
+   FEATURE CARDS
+   ============================================================ */
+
+.feature-card {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+/* ============================================================
+   LOGIN / REGISTER BACKGROUND
+   LIGHT BLUR - keeps farm scenery visible
+   ============================================================ */
+
+.login-background-image {
+  filter: blur(2px);
+  transform: scale(1.04);
+}
+
+.register-background-image {
+  filter: blur(3px);
+  transform: scale(1.04);
+}
+
+#loginBackgroundOverlay {
+  background-color: rgba(244, 248, 240, 0.34);
+}
+
+#registerBackgroundOverlay {
+  background-color: rgba(244, 248, 240, 0.36);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* ============================================================
+   LOGIN / REGISTER THEME
+   ============================================================ */
+
+.farmer-theme {
+  --theme-color: #0f6c1e;
+}
+
+.buyer-theme {
+  --theme-color: #75584d;
+}
+
+/* ============================================================
+   LOGIN ROLE TABS
+   ============================================================ */
+
+.role-tab {
+  color: #40493d;
+}
+
+.role-tab:hover {
+  background-color: rgba(13, 99, 27, 0.06);
+}
+
+.role-tab.active {
+  color: #0d631b;
+  background-color: rgba(13, 99, 27, 0.08);
+}
+
+/* ============================================================
+   REGISTER ROLE TABS
+   ============================================================ */
+
+.register-role-tab {
+  color: #40493d;
+}
+
+.register-role-tab:hover {
+  background-color: rgba(13, 99, 27, 0.06);
+}
+
+.register-role-tab.active {
+  color: #0d631b;
+  background-color: #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* ============================================================
+   LOGIN / REGISTER BUTTONS
+   ============================================================ */
+
+.login-submit,
+.register-submit {
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.login-submit:hover,
+.register-submit:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.1);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.footer-link {
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.footer-link:hover {
+  color: #0d631b;
+  transform: translateY(-1px);
+}
+
+/* ============================================================
+   FARM SCENERY (login / register background)
+   ============================================================ */
+
+.farm-scenery {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 42vh;
+  min-height: 260px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.farm-scenery .sun {
+  position: absolute;
+  top: 6%;
+  right: 7%;
+  width: 76px;
+  height: 76px;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    #fff0c2 0%,
+    #ffd97a 55%,
+    rgba(255, 217, 122, 0) 72%
+  );
+  animation: sunPulse 7s ease-in-out infinite;
+}
+
+@keyframes sunPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.95;
+  }
+  50% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+}
+
+.farm-hill-back {
+  position: absolute;
+  left: -8%;
+  right: -8%;
+  bottom: -10%;
+  height: 40%;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  background: linear-gradient(180deg, #b8e8a8 0%, #93d281 100%);
+  opacity: 0.75;
+}
+
+.farm-field {
+  position: absolute;
+  left: -6%;
+  right: -6%;
+  bottom: -8%;
+  height: 44%;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  background: linear-gradient(180deg, #9adf87 0%, #74c264 55%, #4e9c46 100%);
+  box-shadow: 0 -18px 40px rgba(84, 150, 84, 0.35);
+}
+
+.farm-field::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: repeating-linear-gradient(
+    4deg,
+    rgba(255, 255, 255, 0.16) 0 46px,
+    rgba(30, 84, 24, 0.14) 46px 92px
+  );
+  mix-blend-mode: overlay;
+}
+
+.farm-field::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -2px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.28);
+  filter: blur(6px);
+  border-radius: 50%;
+}
+
+/* ---- Swaying crops ---- */
+
+.crop {
+  position: absolute;
+  transform-origin: bottom center;
+  animation: cropSway 2.8s ease-in-out var(--delay, 0s) infinite;
+}
+
+.crop .stalk {
+  position: absolute;
+  bottom: 0;
+  left: calc(50% - 0.06em);
+  width: 0.12em;
+  height: 1.5em;
+  background: #2f7a2c;
+}
+
+.crop .leaf {
+  position: absolute;
+  bottom: 0.15em;
+  width: 0.85em;
+  height: 1.05em;
+  background: linear-gradient(135deg, #8ae160, #43a842);
+  border-radius: 100% 0 100% 0;
+}
+
+.crop .leaf.l {
+  left: 0.12em;
+  transform: rotate(18deg);
+}
+
+.crop .leaf.r {
+  right: 0.12em;
+  transform: rotate(-18deg) scaleX(-1);
+}
+
+.crop .head {
+  position: absolute;
+  bottom: 1.4em;
+  left: calc(50% - 0.32em);
+  width: 0.64em;
+  height: 0.85em;
+  border-radius: 50% 50% 45% 45%;
+  background: linear-gradient(180deg, #fcda54, #e9a82f);
+  box-shadow: inset -0.08em -0.12em 0 rgba(201, 140, 40, 0.6);
+}
+
+@keyframes cropSway {
+  0%,
+  100% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(4deg);
+  }
+}
+
+.sparkle {
+  position: absolute;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.85);
+  animation: sparkleFloat 5s ease-in-out var(--delay, 0s) infinite;
+}
+
+@keyframes sparkleFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translateY(-8px);
+    opacity: 0.9;
+  }
+}
+
+/* ============================================================
+   LOGIN CENTER LOGO
+   ============================================================ */
+
+.login-logo {
+  width: 4.2rem;
+  height: 4.2rem;
+  object-fit: contain;
+  border-radius: 9999px;
+  background: #ffffff;
+  padding: 4px;
+  box-shadow:
+    0 0 0 3px #ffffff,
+    0 8px 22px -6px rgba(13, 99, 27, 0.45);
+  transition: box-shadow 0.25s ease;
+}
+
+.login-logo:hover {
+  box-shadow:
+    0 0 0 3px #ffffff,
+    0 10px 28px -6px rgba(13, 99, 27, 0.55),
+    0 0 26px rgba(46, 158, 79, 0.4);
+}
+
+/* ============================================================
+   PASSWORD SHOW / HIDE EYE
+   ============================================================ */
+
+.password-wrap {
+  position: relative;
+}
+
+.password-wrap input {
+  padding-right: 2.75rem;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 0.6rem;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.15rem;
+  line-height: 1;
+  padding: 2px;
+  opacity: 0.6;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.password-toggle:hover {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* ============================================================
+   EMPOWERING GROUND LEVEL OPERATIONS (PREMIUM SECTION)
+   ============================================================ */
+
+.empower-section {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      1200px 600px at 50% -10%,
+      #eaf4e2 0%,
+      rgba(250, 250, 245, 0) 55%
+    ),
+    radial-gradient(
+      900px 500px at 100% 100%,
+      #f7ebdd 0%,
+      rgba(250, 250, 245, 0) 55%
+    ),
+    #fafaf5;
+}
+
+.empower-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+.empower-blob.b1 {
+  width: 320px;
+  height: 320px;
+  background: #cbe7b8;
+  top: -60px;
+  left: -80px;
+}
+
+.empower-blob.b2 {
+  width: 300px;
+  height: 300px;
+  background: #f2dcc4;
+  bottom: -50px;
+  right: -60px;
+  animation: blobFloat 12s ease-in-out infinite;
+}
+
+@keyframes blobFloat {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-18px, -12px);
+  }
+}
+
+.empower-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.95rem;
+  border-radius: 9999px;
+  background: #ffffff;
+  border: 1px solid #dce8cf;
+  box-shadow: 0 2px 10px -2px rgba(13, 99, 27, 0.1);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #1e5f1c;
+  letter-spacing: 0.03em;
+}
+
+.gradient-heading {
+  background: linear-gradient(92deg, #0b5b18 0%, #2e9e4f 55%, #0d631b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.premium-card {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #e0e4da;
+  overflow: hidden;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.premium-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--card-accent, linear-gradient(90deg, #2e9e4f, #8bd07c));
+  opacity: 0.9;
+}
+
+.premium-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 130px;
+  background: radial-gradient(
+    130px 80px at 18% 0%,
+    var(--card-glow, rgba(13, 99, 27, 0.1)),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.premium-card:hover {
+  transform: translateY(-6px);
+  border-color: #c9ddbb;
+  box-shadow:
+    0 18px 40px -14px var(--card-shadow, rgba(13, 99, 27, 0.2)),
+    0 4px 14px rgba(0, 0, 0, 0.04);
+}
+
+.premium-icon {
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.premium-card:hover .premium-icon {
+  transform: scale(1.1) rotate(-5deg);
+}
+
+/* ============================================================
+   HOME HERO (PREMIUM)
+   ============================================================ */
+
+.hero-overlay {
+  background:
+    radial-gradient(
+      60rem 26rem at 50% 32%,
+      rgba(232, 242, 226, 0.32) 0%,
+      rgba(250, 250, 245, 0) 70%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(250, 250, 245, 0.96) 0%,
+      rgba(250, 250, 245, 0.5) 46%,
+      rgba(250, 250, 245, 0.9) 100%
+    );
+}
+
+.hero-chip {
+  display: none;
+  position: absolute;
+  align-items: center;
+  gap: 0.6rem;
+  background: #ffffff;
+  border: 1px solid #e0e4da;
+  border-radius: 1rem;
+  padding: 0.7rem 1rem;
+  box-shadow: 0 12px 30px -12px rgba(13, 99, 27, 0.28);
+  z-index: 5;
+  animation: chipFloat 5s ease-in-out infinite;
+}
+
+@media (min-width: 768px) {
+  .hero-chip {
+    display: flex;
+  }
+}
+
+.hero-chip.chip1 {
+  top: 16%;
+  left: 5%;
+  animation-delay: 0.3s;
+}
+
+.hero-chip.chip2 {
+  top: 32%;
+  right: 4%;
+  animation-delay: 1.2s;
+}
+
+@keyframes chipFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* ---- Stats strip ---- */
+
+.hero-stats {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid #e0e4da;
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  box-shadow: 0 20px 46px -22px rgba(13, 99, 27, 0.32);
+}
+
+.hero-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .hero-stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.hero-stat-value {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #0d631b;
+  line-height: 1.1;
+}
+
+.hero-stat-label {
+  font-size: 0.8rem;
+  color: #40493d;
+  margin-top: 0.25rem;
+}
+
+/* ============================================================
+   LOGIN / REGISTER (BIGGER & POLISHED)
+   ============================================================ */
+
+.auth-outer {
+  width: 100%;
+  max-width: 38rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.auth-panel {
+  position: relative;
+  width: 100%;
+  max-width: 38rem;
+  background: #ffffff;
+  border: 1px solid rgba(191, 202, 186, 0.6);
+  border-radius: 1.25rem;
+  box-shadow:
+    0 22px 48px -20px rgba(13, 99, 27, 0.28),
+    0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.auth-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: linear-gradient(90deg, #2e9e4f, #8bd07c);
+  z-index: 1;
+}
+
+.auth-pad {
+  padding: 1.75rem;
+}
+
+@media (min-width: 640px) {
+  .auth-pad {
+    padding: 2.25rem;
+  }
+}
+
+.auth-title {
+  font-size: 1.75rem;
+  line-height: 1.2;
+}
+
+@media (min-width: 768px) {
+  .auth-title {
+    font-size: 1.9rem;
+  }
+}
+
+.auth-panel input {
+  height: 3.35rem;
+  font-size: 0.95rem;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.auth-panel input:focus {
+  border-color: #2e9e4f;
+  box-shadow: 0 0 0 3px rgba(46, 158, 79, 0.14);
+}
+
+.auth-panel button[type="submit"] {
+  height: 3.35rem;
+  font-size: 1rem;
+  border-radius: 0.65rem;
+}
+
+.role-tab {
+  padding-top: 1.05rem;
+  padding-bottom: 1.05rem;
+}

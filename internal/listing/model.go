@@ -9,6 +9,7 @@ type CropListing struct {
 	Quantity      float64   `gorm:"not null" json:"quantity"`
 	Unit          string    `gorm:"not null" json:"unit"`
 	ExpectedPrice float64   `gorm:"not null" json:"expected_price"`
+	Description   string    `gorm:"type:text" json:"description"`
 	QualityGrade  string    `json:"quality_grade"`
 	State         string    `gorm:"not null;index" json:"state"`
 	District      string    `gorm:"not null;index" json:"district"`

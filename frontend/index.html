@@ -3,295 +3,278 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title>KrishiSetu | Connecting Farmers & Buyers</title>
-
-    <!-- Tailwind generated CSS -->
     <link rel="stylesheet" href="./output.css" />
-
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="./style.css" />
   </head>
-
   <body class="bg-[#FAFAF5] text-[#1E1E1E]">
     <!-- ================= NAVBAR ================= -->
-
-    <nav
-      class="sticky top-0 z-50 w-full bg-[#FAFAF5] border-b border-[#E0E4DA]"
-    >
+    <nav class="navbar-shell sticky top-0 z-50 w-full">
       <div
-        class="max-w-7xl mx-auto px-4 md:px-8 py-4 flex items-center justify-between"
+        class="max-w-7xl mx-auto px-4 md:px-8 py-4 flex items-center justify-between gap-4"
       >
         <!-- LOGO -->
-
-        <a href="./index.html" class="flex items-center gap-2">
+        <a href="./index.html" class="brand shrink-0">
           <img
             src="./assets/images/krishisetu_logo.png"
             alt="KrishiSetu Logo"
-            class="h-9 w-9 object-contain"
+            class="brand-logo"
           />
-
-          <span class="text-2xl font-bold text-[#0D631B]"> KrishiSetu </span>
+          <span class="brand-name text-xl md:text-2xl font-bold"
+            >KrishiSetu</span
+          >
         </a>
 
-        <!-- NAVIGATION LINKS -->
-
-        <div class="hidden md:flex items-center gap-6">
-          <a
-            href="./index.html"
-            class="text-[#0D631B] font-medium border-b-2 border-[#0D631B] pb-1 hover:text-[#2E7D32] transition-colors"
-          >
-            Home
-          </a>
-
-          <a
-            href="#how-it-works"
-            class="text-[#40493D] font-medium hover:text-[#0D631B] transition-colors"
-          >
-            How It Works
-          </a>
-
-          <a
-            href="#farmers"
-            class="text-[#40493D] font-medium hover:text-[#0D631B] transition-colors"
-          >
-            For Farmers
-          </a>
-
-          <a
-            href="#buyers"
-            class="text-[#40493D] font-medium hover:text-[#0D631B] transition-colors"
-          >
-            For Buyers
-          </a>
-
-          <a
-            href="#market-prices"
-            class="text-[#40493D] font-medium hover:text-[#0D631B] transition-colors"
-          >
-            Market Prices
-          </a>
+        <!-- DESKTOP NAVIGATION -->
+        <div class="hidden lg:flex items-center gap-5 xl:gap-6">
+          <a href="./index.html" class="nav-link is-active">Home</a>
+          <a href="#how-it-works" class="nav-link">How It Works</a>
+          <a href="#farmers" class="nav-link">For Farmers</a>
+          <a href="#buyers" class="nav-link">For Buyers</a>
+          <a href="#market-prices" class="nav-link">Market Prices</a>
         </div>
 
         <!-- ACTION BUTTONS -->
-
-        <div class="flex items-center gap-2 md:gap-4">
-          <!-- LOGIN -->
-
+        <div class="flex items-center gap-1 sm:gap-2 shrink-0">
           <a
             href="./login.html"
-            class="text-[#0D631B] font-medium px-4 py-2 hover:opacity-80 transition-opacity"
+            class="action-link text-[#0D631B] font-medium px-3 sm:px-4 py-2 rounded-md"
+            >Login</a
           >
-            Login
-          </a>
-
-          <!-- REGISTER -->
-
           <a
-            href="./login.html"
-            class="bg-[#0D631B] text-white font-medium px-5 py-2.5 rounded-md hover:bg-[#2E7D32] transition-colors"
+            href="./register.html"
+            class="action-button bg-[#0D631B] text-white font-semibold px-4 sm:px-5 py-2.5 rounded-md"
+            >Register</a
           >
-            Register
-          </a>
         </div>
       </div>
     </nav>
 
     <!-- ================= MAIN ================= -->
-
     <main>
-      <!-- ================= HERO SECTION ================= -->
-
+      <!-- HERO SECTION -->
       <section
-        class="relative w-full min-h-[70vh] flex items-center justify-center overflow-hidden"
+        class="relative w-full min-h-[72vh] flex items-center justify-center overflow-hidden"
       >
-        <!-- Background Image -->
-
         <div class="absolute inset-0 z-0">
           <img
             src="./assets/images/background.png"
             alt="Agricultural field at sunrise"
             class="w-full h-full object-cover"
           />
-
-          <!-- Overlay -->
-
-          <div
-            class="absolute inset-0 bg-[#FAFAF5]/80 backdrop-blur-[2px]"
-          ></div>
+          <div class="hero-overlay absolute inset-0"></div>
         </div>
 
-        <!-- Hero Content -->
+        <!-- FLOATING CHIPS (desktop only) -->
+        <div class="hero-chip chip1">
+          <span class="text-xl">🌾</span>
+          <div>
+            <div class="font-bold text-[#1E1E1E] leading-tight">2,400+</div>
+            <div class="text-sm text-[#40493D]">Active Listings</div>
+          </div>
+        </div>
+        <div class="hero-chip chip2">
+          <span class="text-xl">📈</span>
+          <div>
+            <div class="font-bold text-[#1E1E1E] leading-tight">
+              Wheat ₹2,350/q
+            </div>
+            <div class="text-sm text-[#40493D]">Today's Mandi Price</div>
+          </div>
+        </div>
 
         <div
-          class="relative z-10 max-w-4xl mx-auto px-4 md:px-8 text-center flex flex-col items-center gap-6 md:gap-8"
+          class="relative z-10 max-w-4xl mx-auto px-4 md:px-8 text-center flex flex-col items-center gap-6 md:gap-7 py-12"
         >
-          <h1
-            class="text-4xl md:text-[44px] leading-tight font-bold tracking-tight text-[#0D631B]"
+          <span class="empower-badge"
+            >🌾 Trusted by Farmers & Buyers across India</span
           >
-            Connect Your Produce
-            <br class="hidden sm:block" />
+          <h1
+            class="gradient-heading text-4xl md:text-[44px] leading-tight font-bold tracking-tight"
+          >
+            Connect Your Produce <br class="hidden sm:block" />
             With The Right Buyer.
           </h1>
-
           <p
             class="max-w-2xl text-base md:text-lg leading-relaxed text-[#40493D]"
           >
             KrishiSetu helps farmers discover buyers, manage offers and
             understand agricultural market prices — all in one simple platform.
           </p>
-
-          <!-- CTA BUTTONS -->
-
           <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mt-2">
-            <!-- FARMER -->
-
             <a
-              href="./login.html"
-              class="bg-[#0D631B] text-white font-medium px-8 py-4 rounded-md w-48 text-center hover:bg-[#2E7D32] transition-all shadow-sm hover:shadow-md"
+              href="./login.html?role=farmer"
+              class="cta-button farmer-cta bg-[#0D631B] text-white font-medium px-8 py-4 rounded-md w-full sm:w-48 text-center hover:bg-[#095516] transition-colors"
             >
-              I'm a Farmer
+              🌾 I'm a Farmer!
             </a>
-
-            <!-- BUYER -->
-
             <a
-              href="./login.html"
-              class="bg-[#75584D] text-white font-medium px-8 py-4 rounded-md w-48 text-center hover:opacity-90 transition-all shadow-sm hover:shadow-md"
+              href="./login.html?role=buyer"
+              class="cta-button buyer-cta bg-[#75584D] text-white font-medium px-8 py-4 rounded-md w-full sm:w-48 text-center hover:bg-[#5c443b] transition-colors"
             >
-              I'm a Buyer
+              🛒 I'm a Buyer!
             </a>
           </div>
         </div>
       </section>
 
-      <!-- ================= FEATURES SECTION ================= -->
+      <!-- STATS STRIP -->
+      <section style="margin-top: -3rem" class="relative z-10 px-4 md:px-8">
+        <div class="max-w-7xl mx-auto hero-stats hero-stats-grid">
+          <div class="text-center">
+            <div class="hero-stat-value">12K+</div>
+            <div class="hero-stat-label">Registered Farmers</div>
+          </div>
+          <div class="text-center">
+            <div class="hero-stat-value">5.2K+</div>
+            <div class="hero-stat-label">Verified Buyers</div>
+          </div>
+          <div class="text-center">
+            <div class="hero-stat-value">50+</div>
+            <div class="hero-stat-label">Mandi Prices Live</div>
+          </div>
+          <div class="text-center">
+            <div class="hero-stat-value">₹38 Cr</div>
+            <div class="hero-stat-label">Transactions Done</div>
+          </div>
+        </div>
+      </section>
 
+      <!-- FEATURES SECTION -->
       <section
         id="how-it-works"
-        class="max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-20"
+        class="empower-section w-full px-4 md:px-8 py-16 md:py-20"
       >
-        <!-- Section Heading -->
+        <div class="empower-blob b1"></div>
+        <div class="empower-blob b2"></div>
 
-        <div class="text-center mb-12">
-          <h2 class="text-2xl md:text-3xl font-semibold text-[#0D631B] mb-4">
-            Empowering Ground Level Operations
-          </h2>
-
-          <p class="max-w-2xl mx-auto text-[#40493D]">
-            A robust platform designed for utility and reliability in the
-            agricultural ecosystem.
-          </p>
-        </div>
-
-        <!-- Feature Cards -->
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <!-- CARD 1 -->
-
-          <div
-            id="farmers"
-            class="bg-white rounded-xl p-8 border border-[#E0E4DA] shadow-[0_4px_24px_rgba(0,0,0,0.02)] hover:border-[#0D631B]/30 transition-colors"
-          >
-            <div
-              class="w-12 h-12 bg-[#2E7D32]/10 rounded-lg flex items-center justify-center text-[#0D631B] mb-6"
+        <div class="relative max-w-7xl mx-auto">
+          <div class="text-center mb-12">
+            <span class="empower-badge">🌱 Empowering Agriculture</span>
+            <h2
+              class="gradient-heading text-2xl md:text-3xl font-semibold mt-5 mb-4"
             >
-              🔎
-            </div>
-
-            <h3 class="text-lg font-semibold text-[#1E1E1E] mb-3">
-              Discovery Network
-            </h3>
-
-            <p class="text-sm leading-relaxed text-[#40493D]">
-              Seamlessly find verified buyers and local farmers in your region.
-              Our network bridges the gap between produce and demand
-              efficiently.
+              Empowering Ground Level Operations
+            </h2>
+            <p class="max-w-2xl mx-auto text-[#40493D]">
+              A robust platform designed for utility and reliability in the
+              agricultural ecosystem.
             </p>
           </div>
 
-          <!-- CARD 2 -->
-
-          <div
-            id="buyers"
-            class="bg-white rounded-xl p-8 border border-[#E0E4DA] shadow-[0_4px_24px_rgba(0,0,0,0.02)] hover:border-[#0D631B]/30 transition-colors"
-          >
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- CARD 1 · DISCOVERY (SOFT BROWN) -->
             <div
-              class="w-12 h-12 bg-[#75584D]/10 rounded-lg flex items-center justify-center text-[#75584D] mb-6"
+              id="farmers"
+              class="premium-card rounded-xl p-8"
+              style="
+                --card-accent: linear-gradient(90deg, #a9744f, #d8a87c);
+                --card-glow: rgba(169, 116, 79, 0.14);
+                --card-shadow: rgba(169, 116, 79, 0.16);
+              "
             >
-              🤝
+              <div
+                class="premium-icon w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-6 shadow-sm"
+                style="background-color: #f3e5db; border: 1px solid #e4ccb3"
+              >
+                🔎
+              </div>
+              <h3 class="text-lg font-semibold text-[#1E1E1E] mb-3">
+                Discovery Network
+              </h3>
+              <p class="text-sm leading-relaxed text-[#40493D]">
+                Seamlessly find verified buyers and local farmers in your
+                region. Our network bridges the gap between produce and demand
+                efficiently.
+              </p>
             </div>
 
-            <h3 class="text-lg font-semibold text-[#1E1E1E] mb-3">
-              Offer Management
-            </h3>
-
-            <p class="text-sm leading-relaxed text-[#40493D]">
-              Negotiate and manage deals transparently. Keep track of active,
-              pending and completed transactions in one organized dashboard.
-            </p>
-          </div>
-
-          <!-- CARD 3 -->
-
-          <div
-            id="market-prices"
-            class="bg-white rounded-xl p-8 border border-[#E0E4DA] shadow-[0_4px_24px_rgba(0,0,0,0.02)] hover:border-[#0D631B]/30 transition-colors"
-          >
+            <!-- CARD 2 · OFFER MANAGEMENT (LIGHT GREEN) -->
             <div
-              class="w-12 h-12 bg-[#923357]/10 rounded-lg flex items-center justify-center text-[#923357] mb-6"
+              id="buyers"
+              class="premium-card rounded-xl p-8"
+              style="
+                --card-accent: linear-gradient(90deg, #2e9e4f, #8bd07c);
+                --card-glow: rgba(46, 158, 79, 0.14);
+                --card-shadow: rgba(46, 158, 79, 0.16);
+              "
             >
-              📈
+              <div
+                class="premium-icon w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-6 shadow-sm"
+                style="background-color: #e7f6ea; border: 1px solid #bfe3c6"
+              >
+                🤝
+              </div>
+              <h3 class="text-lg font-semibold text-[#1E1E1E] mb-3">
+                Offer Management
+              </h3>
+              <p class="text-sm leading-relaxed text-[#40493D]">
+                Negotiate and manage deals transparently. Keep track of active,
+                pending and completed transactions in one organized dashboard.
+              </p>
             </div>
 
-            <h3 class="text-lg font-semibold text-[#1E1E1E] mb-3">
-              Market Prices
-            </h3>
-
-            <p class="text-sm leading-relaxed text-[#40493D]">
-              Access real-time commodity pricing across different mandis. Make
-              informed decisions based on current agricultural market trends.
-            </p>
+            <!-- CARD 3 · MARKET PRICES (SOFT SKY BLUE) -->
+            <div
+              id="market-prices"
+              class="premium-card rounded-xl p-8"
+              style="
+                --card-accent: linear-gradient(90deg, #4e99d9, #9cc7ee);
+                --card-glow: rgba(78, 153, 217, 0.14);
+                --card-shadow: rgba(78, 153, 217, 0.16);
+              "
+            >
+              <div
+                class="premium-icon w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-6 shadow-sm"
+                style="background-color: #e4effb; border: 1px solid #c4ddf3"
+              >
+                📈
+              </div>
+              <h3 class="text-lg font-semibold text-[#1E1E1E] mb-3">
+                Market Prices
+              </h3>
+              <p class="text-sm leading-relaxed text-[#40493D]">
+                Access real-time commodity pricing across different mandis. Make
+                informed decisions based on current agricultural market trends.
+              </p>
+            </div>
           </div>
         </div>
       </section>
+</section>
     </main>
 
     <!-- ================= FOOTER ================= -->
-
     <footer class="bg-[#E0E4DA] mt-auto">
       <div
         class="max-w-7xl mx-auto px-4 md:px-8 py-10 flex flex-col md:flex-row justify-between items-center gap-6"
       >
-        <!-- BRAND -->
-
         <div class="text-xl font-bold text-[#0D631B]">KrishiSetu</div>
-
-        <!-- FOOTER LINKS -->
-
         <div class="flex flex-wrap justify-center gap-6 text-sm">
-          <a href="#" class="text-[#40493D] hover:text-[#0D631B]"> About Us </a>
-
-          <a href="#" class="text-[#40493D] hover:text-[#0D631B]">
-            Contact Support
-          </a>
-
-          <a href="#" class="text-[#40493D] hover:text-[#0D631B]">
-            Privacy Policy
-          </a>
-
-          <a href="#" class="text-[#40493D] hover:text-[#0D631B]">
-            Terms of Service
-          </a>
+          <a
+            href="#"
+            class="footer-link text-[#40493D] hover:text-[#0D631B] transition-colors"
+            >About Us</a
+          >
+          <a
+            href="#"
+            class="footer-link text-[#40493D] hover:text-[#0D631B] transition-colors"
+            >Contact Support</a
+          >
+          <a
+            href="#"
+            class="footer-link text-[#40493D] hover:text-[#0D631B] transition-colors"
+            >Privacy Policy</a
+          >
+          <a
+            href="#"
+            class="footer-link text-[#40493D] hover:text-[#0D631B] transition-colors"
+            >Terms of Service</a
+          >
         </div>
-
-        <!-- COPYRIGHT -->
-
         <div class="text-sm text-[#0D631B]">© 2026 KrishiSetu.</div>
       </div>
     </footer>
-
-    <!-- JavaScript -->
 
     <script src="./script.js"></script>
   </body>
