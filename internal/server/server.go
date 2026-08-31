@@ -15,6 +15,9 @@ import (
 func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 	router := gin.Default()
 
+	// CORS middleware
+	router.Use(middleware.CORS())
+
 	// Health check
 	router.GET("/health", func(c *gin.Context) {
 		response.Success(c, 200, gin.H{
