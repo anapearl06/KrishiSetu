@@ -3,7 +3,7 @@ package server
 import (
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
-	"github.com/raaj2493/KrishiSetu/internal/listing"
+
 	"github.com/raaj2493/KrishiSetu/internal/buyer"
 	"github.com/raaj2493/KrishiSetu/internal/config"
 	"github.com/raaj2493/KrishiSetu/internal/farmer"
@@ -15,7 +15,7 @@ import (
 func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 	router := gin.Default()
 
-	// CORS middleware
+	// CORS middleware for Vercel frontend
 	router.Use(middleware.CORS())
 
 	// Health check
@@ -36,8 +36,6 @@ func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 		cfg.JWTSecret,
 		cfg.JWTExpirationHours,
 	)
-
-
 
 	farmerHandler := farmer.NewHandler(farmerService)
 
@@ -106,7 +104,7 @@ func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 	}
 
 	// =========================
-	// Listings
+	// Listings (frontend-aligned)
 	// =========================
 
 	listingRepo := listing.NewRepository(db)
@@ -121,7 +119,7 @@ func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 			listingHandler.Browse,
 		)
 
-		// Protected: farmer listing management
+		// Protected: farmer listing management (JWT)
 		listingRoutes.POST(
 			"",
 			middleware.JWTAuth(cfg.JWTSecret),
@@ -149,36 +147,3 @@ func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 
 	return router
 }
-
-	listingRepo := listing.NewRepository(db)
-listingService := listing.NewService(listingRepo)
-listingHandler := listing.NewHandler(listingService)
-
-
-listings := api.Group("/listings")
-listings.Use(authMiddleware)
-{
-	listings.POST("", listingHandler.CreateListing)
-	listings.GET("", listingHandler.ListListings)
-	listings.GET("/my", listingHandler.GetMyListings)
-	listings.GET("/:id", listingHandler.GetListing)
-	listings.PUT("/:id", listingHandler.UpdateListing)
-	listings.DELETE("/:id", listingHandler.CancelListing)
-}
-
-
-demandRepo := demand.NewRepository(db)
-demandService := demand.NewService(demandRepo)
-demandHandler := demand.NewHandler(demandService)
-
-demands := api.Group("/demands")
-demands.Use(authMiddleware)
-{
-	demands.POST("", demandHandler.CreateDemand)
-	demands.GET("", demandHandler.ListDemands)
-	demands.GET("/my", demandHandler.GetMyDemands)
-	demands.GET("/:id", demandHandler.GetDemand)
-	demands.PUT("/:id", demandHandler.UpdateDemand)
-	demands.DELETE("/:id", demandHandler.CancelDemand)
-}
-
