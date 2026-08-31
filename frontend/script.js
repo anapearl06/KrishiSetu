@@ -600,13 +600,16 @@ async function loadBrowseCatalog(crop = "", state = "") {
   params.append("status", "ACTIVE");
 
   try {
-    const res = await fetch(`${API_BASE_URL}/api/v1/listings?${params.toString()}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token ? `Bearer ${token}` : "",
+    const res = await fetch(
+      `${API_BASE_URL}/api/v1/listings?${params.toString()}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token ? `Bearer ${token}` : "",
+        },
       },
-    });
+    );
 
     const data = await res.json();
 
@@ -703,3 +706,142 @@ document.addEventListener("DOMContentLoaded", () => {
     loadBrowseCatalog();
   }
 });
+// ============================================================
+// F16 & F17 — BUYER DEMANDS CREATION & LISTING INTEGRATION
+// ============================================================
+
+function openDemandDrawer() {
+  const backdrop = document.getElementById("demandDrawerBackdrop");
+  const drawer = document.getElementById("createDemandDrawer");
+  if (backdrop && drawer) {
+    backdrop.classList.remove("hidden");
+    setTimeout(() => {
+      backdrop.classList.remove("opacity-0");
+      drawer.classList.remove("translate-x-full");
+    }, 10);
+  }
+}
+
+function closeDemandDrawer() {
+  const backdrop = document.getElementById("demandDrawerBackdrop");
+  const drawer = document.getElementById("createDemandDrawer");
+  if (backdrop && drawer) {
+    drawer.classList.add("translate-x-full");
+    backdrop.classList.add("opacity-0");
+    setTimeout(() => {
+      backdrop.classList.add("hidden");
+    }, 300);
+  }
+}
+
+// 1. Submit Demand (POST /api/v1/demands)
+document
+  .getElementById("createDemandForm")
+  ?.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      alert("Session expired. Please login as buyer.");
+      window.location.href = "./login.html?role=buyer";
+      return;
+    }
+
+    const payload = {
+      crop: document.getElementById("demandCrop")?.value.trim(),
+      quantity: parseFloat(document.getElementById("demandQuantity")?.value),
+      unit: document.getElementById("demandUnit")?.value,
+      target_price: parseFloat(
+        document.getElementById("demandTargetPrice")?.value,
+      ),
+      state: document.getElementById("demandState")?.value.trim(),
+      district: document.getElementById("demandDistrict")?.value.trim(),
+      description: document.getElementById("demandDescription")?.value || "",
+    };
+
+    try {
+      const res = await fetch(
+        "https://krishisetu-api-tiau.onrender.com/api/v1/demands",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(payload),
+        },
+      );
+
+      const data = await res.json();
+      if (res.ok) {
+        alert("Requirement posted successfully!");
+        closeDemandDrawer();
+        e.target.reset();
+        renderMyDemands();
+      } else {
+        alert(data.message || data.error || "Failed to post requirement.");
+      }
+    } catch (err) {
+      console.error("Error posting demand:", err);
+    }
+  });
+
+// 2. Render My Demands (GET /api/v1/demands/my)
+async function renderMyDemands() {
+  const demandsGrid = document.getElementById("demandsGrid");
+  if (!demandsGrid) return;
+
+  const token = localStorage.getItem("token");
+  if (!token) {
+    demandsGrid.innerHTML = `<p class="text-red-600 font-medium">Please login to view requirements.</p>`;
+    return;
+  }
+
+  try {
+    const res = await fetch(
+      "https://krishisetu-api-tiau.onrender.com/api/v1/demands/my",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    const data = await res.json();
+    if (res.ok && Array.isArray(data)) {
+      if (data.length === 0) {
+        demandsGrid.innerHTML = `<p class="text-[#40493D]">No demand requirements posted yet. Click "+ Post Requirement" above.</p>`;
+        return;
+      }
+
+      demandsGrid.innerHTML = data
+        .map(
+          (item) => `
+        <div class="bg-white rounded-xl border border-[#E0E4DA] p-5 shadow-sm">
+          <div class="flex justify-between items-start mb-2">
+            <span class="px-2.5 py-0.5 text-xs font-semibold rounded bg-amber-100 text-amber-800 uppercase">${item.status || "OPEN"}</span>
+            <span class="text-xs text-[#40493D]">${item.district || ""}, ${item.state || ""}</span>
+          </div>
+          <h3 class="text-lg font-bold text-[#181D17]">${item.crop}</h3>
+          <p class="text-xs text-[#40493D] mt-1">${item.description || "No additional specs"}</p>
+          <div class="mt-4 pt-4 border-t border-[#F1F5EB] flex justify-between items-center">
+            <div>
+              <p class="text-xs text-[#40493D]">Required: <strong>${item.quantity} ${item.unit}</strong></p>
+              <p class="text-lg font-bold text-[#0D631B]">Max ₹${item.target_price} / ${item.unit}</p>
+            </div>
+          </div>
+        </div>
+      `,
+        )
+        .join("");
+    } else {
+      demandsGrid.innerHTML = `<p class="text-red-600">Failed to load demands.</p>`;
+    }
+  } catch (err) {
+    console.error("Error fetching demands:", err);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", renderMyDemands);
