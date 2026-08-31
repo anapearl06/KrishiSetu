@@ -6,7 +6,7 @@ type Repository interface {
 	Create(l *CropListing) error
 	FindByID(id uint) (*CropListing, error)
 	FindByFarmerID(farmerID uint) ([]CropListing, error)
-	FindAll(crop, state, status string) ([]CropListing, error)
+	FindAll(crop, state, status string, limit int) ([]CropListing, error)
 	Update(l *CropListing) error
 	Delete(id uint) error
 }
@@ -39,7 +39,7 @@ func (r *postgresRepository) FindByFarmerID(farmerID uint) ([]CropListing, error
 	return listings, nil
 }
 
-func (r *postgresRepository) FindAll(crop, state, status string) ([]CropListing, error) {
+func (r *postgresRepository) FindAll(crop, state, status string, limit int) ([]CropListing, error) {
 	var listings []CropListing
 	query := r.db.Model(&CropListing{})
 
@@ -53,7 +53,12 @@ func (r *postgresRepository) FindAll(crop, state, status string) ([]CropListing,
 		query = query.Where("status = ?", status)
 	}
 
-	if err := query.Order("created_at DESC").Find(&listings).Error; err != nil {
+	query = query.Order("created_at DESC")
+	if limit > 0 {
+		query = query.Limit(limit)
+	}
+
+	if err := query.Find(&listings).Error; err != nil {
 		return nil, err
 	}
 	return listings, nil

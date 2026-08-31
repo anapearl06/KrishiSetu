@@ -72,8 +72,8 @@ func (s *Service) GetMyListings(farmerID uint) ([]CropListing, error) {
 	return s.repo.FindByFarmerID(farmerID)
 }
 
-func (s *Service) BrowseListings(crop, state, status string) ([]CropListing, error) {
-	return s.repo.FindAll(crop, state, status)
+func (s *Service) BrowseListings(crop, state, status string, limit int) ([]CropListing, error) {
+	return s.repo.FindAll(crop, state, status, limit)
 }
 
 func (s *Service) GetListing(id uint) (*CropListing, error) {

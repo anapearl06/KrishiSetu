@@ -71,8 +71,9 @@ func (h *Handler) Browse(c *gin.Context) {
 	crop := c.Query("crop")
 	state := c.Query("state")
 	status := c.Query("status")
+	limit, _ := strconv.Atoi(c.DefaultQuery("limit", "0"))
 
-	listings, err := h.service.BrowseListings(crop, state, status)
+	listings, err := h.service.BrowseListings(crop, state, status, limit)
 	if err != nil {
 		response.Error(c, http.StatusInternalServerError, "INTERNAL_ERROR", err.Error())
 		return
