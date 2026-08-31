@@ -6,9 +6,11 @@ import (
 
 	"github.com/raaj2493/KrishiSetu/internal/buyer"
 	"github.com/raaj2493/KrishiSetu/internal/config"
+	"github.com/raaj2493/KrishiSetu/internal/demand"
 	"github.com/raaj2493/KrishiSetu/internal/farmer"
 	"github.com/raaj2493/KrishiSetu/internal/listing"
 	"github.com/raaj2493/KrishiSetu/internal/middleware"
+	"github.com/raaj2493/KrishiSetu/internal/offer"
 	"github.com/raaj2493/KrishiSetu/internal/server/response"
 )
 
@@ -142,6 +144,103 @@ func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 			"/:id",
 			middleware.JWTAuth(cfg.JWTSecret),
 			listingHandler.Delete,
+		)
+	}
+
+	// =========================
+	// Demand (buyer creates demand)
+	// =========================
+
+	demandRepo := demand.NewRepository(db)
+	demandService := demand.NewService(demandRepo)
+	demandHandler := demand.NewHandler(demandService)
+
+	demandRoutes := router.Group("/api/v1/demands")
+	{
+		// Public: browse all demands
+		demandRoutes.GET(
+			"",
+			demandHandler.ListDemands,
+		)
+
+		// Protected: buyer demand management (JWT)
+		demandRoutes.POST(
+			"",
+			middleware.JWTAuth(cfg.JWTSecret),
+			demandHandler.CreateDemand,
+		)
+
+		demandRoutes.GET(
+			"/my",
+			middleware.JWTAuth(cfg.JWTSecret),
+			demandHandler.GetMyDemands,
+		)
+
+		demandRoutes.GET(
+			"/:id",
+			middleware.JWTAuth(cfg.JWTSecret),
+			demandHandler.GetDemand,
+		)
+
+		demandRoutes.PUT(
+			"/:id",
+			middleware.JWTAuth(cfg.JWTSecret),
+			demandHandler.UpdateDemand,
+		)
+
+		demandRoutes.DELETE(
+			"/:id",
+			middleware.JWTAuth(cfg.JWTSecret),
+			demandHandler.CancelDemand,
+		)
+	}
+
+	// =========================
+	// Offers
+	// =========================
+
+	offerRepo := offer.NewRepository(db)
+	offerService := offer.NewService(offerRepo)
+	offerHandler := offer.NewHandler(offerService, func(listingID uint) (uint, error) {
+		listing, err := listingService.GetListing(listingID)
+		if err != nil {
+			return 0, err
+		}
+		return listing.FarmerID, nil
+	})
+
+	offerRoutes := router.Group("/api/v1/offers")
+	{
+		// Public: view offers for a listing (optional auth handled in handlers)
+		offerRoutes.GET(
+			"/listing/:id",
+			middleware.JWTAuth(cfg.JWTSecret),
+			offerHandler.GetListingOffers,
+		)
+
+		// Protected: buyer offers
+		offerRoutes.POST(
+			"",
+			middleware.JWTAuth(cfg.JWTSecret),
+			offerHandler.CreateOffer,
+		)
+
+		offerRoutes.GET(
+			"/my-sent",
+			middleware.JWTAuth(cfg.JWTSecret),
+			offerHandler.GetMySentOffers,
+		)
+
+		offerRoutes.GET(
+			"/my-received",
+			middleware.JWTAuth(cfg.JWTSecret),
+			offerHandler.GetFarmerOffers,
+		)
+
+		offerRoutes.PUT(
+			"/:id/respond",
+			middleware.JWTAuth(cfg.JWTSecret),
+			offerHandler.RespondOffer,
 		)
 	}
 
