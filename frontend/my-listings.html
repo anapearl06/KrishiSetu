@@ -12,49 +12,129 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <style>
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes slideInRight {
+        from { opacity: 0; transform: translateX(20px); }
+        to { opacity: 1; transform: translateX(0); }
+      }
+      .animate-fade-in-up { animation: fadeInUp 0.6s ease-out forwards; }
+      .animate-slide-in-right { animation: slideInRight 0.5s ease-out forwards; }
+      .delay-1 { animation-delay: 100ms; }
+      .delay-2 { animation-delay: 200ms; }
+      .delay-3 { animation-delay: 300ms; }
+      .delay-4 { animation-delay: 400ms; }
+      .delay-5 { animation-delay: 500ms; }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(224, 228, 218, 0.6);
+      }
+      .gradient-border {
+        position: relative;
+      }
+      .gradient-border::before {
+        content: '';
+        position: absolute;
+        inset: -1px;
+        border-radius: inherit;
+        background: linear-gradient(135deg, #0D631B, #2E7D32, #4CAF50);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: -1;
+      }
+      .gradient-border:hover::before { opacity: 1; }
+      .stat-card:hover { transform: translateY(-4px); }
+      .nav-link { transition: all 0.2s ease; }
+      .nav-link:hover { background: rgba(13, 99, 27, 0.08); }
+      .nav-link.active { background: #0D631B; color: white; }
+      .btn-primary {
+        background: linear-gradient(135deg, #0D631B, #2E7D32);
+        transition: all 0.2s ease;
+      }
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(13, 99, 27, 0.4);
+      }
+      .stat-icon { transition: transform 0.3s ease; }
+      .stat-card:hover .stat-icon { transform: scale(1.1) rotate(3deg); }
+      .produce-card { transition: all 0.3s ease; }
+      .produce-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+      }
+      .status-badge { transition: all 0.2s ease; }
+      .btn-action { transition: all 0.2s ease; }
+      .btn-action:hover { transform: translateY(-1px); }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { animation: none !important; transition: none !important; }
+      }
+    </style>
   </head>
   <body
     class="bg-[#F4F8F0] text-[#181D17] font-['Inter'] min-h-screen flex flex-col lg:flex-row"
   >
     <!-- DESKTOP SIDEBAR -->
     <aside
-      class="hidden lg:flex flex-col w-64 bg-white border-r border-[#E0E4DA] min-h-screen p-5 fixed left-0 top-0 bottom-0 z-40"
+      class="hidden lg:flex flex-col w-64 bg-white/90 backdrop-blur-xl border-r border-[#E0E4DA]/60 min-h-screen p-5 fixed left-0 top-0 bottom-0 z-40 animate-slide-in-right"
     >
-      <a href="./index.html" class="brand mb-8 px-2">
+      <a href="./index.html" class="brand mb-8 px-2 flex items-center gap-3 animate-fade-in-up">
         <img
           src="./assets/images/krishisetu_logo.png"
           alt="KrishiSetu Logo"
-          class="brand-logo"
+          class="brand-logo w-10 h-10"
         />
-        <span class="brand-name text-xl font-bold">KrishiSetu</span>
+        <span class="brand-name text-xl font-bold bg-gradient-to-r from-[#0D631B] to-[#2E7D32] bg-clip-text text-transparent">KrishiSetu</span>
       </a>
       <nav class="flex flex-col gap-2 flex-1">
         <a
           href="./farmer-dashboard.html"
-          class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#40493D] hover:bg-[#F1F5EB] font-medium"
+          class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] hover:bg-[#F1F5EB] font-medium animate-fade-in-up delay-1"
         >
-          <span>📊</span> Dashboard
+          <span class="text-lg">📊</span> Dashboard
         </a>
         <a
           href="./my-listings.html"
-          class="flex items-center gap-3 px-4 py-3 rounded-lg bg-[#0D631B] text-white font-medium shadow-sm"
+          class="nav-link active flex items-center gap-3 px-4 py-3 rounded-xl bg-[#0D631B] text-white font-medium shadow-sm animate-fade-in-up delay-2"
         >
-          <span>🌾</span> My Produce
+          <span class="text-lg">🌾</span> My Produce
+        </a>
+        <a
+          href="./farmer-offers.html"
+          class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] hover:bg-[#F1F5EB] font-medium animate-fade-in-up delay-3"
+        >
+          <span class="text-lg">📥</span> Offers Received
+        </a>
+        <a
+          href="./farmer-orders.html"
+          class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] hover:bg-[#F1F5EB] font-medium animate-fade-in-up delay-4"
+        >
+          <span class="text-lg">📦</span> My Orders
+        </a>
+        <a
+          href="./buyer-demands.html"
+          class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] hover:bg-[#F1F5EB] font-medium animate-fade-in-up delay-5"
+        >
+          <span class="text-lg">📋</span> Buyer Demands
         </a>
       </nav>
 
       <div
-        class="border-t border-[#E0E4DA] pt-4 flex items-center justify-between"
+        class="border-t border-[#E0E4DA]/60 pt-4 flex items-center justify-between animate-fade-in-up delay-5"
       >
         <div class="flex items-center gap-3">
           <div
-            class="w-10 h-10 rounded-full bg-[#0D631B]/10 flex items-center justify-center font-bold text-[#0D631B]"
+            class="w-10 h-10 rounded-full bg-gradient-to-br from-[#0D631B] to-[#4CAF50] flex items-center justify-center font-bold text-white"
           >
             F
           </div>
           <div>
-            <p class="text-sm font-semibold text-[#181D17]">Farmer Portal</p>
-            <p class="text-xs text-[#40493D]">Verified Account</p>
+            <p class="font-semibold text-[#181D17]" id="sidebarName">Farmer</p>
+            <p class="text-xs text-[#40493D]" id="sidebarEmail">farmer@example.com</p>
           </div>
         </div>
         <a
@@ -67,18 +147,65 @@
 
     <!-- MAIN CONTENT AREA -->
     <div class="flex-1 lg:ml-64 pb-20 lg:pb-8">
-      <header
-        class="navbar-shell bg-white/90 backdrop-blur-sm border-b border-[#E0E4DA] sticky top-0 z-30 px-4 md:px-8 py-4 flex items-center justify-between"
-      >
+      <header class="navbar-shell sticky top-0 z-30 px-4 md:px-8 py-6 flex items-center justify-between">
         <div>
-          <h1 class="text-xl md:text-2xl font-bold text-[#181D17]">
+          <h1 class="text-2xl md:text-3xl font-bold text-[#181D17] tracking-tight">
             My Produce
           </h1>
-          <p class="text-xs md:text-sm text-[#40493D]">
+          <p class="text-sm text-[#40493D] mt-1">
             Manage all crops listed by you in the marketplace
           </p>
         </div>
+        <button
+          id="addProduceBtn"
+          class="register-submit px-6 py-3 rounded-xl text-white font-medium shadow-lg hover:shadow-xl transition-all duration-200 hover:-translate-y-0.5"
+        >
+          <span class="mr-2">➕</span> Add Produce
+        </button>
       </header>
+
+      <!-- STATS SUMMARY -->
+      <div class="px-4 md:px-8 py-4 animate-fade-in-up delay-1">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-6xl mx-auto">
+          <div class="glass-card rounded-xl p-4 border border-[#E0E4DA]/60 text-center">
+            <p class="text-2xl font-bold text-[#0D631B]" id="statTotal">0</p>
+            <p class="text-xs text-[#40493D] mt-1">Total Listings</p>
+          </div>
+          <div class="glass-card rounded-xl p-4 border border-[#E0E4DA]/60 text-center">
+            <p class="text-2xl font-bold text-[#2E7D32]" id="statActive">0</p>
+            <p class="text-xs text-[#40493D] mt-1">Active</p>
+          </div>
+          <div class="glass-card rounded-xl p-4 border border-[#E0E4DA]/60 text-center">
+            <p class="text-2xl font-bold text-[#F59E0B]" id="statPending">0</p>
+            <p class="text-xs text-[#40493D] mt-1">Pending</p>
+          </div>
+          <div class="glass-card rounded-xl p-4 border border-[#E0E4DA]/60 text-center">
+            <p class="text-2xl font-bold text-[#EF4444]" id="statSold">0</p>
+            <p class="text-xs text-[#40493D] mt-1">Sold</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FILTERS -->
+      <div class="px-4 md:px-8 pb-4 animate-fade-in-up delay-2">
+        <div class="flex flex-col sm:flex-row gap-3 max-w-6xl mx-auto">
+          <select
+            id="statusFilter"
+            class="flex-1 h-10 px-3 border border-[#E0E4DA] rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#0D631B]/20 focus:border-[#0D631B] transition-all"
+          >
+            <option value="">All Status</option>
+            <option value="ACTIVE">Active</option>
+            <option value="PENDING">Pending</option>
+            <option value="SOLD">Sold</option>
+          </select>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search crops..."
+            class="flex-1 h-10 px-3 border border-[#E0E4DA] rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#0D631B]/20 focus:border-[#0D631B] transition-all"
+          />
+        </div>
+      </div>
 
       <main class="max-w-7xl mx-auto px-4 md:px-8 py-6">
         <!-- PRODUCE CARDS GRID -->
@@ -96,7 +223,7 @@
       id="editModal"
       class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4"
     >
-      <div class="bg-white rounded-xl max-w-md w-full p-6 shadow-xl space-y-4">
+      <div class="glass-card rounded-2xl max-w-md w-full p-6 shadow-xl space-y-4 animate-fade-in-up">
         <h3 class="text-lg font-bold text-[#181D17]">Edit Produce Listing</h3>
         <form id="editForm" class="space-y-3">
           <input type="hidden" id="editId" />
@@ -108,7 +235,7 @@
               type="number"
               id="editPrice"
               required
-              class="w-full h-10 px-3 border border-[#E0E4DA] rounded-lg text-sm"
+              class="w-full h-10 px-3 border border-[#E0E4DA] rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#0D631B]/20 focus:border-[#0D631B] transition-all"
             />
           </div>
           <div>
@@ -119,20 +246,20 @@
               type="number"
               id="editQuantity"
               required
-              class="w-full h-10 px-3 border border-[#E0E4DA] rounded-lg text-sm"
+              class="w-full h-10 px-3 border border-[#E0E4DA] rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#0D631B]/20 focus:border-[#0D631B] transition-all"
             />
           </div>
           <div class="flex justify-end gap-2 pt-3">
             <button
               type="button"
               onclick="closeEditModal()"
-              class="px-4 py-2 text-sm bg-gray-100 rounded-lg"
+              class="px-4 py-2 text-sm bg-gray-100 rounded-xl font-medium hover:bg-gray-200 transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
-              class="register-submit px-4 py-2 text-sm bg-[#0D631B] text-white rounded-lg font-medium"
+              class="register-submit px-4 py-2 text-sm bg-[#0D631B] text-white rounded-xl font-medium hover:bg-[#2E7D32] transition-colors"
             >
               Save Changes
             </button>
