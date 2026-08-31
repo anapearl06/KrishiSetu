@@ -1,215 +1,118 @@
 package listing
 
 import (
-	"context"
 	"errors"
-	"strings"
+	"time"
 )
 
-var (
-	ErrListingNotFound  = errors.New("listing not found")
-	ErrUnauthorized     = errors.New("unauthorized")
-	ErrListingNotActive = errors.New("listing is not active")
-
-	ErrInvalidQuantity = errors.New(
-		"quantity must be greater than zero",
-	)
-
-	ErrInvalidPrice = errors.New(
-		"expected price must be greater than zero",
-	)
-
-	ErrInvalidCropName = errors.New(
-		"crop name is required",
-	)
-
-	ErrInvalidUnit = errors.New(
-		"unit is required",
-	)
-
-	ErrInvalidLocation = errors.New(
-		"state and district are required",
-	)
-
-	ErrInvalidHarvestDate = errors.New(
-		"harvest date is required",
-	)
-)
-
-type Service interface {
-	CreateListing(
-		ctx context.Context,
-		farmerID uint,
-		listing *CropListing,
-	) error
-
-	GetListing(
-		ctx context.Context,
-		id uint,
-	) (*CropListing, error)
-
-	GetFarmerListings(
-		ctx context.Context,
-		farmerID uint,
-	) ([]CropListing, error)
-
-	UpdateListing(
-		ctx context.Context,
-		farmerID uint,
-		listing *CropListing,
-	) error
-
-	CancelListing(
-		ctx context.Context,
-		farmerID uint,
-		listingID uint,
-	) error
-
-	ListListings(
-		ctx context.Context,
-		filters ListingFilters,
-	) ([]CropListing, error)
-}
-
-type service struct {
+type Service struct {
 	repo Repository
 }
 
-func NewService(repo Repository) Service {
-	return &service{
-		repo: repo,
-	}
+type CreateInput struct {
+	Crop        string  `json:"crop"`
+	Quantity    float64 `json:"quantity"`
+	Unit        string  `json:"unit"`
+	Price       float64 `json:"price"`
+	State       string  `json:"state"`
+	District    string  `json:"district"`
+	Description string  `json:"description"`
 }
 
-func (s *service) CreateListing(
-	ctx context.Context,
-	farmerID uint,
-	listing *CropListing,
-) error {
-	if farmerID == 0 {
-		return ErrUnauthorized
-	}
-
-	if err := validateListing(listing); err != nil {
-		return err
-	}
-
-	listing.FarmerID = farmerID
-	listing.Status = "ACTIVE"
-
-	return s.repo.Create(ctx, listing)
+type UpdateInput struct {
+	Price    float64 `json:"price"`
+	Quantity float64 `json:"quantity"`
 }
 
-func (s *service) GetListing(
-	ctx context.Context,
-	id uint,
-) (*CropListing, error) {
-	listing, err := s.repo.FindByID(ctx, id)
-	if err != nil {
-		return nil, ErrListingNotFound
+func NewService(repo Repository) *Service {
+	return &Service{repo: repo}
+}
+
+func (s *Service) CreateListing(farmerID uint, input CreateInput) (*CropListing, error) {
+	if input.Crop == "" {
+		return nil, errors.New("crop name is required")
+	}
+	if input.Quantity <= 0 {
+		return nil, errors.New("quantity must be greater than zero")
+	}
+	if input.Unit == "" {
+		return nil, errors.New("unit is required")
+	}
+	if input.Price <= 0 {
+		return nil, errors.New("price must be greater than zero")
+	}
+	if input.State == "" {
+		return nil, errors.New("state is required")
+	}
+	if input.District == "" {
+		return nil, errors.New("district is required")
+	}
+
+	listing := &CropListing{
+		FarmerID:      farmerID,
+		CropName:      input.Crop,
+		Quantity:      input.Quantity,
+		Unit:          input.Unit,
+		ExpectedPrice: input.Price,
+		Description:   input.Description,
+		State:         input.State,
+		District:      input.District,
+		HarvestDate:   time.Now(),
+		Status:        "ACTIVE",
+	}
+
+	if err := s.repo.Create(listing); err != nil {
+		return nil, err
 	}
 
 	return listing, nil
 }
 
-func (s *service) GetFarmerListings(
-	ctx context.Context,
-	farmerID uint,
-) ([]CropListing, error) {
-	if farmerID == 0 {
-		return nil, ErrUnauthorized
-	}
-
-	return s.repo.FindByFarmer(ctx, farmerID)
+func (s *Service) GetMyListings(farmerID uint) ([]CropListing, error) {
+	return s.repo.FindByFarmerID(farmerID)
 }
 
-func (s *service) UpdateListing(
-	ctx context.Context,
-	farmerID uint,
-	listing *CropListing,
-) error {
-	existing, err := s.repo.FindByID(ctx, listing.ID)
-	if err != nil {
-		return ErrListingNotFound
-	}
-
-	if existing.FarmerID != farmerID {
-		return ErrUnauthorized
-	}
-
-	if existing.Status != "ACTIVE" {
-		return ErrListingNotActive
-	}
-
-	if err := validateListing(listing); err != nil {
-		return err
-	}
-
-	// Never trust ownership or status received from the client.
-	listing.FarmerID = existing.FarmerID
-	listing.Status = existing.Status
-
-	return s.repo.Update(ctx, listing)
+func (s *Service) BrowseListings(crop, state, status string) ([]CropListing, error) {
+	return s.repo.FindAll(crop, state, status)
 }
 
-func (s *service) CancelListing(
-	ctx context.Context,
-	farmerID uint,
-	listingID uint,
-) error {
-	listing, err := s.repo.FindByID(ctx, listingID)
+func (s *Service) GetListing(id uint) (*CropListing, error) {
+	return s.repo.FindByID(id)
+}
+
+func (s *Service) UpdateListing(id, farmerID uint, input UpdateInput) (*CropListing, error) {
+	listing, err := s.repo.FindByID(id)
 	if err != nil {
-		return ErrListingNotFound
+		return nil, err
 	}
 
 	if listing.FarmerID != farmerID {
-		return ErrUnauthorized
+		return nil, errors.New("unauthorized: you can only update your own listing")
 	}
 
-	if listing.Status != "ACTIVE" {
-		return ErrListingNotActive
+	if input.Price > 0 {
+		listing.ExpectedPrice = input.Price
+	}
+	if input.Quantity > 0 {
+		listing.Quantity = input.Quantity
 	}
 
-	return s.repo.Cancel(ctx, listingID)
+	if err := s.repo.Update(listing); err != nil {
+		return nil, err
+	}
+
+	return listing, nil
 }
 
-func (s *service) ListListings(
-	ctx context.Context,
-	filters ListingFilters,
-) ([]CropListing, error) {
-	// Marketplace discovery should show active supply by default.
-	if filters.Status == "" {
-		filters.Status = "ACTIVE"
+func (s *Service) DeleteListing(id, farmerID uint) error {
+	listing, err := s.repo.FindByID(id)
+	if err != nil {
+		return err
 	}
 
-	return s.repo.List(ctx, filters)
-}
-
-func validateListing(listing *CropListing) error {
-	if strings.TrimSpace(listing.CropName) == "" {
-		return ErrInvalidCropName
+	if listing.FarmerID != farmerID {
+		return errors.New("unauthorized: you can only delete your own listing")
 	}
 
-	if listing.Quantity <= 0 {
-		return ErrInvalidQuantity
-	}
-
-	if listing.ExpectedPrice <= 0 {
-		return ErrInvalidPrice
-	}
-
-	if strings.TrimSpace(listing.Unit) == "" {
-		return ErrInvalidUnit
-	}
-
-	if strings.TrimSpace(listing.State) == "" ||
-		strings.TrimSpace(listing.District) == "" {
-		return ErrInvalidLocation
-	}
-
-	if listing.HarvestDate.IsZero() {
-		return ErrInvalidHarvestDate
-	}
-
-	return nil
+	return s.repo.Delete(id)
 }

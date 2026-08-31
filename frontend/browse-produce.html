@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KrishiSetu | Browse Produce Marketplace</title>
+    <link rel="stylesheet" href="./output.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body
+    class="bg-[#F4F8F0] text-[#181D17] font-['Inter'] min-h-screen flex flex-col lg:flex-row"
+  >
+    <!-- DESKTOP SIDEBAR -->
+    <aside
+      class="hidden lg:flex flex-col w-64 bg-white border-r border-[#CDBDB4]/50 min-h-screen p-5 fixed left-0 top-0 bottom-0 z-40"
+    >
+      <a href="./index.html" class="brand mb-8 px-2">
+        <img
+          src="./assets/images/krishisetu_logo.png"
+          alt="KrishiSetu Logo"
+          class="brand-logo"
+        />
+        <span class="brand-name brand-name-warm text-xl font-bold">KrishiSetu</span>
+      </a>
+
+      <nav class="flex flex-col gap-2 flex-1">
+        <a
+          href="./buyer-dashboard.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#40493D] hover:bg-[#F4ECE8] font-medium transition-colors"
+        >
+          <span>📊</span> Dashboard
+        </a>
+        <a
+          href="./browse-produce.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-lg bg-[#75584D] text-white font-medium shadow-sm"
+        >
+          <span>🔎</span> Browse Produce 
+        </a>
+      </nav>
+
+      <div
+        class="border-t border-[#CDBDB4]/50 pt-4 flex items-center justify-between"
+      >
+        <div class="flex items-center gap-3">
+          <div
+            class="w-10 h-10 rounded-full bg-[#75584D]/10 flex items-center justify-center font-bold text-[#75584D]"
+          >
+            A
+          </div>
+          <div>
+            <p class="text-sm font-semibold text-[#181D17]">Buyer Portal</p>
+            <p class="text-xs text-[#40493D]">Verified Account</p>
+          </div>
+        </div>
+        <a
+          href="./login.html"
+          class="text-xs text-red-600 font-medium hover:underline"
+          >Logout</a
+        >
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <div class="flex-1 lg:ml-64 pb-20 lg:pb-8">
+      <header
+        class="navbar-shell bg-white/90 backdrop-blur-sm border-b border-[#CDBDB4]/50 sticky top-0 z-30 px-4 md:px-8 py-4"
+      >
+        <h1 class="text-xl md:text-2xl font-bold text-[#181D17]">
+          Browse Marketplace
+        </h1>
+        <p class="text-xs md:text-sm text-[#40493D]">
+          Filter and negotiate directly with verified farmers
+        </p>
+      </header>
+
+      <main class="max-w-7xl mx-auto px-4 md:px-8 py-6 space-y-6">
+        <!-- ADVANCED FILTER BAR (F11) -->
+        <section
+          class="bg-white p-4 rounded-xl border border-[#CDBDB4]/50 shadow-sm space-y-4"
+        >
+          <form
+            id="marketplaceFilterForm"
+            class="grid grid-cols-1 sm:grid-cols-3 gap-3"
+          >
+            <input
+              id="searchCrop"
+              type="text"
+              placeholder="Crop (e.g. Wheat)"
+              class="h-10 px-3 border border-[#E0E4DA] rounded-lg text-sm"
+            />
+            <input
+              id="searchState"
+              type="text"
+              placeholder="State (e.g. Uttar Pradesh)"
+              class="h-10 px-3 border border-[#E0E4DA] rounded-lg text-sm"
+            />
+            <button
+              type="submit"
+              class="login-submit h-10 bg-[#75584D] text-white text-sm font-bold rounded-lg hover:bg-[#5c443b]"
+            >
+              Search Catalog
+            </button>
+          </form>
+        </section>
+
+        <!-- MARKETPLACE CARDS GRID (F10) -->
+        <section
+          id="marketplaceCatalogGrid"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
+          <!-- Dynamically loaded via script.js -->
+        </section>
+      </main>
+    </div>
+
+    <!-- PRODUCE DETAILS DRAWER (F12) -->
+    <div
+      id="listingDrawerBackdrop"
+      class="fixed inset-0 bg-black/50 z-50 hidden opacity-0 transition-opacity duration-300"
+    ></div>
+    <div
+      id="listingDetailsDrawer"
+      class="fixed inset-y-0 right-0 w-full sm:w-[480px] bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col"
+    >
+      <div
+        class="p-5 border-b border-[#CDBDB4]/50 flex items-center justify-between bg-[#FAFAF5]"
+      >
+        <div>
+          <h2 id="drawerCropTitle" class="text-xl font-bold text-[#75584D]">
+            Crop Specs
+          </h2>
+          <p class="text-xs text-[#40493D]">Farmer inventory detail</p>
+        </div>
+        <button
+          onclick="closeListingDrawer()"
+          class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center font-bold text-gray-500 transition-all duration-200 hover:scale-110"
+        >
+          ✕
+        </button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto p-6 space-y-4">
+        <div class="p-4 rounded-xl bg-[#F4F8F0] border border-[#E0E4DA]">
+          <span class="text-xs text-[#0D631B] font-semibold"
+            >Farmer Location</span
+          >
+          <p id="drawerLocation" class="text-sm font-bold text-[#181D17]">
+            District, State
+          </p>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="p-3 bg-gray-50 rounded-lg">
+            <span class="text-xs text-gray-500 block">Available Quantity</span>
+            <strong id="drawerQty" class="text-[#181D17] text-sm">-</strong>
+          </div>
+          <div class="p-3 bg-gray-50 rounded-lg">
+            <span class="text-xs text-gray-500 block">Asking Price</span>
+            <strong id="drawerPrice" class="text-[#75584D] text-sm">-</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-4 border-t border-[#CDBDB4]/50 bg-white">
+        <button
+          onclick="openOfferModal()"
+          class="login-submit w-full py-3 bg-[#75584D] text-white font-bold rounded-lg shadow hover:bg-[#5c443b]"
+        >
+          Make an Offer
+        </button>
+      </div>
+    </div>
+
+    <!-- NESTED MAKE OFFER MODAL (F12 UI ONLY) -->
+    <div
+      id="offerModalBackdrop"
+      class="fixed inset-0 bg-black/60 z-[60] hidden flex items-center justify-center p-4"
+    >
+      <div class="bg-white rounded-xl max-w-md w-full p-6 shadow-2xl space-y-4">
+        <h3 class="font-bold text-lg text-[#181D17]">Make an Offer</h3>
+        <p class="text-xs text-[#40493D]">Send custom pricing deal to farmer</p>
+        <div>
+          <label class="block text-xs font-semibold text-[#181D17] mb-1"
+            >Offered Price (₹)</label
+          >
+          <input
+            type="number"
+            placeholder="Enter custom price"
+            class="w-full h-10 px-3 border border-[#E0E4DA] rounded-lg text-sm"
+          />
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button
+            type="button"
+            onclick="closeOfferModal()"
+            class="px-4 py-2 text-sm bg-gray-100 rounded-lg"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            onclick="submitOfferPlaceholder()"
+            class="login-submit px-4 py-2 text-sm bg-[#0D631B] text-white font-bold rounded-lg"
+          >
+            Send Offer
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

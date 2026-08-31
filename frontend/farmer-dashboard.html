@@ -39,10 +39,10 @@
           <span>📊</span> Dashboard
         </a>
         <a
-          href="#my-listings"
+          href="./my-listings.html"
           class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#40493D] hover:bg-[#F1F5EB] font-medium transition-colors"
         >
-          <span>🌾</span> My Listings
+          <span>🌾</span> My Produce
         </a>
         <a
           href="#my-offers"
@@ -311,8 +311,8 @@
       >
         <span class="text-base">📊</span> Home
       </a>
-      <a href="#my-listings" class="flex flex-col items-center text-[#40493D]">
-        <span class="text-base">🌾</span> Listings
+      <a href="./my-listings.html" class="flex flex-col items-center text-[#40493D]">
+        <span class="text-base">🌾</span> Produce
       </a>
       <a href="#my-offers" class="flex flex-col items-center text-[#40493D]">
         <span class="text-base">🤝</span> Offers
@@ -482,8 +482,6 @@
         const createListingDrawer = document.getElementById(
           "createListingDrawer",
         );
-        const createListingForm = document.getElementById("createListingForm");
-        const publishBtn = document.getElementById("publishBtn");
 
         function openDrawer() {
           drawerBackdrop.classList.remove("hidden");
@@ -506,22 +504,6 @@
           closeDrawerBtn.addEventListener("click", closeDrawer);
         if (drawerBackdrop)
           drawerBackdrop.addEventListener("click", closeDrawer);
-
-        if (createListingForm) {
-          createListingForm.addEventListener("submit", function (e) {
-            e.preventDefault();
-            publishBtn.textContent = "Publishing...";
-            publishBtn.disabled = true;
-
-            setTimeout(() => {
-              alert("Listed Successfully!");
-              publishBtn.textContent = "Publish Produce";
-              publishBtn.disabled = false;
-              createListingForm.reset();
-              closeDrawer();
-            }, 1000);
-          });
-        }
       });
     </script>
   </body>

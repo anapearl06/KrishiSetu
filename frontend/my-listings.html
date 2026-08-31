@@ -20,13 +20,13 @@
     <aside
       class="hidden lg:flex flex-col w-64 bg-white border-r border-[#E0E4DA] min-h-screen p-5 fixed left-0 top-0 bottom-0 z-40"
     >
-      <a href="./index.html" class="flex items-center gap-3 mb-8 px-2">
+      <a href="./index.html" class="brand mb-8 px-2">
         <img
           src="./assets/images/krishisetu_logo.png"
-          alt="Logo"
-          class="h-9 w-9 object-contain"
+          alt="KrishiSetu Logo"
+          class="brand-logo"
         />
-        <span class="text-xl font-bold text-[#0D631B]">KrishiSetu</span>
+        <span class="brand-name text-xl font-bold">KrishiSetu</span>
       </a>
       <nav class="flex flex-col gap-2 flex-1">
         <a
@@ -42,12 +42,33 @@
           <span>🌾</span> My Produce
         </a>
       </nav>
+
+      <div
+        class="border-t border-[#E0E4DA] pt-4 flex items-center justify-between"
+      >
+        <div class="flex items-center gap-3">
+          <div
+            class="w-10 h-10 rounded-full bg-[#0D631B]/10 flex items-center justify-center font-bold text-[#0D631B]"
+          >
+            F
+          </div>
+          <div>
+            <p class="text-sm font-semibold text-[#181D17]">Farmer Portal</p>
+            <p class="text-xs text-[#40493D]">Verified Account</p>
+          </div>
+        </div>
+        <a
+          href="./login.html"
+          class="text-xs text-red-600 font-medium hover:underline"
+          >Logout</a
+        >
+      </div>
     </aside>
 
     <!-- MAIN CONTENT AREA -->
     <div class="flex-1 lg:ml-64 pb-20 lg:pb-8">
       <header
-        class="bg-white/90 backdrop-blur-sm border-b border-[#E0E4DA] sticky top-0 z-30 px-4 md:px-8 py-4 flex items-center justify-between"
+        class="navbar-shell bg-white/90 backdrop-blur-sm border-b border-[#E0E4DA] sticky top-0 z-30 px-4 md:px-8 py-4 flex items-center justify-between"
       >
         <div>
           <h1 class="text-xl md:text-2xl font-bold text-[#181D17]">
@@ -111,7 +132,7 @@
             </button>
             <button
               type="submit"
-              class="px-4 py-2 text-sm bg-[#0D631B] text-white rounded-lg font-medium"
+              class="register-submit px-4 py-2 text-sm bg-[#0D631B] text-white rounded-lg font-medium"
             >
               Save Changes
             </button>
