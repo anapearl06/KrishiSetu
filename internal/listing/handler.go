@@ -42,7 +42,7 @@ func (h *Handler) Create(c *gin.Context) {
 		return
 	}
 
-	response.Success(c, http.StatusCreated, listing)
+	response.Success(c, http.StatusCreated, ToResponse(listing))
 }
 
 func (h *Handler) GetMyListings(c *gin.Context) {
@@ -64,7 +64,7 @@ func (h *Handler) GetMyListings(c *gin.Context) {
 		return
 	}
 
-	response.Success(c, http.StatusOK, listings)
+	c.JSON(http.StatusOK, ToResponseList(listings))
 }
 
 func (h *Handler) Browse(c *gin.Context) {
@@ -78,7 +78,7 @@ func (h *Handler) Browse(c *gin.Context) {
 		return
 	}
 
-	response.Success(c, http.StatusOK, listings)
+	c.JSON(http.StatusOK, ToResponseList(listings))
 }
 
 func (h *Handler) Update(c *gin.Context) {
@@ -112,7 +112,7 @@ func (h *Handler) Update(c *gin.Context) {
 		return
 	}
 
-	response.Success(c, http.StatusOK, listing)
+	response.Success(c, http.StatusOK, ToResponse(listing))
 }
 
 func (h *Handler) Delete(c *gin.Context) {
