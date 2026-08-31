@@ -1048,3 +1048,177 @@ document.addEventListener("DOMContentLoaded", () => {
   renderBuyerOffers();
   renderFarmerOffers();
 });
+// ============================================================
+// F24, F25, F26, F27 — ORDERS MANAGEMENT API INTEGRATION
+// ============================================================
+
+// 1. FARMER ORDERS (F25 — GET /api/v1/orders/farmer)
+async function renderFarmerOrders() {
+  const container = document.getElementById("farmerOrdersList");
+  if (!container) return;
+
+  const token = localStorage.getItem("token");
+  if (!token) {
+    container.innerHTML = `<p class="text-red-600 font-medium">Please login to view orders.</p>`;
+    return;
+  }
+
+  try {
+    const res = await fetch(
+      "https://krishisetu-api-tiau.onrender.com/api/v1/orders/farmer",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    const data = await res.json();
+    if (res.ok && Array.isArray(data)) {
+      if (data.length === 0) {
+        container.innerHTML = `<p class="text-[#40493D]">No confirmed orders found.</p>`;
+        return;
+      }
+
+      container.innerHTML = data
+        .map(
+          (item) => `
+        <div class="bg-white rounded-xl border border-[#E0E4DA] p-5 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="px-2 py-0.5 text-xs font-semibold rounded bg-green-100 text-green-800 uppercase">${item.status || "CONFIRMED"}</span>
+              <span class="text-xs text-gray-500">Order #${item.id ? item.id.substring(0, 8) : "N/A"}</span>
+            </div>
+            <h3 class="text-lg font-bold text-[#181D17]">${item.crop || "Crop Harvest"}</h3>
+            <p class="text-xs text-[#40493D]">Buyer: <strong>${item.buyer_name || "Buyer Partner"}</strong></p>
+          </div>
+          <div class="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end">
+            <div class="text-right">
+              <p class="text-xs text-[#40493D]">Agreed Qty: <strong>${item.quantity}</strong></p>
+              <p class="text-lg font-bold text-[#0D631B]">Total: ₹${item.total_amount || item.quantity * item.agreed_price}</p>
+            </div>
+            <button onclick="openOrderModal('${item.id}', '${item.crop}', '${item.quantity}', '${item.agreed_price}', '${item.total_amount || item.quantity * item.agreed_price}', '${item.buyer_name || "Buyer"}', '${item.status || "CONFIRMED"}')" class="px-3 py-2 bg-gray-100 text-[#181D17] text-xs font-bold rounded-lg hover:bg-gray-200">
+              View Summary
+            </button>
+          </div>
+        </div>
+      `,
+        )
+        .join("");
+    } else {
+      container.innerHTML = `<p class="text-red-600">Failed to load farmer orders.</p>`;
+    }
+  } catch (err) {
+    console.error("Error fetching farmer orders:", err);
+  }
+}
+
+// 2. BUYER ORDERS (F26 — GET /api/v1/orders/buyer)
+async function renderBuyerOrders() {
+  const container = document.getElementById("buyerOrdersList");
+  if (!container) return;
+
+  const token = localStorage.getItem("token");
+  if (!token) {
+    container.innerHTML = `<p class="text-red-600 font-medium">Please login to view orders.</p>`;
+    return;
+  }
+
+  try {
+    const res = await fetch(
+      "https://krishisetu-api-tiau.onrender.com/api/v1/orders/buyer",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    const data = await res.json();
+    if (res.ok && Array.isArray(data)) {
+      if (data.length === 0) {
+        container.innerHTML = `<p class="text-[#40493D]">No purchase orders found.</p>`;
+        return;
+      }
+
+      container.innerHTML = data
+        .map(
+          (item) => `
+        <div class="bg-white rounded-xl border border-[#E0E4DA] p-5 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="px-2 py-0.5 text-xs font-semibold rounded bg-green-100 text-green-800 uppercase">${item.status || "CONFIRMED"}</span>
+              <span class="text-xs text-gray-500">Order #${item.id ? item.id.substring(0, 8) : "N/A"}</span>
+            </div>
+            <h3 class="text-lg font-bold text-[#181D17]">${item.crop || "Crop Harvest"}</h3>
+            <p class="text-xs text-[#40493D]">Farmer: <strong>${item.farmer_name || "Farmer Partner"}</strong></p>
+          </div>
+          <div class="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end">
+            <div class="text-right">
+              <p class="text-xs text-[#40493D]">Agreed Qty: <strong>${item.quantity}</strong></p>
+              <p class="text-lg font-bold text-[#0D631B]">Total: ₹${item.total_amount || item.quantity * item.agreed_price}</p>
+            </div>
+            <button onclick="openOrderModal('${item.id}', '${item.crop}', '${item.quantity}', '${item.agreed_price}', '${item.total_amount || item.quantity * item.agreed_price}', '${item.farmer_name || "Farmer"}', '${item.status || "CONFIRMED"}')" class="px-3 py-2 bg-gray-100 text-[#181D17] text-xs font-bold rounded-lg hover:bg-gray-200">
+              View Summary
+            </button>
+          </div>
+        </div>
+      `,
+        )
+        .join("");
+    } else {
+      container.innerHTML = `<p class="text-red-600">Failed to load buyer orders.</p>`;
+    }
+  } catch (err) {
+    console.error("Error fetching buyer orders:", err);
+  }
+}
+
+// 3. ORDER DETAILS MODAL HANDLERS (F27)
+function openOrderModal(id, crop, qty, price, total, partner, status) {
+  const modal = document.getElementById("orderDetailsModal");
+  const body = document.getElementById("orderDetailsBody");
+  if (!modal || !body) return;
+
+  body.innerHTML = `
+    <div class="p-3 bg-green-50 rounded-lg border border-green-200 text-center mb-3">
+      <span class="text-2xl">🎉</span>
+      <h4 class="font-bold text-[#0D631B] text-base mt-1">Order Confirmed</h4>
+      <p class="text-xs text-gray-600">Deal finalized between both parties</p>
+    </div>
+    <div class="grid grid-cols-2 gap-2 text-xs border-b border-[#E0E4DA] pb-2">
+      <span class="text-gray-500">Order Reference:</span>
+      <span class="font-semibold text-right">${id ? id.substring(0, 12) : "CR-8921"}...</span>
+      <span class="text-gray-500">Status:</span>
+      <span class="font-bold text-green-700 text-right uppercase">${status}</span>
+    </div>
+    <div class="grid grid-cols-2 gap-2 text-xs border-b border-[#E0E4DA] py-2">
+      <span class="text-gray-500">Crop Commodity:</span>
+      <span class="font-semibold text-right">${crop}</span>
+      <span class="text-gray-500">Agreed Quantity:</span>
+      <span class="font-semibold text-right">${qty}</span>
+      <span class="text-gray-500">Agreed Unit Price:</span>
+      <span class="font-semibold text-right">₹${price}</span>
+    </div>
+    <div class="flex justify-between items-center pt-2 text-base font-bold text-[#0D631B]">
+      <span>Total Amount:</span>
+      <span>₹${total}</span>
+    </div>
+  `;
+
+  modal.classList.remove("hidden");
+}
+
+function closeOrderModal() {
+  const modal = document.getElementById("orderDetailsModal");
+  if (modal) modal.classList.add("hidden");
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderFarmerOrders();
+  renderBuyerOrders();
+});
