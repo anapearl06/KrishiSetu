@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>KrishiSetu | Sent Offers</title>
+    <title>KrishiSetu | My Offers (Buyer)</title>
     <link rel="stylesheet" href="./output.css" />
     <link rel="stylesheet" href="./style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -14,7 +14,7 @@
     />
   </head>
   <body
-    class="bg-[#FAFAF5] text-[#181D17] font-['Inter'] min-h-screen flex flex-col lg:flex-row"
+    class="bg-[#F4F8F0] text-[#181D17] font-['Inter'] min-h-screen flex flex-col lg:flex-row"
   >
     <!-- DESKTOP SIDEBAR -->
     <aside
@@ -26,7 +26,7 @@
           alt="Logo"
           class="h-9 w-9 object-contain"
         />
-        <span class="text-xl font-bold text-[#75584D]">KrishiSetu</span>
+        <span class="text-xl font-bold text-[#0D631B]">KrishiSetu</span>
       </a>
       <nav class="flex flex-col gap-2 flex-1">
         <a
@@ -39,39 +39,41 @@
           href="./browse-produce.html"
           class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#40493D] hover:bg-[#F1F5EB] font-medium"
         >
-          <span>🛒</span> Browse Produce
+          <span>🌾</span> Browse Produce
+        </a>
+        <a
+          href="./buyer-demands.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#40493D] hover:bg-[#F1F5EB] font-medium"
+        >
+          <span>📢</span> My Demands
         </a>
         <a
           href="./buyer-offers.html"
-          class="flex items-center gap-3 px-4 py-3 rounded-lg bg-[#75584D] text-white font-medium shadow-sm"
+          class="flex items-center gap-3 px-4 py-3 rounded-lg bg-[#0D631B] text-white font-medium shadow-sm"
         >
-          <span>🤝</span> Sent Offers
-        </a>
-        <a
-          href="./buyer-orders.html"
-          class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#40493D] hover:bg-[#F1F5EB] font-medium"
-        >
-          <span>📦</span> My Orders
+          <span>🤝</span> My Sent Offers
         </a>
       </nav>
     </aside>
 
-    <!-- MAIN CONTENT -->
+    <!-- MAIN CONTENT AREA -->
     <div class="flex-1 lg:ml-64 pb-20 lg:pb-8">
       <header
-        class="bg-white/90 backdrop-blur-sm border-b border-[#E0E4DA] sticky top-0 z-30 px-4 md:px-8 py-4"
+        class="bg-white/90 backdrop-blur-sm border-b border-[#E0E4DA] sticky top-0 z-30 px-4 md:px-8 py-4 flex items-center justify-between"
       >
-        <h1 class="text-xl md:text-2xl font-bold text-[#181D17]">
-          Sent Offers
-        </h1>
-        <p class="text-xs md:text-sm text-[#40493D]">
-          Track status of offers submitted to farmers
-        </p>
+        <div>
+          <h1 class="text-xl md:text-2xl font-bold text-[#181D17]">
+            My Sent Offers
+          </h1>
+          <p class="text-xs md:text-sm text-[#40493D]">
+            Track status of custom bids sent to farmers
+          </p>
+        </div>
       </header>
 
       <main class="max-w-7xl mx-auto px-4 md:px-8 py-6">
-        <div id="sentOffersContainer" class="space-y-4">
-          <p class="text-sm text-gray-500">Loading sent offers...</p>
+        <div id="buyerOffersList" class="space-y-4">
+          <!-- Populated dynamically via script.js -->
         </div>
       </main>
     </div>
