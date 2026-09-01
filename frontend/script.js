@@ -479,23 +479,29 @@ async function renderMyProduce() {
 
       produceGrid.innerHTML = data
         .map(
-          (item) => `
-        <div class="bg-white rounded-xl border border-[#E0E4DA] p-5 shadow-sm hover:shadow-md transition-shadow">
+          (item, idx) => `
+        <div class="glass-card rounded-2xl border border-[#E0E4DA]/60 p-5 shadow-sm hover:-translate-y-1.5 hover:shadow-lg ksetu-fade-up" style="animation-delay:${idx * 60}ms">
           <div class="flex justify-between items-start mb-2">
-            <span class="px-2.5 py-0.5 text-xs font-semibold rounded bg-green-100 text-[#0D631B] uppercase">${item.status || "ACTIVE"}</span>
-            <span class="text-xs text-[#40493D]">${item.district || ""}, ${item.state || ""}</span>
+            <span class="status-badge ${
+              item.status === "ACTIVE"
+                ? "accepted"
+                : item.status === "PENDING"
+                  ? "pending"
+                  : "delivered"
+            }">${item.status || "ACTIVE"}</span>
+            <span class="text-xs text-[#40493D]">📍 ${item.district || ""}, ${item.state || ""}</span>
           </div>
           <h3 class="text-lg font-bold text-[#181D17]">${item.crop}</h3>
           <p class="text-xs text-[#40493D] mt-1">${item.description || "No description provided"}</p>
 
           <div class="mt-4 pt-4 border-t border-[#F1F5EB] flex justify-between items-center">
             <div>
-              <p class="text-xs text-[#40493D]">Quantity: <strong>${item.quantity} ${item.unit}</strong></p>
-              <p class="text-lg font-bold text-[#0D631B]">₹${item.price} / ${item.unit}</p>
+              <p class="text-xs text-[#40493D]">Quantity: <strong class="text-[#181D17]">${item.quantity} ${item.unit}</strong></p>
+              <p class="text-lg font-bold brand-name">₹${item.price} / ${item.unit}</p>
             </div>
             <div class="flex gap-2">
-              <button onclick="openEditModal('${item.id}', ${item.price}, ${item.quantity})" class="px-3 py-1.5 bg-amber-50 text-amber-700 border border-amber-200 text-xs font-semibold rounded-md hover:bg-amber-100">Edit</button>
-              <button onclick="deleteListing('${item.id}')" class="px-3 py-1.5 bg-red-50 text-red-600 border border-red-200 text-xs font-semibold rounded-md hover:bg-red-100">Cancel</button>
+              <button onclick="openEditModal('${item.id}', ${item.price}, ${item.quantity})" class="px-3 py-1.5 bg-amber-50 text-amber-700 border border-amber-200 text-xs font-semibold rounded-xl hover:bg-amber-100 transition-colors">✏️ Edit</button>
+              <button onclick="deleteListing('${item.id}')" class="px-3 py-1.5 bg-red-50 text-red-600 border border-red-200 text-xs font-semibold rounded-xl hover:bg-red-100 transition-colors">🗑 Cancel</button>
             </div>
           </div>
         </div>
