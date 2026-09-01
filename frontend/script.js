@@ -923,21 +923,21 @@ async function renderBuyerOffers() {
       container.innerHTML = data
         .map(
           (item) => `
-        <div class="bg-white rounded-xl border border-[#E0E4DA] p-5 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div class="glass-card rounded-2xl border border-[#E0E4DA]/60 p-5 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4 ksetu-fade-up">
           <div>
-            <span class="px-2.5 py-0.5 text-xs font-semibold rounded ${
+            <span class="status-badge ${
               item.status === "ACCEPTED"
-                ? "bg-green-100 text-green-800"
+                ? "accepted"
                 : item.status === "REJECTED"
-                  ? "bg-red-100 text-red-800"
-                  : "bg-amber-100 text-amber-800"
-            } uppercase">${item.status || "PENDING"}</span>
+                  ? "rejected"
+                  : "pending"
+            }">${item.status || "PENDING"}</span>
             <h3 class="text-lg font-bold text-[#181D17] mt-2">${item.crop || "Produce Listing"}</h3>
-            <p class="text-xs text-[#40493D] mt-1">${item.message || "No additional message"}</p>
+            <p class="text-xs text-[#40493D] mt-1">💬 ${item.message || "No additional message"}</p>
           </div>
-          <div class="text-right">
-            <p class="text-xs text-[#40493D]">Offered Qty: <strong>${item.quantity}</strong></p>
-            <p class="text-lg font-bold text-[#0D631B]">₹${item.offered_price} / unit</p>
+          <div class="text-right gap-2">
+            <p class="text-xs text-[#40493D]">Offered Qty: <strong class="text-[#181D17]">${item.quantity}</strong></p>
+            <p class="text-lg font-bold gradient-text-warm">₹${item.offered_price} / unit</p>
           </div>
         </div>
       `,
