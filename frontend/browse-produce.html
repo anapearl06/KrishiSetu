@@ -18,13 +18,13 @@
   >
     <!-- DESKTOP SIDEBAR -->
     <aside
-      class="hidden lg:flex flex-col w-64 bg-white border-r border-[#CDBDB4]/50 min-h-screen p-5 fixed left-0 top-0 bottom-0 z-40"
+      class="hidden lg:flex flex-col w-64 sidebar-glass border-r border-[#CDBDB4]/50 min-h-screen p-5 fixed left-0 top-0 bottom-0 z-40 ksetu-slide-in"
     >
-      <a href="./index.html" class="brand mb-8 px-2">
+      <a href="./index.html" class="brand mb-8 px-2 flex items-center gap-3">
         <img
           src="./assets/images/krishisetu_logo.png"
           alt="KrishiSetu Logo"
-          class="brand-logo"
+          class="brand-logo w-10 h-10"
         />
         <span class="brand-name brand-name-warm text-xl font-bold">KrishiSetu</span>
       </a>
@@ -32,15 +32,33 @@
       <nav class="flex flex-col gap-2 flex-1">
         <a
           href="./buyer-dashboard.html"
-          class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#40493D] hover:bg-[#F4ECE8] font-medium transition-colors"
+          class="nav-item-warm flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] font-medium"
         >
-          <span>📊</span> Dashboard
+          <span class="text-lg">📊</span> Dashboard
         </a>
         <a
           href="./browse-produce.html"
-          class="flex items-center gap-3 px-4 py-3 rounded-lg bg-[#75584D] text-white font-medium shadow-sm"
+          class="nav-item-warm active flex items-center gap-3 px-4 py-3 rounded-xl font-medium shadow-sm"
         >
-          <span>🔎</span> Browse Produce 
+          <span class="text-lg">🔎</span> Browse Produce 
+        </a>
+        <a
+          href="./buyer-offers.html"
+          class="nav-item-warm flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] font-medium"
+        >
+          <span class="text-lg">📝</span> Sent Offers
+        </a>
+        <a
+          href="./buyer-orders.html"
+          class="nav-item-warm flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] font-medium"
+        >
+          <span class="text-lg">🚚</span> My Orders
+        </a>
+        <a
+          href="./buyer-demands.html"
+          class="nav-item-warm flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] font-medium"
+        >
+          <span class="text-lg">📋</span> Demand
         </a>
       </nav>
 
@@ -49,7 +67,7 @@
       >
         <div class="flex items-center gap-3">
           <div
-            class="w-10 h-10 rounded-full bg-[#75584D]/10 flex items-center justify-center font-bold text-[#75584D]"
+            class="w-10 h-10 rounded-full bg-gradient-to-br from-[#75584D] to-[#9b7b6c] flex items-center justify-center font-bold text-white"
           >
             A
           </div>
