@@ -816,3 +816,154 @@
   padding-top: 1.05rem;
   padding-bottom: 1.05rem;
 }
+
+/* ============================================================
+   PREMIUM GLASSMORPHISM + MOTION UTILITIES (DASHBOARDS)
+   ============================================================ */
+
+@keyframes ksetuFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ksetuSlideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.ksetu-fade-up {
+  animation: ksetuFadeInUp 0.6s ease-out both;
+}
+
+.ksetu-slide-in {
+  animation: ksetuSlideInRight 0.5s ease-out both;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(205, 189, 180, 0.45);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(117, 88, 77, 0.4);
+  box-shadow: 0 14px 34px -12px rgba(117, 88, 77, 0.22);
+}
+
+.stat-card {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(117, 88, 77, 0.14);
+}
+
+.stat-icon {
+  transition: transform 0.3s ease;
+}
+
+.stat-card:hover .stat-icon {
+  transform: scale(1.12) rotate(4deg);
+}
+
+.btn-warm {
+  background-image: linear-gradient(135deg, #75584d, #9b7b6c);
+  box-shadow: 0 6px 16px -6px rgba(117, 88, 77, 0.5);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+.btn-warm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px -8px rgba(117, 88, 77, 0.6);
+  filter: brightness(1.05);
+}
+
+.sidebar-glass {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.nav-item-warm {
+  transition: all 0.2s ease;
+}
+
+.nav-item-warm:hover {
+  background: rgba(117, 88, 77, 0.08);
+  transform: translateX(2px);
+}
+
+.nav-item-warm.active {
+  background: linear-gradient(135deg, #75584d, #8c6a5b);
+  color: #ffffff;
+  box-shadow: 0 6px 16px -6px rgba(117, 88, 77, 0.55);
+}
+
+.gradient-text-warm {
+  background: linear-gradient(135deg, #75584d, #b08a74);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.status-badge.pending {
+  background: rgba(245, 158, 11, 0.14);
+  color: #b45309;
+}
+
+.status-badge.accepted {
+  background: rgba(13, 99, 27, 0.12);
+  color: #0d631b;
+}
+
+.status-badge.rejected {
+  background: rgba(220, 38, 38, 0.1);
+  color: #b91c1c;
+}
+
+.status-badge.delivered {
+  background: rgba(37, 99, 235, 0.1);
+  color: #1d4ed8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ksetu-fade-up,
+  .ksetu-slide-in {
+    animation: none;
+  }
+}
