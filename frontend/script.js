@@ -1091,22 +1091,22 @@ async function renderFarmerOrders() {
       container.innerHTML = data
         .map(
           (item) => `
-        <div class="bg-white rounded-xl border border-[#E0E4DA] p-5 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div class="glass-card rounded-2xl border border-[#E0E4DA]/60 p-5 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4 ksetu-fade-up">
           <div>
             <div class="flex items-center gap-2 mb-1">
-              <span class="px-2 py-0.5 text-xs font-semibold rounded bg-green-100 text-green-800 uppercase">${item.status || "CONFIRMED"}</span>
+              <span class="status-badge accepted">${item.status || "CONFIRMED"}</span>
               <span class="text-xs text-gray-500">Order #${item.id ? item.id.substring(0, 8) : "N/A"}</span>
             </div>
             <h3 class="text-lg font-bold text-[#181D17]">${item.crop || "Crop Harvest"}</h3>
-            <p class="text-xs text-[#40493D]">Buyer: <strong>${item.buyer_name || "Buyer Partner"}</strong></p>
+            <p class="text-xs text-[#40493D]">Buyer: <strong class="text-[#181D17]">${item.buyer_name || "Buyer Partner"}</strong></p>
           </div>
           <div class="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end">
             <div class="text-right">
-              <p class="text-xs text-[#40493D]">Agreed Qty: <strong>${item.quantity}</strong></p>
-              <p class="text-lg font-bold text-[#0D631B]">Total: ₹${item.total_amount || item.quantity * item.agreed_price}</p>
+              <p class="text-xs text-[#40493D]">Agreed Qty: <strong class="text-[#181D17]">${item.quantity}</strong></p>
+              <p class="text-lg font-bold brand-name">Total: ₹${item.total_amount || item.quantity * item.agreed_price}</p>
             </div>
-            <button onclick="openOrderModal('${item.id}', '${item.crop}', '${item.quantity}', '${item.agreed_price}', '${item.total_amount || item.quantity * item.agreed_price}', '${item.buyer_name || "Buyer"}', '${item.status || "CONFIRMED"}')" class="px-3 py-2 bg-gray-100 text-[#181D17] text-xs font-bold rounded-lg hover:bg-gray-200">
-              View Summary
+            <button onclick="openOrderModal('${item.id}', '${item.crop}', '${item.quantity}', '${item.agreed_price}', '${item.total_amount || item.quantity * item.agreed_price}', '${item.buyer_name || "Buyer"}', '${item.status || "CONFIRMED"}')" class="px-4 py-2.5 bg-[#0D631B]/10 text-[#0D631B] text-xs font-bold rounded-xl hover:bg-[#0D631B] hover:text-white transition-all">
+              📄 View Summary
             </button>
           </div>
         </div>
