@@ -151,15 +151,18 @@
     ></div>
     <div
       id="createDemandDrawer"
-      class="fixed inset-y-0 right-0 w-full sm:w-[480px] bg-white z-50 shadow-2xl transform translate-x-full transition-transform flex flex-col"
+      class="fixed inset-y-0 right-0 w-full sm:w-[480px] sidebar-glass z-50 shadow-2xl transform translate-x-full transition-transform flex flex-col"
     >
       <div
-        class="p-5 border-b border-[#E0E4DA] flex items-center justify-between bg-[#FAFAF5]"
+        class="p-5 border-b border-[#CDBDB4]/50 flex items-center justify-between bg-gradient-to-r from-white to-[#FAFAF5]"
       >
-        <h2 class="text-xl font-bold text-[#0D631B]">Post Crop Requirement</h2>
+        <div>
+          <h2 class="text-xl font-bold gradient-text-warm">Post Crop Requirement</h2>
+          <p class="text-xs text-[#40493D]">Farmers will see your demand</p>
+        </div>
         <button
           onclick="closeDemandDrawer()"
-          class="text-lg font-bold text-gray-500"
+          class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center font-bold text-gray-500 transition-all duration-200 hover:scale-110"
         >
           ✕
         </button>
@@ -175,7 +178,7 @@
             id="demandCrop"
             required
             placeholder="e.g. Mustard, Wheat, Paddy"
-            class="w-full h-10 px-3 border border-[#E0E4DA] rounded-lg text-sm"
+            class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all"
           />
         </div>
         <div class="grid grid-cols-2 gap-3">
@@ -188,7 +191,7 @@
               id="demandQuantity"
               required
               placeholder="500"
-              class="w-full h-10 px-3 border border-[#E0E4DA] rounded-lg text-sm"
+              class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all"
             />
           </div>
           <div>
@@ -197,7 +200,7 @@
             >
             <select
               id="demandUnit"
-              class="w-full h-10 px-3 border border-[#E0E4DA] rounded-lg text-sm bg-white"
+              class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all"
             >
               <option value="quintal">Quintal</option>
               <option value="kg">Kg</option>
@@ -214,7 +217,7 @@
             id="demandTargetPrice"
             required
             placeholder="e.g. 5200"
-            class="w-full h-10 px-3 border border-[#E0E4DA] rounded-lg text-sm"
+            class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all"
           />
         </div>
         <div class="grid grid-cols-2 gap-3">
@@ -227,7 +230,7 @@
               id="demandState"
               required
               placeholder="Uttar Pradesh"
-              class="w-full h-10 px-3 border border-[#E0E4DA] rounded-lg text-sm"
+              class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all"
             />
           </div>
           <div>
@@ -239,7 +242,7 @@
               id="demandDistrict"
               required
               placeholder="Agra"
-              class="w-full h-10 px-3 border border-[#E0E4DA] rounded-lg text-sm"
+              class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all"
             />
           </div>
         </div>
@@ -251,14 +254,14 @@
             id="demandDescription"
             rows="3"
             placeholder="Need moisture content under 8%..."
-            class="w-full p-3 border border-[#E0E4DA] rounded-lg text-sm"
+            class="w-full p-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all"
           ></textarea>
         </div>
         <button
           type="submit"
-          class="w-full h-11 bg-[#0D631B] text-white font-bold rounded-lg text-sm hover:bg-[#095516]"
+          class="btn-warm w-full h-12 text-white font-bold rounded-xl text-sm shadow-lg flex items-center justify-center gap-2"
         >
-          Publish Requirement
+          🚀 Publish Requirement
         </button>
       </form>
     </div>
