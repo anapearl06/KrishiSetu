@@ -400,7 +400,7 @@ document
 
     const token = localStorage.getItem("token");
     if (!token) {
-      alert("Session expired. Kripya login karein.");
+      alert("Session expired. Please login again.");
       window.location.href = "./login.html?role=farmer";
       return;
     }
