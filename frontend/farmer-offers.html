@@ -18,51 +18,83 @@
   >
     <!-- DESKTOP SIDEBAR -->
     <aside
-      class="hidden lg:flex flex-col w-64 bg-white border-r border-[#E0E4DA] min-h-screen p-5 fixed left-0 top-0 bottom-0 z-40"
+      class="hidden lg:flex flex-col w-64 sidebar-glass border-r border-[#CDBDB4]/50 min-h-screen p-5 fixed left-0 top-0 bottom-0 z-40 ksetu-slide-in"
     >
-      <a href="./index.html" class="flex items-center gap-3 mb-8 px-2">
+      <a href="./index.html" class="brand flex items-center gap-3 mb-8 px-2">
         <img
           src="./assets/images/krishisetu_logo.png"
           alt="Logo"
-          class="h-9 w-9 object-contain"
+          class="brand-logo w-10 h-10"
         />
-        <span class="text-xl font-bold text-[#0D631B]">KrishiSetu</span>
+        <span class="brand-name text-xl font-bold">KrishiSetu</span>
       </a>
       <nav class="flex flex-col gap-2 flex-1">
         <a
           href="./farmer-dashboard.html"
-          class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#40493D] hover:bg-[#F1F5EB] font-medium"
+          class="nav-item-warm flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] font-medium"
         >
-          <span>📊</span> Dashboard
+          <span class="text-lg">📊</span> Dashboard
         </a>
         <a
           href="./my-listings.html"
-          class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#40493D] hover:bg-[#F1F5EB] font-medium"
+          class="nav-item-warm flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] font-medium"
         >
-          <span>🌾</span> My Produce
+          <span class="text-lg">🌾</span> My Produce
         </a>
         <a
           href="./farmer-offers.html"
-          class="flex items-center gap-3 px-4 py-3 rounded-lg bg-[#0D631B] text-white font-medium shadow-sm"
+          class="nav-item-warm active flex items-center gap-3 px-4 py-3 rounded-xl font-medium shadow-sm"
         >
-          <span>🤝</span> Received Offers
+          <span class="text-lg">🤝</span> Received Offers
+        </a>
+        <a
+          href="./farmer-orders.html"
+          class="nav-item-warm flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] font-medium"
+        >
+          <span class="text-lg">🚚</span> Orders
         </a>
       </nav>
+      <div
+        class="border-t border-[#CDBDB4]/50 pt-4 flex items-center justify-between"
+      >
+        <div class="flex items-center gap-3">
+          <div
+            class="w-10 h-10 rounded-full bg-gradient-to-br from-[#0D631B] to-[#4CAF50] flex items-center justify-center font-bold text-white"
+          >
+            R
+          </div>
+          <div>
+            <p class="text-sm font-semibold text-[#181D17]">Ramesh Kumar</p>
+            <p class="text-xs text-[#40493D]">Farmer Account</p>
+          </div>
+        </div>
+        <a
+          href="./login.html"
+          class="text-xs text-red-600 font-medium hover:underline"
+          >Logout</a
+        >
+      </div>
     </aside>
 
     <!-- MAIN CONTENT AREA -->
     <div class="flex-1 lg:ml-64 pb-20 lg:pb-8">
       <header
-        class="bg-white/90 backdrop-blur-sm border-b border-[#E0E4DA] sticky top-0 z-30 px-4 md:px-8 py-4 flex items-center justify-between"
+        class="bg-white/90 backdrop-blur-xl border-b border-[#CDBDB4]/50 sticky top-0 z-30 px-4 md:px-8 py-5 flex items-center justify-between"
       >
         <div>
-          <h1 class="text-xl md:text-2xl font-bold text-[#181D17]">
+          <h1 class="text-2xl md:text-3xl font-bold brand-name">
             Incoming Offers
           </h1>
-          <p class="text-xs md:text-sm text-[#40493D]">
+          <p class="text-sm text-[#40493D] mt-1">
             Review and accept custom bids placed on your produce
           </p>
         </div>
+        <span
+          class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#0D631B]/10 text-[#0D631B] text-sm font-semibold"
+        >
+          <span class="w-2 h-2 rounded-full bg-[#0D631B] animate-pulse"></span>
+          Live Bids
+        </span>
       </header>
 
       <main class="max-w-7xl mx-auto px-4 md:px-8 py-6">
@@ -71,6 +103,36 @@
         </div>
       </main>
     </div>
+
+    <!-- MOBILE BOTTOM NAVIGATION -->
+    <nav
+      class="lg:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-[#CDBDB4]/50 z-40 flex justify-around py-2.5 px-2 text-center text-xs shadow-[0_-4px_20px_rgba(0,0,0,0.08)]"
+    >
+      <a
+        href="./farmer-dashboard.html"
+        class="flex flex-col items-center text-[#0D631B]"
+      >
+        <span class="text-base">📊</span> Home
+      </a>
+      <a
+        href="./my-listings.html"
+        class="flex flex-col items-center text-[#40493D]"
+      >
+        <span class="text-base">🌾</span> Produce
+      </a>
+      <a
+        href="./farmer-offers.html"
+        class="flex flex-col items-center text-[#0D631B] font-bold"
+      >
+        <span class="text-base">🤝</span> Offers
+      </a>
+      <a
+        href="./farmer-orders.html"
+        class="flex flex-col items-center text-[#40493D]"
+      >
+        <span class="text-base">🚚</span> Orders
+      </a>
+    </nav>
 
     <script src="./script.js"></script>
   </body>
