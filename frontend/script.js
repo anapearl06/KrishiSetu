@@ -818,18 +818,18 @@ async function renderMyDemands() {
 
       demandsGrid.innerHTML = data
         .map(
-          (item) => `
-        <div class="bg-white rounded-xl border border-[#E0E4DA] p-5 shadow-sm">
+          (item, idx) => `
+        <div class="glass-card rounded-2xl border border-[#E0E4DA]/60 p-5 shadow-sm hover:-translate-y-1 ksetu-fade-up" style="animation-delay:${idx * 60}ms">
           <div class="flex justify-between items-start mb-2">
-            <span class="px-2.5 py-0.5 text-xs font-semibold rounded bg-amber-100 text-amber-800 uppercase">${item.status || "OPEN"}</span>
-            <span class="text-xs text-[#40493D]">${item.district || ""}, ${item.state || ""}</span>
+            <span class="status-badge pending">${item.status || "OPEN"}</span>
+            <span class="text-xs text-[#40493D]">📍 ${item.district || ""}, ${item.state || ""}</span>
           </div>
           <h3 class="text-lg font-bold text-[#181D17]">${item.crop}</h3>
           <p class="text-xs text-[#40493D] mt-1">${item.description || "No additional specs"}</p>
           <div class="mt-4 pt-4 border-t border-[#F1F5EB] flex justify-between items-center">
             <div>
-              <p class="text-xs text-[#40493D]">Required: <strong>${item.quantity} ${item.unit}</strong></p>
-              <p class="text-lg font-bold text-[#0D631B]">Max ₹${item.target_price} / ${item.unit}</p>
+              <p class="text-xs text-[#40493D]">Required: <strong class="text-[#181D17]">${item.quantity} ${item.unit}</strong></p>
+              <p class="text-lg font-bold gradient-text-warm">Max ₹${item.target_price} / ${item.unit}</p>
             </div>
           </div>
         </div>
