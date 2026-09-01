@@ -25,9 +25,9 @@ type Service interface {
 
 	GetOrder(id uint) (*Order, error)
 
-	GetBuyerOrders(buyerID uint) ([]Order, error)
+	GetBuyerOrders(buyerID uint) ([]OrderView, error)
 
-	GetFarmerOrders(farmerID uint) ([]Order, error)
+	GetFarmerOrders(farmerID uint) ([]OrderView, error)
 }
 
 type service struct {
@@ -188,10 +188,10 @@ func (s *service) GetOrder(id uint) (*Order, error) {
 	return order, nil
 }
 
-func (s *service) GetBuyerOrders(buyerID uint) ([]Order, error) {
+func (s *service) GetBuyerOrders(buyerID uint) ([]OrderView, error) {
 	return s.repo.FindByBuyer(buyerID)
 }
 
-func (s *service) GetFarmerOrders(farmerID uint) ([]Order, error) {
+func (s *service) GetFarmerOrders(farmerID uint) ([]OrderView, error) {
 	return s.repo.FindByFarmer(farmerID)
 }

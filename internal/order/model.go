@@ -2,6 +2,12 @@ package order
 
 import "time"
 
+type OrderView struct {
+	Order
+	Crop       string `json:"crop"`
+	FarmerName string `json:"farmer_name"`
+}
+
 type Order struct {
 	ID           uint      `gorm:"primaryKey" json:"id"`
 	OfferID      uint      `gorm:"not null;uniqueIndex" json:"offer_id"`

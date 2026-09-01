@@ -61,7 +61,7 @@ func (h *Handler) GetBuyerOrders(c *gin.Context) {
 		return
 	}
 
-	response.Success(c, http.StatusOK, orders)
+	c.JSON(http.StatusOK, orders)
 }
 
 // GET /api/v1/orders/farmer
@@ -84,7 +84,7 @@ func (h *Handler) GetFarmerOrders(c *gin.Context) {
 		return
 	}
 
-	response.Success(c, http.StatusOK, orders)
+	c.JSON(http.StatusOK, orders)
 }
 
 // POST /api/v1/orders/:offer_id/accept
@@ -103,8 +103,11 @@ func (h *Handler) AcceptOffer(c *gin.Context) {
 
 	offerID, err := strconv.ParseUint(c.Param("offer_id"), 10, 64)
 	if err != nil {
-		response.Error(c, http.StatusBadRequest, "invalid_offer_id", "invalid offer id")
-		return
+		offerID, err = strconv.ParseUint(c.Param("id"), 10, 64)
+		if err != nil {
+			response.Error(c, http.StatusBadRequest, "invalid_offer_id", "invalid offer id")
+			return
+		}
 	}
 
 	order, err := h.service.AcceptOffer(
