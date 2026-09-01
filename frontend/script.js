@@ -621,22 +621,22 @@ async function loadBrowseCatalog(crop = "", state = "") {
 
       grid.innerHTML = data
         .map(
-          (item) => `
-        <div class="bg-white rounded-xl border border-[#E0E4DA] p-5 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+          (item, idx) => `
+        <div class="glass-card rounded-2xl border border-[#E0E4DA]/60 p-5 shadow-sm flex flex-col justify-between hover:-translate-y-1.5 ksetu-fade-up" style="animation-delay:${idx * 60}ms">
           <div>
             <div class="flex justify-between items-start mb-2">
-              <span class="px-2.5 py-0.5 text-xs font-semibold rounded bg-green-100 text-[#0D631B]">VERIFIED FARMER</span>
+              <span class="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-green-100 text-[#0D631B] flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[#0D631B]"></span>VERIFIED FARMER</span>
               <span class="text-xs text-[#40493D]">${item.district || ""}, ${item.state || ""}</span>
             </div>
             <h3 class="text-lg font-bold text-[#181D17]">${item.crop}</h3>
-            <p class="text-xs text-[#40493D] mt-1">${item.description || "Fresh farm harvest"}</p>
-            <div class="mt-4 pt-4 border-t border-[#F1F5EB]">
-              <p class="text-xs text-[#40493D]">Quantity: <strong>${item.quantity} ${item.unit}</strong></p>
-              <p class="text-xl font-bold text-[#75584D]">₹${item.price} / ${item.unit}</p>
+            <p class="text-xs text-[#40493D] mt-1 line-clamp-2">${item.description || "Fresh farm harvest"}</p>
+            <div class="mt-4 pt-4 border-t border-[#F1F5EB] flex items-end justify-between">
+              <p class="text-xs text-[#40493D]">Quantity: <strong class="text-[#181D17]">${item.quantity} ${item.unit}</strong></p>
+              <p class="text-lg font-bold gradient-text-warm">₹${item.price}/<span class="text-xs">${item.unit}</span></p>
             </div>
           </div>
-          <button onclick="showListingDetails('${item.crop}', '${item.quantity} ${item.unit}', '₹${item.price} / ${item.unit}', '${item.district || ""}, ${item.state || ""}')" class="w-full mt-4 py-2 bg-[#75584D] text-white text-xs font-bold rounded-lg hover:bg-[#5c443b]">
-            View Details
+          <button onclick="showListingDetails('${item.crop}', '${item.quantity} ${item.unit}', '₹${item.price} / ${item.unit}', '${item.district || ""}, ${item.state || ""}')" class="btn-warm w-full mt-4 py-2.5 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5">
+            <span>👀</span> View Details & Offer
           </button>
         </div>
       `,
