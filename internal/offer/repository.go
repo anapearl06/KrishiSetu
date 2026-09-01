@@ -5,7 +5,8 @@ import "gorm.io/gorm"
 type Repository interface {
 	Create(offer *Offer) error
 	FindByID(id uint) (*Offer, error)
-	FindByBuyer(buyerID uint) ([]Offer, error)
+	FindByBuyer(buyerID uint) ([]OfferView, error)
+	FindByFarmer(farmerID uint) ([]OfferView, error)
 	FindByListing(listingID uint) ([]Offer, error)
 	Update(offer *Offer) error
 }
@@ -35,12 +36,30 @@ func (r *repository) FindByID(id uint) (*Offer, error) {
 	return &offer, nil
 }
 
-func (r *repository) FindByBuyer(buyerID uint) ([]Offer, error) {
-	var offers []Offer
+func (r *repository) FindByBuyer(buyerID uint) ([]OfferView, error) {
+	var offers []OfferView
 
 	err := r.db.
-		Where("buyer_id = ?", buyerID).
-		Order("created_at DESC").
+		Table("offers").
+		Select("offers.*, crop_listings.crop_name AS crop").
+		Joins("JOIN crop_listings ON crop_listings.id = offers.listing_id").
+		Where("offers.buyer_id = ?", buyerID).
+		Order("offers.created_at DESC").
+		Find(&offers).Error
+
+	return offers, err
+}
+
+func (r *repository) FindByFarmer(farmerID uint) ([]OfferView, error) {
+	var offers []OfferView
+
+	err := r.db.
+		Table("offers").
+		Select("offers.*, crop_listings.crop_name AS crop, buyers.name AS buyer_name").
+		Joins("JOIN crop_listings ON crop_listings.id = offers.listing_id").
+		Joins("JOIN buyers ON buyers.id = offers.buyer_id").
+		Where("crop_listings.farmer_id = ?", farmerID).
+		Order("offers.created_at DESC").
 		Find(&offers).Error
 
 	return offers, err

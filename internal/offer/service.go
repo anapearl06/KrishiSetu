@@ -29,11 +29,15 @@ type Service interface {
 
 	GetOffer(id uint) (*Offer, error)
 
-	GetBuyerOffers(buyerID uint) ([]Offer, error)
+	GetBuyerOffers(buyerID uint) ([]OfferView, error)
+
+	GetFarmerOffers(farmerID uint) ([]OfferView, error)
 
 	GetListingOffers(listingID uint) ([]Offer, error)
 
 	CancelOffer(offerID uint, buyerID uint) error
+
+	RejectOffer(offerID uint, farmerID uint) error
 }
 
 type service struct {
@@ -122,8 +126,12 @@ func (s *service) GetOffer(id uint) (*Offer, error) {
 	return offer, nil
 }
 
-func (s *service) GetBuyerOffers(buyerID uint) ([]Offer, error) {
+func (s *service) GetBuyerOffers(buyerID uint) ([]OfferView, error) {
 	return s.repo.FindByBuyer(buyerID)
+}
+
+func (s *service) GetFarmerOffers(farmerID uint) ([]OfferView, error) {
+	return s.repo.FindByFarmer(farmerID)
 }
 
 func (s *service) GetListingOffers(listingID uint) ([]Offer, error) {
@@ -152,6 +160,51 @@ func (s *service) CancelOffer(offerID uint, buyerID uint) error {
 
 	if err := s.repo.Update(offer); err != nil {
 		return fmt.Errorf("cancel offer: %w", err)
+	}
+
+	return nil
+}
+
+func (s *service) RejectOffer(offerID uint, farmerID uint) error {
+	offer, err := s.repo.FindByID(offerID)
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return ErrOfferNotFound
+		}
+
+		return fmt.Errorf("find offer: %w", err)
+	}
+
+	var listing struct {
+		FarmerID uint
+	}
+
+	err = s.db.
+		Table("crop_listings").
+		Select("farmer_id").
+		Where("id = ?", offer.ListingID).
+		First(&listing).Error
+
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return ErrListingNotFound
+		}
+
+		return fmt.Errorf("find listing: %w", err)
+	}
+
+	if listing.FarmerID != farmerID {
+		return ErrUnauthorized
+	}
+
+	if offer.Status != "PENDING" {
+		return ErrInvalidStatus
+	}
+
+	offer.Status = "REJECTED"
+
+	if err := s.repo.Update(offer); err != nil {
+		return fmt.Errorf("reject offer: %w", err)
 	}
 
 	return nil

@@ -2,6 +2,12 @@ package offer
 
 import "time"
 
+type OfferView struct {
+	Offer
+	Crop      string `json:"crop"`
+	BuyerName string `json:"buyer_name"`
+}
+
 type Offer struct {
 	ID           uint      `gorm:"primaryKey" json:"id"`
 	ListingID    uint      `gorm:"not null;index" json:"listing_id"`

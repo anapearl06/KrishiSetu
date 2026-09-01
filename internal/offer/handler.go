@@ -134,7 +134,29 @@ func (h *Handler) GetMyOffers(c *gin.Context) {
 		return
 	}
 
-	response.Success(c, http.StatusOK, offers)
+	c.JSON(http.StatusOK, offers)
+}
+
+func (h *Handler) GetFarmerOffers(c *gin.Context) {
+	farmerIDValue, exists := c.Get("user_id")
+	if !exists {
+		response.Error(c, http.StatusUnauthorized, "unauthorized_access", "unauthorized")
+		return
+	}
+
+	farmerID, ok := farmerIDValue.(uint)
+	if !ok {
+		response.Error(c, http.StatusUnauthorized, "invalid_user_id", "invalid user id")
+		return
+	}
+
+	offers, err := h.service.GetFarmerOffers(farmerID)
+	if err != nil {
+		response.Error(c, http.StatusInternalServerError, "server_error", "failed to get offers")
+		return
+	}
+
+	c.JSON(http.StatusOK, offers)
 }
 
 // =========================
@@ -212,5 +234,58 @@ func (h *Handler) CancelOffer(c *gin.Context) {
 
 	response.Success(c, http.StatusOK, gin.H{
 		"message": "offer cancelled successfully",
+	})
+}
+
+// =========================
+// Reject Offer
+// POST /api/v1/offers/:id/reject
+// =========================
+
+func (h *Handler) RejectOffer(c *gin.Context) {
+	farmerIDValue, exists := c.Get("user_id")
+	if !exists {
+		response.Error(c, http.StatusUnauthorized, "unauthorized_access", "unauthorized")
+		return
+	}
+
+	farmerID, ok := farmerIDValue.(uint)
+	if !ok {
+		response.Error(c, http.StatusUnauthorized, "invalid_user_id", "invalid user id")
+		return
+	}
+
+	offerID, err := strconv.ParseUint(c.Param("id"), 10, 64)
+	if err != nil {
+		response.Error(c, http.StatusBadRequest, "invalid_offer_id", "invalid offer id")
+		return
+	}
+
+	err = h.service.RejectOffer(
+		uint(offerID),
+		farmerID,
+	)
+
+	if err != nil {
+		switch {
+		case errors.Is(err, ErrOfferNotFound),
+			errors.Is(err, ErrListingNotFound):
+			response.Error(c, http.StatusNotFound, "offer_not_found", err.Error())
+
+		case errors.Is(err, ErrUnauthorized):
+			response.Error(c, http.StatusForbidden, "forbidden", err.Error())
+
+		case errors.Is(err, ErrInvalidStatus):
+			response.Error(c, http.StatusBadRequest, "invalid_offer_status", err.Error())
+
+		default:
+			response.Error(c, http.StatusInternalServerError, "server_error", "failed to reject offer")
+		}
+
+		return
+	}
+
+	response.Success(c, http.StatusOK, gin.H{
+		"message": "offer rejected successfully",
 	})
 }
