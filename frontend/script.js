@@ -1219,28 +1219,28 @@ function openOrderModal(id, crop, qty, price, total, partner, status) {
   if (!modal || !body) return;
 
   body.innerHTML = `
-    <div class="p-3 bg-green-50 rounded-lg border border-green-200 text-center mb-3">
-      <span class="text-2xl">🎉</span>
-      <h4 class="font-bold text-[#0D631B] text-base mt-1">Order Confirmed</h4>
-      <p class="text-xs text-gray-600">Deal finalized between both parties</p>
+    <div class="p-4 bg-gradient-to-br from-[#0D631B]/10 to-[#4CAF50]/10 rounded-xl border border-[#0D631B]/20 text-center mb-3">
+      <span class="text-3xl">🎉</span>
+      <h4 class="font-bold gradient-heading text-base mt-2">Order Confirmed</h4>
+      <p class="text-xs text-[#40493D] mt-1">Deal finalized between both parties</p>
     </div>
-    <div class="grid grid-cols-2 gap-2 text-xs border-b border-[#E0E4DA] pb-2">
-      <span class="text-gray-500">Order Reference:</span>
-      <span class="font-semibold text-right">${id ? id.substring(0, 12) : "CR-8921"}...</span>
-      <span class="text-gray-500">Status:</span>
-      <span class="font-bold text-green-700 text-right uppercase">${status}</span>
+    <div class="grid grid-cols-2 gap-2 text-xs border-b border-[#CDBDB4]/50 pb-2">
+      <span class="text-[#40493D]">Order Reference:</span>
+      <span class="font-semibold text-right text-[#181D17]">${id ? id.substring(0, 12) : "CR-8921"}...</span>
+      <span class="text-[#40493D]">Status:</span>
+      <span class="status-badge accepted ml-auto">${status}</span>
     </div>
-    <div class="grid grid-cols-2 gap-2 text-xs border-b border-[#E0E4DA] py-2">
-      <span class="text-gray-500">Crop Commodity:</span>
-      <span class="font-semibold text-right">${crop}</span>
-      <span class="text-gray-500">Agreed Quantity:</span>
-      <span class="font-semibold text-right">${qty}</span>
-      <span class="text-gray-500">Agreed Unit Price:</span>
-      <span class="font-semibold text-right">₹${price}</span>
+    <div class="grid grid-cols-2 gap-2 text-xs border-b border-[#CDBDB4]/50 py-2">
+      <span class="text-[#40493D]">Crop Commodity:</span>
+      <span class="font-semibold text-right text-[#181D17]">${crop}</span>
+      <span class="text-[#40493D]">Agreed Quantity:</span>
+      <span class="font-semibold text-right text-[#181D17]">${qty}</span>
+      <span class="text-[#40493D]">Agreed Unit Price:</span>
+      <span class="font-semibold text-right text-[#181D17]">₹${price}</span>
     </div>
-    <div class="flex justify-between items-center pt-2 text-base font-bold text-[#0D631B]">
+    <div class="flex justify-between items-center pt-3 text-base font-bold brand-name">
       <span>Total Amount:</span>
-      <span>₹${total}</span>
+      <span class="text-xl">₹${total}</span>
     </div>
   `;
 
