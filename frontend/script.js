@@ -473,7 +473,12 @@ async function renderMyProduce() {
 
     if (response.ok && Array.isArray(data)) {
       if (data.length === 0) {
-        produceGrid.innerHTML = `<p class="text-[#40493D]">No produce items added yet. Use "+ Sell Produce" to post your crop.</p>`;
+        produceGrid.innerHTML = `
+          <div class="col-span-full flex flex-col items-center justify-center py-16 text-center">
+            <div class="text-4xl mb-4">🌾</div>
+            <h3 class="text-lg font-bold text-[#181D17] mb-1">No produce listed yet</h3>
+            <p class="text-sm text-[#40493D]">Use the "+ Add Produce" button to post your first crop listing to the marketplace.</p>
+          </div>`;
         return;
       }
 
@@ -621,7 +626,12 @@ async function loadBrowseCatalog(crop = "", state = "") {
 
     if (res.ok && Array.isArray(data)) {
       if (data.length === 0) {
-        grid.innerHTML = `<p class="text-[#40493D]">No produce available matching criteria.</p>`;
+        grid.innerHTML = `
+          <div class="col-span-full flex flex-col items-center justify-center py-16 text-center">
+            <div class="text-4xl mb-4">📦</div>
+            <h3 class="text-lg font-bold text-[#181D17] mb-1">No listings found</h3>
+            <p class="text-sm text-[#40493D]">No produce matches your search. Try adjusting your filter criteria or check back later.</p>
+          </div>`;
         return;
       }
 
@@ -818,7 +828,12 @@ async function renderMyDemands() {
     const data = await res.json();
     if (res.ok && Array.isArray(data)) {
       if (data.length === 0) {
-        demandsGrid.innerHTML = `<p class="text-[#40493D]">No demand requirements posted yet. Click "+ Post Requirement" above.</p>`;
+        demandsGrid.innerHTML = `
+          <div class="col-span-full flex flex-col items-center justify-center py-16 text-center">
+            <div class="text-4xl mb-4">📢</div>
+            <h3 class="text-lg font-bold text-[#181D17] mb-1">No demands posted</h3>
+            <p class="text-sm text-[#40493D]">Click "+ Post Requirement" to broadcast your first crop demand to farmers.</p>
+          </div>`;
         return;
       }
 
