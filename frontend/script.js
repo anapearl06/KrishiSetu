@@ -783,6 +783,11 @@ document
     };
 
     try {
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = "Publishing...";
+      submitBtn.disabled = true;
+
       const res = await fetch(
         `${API_BASE_URL}/api/v1/demands`,
         {
@@ -796,6 +801,8 @@ document
       );
 
       const data = await res.json();
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
       if (res.ok) {
         alert("Requirement posted successfully!");
         closeDemandDrawer();
