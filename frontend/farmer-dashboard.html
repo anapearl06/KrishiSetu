@@ -12,517 +12,231 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <style>
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes slideInRight {
+        from { opacity: 0; transform: translateX(20px); }
+        to { opacity: 1; transform: translateX(0); }
+      }
+      @keyframes pulseGlow {
+        0%, 100% { box-shadow: 0 0 20px rgba(13, 99, 27, 0.3); }
+        50% { box-shadow: 0 0 40px rgba(13, 99, 27, 0.5); }
+      }
+      .animate-fade-in-up { animation: fadeInUp 0.6s ease-out forwards; }
+      .animate-slide-in-right { animation: slideInRight 0.5s ease-out forwards; }
+      .delay-1 { animation-delay: 100ms; }
+      .delay-2 { animation-delay: 200ms; }
+      .delay-3 { animation-delay: 300ms; }
+      .delay-4 { animation-delay: 400ms; }
+      .delay-5 { animation-delay: 500ms; }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(224, 228, 218, 0.6);
+      }
+      .gradient-border {
+        position: relative;
+      }
+      .gradient-border::before {
+        content: '';
+        position: absolute;
+        inset: -1px;
+        border-radius: inherit;
+        background: linear-gradient(135deg, #0D631B, #2E7D32, #4CAF50);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: -1;
+      }
+      .gradient-border:hover::before { opacity: 1; }
+      .stat-card:hover { transform: translateY(-4px); }
+      .nav-link { transition: all 0.2s ease; }
+      .nav-link:hover { background: rgba(13, 99, 27, 0.08); }
+      .nav-link.active { background: #0D631B; color: white; }
+      .btn-primary {
+        background: linear-gradient(135deg, #0D631B, #2E7D32);
+        transition: all 0.2s ease;
+      }
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(13, 99, 27, 0.4);
+      }
+      .stat-icon { transition: transform 0.3s ease; }
+      .stat-card:hover .stat-icon { transform: scale(1.1) rotate(3deg); }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { animation: none !important; transition: none !important; }
+      }
+    </style>
   </head>
-  <body
-    class="bg-[#F4F8F0] text-[#181D17] font-['Inter'] min-h-screen flex flex-col lg:flex-row"
-  >
+  <body class="bg-[#F4F8F0] text-[#181D17] font-['Inter'] min-h-screen flex flex-col lg:flex-row">
     <!-- ================= DESKTOP SIDEBAR ================= -->
-    <aside
-      class="hidden lg:flex flex-col w-64 bg-white border-r border-[#E0E4DA] min-h-screen p-5 fixed left-0 top-0 bottom-0 z-40"
-    >
+    <aside class="hidden lg:flex flex-col w-64 bg-white/90 backdrop-blur-xl border-r border-[#E0E4DA]/60 min-h-screen p-5 fixed left-0 top-0 bottom-0 z-40 animate-slide-in-right">
       <!-- LOGO -->
-      <a href="./index.html" class="brand mb-8 px-2">
-        <img
-          src="./assets/images/krishisetu_logo.png"
-          alt="KrishiSetu Logo"
-          class="brand-logo"
-        />
-        <span class="brand-name text-xl font-bold">KrishiSetu</span>
+      <a href="./index.html" class="brand mb-8 px-2 flex items-center gap-3 animate-fade-in-up">
+        <img src="./assets/images/krishisetu_logo.png" alt="KrishiSetu Logo" class="brand-logo w-10 h-10" />
+        <span class="brand-name text-xl font-bold bg-gradient-to-r from-[#0D631B] to-[#2E7D32] bg-clip-text text-transparent">KrishiSetu</span>
       </a>
 
       <!-- NAVIGATION LINKS -->
       <nav class="flex flex-col gap-2 flex-1">
-        <a
-          href="./farmer-dashboard.html"
-          class="flex items-center gap-3 px-4 py-3 rounded-lg bg-[#0D631B] text-white font-medium shadow-sm"
-        >
-          <span>📊</span> Dashboard
+        <a href="./farmer-dashboard.html" class="nav-link active flex items-center gap-3 px-4 py-3 rounded-xl font-medium shadow-sm animate-fade-in-up delay-1">
+          <span class="text-lg">📊</span> Dashboard
         </a>
-        <a
-          href="#my-listings"
-          class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#40493D] hover:bg-[#F1F5EB] font-medium transition-colors"
-        >
-          <span>🌾</span> My Listings
+        <a href="./my-listings.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] font-medium animate-fade-in-up delay-2">
+          <span class="text-lg">🌾</span> My Produce
         </a>
-        <a
-          href="#my-offers"
-          class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#40493D] hover:bg-[#F1F5EB] font-medium transition-colors"
-        >
-          <span>🤝</span> Incoming Offers
+        <a href="./farmer-offers.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] font-medium animate-fade-in-up delay-3">
+          <span class="text-lg">📥</span> Offers Received
         </a>
-        <a
-          href="#my-orders"
-          class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#40493D] hover:bg-[#F1F5EB] font-medium transition-colors"
-        >
-          <span>📦</span> My Orders
+        <a href="./farmer-orders.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] font-medium animate-fade-in-up delay-4">
+          <span class="text-lg">📦</span> My Orders
         </a>
-        <a
-          href="#market-prices"
-          class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#40493D] hover:bg-[#F1F5EB] font-medium transition-colors"
-        >
-          <span>📈</span> Market Prices
-        </a>
-        <a
-          href="#profile"
-          class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#40493D] hover:bg-[#F1F5EB] font-medium transition-colors"
-        >
-          <span>👤</span> Profile
+        <a href="./buyer-demands.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] font-medium animate-fade-in-up delay-5">
+          <span class="text-lg">📋</span> Buyer Demands
         </a>
       </nav>
 
-      <!-- USER PROFILE MINI CARD -->
-      <div
-        class="border-t border-[#E0E4DA] pt-4 flex items-center justify-between"
-      >
-        <div class="flex items-center gap-3">
-          <div
-            class="w-10 h-10 rounded-full bg-[#0D631B]/10 flex items-center justify-center font-bold text-[#0D631B]"
-          >
-            R
-          </div>
-          <div>
-            <p class="text-sm font-semibold text-[#181D17]">Ramesh Kumar</p>
-            <p class="text-xs text-[#40493D]">Farmer Account</p>
+      <!-- USER PROFILE SECTION -->
+      <div class="pt-4 border-t border-[#E0E4DA]/60 animate-fade-in-up delay-5">
+        <div class="flex items-center gap-3 px-3 py-2">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#0D631B] to-[#4CAF50] flex items-center justify-center text-white font-bold text-lg" id="sidebarAvatar">F</div>
+          <div class="flex-1 min-w-0">
+            <p class="font-semibold text-[#181D17] truncate" id="sidebarName">Farmer</p>
+            <p class="text-xs text-[#40493D] truncate" id="sidebarEmail">farmer@example.com</p>
           </div>
         </div>
-        <a
-          href="./login.html"
-          class="text-xs text-red-600 font-medium hover:underline"
-          >Logout</a
-        >
+        <a href="./profile.html" class="block mt-3 px-4 py-2 text-center text-sm font-medium text-[#0D631B] hover:bg-[#F1F5EB] rounded-xl transition-colors">Profile Settings</a>
+        <button id="sidebarLogout" class="mt-2 w-full px-4 py-2 text-center text-sm font-medium text-red-600 hover:bg-red-50 rounded-xl transition-colors">Logout</button>
       </div>
     </aside>
 
-    <!-- ================= MAIN CONTENT AREA ================= -->
-    <div class="flex-1 lg:ml-64 pb-20 lg:pb-8">
-      <!-- TOP BAR -->
-      <header
-        class="bg-white/90 backdrop-blur-sm border-b border-[#E0E4DA] sticky top-0 z-30 px-4 md:px-8 py-4 flex items-center justify-between"
-      >
-        <div>
-          <h1 class="text-xl md:text-2xl font-bold text-[#181D17]">
-            Farmer Dashboard
-          </h1>
-          <p class="text-xs md:text-sm text-[#40493D]">
-            Welcome back, Ramesh 👋
-          </p>
-        </div>
-
-        <button
-          id="openDrawerBtn"
-          class="bg-[#0D631B] text-white font-medium px-4 md:px-5 py-2.5 rounded-lg shadow-sm hover:bg-[#095516] transition-transform duration-200 active:scale-95 flex items-center gap-2 text-sm"
-        >
-          <span class="text-lg">+</span> Sell Produce
-        </button>
-      </header>
-
-      <!-- DASHBOARD BODY CONTENT -->
-      <main class="max-w-7xl mx-auto px-4 md:px-8 py-6 space-y-8">
-        <!-- SUMMARY CARDS GRID -->
-        <section class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-          <!-- CARD 1 -->
-          <div
-            class="bg-white p-6 rounded-xl border border-[#E0E4DA] shadow-sm flex items-center justify-between"
-          >
-            <div>
-              <p class="text-sm text-[#40493D] font-medium">Active Listings</p>
-              <h3 class="text-3xl font-bold text-[#0D631B] mt-1">4</h3>
-            </div>
-            <div
-              class="w-12 h-12 rounded-lg bg-[#0D631B]/10 flex items-center justify-center text-xl"
-            >
-              🌾
-            </div>
-          </div>
-
-          <!-- CARD 2 -->
-          <div
-            class="bg-white p-6 rounded-xl border border-[#E0E4DA] shadow-sm flex items-center justify-between"
-          >
-            <div>
-              <p class="text-sm text-[#40493D] font-medium">New Offers</p>
-              <h3 class="text-3xl font-bold text-[#75584D] mt-1">3</h3>
-            </div>
-            <div
-              class="w-12 h-12 rounded-lg bg-[#75584D]/10 flex items-center justify-center text-xl"
-            >
-              🤝
-            </div>
-          </div>
-
-          <!-- CARD 3 -->
-          <div
-            class="bg-white p-6 rounded-xl border border-[#E0E4DA] shadow-sm flex items-center justify-between"
-          >
-            <div>
-              <p class="text-sm text-[#40493D] font-medium">Active Orders</p>
-              <h3 class="text-3xl font-bold text-[#181D17] mt-1">2</h3>
-            </div>
-            <div
-              class="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center text-xl"
-            >
-              📦
-            </div>
-          </div>
-        </section>
-
-        <!-- RECENT OFFERS SECTION -->
-        <section
-          class="bg-white rounded-xl border border-[#E0E4DA] p-6 shadow-sm"
-        >
-          <div class="flex items-center justify-between mb-5">
-            <h2 class="text-lg font-bold text-[#181D17]">
-              Recent Incoming Offers
-            </h2>
-            <a
-              href="#my-offers"
-              class="text-sm text-[#0D631B] font-medium hover:underline"
-              >View All</a
-            >
-          </div>
-
-          <div class="space-y-4">
-            <!-- OFFER CARD 1 -->
-            <div
-              class="border border-[#E0E4DA] p-4 rounded-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-4 hover:border-[#0D631B]/40 transition-colors"
-            >
-              <div>
-                <span
-                  class="inline-block px-2.5 py-0.5 text-xs font-semibold rounded bg-amber-100 text-amber-800 mb-2"
-                  >Pending</span
-                >
-                <h4 class="font-bold text-[#181D17]">
-                  Sharma Organics — Wheat (Sharbati)
-                </h4>
-                <p class="text-sm text-[#40493D]">
-                  Offered:
-                  <strong class="text-[#0D631B]">₹2,450 / Quintal</strong> (Qty:
-                  50 Quintals)
-                </p>
-              </div>
-              <div class="flex gap-2 w-full md:w-auto">
-                <button
-                  class="flex-1 md:flex-none px-4 py-2 bg-[#0D631B] text-white text-sm font-medium rounded-md hover:bg-[#095516] transition-colors"
-                >
-                  Accept
-                </button>
-                <button
-                  class="flex-1 md:flex-none px-4 py-2 bg-red-50 text-red-600 border border-red-200 text-sm font-medium rounded-md hover:bg-red-100 transition-colors"
-                >
-                  Reject
-                </button>
-              </div>
-            </div>
-
-            <!-- OFFER CARD 2 -->
-            <div
-              class="border border-[#E0E4DA] p-4 rounded-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-4 hover:border-[#0D631B]/40 transition-colors"
-            >
-              <div>
-                <span
-                  class="inline-block px-2.5 py-0.5 text-xs font-semibold rounded bg-amber-100 text-amber-800 mb-2"
-                  >Pending</span
-                >
-                <h4 class="font-bold text-[#181D17]">
-                  Apex Retailers — Fresh Potatoes
-                </h4>
-                <p class="text-sm text-[#40493D]">
-                  Offered:
-                  <strong class="text-[#0D631B]">₹1,200 / Quintal</strong> (Qty:
-                  100 Quintals)
-                </p>
-              </div>
-              <div class="flex gap-2 w-full md:w-auto">
-                <button
-                  class="flex-1 md:flex-none px-4 py-2 bg-[#0D631B] text-white text-sm font-medium rounded-md hover:bg-[#095516] transition-colors"
-                >
-                  Accept
-                </button>
-                <button
-                  class="flex-1 md:flex-none px-4 py-2 bg-red-50 text-red-600 border border-red-200 text-sm font-medium rounded-md hover:bg-red-100 transition-colors"
-                >
-                  Reject
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- MARKET SNAPSHOT SECTION -->
-        <section
-          class="bg-white rounded-xl border border-[#E0E4DA] p-6 shadow-sm"
-        >
-          <div class="flex items-center justify-between mb-5">
-            <h2 class="text-lg font-bold text-[#181D17]">
-              Mandi Market Prices
-            </h2>
-            <a
-              href="#market-prices"
-              class="text-sm text-[#0D631B] font-medium hover:underline"
-              >Explore Mandis</a
-            >
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="p-4 rounded-lg bg-[#F4F8F0] border border-[#E0E4DA]">
-              <p class="text-xs font-semibold text-[#40493D]">Meerut Mandi</p>
-              <h4 class="text-base font-bold text-[#181D17] mt-1">Wheat</h4>
-              <p class="text-sm font-bold text-[#0D631B] mt-2">
-                ₹2,400 - ₹2,550
-                <span class="text-xs font-normal text-[#40493D]"
-                  >/ Quintal</span
-                >
-              </p>
-            </div>
-            <div class="p-4 rounded-lg bg-[#F4F8F0] border border-[#E0E4DA]">
-              <p class="text-xs font-semibold text-[#40493D]">Agra Mandi</p>
-              <h4 class="text-base font-bold text-[#181D17] mt-1">Potato</h4>
-              <p class="text-sm font-bold text-[#0D631B] mt-2">
-                ₹1,150 - ₹1,300
-                <span class="text-xs font-normal text-[#40493D]"
-                  >/ Quintal</span
-                >
-              </p>
-            </div>
-            <div class="p-4 rounded-lg bg-[#F4F8F0] border border-[#E0E4DA]">
-              <p class="text-xs font-semibold text-[#40493D]">Karnal Mandi</p>
-              <h4 class="text-base font-bold text-[#181D17] mt-1">
-                Basmati Rice
-              </h4>
-              <p class="text-sm font-bold text-[#0D631B] mt-2">
-                ₹3,800 - ₹4,200
-                <span class="text-xs font-normal text-[#40493D]"
-                  >/ Quintal</span
-                >
-              </p>
-            </div>
-          </div>
-        </section>
-      </main>
-    </div>
-
-    <!-- ================= MOBILE BOTTOM NAVIGATION ================= -->
-    <nav
-      class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-[#E0E4DA] z-40 flex justify-around py-2.5 px-2 text-center text-xs"
-    >
-      <a
-        href="./farmer-dashboard.html"
-        class="flex flex-col items-center text-[#0D631B] font-bold"
-      >
-        <span class="text-base">📊</span> Home
-      </a>
-      <a href="#my-listings" class="flex flex-col items-center text-[#40493D]">
-        <span class="text-base">🌾</span> Listings
-      </a>
-      <a href="#my-offers" class="flex flex-col items-center text-[#40493D]">
-        <span class="text-base">🤝</span> Offers
-      </a>
-      <a href="#my-orders" class="flex flex-col items-center text-[#40493D]">
-        <span class="text-base">📦</span> Orders
-      </a>
-      <a href="#profile" class="flex flex-col items-center text-[#40493D]">
-        <span class="text-base">👤</span> Profile
-      </a>
-    </nav>
-
-    <!-- ================= SLIDE-IN CREATE LISTING DRAWER COMPONENT ================= -->
-    <div
-      id="drawerBackdrop"
-      class="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 hidden opacity-0 transition-opacity duration-300"
-    ></div>
-
-    <div
-      id="createListingDrawer"
-      class="fixed inset-y-0 right-0 w-full sm:w-[480px] bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col"
-    >
-      <div
-        class="p-5 border-b border-[#E0E4DA] flex items-center justify-between bg-[#FAFAF5]"
-      >
-        <div>
-          <h2 class="text-xl font-bold text-[#0D631B]">Sell Produce</h2>
-          <p class="text-xs text-[#40493D]">
-            Create a new listing for buyers to discover
-          </p>
-        </div>
-        <button
-          id="closeDrawerBtn"
-          class="w-9 h-9 rounded-full hover:bg-gray-200 flex items-center justify-center text-lg font-bold text-gray-500"
-        >
-          ✕
+    <!-- ================= MOBILE HEADER ================= -->
+    <header class="lg:hidden fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl border-b border-[#E0E4DA]/60 animate-slide-in-right">
+      <div class="flex items-center justify-between h-16 px-4">
+        <a href="./index.html" class="flex items-center gap-2">
+          <img src="./assets/images/krishisetu_logo.png" alt="KrishiSetu" class="w-8 h-8" />
+          <span class="font-bold text-lg bg-gradient-to-r from-[#0D631B] to-[#2E7D32] bg-clip-text text-transparent">KrishiSetu</span>
+        </a>
+        <button id="mobileMenuBtn" class="p-2 rounded-xl hover:bg-[#F1F5EB] transition-colors" aria-label="Open menu">
+          <svg class="w-6 h-6 text-[#181D17]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
         </button>
       </div>
-
-      <form id="createListingForm" class="flex-1 overflow-y-auto p-6 space-y-4">
-        <div>
-          <label
-            for="produceName"
-            class="block text-sm font-medium text-[#181D17] mb-1"
-            >Produce Name</label
-          >
-          <input
-            id="produceName"
-            type="text"
-            placeholder="e.g. Sharbati Wheat, Red Potatoes"
-            required
-            class="w-full h-11 px-4 rounded-md border border-[#BFCABA] outline-none text-sm focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B]"
-          />
+      <div id="mobileMenu" class="hidden px-4 pb-4">
+        <nav class="flex flex-col gap-2">
+          <a href="./farmer-dashboard.html" class="nav-link active px-4 py-3 rounded-xl">📊 Dashboard</a>
+          <a href="./my-listings.html" class="nav-link px-4 py-3 rounded-xl">🌾 My Produce</a>
+          <a href="./farmer-offers.html" class="nav-link px-4 py-3 rounded-xl">📥 Offers Received</a>
+          <a href="./farmer-orders.html" class="nav-link px-4 py-3 rounded-xl">📦 My Orders</a>
+          <a href="./buyer-demands.html" class="nav-link px-4 py-3 rounded-xl">📋 Buyer Demands</a>
+        </nav>
+        <div class="pt-4 border-t border-[#E0E4DA]/60">
+          <a href="./profile.html" class="block px-4 py-2 text-center text-sm font-medium text-[#0D631B] hover:bg-[#F1F5EB] rounded-xl transition-colors">Profile Settings</a>
+          <button id="mobileLogout" class="mt-2 w-full px-4 py-2 text-center text-sm font-medium text-red-600 hover:bg-red-50 rounded-xl transition-colors">Logout</button>
         </div>
+      </div>
+    </header>
 
-        <div>
-          <label
-            for="produceVariety"
-            class="block text-sm font-medium text-[#181D17] mb-1"
-            >Variety / Grade</label
-          >
-          <input
-            id="produceVariety"
-            type="text"
-            placeholder="e.g. Grade A, Organic"
-            required
-            class="w-full h-11 px-4 rounded-md border border-[#BFCABA] outline-none text-sm focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B]"
-          />
-        </div>
-
-        <div class="grid grid-cols-2 gap-3">
+    <!-- ================= MAIN CONTENT ================= -->
+    <main class="flex-1 lg:ml-64 pt-16 lg:pt-0 min-h-screen">
+      <!-- TOP BAR -->
+      <div class="sticky top-0 z-30 bg-white/90 backdrop-blur-xl border-b border-[#E0E4DA]/60 px-6 py-4 animate-fade-in-up">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <label
-              for="produceQuantity"
-              class="block text-sm font-medium text-[#181D17] mb-1"
-              >Quantity</label
-            >
-            <input
-              id="produceQuantity"
-              type="number"
-              min="1"
-              placeholder="100"
-              required
-              class="w-full h-11 px-4 rounded-md border border-[#BFCABA] outline-none text-sm focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B]"
-            />
+            <h1 class="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-[#0D631B] to-[#2E7D32] bg-clip-text text-transparent">Dashboard</h1>
+            <p class="text-[#40493D] mt-1">Welcome back, <span id="farmerName" class="font-medium text-[#181D17]">Farmer</span>! Here's your farm overview.</p>
           </div>
-          <div>
-            <label
-              for="produceUnit"
-              class="block text-sm font-medium text-[#181D17] mb-1"
-              >Unit</label
-            >
-            <select
-              id="produceUnit"
-              required
-              class="w-full h-11 px-3 rounded-md border border-[#BFCABA] outline-none text-sm focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B] bg-white"
-            >
-              <option value="quintal">Quintals</option>
-              <option value="kg">Kg</option>
-              <option value="ton">Tons</option>
-            </select>
+          <a href="./my-listings.html" class="btn-primary inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-white font-medium text-sm shadow-lg animate-fade-in-up delay-2">
+            <span>➕</span> Sell Produce
+          </a>
+        </div>
+      </div>
+
+      <!-- STATS GRID -->
+      <div class="p-6 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <article class="glass-card stat-card gradient-border rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 animate-fade-in-up delay-1">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm font-medium text-[#40493D]">Active Listings</p>
+                <p class="text-3xl font-bold text-[#181D17] mt-1" id="statActive">0</p>
+              </div>
+              <div class="stat-icon w-12 h-12 rounded-xl bg-gradient-to-br from-[#0D631B] to-[#2E7D32] flex items-center justify-center text-white text-2xl">🌾</div>
+            </div>
+          </article>
+          <article class="glass-card stat-card gradient-border rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 animate-fade-in-up delay-2">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm font-medium text-[#40493D]">Pending Offers</p>
+                <p class="text-3xl font-bold text-[#181D17] mt-1" id="statOffers">0</p>
+              </div>
+              <div class="stat-icon w-12 h-12 rounded-xl bg-gradient-to-br from-[#F59E0B] to-[#F97316] flex items-center justify-center text-white text-2xl">📥</div>
+            </div>
+          </article>
+          <article class="glass-card stat-card gradient-border rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 animate-fade-in-up delay-3">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm font-medium text-[#40493D]">Active Orders</p>
+                <p class="text-3xl font-bold text-[#181D17] mt-1" id="statOrders">0</p>
+              </div>
+              <div class="stat-icon w-12 h-12 rounded-xl bg-gradient-to-br from-[#3B82F6] to-[#06B6D4] flex items-center justify-center text-white text-2xl">📦</div>
+            </div>
+          </article>
+          <article class="glass-card stat-card gradient-border rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 animate-fade-in-up delay-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm font-medium text-[#40493D]">Total Revenue</p>
+                <p class="text-3xl font-bold text-[#181D17] mt-1" id="statRevenue">₹0</p>
+              </div>
+              <div class="stat-icon w-12 h-12 rounded-xl bg-gradient-to-br from-[#8B5CF6] to-[#EC4899] flex items-center justify-center text-white text-2xl">💰</div>
+            </div>
+          </article>
+        </div>
+
+        <!-- QUICK ACTIONS -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 animate-fade-in-up delay-3">
+          <a href="./my-listings.html" class="glass-card gradient-border rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 group">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#0D631B] to-[#2E7D32] flex items-center justify-center text-white text-2xl mb-3 group-hover:scale-110 transition-transform">🌾</div>
+            <h3 class="font-semibold text-[#181D17] mb-1">Manage Produce</h3>
+            <p class="text-sm text-[#40493D]">View, edit or delete your crop listings</p>
+          </a>
+          <a href="./farmer-offers.html" class="glass-card gradient-border rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 group">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#F59E0B] to-[#F97316] flex items-center justify-center text-white text-2xl mb-3 group-hover:scale-110 transition-transform">📥</div>
+            <h3 class="font-semibold text-[#181D17] mb-1">Review Offers</h3>
+            <p class="text-sm text-[#40493D]">Accept or reject buyer offers</p>
+          </a>
+          <a href="./farmer-orders.html" class="glass-card gradient-border rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 group">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#3B82F6] to-[#06B6D4] flex items-center justify-center text-white text-2xl mb-3 group-hover:scale-110 transition-transform">📦</div>
+            <h3 class="font-semibold text-[#181D17] mb-1">Track Orders</h3>
+            <p class="text-sm text-[#40493D]">Manage order fulfillment & delivery</p>
+          </a>
+        </div>
+
+        <!-- RECENT ACTIVITY -->
+        <section class="glass-card gradient-border rounded-2xl p-6 shadow-sm animate-fade-in-up delay-5">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-bold text-[#181D17]">Recent Activity</h2>
+            <a href="./my-listings.html" class="text-sm font-medium text-[#0D631B] hover:underline">View All →</a>
           </div>
-        </div>
+          <div id="recentActivity" class="space-y-3">
+            <div class="flex items-center gap-3 p-3 rounded-xl bg-[#F4F8F0]/50">
+              <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0D631B] to-[#2E7D32] flex items-center justify-center text-white text-lg">🌾</div>
+              <div class="flex-1">
+                <p class="font-medium text-[#181D17]">No listings yet</p>
+                <p class="text-sm text-[#40493D]">Add your first produce to get started</p>
+              </div>
+              <a href="./my-listings.html" class="btn-primary px-4 py-2 rounded-xl text-white text-sm font-medium">Add Produce</a>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
 
-        <div>
-          <label
-            for="producePrice"
-            class="block text-sm font-medium text-[#181D17] mb-1"
-            >Expected Price (₹)</label
-          >
-          <input
-            id="producePrice"
-            type="number"
-            placeholder="Price per unit (e.g. 2400)"
-            required
-            class="w-full h-11 px-4 rounded-md border border-[#BFCABA] outline-none text-sm focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B]"
-          />
-        </div>
+    <!-- MOBILE MENU OVERLAY -->
+    <div id="mobileOverlay" class="fixed inset-0 bg-black/50 z-40 lg:hidden hidden"></div>
 
-        <div>
-          <label
-            for="produceLocation"
-            class="block text-sm font-medium text-[#181D17] mb-1"
-            >Mandi / Location</label
-          >
-          <input
-            id="produceLocation"
-            type="text"
-            placeholder="e.g. Meerut Mandi, Uttar Pradesh"
-            required
-            class="w-full h-11 px-4 rounded-md border border-[#BFCABA] outline-none text-sm focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B]"
-          />
-        </div>
-
-        <div>
-          <label
-            for="produceDesc"
-            class="block text-sm font-medium text-[#181D17] mb-1"
-            >Crop Description (Optional)</label
-          >
-          <textarea
-            id="produceDesc"
-            rows="3"
-            placeholder="Add details about quality, harvest date, packaging..."
-            class="w-full p-3 rounded-md border border-[#BFCABA] outline-none text-sm focus:border-[#0D631B] focus:ring-1 focus:ring-[#0D631B]"
-          ></textarea>
-        </div>
-
-        <div class="pt-4">
-          <button
-            type="submit"
-            id="publishBtn"
-            class="w-full min-h-[48px] bg-[#0D631B] text-white font-bold rounded-lg shadow-sm hover:bg-[#095516] transition-colors"
-          >
-            Publish Produce
-          </button>
-        </div>
-      </form>
-    </div>
-
-    <!-- DRAWER TOGGLE SCRIPT -->
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const openDrawerBtn = document.getElementById("openDrawerBtn");
-        const closeDrawerBtn = document.getElementById("closeDrawerBtn");
-        const drawerBackdrop = document.getElementById("drawerBackdrop");
-        const createListingDrawer = document.getElementById(
-          "createListingDrawer",
-        );
-        const createListingForm = document.getElementById("createListingForm");
-        const publishBtn = document.getElementById("publishBtn");
-
-        function openDrawer() {
-          drawerBackdrop.classList.remove("hidden");
-          setTimeout(() => {
-            drawerBackdrop.classList.remove("opacity-0");
-            createListingDrawer.classList.remove("translate-x-full");
-          }, 10);
-        }
-
-        function closeDrawer() {
-          createListingDrawer.classList.add("translate-x-full");
-          drawerBackdrop.classList.add("opacity-0");
-          setTimeout(() => {
-            drawerBackdrop.classList.add("hidden");
-          }, 300);
-        }
-
-        if (openDrawerBtn) openDrawerBtn.addEventListener("click", openDrawer);
-        if (closeDrawerBtn)
-          closeDrawerBtn.addEventListener("click", closeDrawer);
-        if (drawerBackdrop)
-          drawerBackdrop.addEventListener("click", closeDrawer);
-
-        if (createListingForm) {
-          createListingForm.addEventListener("submit", function (e) {
-            e.preventDefault();
-            publishBtn.textContent = "Publishing...";
-            publishBtn.disabled = true;
-
-            setTimeout(() => {
-              alert("Listed Successfully!");
-              publishBtn.textContent = "Publish Produce";
-              publishBtn.disabled = false;
-              createListingForm.reset();
-              closeDrawer();
-            }, 1000);
-          });
-        }
-      });
-    </script>
+    <script src="./script.js"></script>
   </body>
 </html>

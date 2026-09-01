@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KrishiSetu | My Orders (Farmer)</title>
+    <link rel="stylesheet" href="./output.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body
+    class="bg-[#F4F8F0] text-[#181D17] font-['Inter'] min-h-screen flex flex-col lg:flex-row"
+  >
+    <!-- DESKTOP SIDEBAR -->
+    <aside
+      class="hidden lg:flex flex-col w-64 bg-white border-r border-[#E0E4DA] min-h-screen p-5 fixed left-0 top-0 bottom-0 z-40"
+    >
+      <a href="./index.html" class="flex items-center gap-3 mb-8 px-2">
+        <img
+          src="./assets/images/krishisetu_logo.png"
+          alt="Logo"
+          class="h-9 w-9 object-contain"
+        />
+        <span class="text-xl font-bold text-[#0D631B]">KrishiSetu</span>
+      </a>
+      <nav class="flex flex-col gap-2 flex-1">
+        <a
+          href="./farmer-dashboard.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#40493D] hover:bg-[#F1F5EB] font-medium"
+        >
+          <span>📊</span> Dashboard
+        </a>
+        <a
+          href="./my-listings.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#40493D] hover:bg-[#F1F5EB] font-medium"
+        >
+          <span>🌾</span> My Produce
+        </a>
+        <a
+          href="./farmer-offers.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#40493D] hover:bg-[#F1F5EB] font-medium"
+        >
+          <span>🤝</span> Received Offers
+        </a>
+        <a
+          href="./farmer-orders.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-lg bg-[#0D631B] text-white font-medium shadow-sm"
+        >
+          <span>📦</span> My Orders
+        </a>
+      </nav>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <div class="flex-1 lg:ml-64 pb-20 lg:pb-8">
+      <header
+        class="bg-white/90 backdrop-blur-sm border-b border-[#E0E4DA] sticky top-0 z-30 px-4 md:px-8 py-4 flex items-center justify-between"
+      >
+        <div>
+          <h1 class="text-xl md:text-2xl font-bold text-[#181D17]">
+            Confirmed Sales Orders
+          </h1>
+          <p class="text-xs md:text-sm text-[#40493D]">
+            Track orders generated from accepted offers
+          </p>
+        </div>
+      </header>
+
+      <main class="max-w-7xl mx-auto px-4 md:px-8 py-6">
+        <div id="farmerOrdersList" class="space-y-4">
+          <!-- Populated via script.js -->
+        </div>
+      </main>
+    </div>
+
+    <!-- ORDER DETAILS MODAL (F27) -->
+    <div
+      id="orderDetailsModal"
+      class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4"
+    >
+      <div class="bg-white rounded-xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+        <div
+          class="flex justify-between items-center border-b border-[#E0E4DA] pb-3"
+        >
+          <h3 class="text-lg font-bold text-[#0D631B]">
+            Order Details Summary
+          </h3>
+          <button
+            onclick="closeOrderModal()"
+            class="text-gray-500 font-bold hover:text-black"
+          >
+            ✕
+          </button>
+        </div>
+        <div id="orderDetailsBody" class="space-y-3 text-sm text-[#181D17]">
+          <!-- Populated dynamically via JS -->
+        </div>
+        <div class="pt-3 border-t border-[#E0E4DA] flex justify-end">
+          <button
+            onclick="closeOrderModal()"
+            class="px-4 py-2 bg-[#0D631B] text-white text-xs font-bold rounded-lg hover:bg-[#095516]"
+          >
+            Close Summary
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

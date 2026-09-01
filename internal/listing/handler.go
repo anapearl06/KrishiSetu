@@ -1,333 +1,144 @@
 package listing
 
 import (
-	"errors"
 	"net/http"
 	"strconv"
-	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/raaj2493/KrishiSetu/internal/middleware"
+	"github.com/raaj2493/KrishiSetu/internal/server/response"
 )
 
-type CreateListingRequest struct {
-	CropName      string  `json:"crop_name" binding:"required"`
-	Quantity      float64 `json:"quantity" binding:"required,gt=0"`
-	Unit          string  `json:"unit" binding:"required"`
-	ExpectedPrice float64 `json:"expected_price" binding:"required,gt=0"`
-	QualityGrade  string  `json:"quality_grade"`
-	State         string  `json:"state" binding:"required"`
-	District      string  `json:"district" binding:"required"`
-	HarvestDate   string  `json:"harvest_date" binding:"required"`
-}
-
 type Handler struct {
-	service Service
+	service *Service
 }
 
-func NewHandler(service Service) *Handler {
-	return &Handler{
-		service: service,
-	}
+func NewHandler(service *Service) *Handler {
+	return &Handler{service: service}
 }
 
-func (h *Handler) CreateListing(c *gin.Context) {
-	var req CreateListingRequest
-
-	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "invalid request",
-		})
-		return
-	}
-
-	farmerIDValue, exists := c.Get("user_id")
+func (h *Handler) Create(c *gin.Context) {
+	userID, exists := c.Get(middleware.UserIDKey)
 	if !exists {
-		c.JSON(http.StatusUnauthorized, gin.H{
-			"error": "unauthorized",
-		})
+		response.Error(c, http.StatusUnauthorized, "UNAUTHORIZED", "unauthorized")
 		return
 	}
 
-	farmerID, ok := farmerIDValue.(uint)
+	farmerID, ok := userID.(uint)
 	if !ok {
-		c.JSON(http.StatusUnauthorized, gin.H{
-			"error": "invalid user identity",
-		})
+		response.Error(c, http.StatusUnauthorized, "UNAUTHORIZED", "invalid user identity")
 		return
 	}
 
-	harvestDate, err := parseHarvestDate(req.HarvestDate)
+	var input CreateInput
+	if err := c.ShouldBindJSON(&input); err != nil {
+		response.Error(c, http.StatusBadRequest, "BAD_REQUEST", "invalid request body")
+		return
+	}
+
+	listing, err := h.service.CreateListing(farmerID, input)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "invalid harvest_date, use YYYY-MM-DD",
-		})
+		response.Error(c, http.StatusBadRequest, "BAD_REQUEST", err.Error())
 		return
 	}
 
-	listing := &CropListing{
-		CropName:      req.CropName,
-		Quantity:      req.Quantity,
-		Unit:          req.Unit,
-		ExpectedPrice: req.ExpectedPrice,
-		QualityGrade:  req.QualityGrade,
-		State:         req.State,
-		District:      req.District,
-		HarvestDate:   harvestDate,
-	}
-
-	if err := h.service.CreateListing(
-		c.Request.Context(),
-		farmerID,
-		listing,
-	); err != nil {
-		handleServiceError(c, err)
-		return
-	}
-
-	c.JSON(http.StatusCreated, listing)
-}
-
-func (h *Handler) GetListing(c *gin.Context) {
-	id, err := strconv.ParseUint(c.Param("id"), 10, 64)
-
-	if err != nil || id == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "invalid listing id",
-		})
-		return
-	}
-
-	listing, err := h.service.GetListing(
-		c.Request.Context(),
-		uint(id),
-	)
-
-	if err != nil {
-		handleServiceError(c, err)
-		return
-	}
-
-	c.JSON(http.StatusOK, listing)
+	response.Success(c, http.StatusCreated, ToResponse(listing))
 }
 
 func (h *Handler) GetMyListings(c *gin.Context) {
-	farmerIDValue, exists := c.Get("user_id")
-
+	userID, exists := c.Get(middleware.UserIDKey)
 	if !exists {
-		c.JSON(http.StatusUnauthorized, gin.H{
-			"error": "unauthorized",
-		})
+		response.Error(c, http.StatusUnauthorized, "UNAUTHORIZED", "unauthorized")
 		return
 	}
 
-	farmerID, ok := farmerIDValue.(uint)
-
+	farmerID, ok := userID.(uint)
 	if !ok {
-		c.JSON(http.StatusUnauthorized, gin.H{
-			"error": "invalid user identity",
-		})
+		response.Error(c, http.StatusUnauthorized, "UNAUTHORIZED", "invalid user identity")
 		return
 	}
 
-	listings, err := h.service.GetFarmerListings(
-		c.Request.Context(),
-		farmerID,
-	)
-
+	listings, err := h.service.GetMyListings(farmerID)
 	if err != nil {
-		handleServiceError(c, err)
+		response.Error(c, http.StatusInternalServerError, "INTERNAL_ERROR", err.Error())
 		return
 	}
 
-	c.JSON(http.StatusOK, listings)
+	c.JSON(http.StatusOK, ToResponseList(listings))
 }
 
-func (h *Handler) ListListings(c *gin.Context) {
-	filters := ListingFilters{
-		CropName: c.Query("crop"),
-		State:    c.Query("state"),
-		District: c.Query("district"),
-		Status:   c.Query("status"),
-	}
+func (h *Handler) Browse(c *gin.Context) {
+	crop := c.Query("crop")
+	state := c.Query("state")
+	status := c.Query("status")
+	limit, _ := strconv.Atoi(c.DefaultQuery("limit", "0"))
 
-	if minPriceStr := c.Query("min_price"); minPriceStr != "" {
-		if val, err := strconv.ParseFloat(minPriceStr, 64); err == nil {
-			filters.MinPrice = &val
-		}
-	}
-
-	if maxPriceStr := c.Query("max_price"); maxPriceStr != "" {
-		if val, err := strconv.ParseFloat(maxPriceStr, 64); err == nil {
-			filters.MaxPrice = &val
-		}
-	}
-
-	listings, err := h.service.ListListings(c.Request.Context(), filters)
+	listings, err := h.service.BrowseListings(crop, state, status, limit)
 	if err != nil {
-		handleServiceError(c, err)
+		response.Error(c, http.StatusInternalServerError, "INTERNAL_ERROR", err.Error())
 		return
 	}
 
-	c.JSON(http.StatusOK, listings)
+	c.JSON(http.StatusOK, ToResponseList(listings))
 }
 
-func (h *Handler) UpdateListing(c *gin.Context) {
-	id, err := strconv.ParseUint(c.Param("id"), 10, 64)
-
-	if err != nil || id == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "invalid listing id",
-		})
-		return
-	}
-
-	var req CreateListingRequest
-
-	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "invalid request",
-		})
-		return
-	}
-
-	farmerIDValue, exists := c.Get("user_id")
-
+func (h *Handler) Update(c *gin.Context) {
+	userID, exists := c.Get(middleware.UserIDKey)
 	if !exists {
-		c.JSON(http.StatusUnauthorized, gin.H{
-			"error": "unauthorized",
-		})
+		response.Error(c, http.StatusUnauthorized, "UNAUTHORIZED", "unauthorized")
 		return
 	}
 
-	farmerID, ok := farmerIDValue.(uint)
-
+	farmerID, ok := userID.(uint)
 	if !ok {
-		c.JSON(http.StatusUnauthorized, gin.H{
-			"error": "invalid user identity",
-		})
+		response.Error(c, http.StatusUnauthorized, "UNAUTHORIZED", "invalid user identity")
 		return
 	}
 
-	harvestDate, err := parseHarvestDate(req.HarvestDate)
-
+	id, err := strconv.ParseUint(c.Param("id"), 10, 32)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "invalid harvest_date, use YYYY-MM-DD",
-		})
+		response.Error(c, http.StatusBadRequest, "BAD_REQUEST", "invalid listing id")
 		return
 	}
 
-	listing := &CropListing{
-		ID:            uint(id),
-		CropName:      req.CropName,
-		Quantity:      req.Quantity,
-		Unit:          req.Unit,
-		ExpectedPrice: req.ExpectedPrice,
-		QualityGrade:  req.QualityGrade,
-		State:         req.State,
-		District:      req.District,
-		HarvestDate:   harvestDate,
-	}
-
-	if err := h.service.UpdateListing(
-		c.Request.Context(),
-		farmerID,
-		listing,
-	); err != nil {
-		handleServiceError(c, err)
+	var input UpdateInput
+	if err := c.ShouldBindJSON(&input); err != nil {
+		response.Error(c, http.StatusBadRequest, "BAD_REQUEST", "invalid request body")
 		return
 	}
 
-	updatedListing, err := h.service.GetListing(
-		c.Request.Context(),
-		uint(id),
-	)
-
+	listing, err := h.service.UpdateListing(uint(id), farmerID, input)
 	if err != nil {
-		handleServiceError(c, err)
+		response.Error(c, http.StatusBadRequest, "BAD_REQUEST", err.Error())
 		return
 	}
 
-	c.JSON(http.StatusOK, updatedListing)
+	response.Success(c, http.StatusOK, ToResponse(listing))
 }
 
-func (h *Handler) CancelListing(c *gin.Context) {
-	id, err := strconv.ParseUint(c.Param("id"), 10, 64)
-
-	if err != nil || id == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "invalid listing id",
-		})
-		return
-	}
-
-	farmerIDValue, exists := c.Get("user_id")
-
+func (h *Handler) Delete(c *gin.Context) {
+	userID, exists := c.Get(middleware.UserIDKey)
 	if !exists {
-		c.JSON(http.StatusUnauthorized, gin.H{
-			"error": "unauthorized",
-		})
+		response.Error(c, http.StatusUnauthorized, "UNAUTHORIZED", "unauthorized")
 		return
 	}
 
-	farmerID, ok := farmerIDValue.(uint)
-
+	farmerID, ok := userID.(uint)
 	if !ok {
-		c.JSON(http.StatusUnauthorized, gin.H{
-			"error": "invalid user identity",
-		})
+		response.Error(c, http.StatusUnauthorized, "UNAUTHORIZED", "invalid user identity")
 		return
 	}
 
-	if err := h.service.CancelListing(
-		c.Request.Context(),
-		farmerID,
-		uint(id),
-	); err != nil {
-		handleServiceError(c, err)
+	id, err := strconv.ParseUint(c.Param("id"), 10, 32)
+	if err != nil {
+		response.Error(c, http.StatusBadRequest, "BAD_REQUEST", "invalid listing id")
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"message": "listing cancelled successfully",
-	})
-}
-
-func parseHarvestDate(value string) (time.Time, error) {
-	return time.Parse("2006-01-02", value)
-}
-
-func handleServiceError(c *gin.Context, err error) {
-	switch {
-	case errors.Is(err, ErrListingNotFound):
-		c.JSON(http.StatusNotFound, gin.H{
-			"error": err.Error(),
-		})
-
-	case errors.Is(err, ErrUnauthorized):
-		c.JSON(http.StatusForbidden, gin.H{
-			"error": err.Error(),
-		})
-
-	case errors.Is(err, ErrListingNotActive):
-		c.JSON(http.StatusConflict, gin.H{
-			"error": err.Error(),
-		})
-
-	case errors.Is(err, ErrInvalidQuantity),
-		errors.Is(err, ErrInvalidPrice),
-		errors.Is(err, ErrInvalidCropName),
-		errors.Is(err, ErrInvalidUnit),
-		errors.Is(err, ErrInvalidLocation),
-		errors.Is(err, ErrInvalidHarvestDate):
-
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": err.Error(),
-		})
-
-	default:
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": "internal server error",
-		})
+	if err := h.service.DeleteListing(uint(id), farmerID); err != nil {
+		response.Error(c, http.StatusBadRequest, "BAD_REQUEST", err.Error())
+		return
 	}
+
+	response.Success(c, http.StatusOK, gin.H{"message": "listing deleted successfully"})
 }

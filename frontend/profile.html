@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KrishiSetu | Profile Settings</title>
+    <link rel="stylesheet" href="./output.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body
+    class="bg-[#F4F8F0] text-[#181D17] font-['Inter'] min-h-screen flex flex-col lg:flex-row"
+  >
+    <!-- DESKTOP SIDEBAR -->
+    <aside
+      class="hidden lg:flex flex-col w-64 bg-white border-r border-[#E0E4DA] min-h-screen p-5 fixed left-0 top-0 bottom-0 z-40"
+    >
+      <a href="./index.html" class="flex items-center gap-3 mb-8 px-2">
+        <img
+          src="./assets/images/krishisetu_logo.png"
+          alt="Logo"
+          class="h-9 w-9 object-contain"
+        />
+        <span class="text-xl font-bold text-[#0D631B]">KrishiSetu</span>
+      </a>
+      <nav class="flex flex-col gap-2 flex-1">
+        <a
+          href="./farmer-dashboard.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#40493D] hover:bg-[#F1F5EB] font-medium"
+        >
+          <span>📊</span> Dashboard
+        </a>
+        <a
+          href="./profile.html"
+          class="flex items-center gap-3 px-4 py-3 rounded-lg bg-[#0D631B] text-white font-medium shadow-sm"
+        >
+          <span>👤</span> Account Profile
+        </a>
+      </nav>
+      <div class="border-t border-[#E0E4DA] pt-4">
+        <a
+          href="./login.html"
+          onclick="localStorage.clear()"
+          class="flex items-center gap-2 text-xs font-bold text-red-600 hover:underline"
+        >
+          <span>🚪</span> Logout Account
+        </a>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <div class="flex-1 lg:ml-64 pb-20 lg:pb-8">
+      <header
+        class="bg-white/90 backdrop-blur-sm border-b border-[#E0E4DA] sticky top-0 z-30 px-4 md:px-8 py-4 flex items-center justify-between"
+      >
+        <div>
+          <h1 class="text-xl md:text-2xl font-bold text-[#181D17]">
+            Account Profile Settings
+          </h1>
+          <p class="text-xs md:text-sm text-[#40493D]">
+            Manage your registered contact and location information
+          </p>
+        </div>
+      </header>
+
+      <main class="max-w-4xl mx-auto px-4 md:px-8 py-6">
+        <div
+          class="bg-white rounded-2xl border border-[#E0E4DA] p-6 shadow-sm space-y-6"
+        >
+          <div class="flex items-center gap-4 pb-6 border-b border-[#F1F5EB]">
+            <div
+              class="w-16 h-16 rounded-full bg-[#0D631B]/10 flex items-center justify-center text-2xl font-bold text-[#0D631B]"
+              id="profileAvatar"
+            >
+              👤
+            </div>
+            <div>
+              <h2
+                class="text-xl font-bold text-[#181D17]"
+                id="profileNameDisplay"
+              >
+                User Account
+              </h2>
+              <span
+                class="inline-block px-2.5 py-0.5 text-xs font-semibold rounded bg-green-100 text-[#0D631B] uppercase mt-1"
+                id="profileRoleBadge"
+                >VERIFIED USER</span
+              >
+            </div>
+          </div>
+
+          <form id="profileForm" class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-[#40493D] mb-1"
+                  >Full Name / Organization</label
+                >
+                <input
+                  type="text"
+                  id="profileName"
+                  required
+                  class="w-full h-11 px-3 border border-[#E0E4DA] rounded-lg text-sm"
+                />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-[#40493D] mb-1"
+                  >Mobile Number</label
+                >
+                <input
+                  type="tel"
+                  id="profilePhone"
+                  disabled
+                  class="w-full h-11 px-3 border border-[#E0E4DA] rounded-lg text-sm bg-gray-100 text-gray-500 cursor-not-allowed"
+                />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-[#40493D] mb-1"
+                  >State</label
+                >
+                <input
+                  type="text"
+                  id="profileState"
+                  required
+                  class="w-full h-11 px-3 border border-[#E0E4DA] rounded-lg text-sm"
+                />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-[#40493D] mb-1"
+                  >District / City</label
+                >
+                <input
+                  type="text"
+                  id="profileDistrict"
+                  required
+                  class="w-full h-11 px-3 border border-[#E0E4DA] rounded-lg text-sm"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-[#40493D] mb-1"
+                >Village / Local Address Details</label
+              >
+              <textarea
+                id="profileAddress"
+                rows="3"
+                class="w-full p-3 border border-[#E0E4DA] rounded-lg text-sm"
+              ></textarea>
+            </div>
+
+            <div class="pt-4 border-t border-[#F1F5EB] flex justify-end">
+              <button
+                type="submit"
+                class="px-6 py-2.5 bg-[#0D631B] text-white font-bold rounded-lg text-sm hover:bg-[#095516] shadow-sm"
+              >
+                Save Profile Updates
+              </button>
+            </div>
+          </form>
+        </div>
+      </main>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

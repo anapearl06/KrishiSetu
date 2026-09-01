@@ -5,6 +5,11 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+<<<<<<< HEAD
+	"gorm.io/gorm"
+
+=======
+>>>>>>> tmp-pr-merge
 	"github.com/raaj2493/KrishiSetu/internal/buyer"
 	"github.com/raaj2493/KrishiSetu/internal/config"
 	"github.com/raaj2493/KrishiSetu/internal/demand"
@@ -12,7 +17,10 @@ import (
 	"github.com/raaj2493/KrishiSetu/internal/listing"
 	"github.com/raaj2493/KrishiSetu/internal/middleware"
 	"github.com/raaj2493/KrishiSetu/internal/offer"
+<<<<<<< HEAD
+=======
 	"github.com/raaj2493/KrishiSetu/internal/order"
+>>>>>>> tmp-pr-merge
 	"github.com/raaj2493/KrishiSetu/internal/server/response"
 
 	"gorm.io/gorm"
@@ -21,6 +29,10 @@ import (
 func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 	router := gin.Default()
 
+<<<<<<< HEAD
+	// CORS middleware for Vercel frontend
+	router.Use(middleware.CORS())
+=======
 	// =========================
 	// CORS
 	// =========================
@@ -47,6 +59,7 @@ func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 		AllowCredentials: true,
 		MaxAge:           12 * time.Hour,
 	}))
+>>>>>>> tmp-pr-merge
 
 	// Health check
 	router.GET("/health", func(c *gin.Context) {
@@ -137,89 +150,193 @@ func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 	}
 
 	// =========================
-	// Demands
-	// =========================
-
-	demandRepo := demand.NewRepository(db)
-
-	demandService := demand.NewService(demandRepo)
-
-	demandHandler := demand.NewHandler(demandService)
-
-	demands := api.Group("/demands")
-
-	demands.Use(middleware.JWTAuth(cfg.JWTSecret))
-
-	{
-		demands.POST("", demandHandler.CreateDemand)
-
-		demands.GET("", demandHandler.ListDemands)
-
-		demands.GET("/my", demandHandler.GetMyDemands)
-
-		demands.GET("/:id", demandHandler.GetDemand)
-
-		demands.PUT("/:id", demandHandler.UpdateDemand)
-
-		demands.DELETE("/:id", demandHandler.CancelDemand)
-	}
-
-	// =========================
-	// Listings
+	// Listings (frontend-aligned)
 	// =========================
 
 	listingRepo := listing.NewRepository(db)
-
 	listingService := listing.NewService(listingRepo)
-
 	listingHandler := listing.NewHandler(listingService)
 
-	listings := api.Group("/listings")
-
-	listings.Use(middleware.JWTAuth(cfg.JWTSecret))
-
+	listingRoutes := api.Group("/listings")
 	{
-		listings.POST("", listingHandler.CreateListing)
+		// Public: browse marketplace
+		listingRoutes.GET(
+			"",
+			listingHandler.Browse,
+		)
 
-		listings.GET("", listingHandler.ListListings)
+		// Protected: farmer listing management (JWT)
+		listingRoutes.POST(
+			"",
+			middleware.JWTAuth(cfg.JWTSecret),
+			listingHandler.Create,
+		)
 
-		listings.GET("/my", listingHandler.GetMyListings)
+		listingRoutes.GET(
+			"/my",
+			middleware.JWTAuth(cfg.JWTSecret),
+			listingHandler.GetMyListings,
+		)
 
-		listings.GET("/:id", listingHandler.GetListing)
+		listingRoutes.PUT(
+			"/:id",
+			middleware.JWTAuth(cfg.JWTSecret),
+			listingHandler.Update,
+		)
 
-		listings.PUT("/:id", listingHandler.UpdateListing)
-
-		listings.DELETE("/:id", listingHandler.CancelListing)
+		listingRoutes.DELETE(
+			"/:id",
+			middleware.JWTAuth(cfg.JWTSecret),
+			listingHandler.Delete,
+		)
 	}
+
+	// =========================
+	// Demand (buyer creates demand)
+	// =========================
+
+	demandRepo := demand.NewRepository(db)
+	demandService := demand.NewService(demandRepo)
+	demandHandler := demand.NewHandler(demandService)
+
+<<<<<<< HEAD
+	demandRoutes := router.Group("/api/v1/demands")
+=======
+	demandRoutes := api.Group("/demands")
+>>>>>>> tmp-pr-merge
+	{
+		// Public: browse all demands
+		demandRoutes.GET(
+			"",
+			demandHandler.ListDemands,
+		)
+
+		// Protected: buyer demand management (JWT)
+		demandRoutes.POST(
+			"",
+			middleware.JWTAuth(cfg.JWTSecret),
+			demandHandler.CreateDemand,
+		)
+
+		demandRoutes.GET(
+			"/my",
+			middleware.JWTAuth(cfg.JWTSecret),
+			demandHandler.GetMyDemands,
+		)
+
+		demandRoutes.GET(
+			"/:id",
+			middleware.JWTAuth(cfg.JWTSecret),
+			demandHandler.GetDemand,
+		)
+
+		demandRoutes.PUT(
+			"/:id",
+			middleware.JWTAuth(cfg.JWTSecret),
+			demandHandler.UpdateDemand,
+		)
+
+		demandRoutes.DELETE(
+			"/:id",
+			middleware.JWTAuth(cfg.JWTSecret),
+			demandHandler.CancelDemand,
+		)
+	}
+
+	// =========================
+	// Offers
+	// =========================
 
 	offerRepo := offer.NewRepository(db)
-	offerService := offer.NewService(offerRepo, db)
-	offerHandler := offer.NewHandler(offerService)
+	offerService := offer.NewService(offerRepo)
+	offerHandler := offer.NewHandler(offerService, func(listingID uint) (uint, error) {
+		listing, err := listingService.GetListing(listingID)
+		if err != nil {
+			return 0, err
+		}
+		return listing.FarmerID, nil
+	})
 
-	offers := api.Group("/offers")
-	offers.Use(middleware.JWTAuth(cfg.JWTSecret))
+<<<<<<< HEAD
+	offerRoutes := router.Group("/api/v1/offers")
 	{
-		offers.POST("", offerHandler.CreateOffer)
-		offers.GET("/my", offerHandler.GetMyOffers)
-		offers.GET("/:id", offerHandler.GetOffer)
-		offers.GET("/listing/:listing_id", offerHandler.GetListingOffers)
-		offers.DELETE("/:id", offerHandler.CancelOffer)
+		// Public: view offers for a listing (optional auth handled in handlers)
+=======
+	offerRoutes := api.Group("/offers")
+	{
+		// View offers for a listing
+>>>>>>> tmp-pr-merge
+		offerRoutes.GET(
+			"/listing/:id",
+			middleware.JWTAuth(cfg.JWTSecret),
+			offerHandler.GetListingOffers,
+		)
+
+		// Protected: buyer offers
+		offerRoutes.POST(
+			"",
+			middleware.JWTAuth(cfg.JWTSecret),
+			offerHandler.CreateOffer,
+		)
+
+		offerRoutes.GET(
+			"/my-sent",
+			middleware.JWTAuth(cfg.JWTSecret),
+			offerHandler.GetMySentOffers,
+		)
+
+		offerRoutes.GET(
+			"/my-received",
+			middleware.JWTAuth(cfg.JWTSecret),
+			offerHandler.GetFarmerOffers,
+		)
+
+		offerRoutes.PUT(
+			"/:id/respond",
+			middleware.JWTAuth(cfg.JWTSecret),
+			offerHandler.RespondOffer,
+		)
 	}
 
+<<<<<<< HEAD
+	return router
+}
+=======
 	// =========================
 	// Orders
 	// =========================
+
 	orderRepo := order.NewRepository(db)
-	orderService := order.NewService(orderRepo, offerRepo, listingRepo, db)
+	orderService := order.NewService(orderRepo)
 	orderHandler := order.NewHandler(orderService)
 
-	orders := api.Group("/orders")
-	orders.Use(middleware.JWTAuth(cfg.JWTSecret))
+	orderRoutes := api.Group("/orders")
 	{
-		orders.GET("/:id", orderHandler.GetOrder)
-		orders.GET("/buyer", orderHandler.GetBuyerOrders)
-		orders.GET("/farmer", orderHandler.GetFarmerOrders)
-		orders.POST("/:offer_id/accept", orderHandler.AcceptOffer)
+		orderRoutes.GET(
+			"",
+			middleware.JWTAuth(cfg.JWTSecret),
+			orderHandler.ListOrders,
+		)
+
+		orderRoutes.GET(
+			"/:id",
+			middleware.JWTAuth(cfg.JWTSecret),
+			orderHandler.GetOrder,
+		)
+
+		orderRoutes.POST(
+			"",
+			middleware.JWTAuth(cfg.JWTSecret),
+			orderHandler.CreateOrder,
+		)
+
+		orderRoutes.PUT(
+			"/:id/status",
+			middleware.JWTAuth(cfg.JWTSecret),
+			orderHandler.UpdateOrderStatus,
+		)
 	}
+
 	return router
 }
+>>>>>>> tmp-pr-merge
