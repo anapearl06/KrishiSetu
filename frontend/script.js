@@ -450,7 +450,7 @@ document
       }
     } catch (err) {
       console.error("Error creating listing:", err);
-      alert("Server error! Connection verify karein.");
+      alert("Server error. Please check your connection and try again.");
     }
   });
 
@@ -765,7 +765,7 @@ document
     const token = localStorage.getItem("token");
 
     if (!token) {
-      alert("Session expired. Please login as buyer.");
+      alert("Session expired. Please login again.");
       window.location.href = "./login.html?role=buyer";
       return;
     }
@@ -888,7 +888,7 @@ document.addEventListener("DOMContentLoaded", renderMyDemands);
 async function submitOffer(listingId, quantity, price, message = "") {
   const token = localStorage.getItem("token");
   if (!token) {
-    alert("Session expired. Please login as buyer.");
+    alert("Session expired. Please login again.");
     window.location.href = "./login.html?role=buyer";
     return;
   }
