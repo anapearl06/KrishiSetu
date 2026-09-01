@@ -984,24 +984,30 @@ async function renderFarmerOffers() {
       container.innerHTML = data
         .map(
           (item) => `
-        <div class="bg-white rounded-xl border border-[#E0E4DA] p-5 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div class="glass-card rounded-2xl border border-[#E0E4DA]/60 p-5 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4 ksetu-fade-up">
           <div>
-            <span class="px-2.5 py-0.5 text-xs font-semibold rounded bg-amber-100 text-amber-800 uppercase">${item.status || "PENDING"}</span>
-            <h3 class="text-lg font-bold text-[#181D17] mt-1">${item.crop || "Produce Listing"}</h3>
-            <p class="text-xs text-[#40493D]">Offer from Buyer: <strong>${item.buyer_name || "Buyer"}</strong></p>
-            <p class="text-xs text-[#40493D] mt-1">Note: ${item.message || "None"}</p>
+            <span class="status-badge ${
+              item.status === "PENDING"
+                ? "pending"
+                : item.status === "ACCEPTED"
+                  ? "accepted"
+                  : "rejected"
+            }">${item.status || "PENDING"}</span>
+            <h3 class="text-lg font-bold text-[#181D17] mt-2">${item.crop || "Produce Listing"}</h3>
+            <p class="text-xs text-[#40493D] mt-0.5">Offer from Buyer: <strong class="text-[#181D17]">${item.buyer_name || "Buyer"}</strong></p>
+            <p class="text-xs text-[#40493D] mt-1">💬 ${item.message || "No note from buyer"}</p>
           </div>
           <div class="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end">
-            <div>
-              <p class="text-xs text-[#40493D]">Qty: <strong>${item.quantity}</strong></p>
-              <p class="text-lg font-bold text-[#0D631B]">₹${item.offered_price} / unit</p>
+            <div class="text-right">
+              <p class="text-xs text-[#40493D]">Qty: <strong class="text-[#181D17]">${item.quantity}</strong></p>
+              <p class="text-lg font-bold brand-name">₹${item.offered_price} / unit</p>
             </div>
             ${
               item.status === "PENDING"
                 ? `
               <div class="flex gap-2">
-                <button onclick="handleOfferAction('${item.id}', 'accept')" class="px-4 py-2 bg-[#0D631B] text-white text-xs font-bold rounded-lg hover:bg-[#095516]">Accept</button>
-                <button onclick="handleOfferAction('${item.id}', 'reject')" class="px-4 py-2 bg-red-50 text-red-600 border border-red-200 text-xs font-bold rounded-lg hover:bg-red-100">Reject</button>
+                <button onclick="handleOfferAction('${item.id}', 'accept')" class="btn-warm px-5 py-2.5 text-white text-xs font-bold rounded-xl flex items-center gap-1"><span>✅</span> Accept</button>
+                <button onclick="handleOfferAction('${item.id}', 'reject')" class="px-5 py-2.5 bg-red-50 text-red-600 border border-red-200 text-xs font-bold rounded-xl hover:bg-red-100 transition-colors">✕ Reject</button>
               </div>
             `
                 : ""
