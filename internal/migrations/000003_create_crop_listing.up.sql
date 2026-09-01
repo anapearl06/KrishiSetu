@@ -13,6 +13,8 @@ CREATE TABLE crop_listings (
 
     quality_grade VARCHAR(20),
 
+    description TEXT,
+
     state VARCHAR(100) NOT NULL,
 
     district VARCHAR(100) NOT NULL,
