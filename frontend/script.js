@@ -761,7 +761,7 @@ document
 
     try {
       const res = await fetch(
-        "https://krishisetu-api-tiau.onrender.com/api/v1/demands",
+        `${API_BASE_URL}/api/v1/demands`,
         {
           method: "POST",
           headers: {
@@ -799,7 +799,7 @@ async function renderMyDemands() {
 
   try {
     const res = await fetch(
-      "https://krishisetu-api-tiau.onrender.com/api/v1/demands/my",
+      `${API_BASE_URL}/api/v1/demands/my`,
       {
         method: "GET",
         headers: {
@@ -867,7 +867,7 @@ async function submitOffer(listingId, quantity, price, message = "") {
 
   try {
     const res = await fetch(
-      "https://krishisetu-api-tiau.onrender.com/api/v1/offers",
+      `${API_BASE_URL}/api/v1/offers`,
       {
         method: "POST",
         headers: {
@@ -903,7 +903,7 @@ async function renderBuyerOffers() {
 
   try {
     const res = await fetch(
-      "https://krishisetu-api-tiau.onrender.com/api/v1/offers/buyer",
+      `${API_BASE_URL}/api/v1/offers/buyer`,
       {
         method: "GET",
         headers: {
@@ -964,7 +964,7 @@ async function renderFarmerOffers() {
 
   try {
     const res = await fetch(
-      "https://krishisetu-api-tiau.onrender.com/api/v1/offers/farmer",
+      `${API_BASE_URL}/api/v1/offers/farmer`,
       {
         method: "GET",
         headers: {
@@ -1030,7 +1030,7 @@ async function handleOfferAction(offerId, action) {
   const token = localStorage.getItem("token");
   try {
     const res = await fetch(
-      `https://krishisetu-api-tiau.onrender.com/api/v1/offers/${offerId}/${action}`,
+      `${API_BASE_URL}/api/v1/offers/${offerId}/${action}`,
       {
         method: "POST",
         headers: {
@@ -1071,7 +1071,7 @@ async function renderFarmerOrders() {
 
   try {
     const res = await fetch(
-      "https://krishisetu-api-tiau.onrender.com/api/v1/orders/farmer",
+      `${API_BASE_URL}/api/v1/orders/farmer`,
       {
         method: "GET",
         headers: {
@@ -1134,7 +1134,7 @@ async function renderBuyerOrders() {
 
   try {
     const res = await fetch(
-      "https://krishisetu-api-tiau.onrender.com/api/v1/orders/buyer",
+      `${API_BASE_URL}/api/v1/orders/buyer`,
       {
         method: "GET",
         headers: {
@@ -1244,7 +1244,7 @@ async function loadUserProfile() {
 
   try {
     const res = await fetch(
-      "https://krishisetu-api-tiau.onrender.com/api/v1/auth/me",
+      `${API_BASE_URL}/api/v1/auth/me`,
       {
         method: "GET",
         headers: {
