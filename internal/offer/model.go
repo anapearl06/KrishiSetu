@@ -10,6 +10,6 @@ type Offer struct {
 	OfferedPrice float64   `gorm:"not null" json:"offered_price"`
 	Message      string    `json:"message"`
 	Status       string    `gorm:"not null;default:PENDING;index" json:"status"`
-	CreatedAt    time.Time `json:"created_at"`
-	UpdatedAt    time.Time `json:"updated_at"`
+	CreatedAt   time.Time `json:"created_at"`
+	UpdatedAt   time.Time `json:"updated_at"`
 }
