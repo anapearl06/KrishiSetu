@@ -158,13 +158,13 @@
     ></div>
     <div
       id="listingDetailsDrawer"
-      class="fixed inset-y-0 right-0 w-full sm:w-[480px] bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col"
+      class="fixed inset-y-0 right-0 w-full sm:w-[480px] sidebar-glass shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col"
     >
       <div
-        class="p-5 border-b border-[#CDBDB4]/50 flex items-center justify-between bg-[#FAFAF5]"
+        class="p-5 border-b border-[#CDBDB4]/50 flex items-center justify-between bg-gradient-to-r from-[#FAFAF5] to-white"
       >
         <div>
-          <h2 id="drawerCropTitle" class="text-xl font-bold text-[#75584D]">
+          <h2 id="drawerCropTitle" class="text-xl font-bold gradient-text-warm">
             Crop Specs
           </h2>
           <p class="text-xs text-[#40493D]">Farmer inventory detail</p>
@@ -178,7 +178,7 @@
       </div>
 
       <div class="flex-1 overflow-y-auto p-6 space-y-4">
-        <div class="p-4 rounded-xl bg-[#F4F8F0] border border-[#E0E4DA]">
+        <div class="p-4 rounded-xl bg-[#F4F8F0] border border-[#E0E4DA] glass-card">
           <span class="text-xs text-[#0D631B] font-semibold"
             >Farmer Location</span
           >
@@ -187,11 +187,11 @@
           </p>
         </div>
         <div class="grid grid-cols-2 gap-3">
-          <div class="p-3 bg-gray-50 rounded-lg">
+          <div class="p-3 bg-gray-50 rounded-lg glass-card">
             <span class="text-xs text-gray-500 block">Available Quantity</span>
             <strong id="drawerQty" class="text-[#181D17] text-sm">-</strong>
           </div>
-          <div class="p-3 bg-gray-50 rounded-lg">
+          <div class="p-3 bg-gray-50 rounded-lg glass-card">
             <span class="text-xs text-gray-500 block">Asking Price</span>
             <strong id="drawerPrice" class="text-[#75584D] text-sm">-</strong>
           </div>
@@ -201,9 +201,9 @@
       <div class="p-4 border-t border-[#CDBDB4]/50 bg-white">
         <button
           onclick="openOfferModal()"
-          class="login-submit w-full py-3 bg-[#75584D] text-white font-bold rounded-lg shadow hover:bg-[#5c443b]"
+          class="btn-warm w-full py-3 text-white font-bold rounded-xl shadow-lg flex items-center justify-center gap-2"
         >
-          Make an Offer
+          <span>🤝</span> Make an Offer
         </button>
       </div>
     </div>
@@ -213,7 +213,7 @@
       id="offerModalBackdrop"
       class="fixed inset-0 bg-black/60 z-[60] hidden flex items-center justify-center p-4"
     >
-      <div class="bg-white rounded-xl max-w-md w-full p-6 shadow-2xl space-y-4">
+      <div class="glass-card rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4 ksetu-fade-up">
         <h3 class="font-bold text-lg text-[#181D17]">Make an Offer</h3>
         <p class="text-xs text-[#40493D]">Send custom pricing deal to farmer</p>
         <div>
@@ -223,23 +223,23 @@
           <input
             type="number"
             placeholder="Enter custom price"
-            class="w-full h-10 px-3 border border-[#E0E4DA] rounded-lg text-sm"
+            class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20"
           />
         </div>
         <div class="flex justify-end gap-2 pt-2">
           <button
             type="button"
             onclick="closeOfferModal()"
-            class="px-4 py-2 text-sm bg-gray-100 rounded-lg"
+            class="px-4 py-2.5 text-sm bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors"
           >
             Cancel
           </button>
           <button
             type="button"
             onclick="submitOfferPlaceholder()"
-            class="login-submit px-4 py-2 text-sm bg-[#0D631B] text-white font-bold rounded-lg"
+            class="btn-warm px-4 py-2.5 text-sm text-white font-bold rounded-xl"
           >
-            Send Offer
+            Send Offer 🔥
           </button>
         </div>
       </div>
