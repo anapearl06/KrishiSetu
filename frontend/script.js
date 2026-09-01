@@ -416,6 +416,11 @@ document
     };
 
     try {
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = "Publishing...";
+      submitBtn.disabled = true;
+
       const response = await fetch(`${API_BASE_URL}/api/v1/listings`, {
         method: "POST",
         headers: {
@@ -426,6 +431,8 @@ document
       });
 
       const data = await response.json();
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
 
       if (response.ok) {
         alert("Crop listed successfully! 🌾");
