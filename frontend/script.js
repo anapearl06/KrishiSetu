@@ -6,6 +6,29 @@
 
 const API_BASE_URL = "https://krishisetu-api-tiau.onrender.com";
 
+function getTokenRole() {
+  const token = localStorage.getItem("token");
+  if (!token) return null;
+  try {
+    const payload = token.split(".")[1];
+    const decoded = JSON.parse(atob(payload.replace(/-/g, "+").replace(/_/g, "/")));
+    return decoded.role || null;
+  } catch (err) {
+    return null;
+  }
+}
+
+function extractErrorMessage(data, fallback) {
+  if (!data) return fallback;
+  if (typeof data.error === "object" && data.error.message) {
+    return data.error.message;
+  }
+  if (typeof data.error === "string" && data.error) return data.error;
+  if (typeof data.message === "string" && data.message) return data.message;
+  if (typeof data.detail === "string" && data.detail) return data.detail;
+  return fallback;
+}
+
 // ============================================================
 // ANIMATED FARM SCENERY (login / register backgrounds)
 // ============================================================
@@ -163,20 +186,17 @@ document.addEventListener("DOMContentLoaded", function () {
         const data = await response.json();
         if (response.ok) {
           alert("Farmer Login Successful!");
-          if (data.token) localStorage.setItem("token", data.token);
+          const token = data.data?.token || data.token;
+          if (token) localStorage.setItem("token", token);
           window.location.href = "./farmer-dashboard.html";
         } else {
-          const errorMsg =
-            typeof data.error === "object"
-              ? JSON.stringify(data.error)
-              : data.error ||
-                data.message ||
-                "Login failed! Check credentials.";
-          alert(errorMsg);
+          alert(
+            extractErrorMessage(data, "Login failed! Check credentials."),
+          );
         }
       } catch (error) {
         console.error("Error connecting to backend:", error);
-        alert("Server Error! Render API is waking up, please try again.");
+        alert("Server Error! Please check your connection and try again.");
       }
     });
   }
@@ -202,20 +222,17 @@ document.addEventListener("DOMContentLoaded", function () {
         const data = await response.json();
         if (response.ok) {
           alert("Buyer Login Successful!");
-          if (data.token) localStorage.setItem("token", data.token);
+          const token = data.data?.token || data.token;
+          if (token) localStorage.setItem("token", token);
           window.location.href = "./buyer-dashboard.html";
         } else {
-          const errorMsg =
-            typeof data.error === "object"
-              ? JSON.stringify(data.error)
-              : data.error ||
-                data.message ||
-                "Login failed! Check credentials.";
-          alert(errorMsg);
+          alert(
+            extractErrorMessage(data, "Login failed! Check credentials."),
+          );
         }
       } catch (error) {
         console.error("Error connecting to backend:", error);
-        alert("Server Error!");
+        alert("Server Error! Please check your connection and try again.");
       }
     });
   }
@@ -265,16 +282,10 @@ document.addEventListener("DOMContentLoaded", function () {
       event.preventDefault();
       const name = document.getElementById("farmerName")?.value || "";
       const phone = document.getElementById("farmerPhone")?.value || "";
-      const village =
-        document.getElementById("farmerVillage")?.value || "Default Village";
       const district =
-        document.getElementById("farmerDistrict")?.value ||
-        village ||
-        "Default District";
+        document.getElementById("farmerDistrict")?.value || "Default District";
       const state =
         document.getElementById("farmerState")?.value || "Uttar Pradesh";
-      const crop =
-        document.getElementById("farmerCrop")?.value || "General Crop";
       const password = document.getElementById("farmerPassword")?.value || "";
       const confirmPassword =
         document.getElementById("farmerConfirmPassword")?.value || "";
@@ -293,10 +304,8 @@ document.addEventListener("DOMContentLoaded", function () {
             body: JSON.stringify({
               name: name,
               phone: phone,
-              village: village,
               district: district,
               state: state,
-              crop: crop,
               password: password,
             }),
           },
@@ -307,15 +316,13 @@ document.addEventListener("DOMContentLoaded", function () {
           alert("Farmer Registration Successful! Redirecting to Login...");
           window.location.href = "./login.html?role=farmer";
         } else {
-          const errorMsg =
-            typeof data.error === "object"
-              ? JSON.stringify(data.error)
-              : data.error || data.message || "Registration failed!";
-          alert(errorMsg);
+          alert(
+            extractErrorMessage(data, "Registration failed! Please try again."),
+          );
         }
       } catch (error) {
         console.error("Error connecting to backend:", error);
-        alert("Server Error! Render backend waking up.");
+        alert("Server Error! Please check your connection and try again.");
       }
     });
   }
@@ -330,12 +337,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const businessType =
         document.getElementById("businessType")?.value || "Retailer";
       const phone = document.getElementById("buyerPhone")?.value || "";
-      const city =
-        document.getElementById("buyerCity")?.value || "Default City";
       const district =
-        document.getElementById("buyerDistrict")?.value ||
-        city ||
-        "Default District";
+        document.getElementById("buyerDistrict")?.value || "Default District";
       const state =
         document.getElementById("buyerState")?.value || "Uttar Pradesh";
       const password = document.getElementById("buyerPassword")?.value || "";
@@ -356,7 +359,6 @@ document.addEventListener("DOMContentLoaded", function () {
             business_name: businessName,
             business_type: businessType,
             phone: phone,
-            city: city,
             district: district,
             state: state,
             password: password,
@@ -368,15 +370,13 @@ document.addEventListener("DOMContentLoaded", function () {
           alert("Buyer Registration Successful! Redirecting to Login...");
           window.location.href = "./login.html?role=buyer";
         } else {
-          const errorMsg =
-            typeof data.error === "object"
-              ? JSON.stringify(data.error)
-              : data.error || data.message || "Registration failed!";
-          alert(errorMsg);
+          alert(
+            extractErrorMessage(data, "Registration failed! Please try again."),
+          );
         }
       } catch (error) {
         console.error("Error connecting to backend:", error);
-        alert("Server Error!");
+        alert("Server Error! Please check your connection and try again.");
       }
     });
   }
@@ -393,6 +393,32 @@ phoneInputs.forEach((input) => {
 // ============================================================
 // F5 — CREATE CROP LISTING (POST /api/v1/listings)
 // ============================================================
+function openCreateListingDrawer() {
+  const drawer = document.getElementById("createListingDrawer");
+  const backdrop = document.getElementById("drawerBackdrop");
+  if (backdrop) {
+    backdrop.classList.remove("hidden");
+    setTimeout(() => backdrop.classList.remove("opacity-0"), 10);
+  }
+  if (drawer) {
+    drawer.classList.remove("translate-x-full");
+  }
+}
+
+function closeCreateListingDrawer() {
+  const drawer = document.getElementById("createListingDrawer");
+  const backdrop = document.getElementById("drawerBackdrop");
+  if (drawer) drawer.classList.add("translate-x-full");
+  if (backdrop) {
+    backdrop.classList.add("opacity-0");
+    setTimeout(() => backdrop.classList.add("hidden"), 300);
+  }
+}
+
+document
+  .getElementById("drawerBackdrop")
+  ?.addEventListener("click", closeCreateListingDrawer);
+
 document
   .getElementById("createListingForm")
   ?.addEventListener("submit", async function (e) {
@@ -411,7 +437,7 @@ document
       unit: document.getElementById("produceUnit")?.value,
       price: parseFloat(document.getElementById("producePrice")?.value),
       state: document.getElementById("produceLocation")?.value.trim(),
-      district: document.getElementById("produceLocation")?.value.trim(),
+      district: document.getElementById("produceDistrict")?.value.trim(),
       description: document.getElementById("produceDesc")?.value || "",
     };
 
@@ -446,7 +472,7 @@ document
         e.target.reset();
         window.dispatchEvent(new Event("listingCreated"));
       } else {
-        alert(data.message || data.error || "Failed to create crop listing.");
+        alert(extractErrorMessage(data, "Failed to create crop listing."));
       }
     } catch (err) {
       console.error("Error creating listing:", err);
@@ -658,7 +684,7 @@ async function loadBrowseCatalog(crop = "", state = "") {
               <p class="text-lg font-bold gradient-text-warm">₹${item.price}/<span class="text-xs">${item.unit}</span></p>
             </div>
           </div>
-          <button onclick="showListingDetails('${item.crop}', '${item.quantity} ${item.unit}', '₹${item.price} / ${item.unit}', '${item.district || ""}, ${item.state || ""}')" class="btn-warm w-full mt-4 py-2.5 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5">
+          <button onclick="showListingDetails(${item.id}, '${item.crop}', '${item.quantity} ${item.unit}', '₹${item.price} / ${item.unit}', '${item.district || ""}, ${item.state || ""}')" class="btn-warm w-full mt-4 py-2.5 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5">
             <span>👀</span> View Details & Offer
           </button>
         </div>
@@ -684,10 +710,21 @@ document
   });
 
 // Drawer Controls (F12)
-function showListingDetails(crop, qty, price, location) {
+let currentOfferListingId = null;
+
+function showListingDetails(listingId, crop, qtyLabel, priceLabel, location) {
+  const listingContainer = document.getElementById("listingDetailsDrawer");
+  currentOfferListingId = listingId;
+  if (listingContainer) {
+    const listingInfoEl = document.getElementById("offerListingInfo");
+    if (listingInfoEl) {
+      listingInfoEl.textContent = `${crop} — ${qtyLabel} at ${priceLabel}`;
+    }
+  }
+
   document.getElementById("drawerCropTitle").textContent = crop;
-  document.getElementById("drawerQty").textContent = qty;
-  document.getElementById("drawerPrice").textContent = price;
+  document.getElementById("drawerQty").textContent = qtyLabel;
+  document.getElementById("drawerPrice").textContent = priceLabel;
   document.getElementById("drawerLocation").textContent = location;
 
   const backdrop = document.getElementById("listingDrawerBackdrop");
@@ -709,19 +746,43 @@ function closeListingDrawer() {
   setTimeout(() => backdrop?.classList.add("hidden"), 300);
 }
 
-// Offer Modal Handlers (UI Only placeholder)
+// Offer Modal Handlers
 function openOfferModal() {
-  document.getElementById("offerModalBackdrop")?.classList.remove("hidden");
+  const backdrop = document.getElementById("offerModalBackdrop");
+  const qty = document.getElementById("offerQuantity");
+  const price = document.getElementById("offerPrice");
+  const message = document.getElementById("offerMessage");
+  if (qty) qty.value = "";
+  if (price) price.value = "";
+  if (message) message.value = "";
+  backdrop?.classList.remove("hidden");
 }
 
 function closeOfferModal() {
   document.getElementById("offerModalBackdrop")?.classList.add("hidden");
 }
 
-function submitOfferPlaceholder() {
-  alert("Offer sent successfully! (UI feature placeholder)");
-  closeOfferModal();
-  closeListingDrawer();
+async function submitOfferFromModal() {
+  const quantity = parseFloat(document.getElementById("offerQuantity")?.value);
+  const price = parseFloat(document.getElementById("offerPrice")?.value);
+  const message = document.getElementById("offerMessage")?.value || "";
+
+  if (!currentOfferListingId) {
+    alert("Missing listing information. Please try again.");
+    return;
+  }
+
+  if (!quantity || quantity <= 0) {
+    alert("Please enter a valid quantity.");
+    return;
+  }
+
+  if (!price || price < 0) {
+    alert("Please enter a valid offered price.");
+    return;
+  }
+
+  await submitOffer(currentOfferListingId, quantity, price, message);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -771,7 +832,7 @@ document
     }
 
     const payload = {
-      crop: document.getElementById("demandCrop")?.value.trim(),
+      crop_name: document.getElementById("demandCrop")?.value.trim(),
       quantity: parseFloat(document.getElementById("demandQuantity")?.value),
       unit: document.getElementById("demandUnit")?.value,
       target_price: parseFloat(
@@ -779,7 +840,7 @@ document
       ),
       state: document.getElementById("demandState")?.value.trim(),
       district: document.getElementById("demandDistrict")?.value.trim(),
-      description: document.getElementById("demandDescription")?.value || "",
+      required_by: document.getElementById("demandRequiredBy")?.value || "",
     };
 
     try {
@@ -809,7 +870,7 @@ document
         e.target.reset();
         renderMyDemands();
       } else {
-        alert(data.message || data.error || "Failed to post requirement.");
+        alert(extractErrorMessage(data, "Failed to post requirement."));
       }
     } catch (err) {
       console.error("Error posting demand:", err);
@@ -859,8 +920,8 @@ async function renderMyDemands() {
             <span class="status-badge pending">${item.status || "OPEN"}</span>
             <span class="text-xs text-[#40493D]">📍 ${item.district || ""}, ${item.state || ""}</span>
           </div>
-          <h3 class="text-lg font-bold text-[#181D17]">${item.crop}</h3>
-          <p class="text-xs text-[#40493D] mt-1">${item.description || "No additional specs"}</p>
+          <h3 class="text-lg font-bold text-[#181D17]">${item.crop_name}</h3>
+          <p class="text-xs text-[#40493D] mt-1">Requirement by ${item.required_by ? String(item.required_by).slice(0, 10) : "ASAP"}</p>
           <div class="mt-4 pt-4 border-t border-[#F1F5EB] flex justify-between items-center">
             <div>
               <p class="text-xs text-[#40493D]">Required: <strong class="text-[#181D17]">${item.quantity} ${item.unit}</strong></p>
@@ -917,8 +978,9 @@ async function submitOffer(listingId, quantity, price, message = "") {
     if (res.ok) {
       alert("Offer sent successfully to the farmer! 🎉");
       if (typeof closeOfferModal === "function") closeOfferModal();
+      if (typeof closeListingDrawer === "function") closeListingDrawer();
     } else {
-      alert(data.message || data.error || "Failed to send offer.");
+      alert(extractErrorMessage(data, "Failed to send offer."));
     }
   } catch (err) {
     console.error("Error sending offer:", err);
@@ -1130,7 +1192,7 @@ async function renderFarmerOrders() {
           <div>
             <div class="flex items-center gap-2 mb-1">
               <span class="status-badge accepted">${item.status || "CONFIRMED"}</span>
-              <span class="text-xs text-gray-500">Order #${item.id ? item.id.substring(0, 8) : "N/A"}</span>
+              <span class="text-xs text-gray-500">Order #${item.id ? String(item.id).slice(0, 8) : "N/A"}</span>
             </div>
             <h3 class="text-lg font-bold text-[#181D17]">${item.crop || "Crop Harvest"}</h3>
             <p class="text-xs text-[#40493D]">Buyer: <strong class="text-[#181D17]">${item.buyer_name || "Buyer Partner"}</strong></p>
@@ -1193,7 +1255,7 @@ async function renderBuyerOrders() {
           <div>
             <div class="flex items-center gap-2 mb-1">
               <span class="status-badge accepted">${item.status || "CONFIRMED"}</span>
-              <span class="text-xs text-gray-500">Order #${item.id ? item.id.substring(0, 8) : "N/A"}</span>
+              <span class="text-xs text-gray-500">Order #${item.id ? String(item.id).slice(0, 8) : "N/A"}</span>
             </div>
             <h3 class="text-lg font-bold text-[#181D17]">${item.crop || "Crop Harvest"}</h3>
             <p class="text-xs text-[#40493D]">Farmer: <strong class="text-[#181D17]">${item.farmer_name || "Farmer Partner"}</strong></p>
@@ -1299,6 +1361,16 @@ async function loadUserProfile() {
       document.getElementById("profileAddress").value =
         data.village || data.address || "";
 
+      const businessField = document.getElementById("businessNameField");
+      const businessInput = document.getElementById("profileBusiness");
+      const businessTypeInput = document.getElementById("profileBusinessType");
+      if (getTokenRole() === "buyer") {
+        if (businessField) businessField.classList.remove("hidden");
+        if (businessInput) businessInput.value = data.business_name || "";
+        if (businessTypeInput)
+          businessTypeInput.value = data.business_type || "";
+      }
+
       const nameDisplay = document.getElementById("profileNameDisplay");
       if (nameDisplay) nameDisplay.textContent = data.name || "User Account";
     }
@@ -1311,7 +1383,335 @@ document
   .getElementById("profileForm")
   ?.addEventListener("submit", async function (e) {
     e.preventDefault();
-    alert("Profile updated successfully!");
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Session expired. Please login again.");
+      window.location.href = "./login.html";
+      return;
+    }
+
+    const name = document.getElementById("profileName").value.trim();
+    const state = document.getElementById("profileState").value.trim();
+    const district = document.getElementById("profileDistrict").value.trim();
+
+    if (!name || !state || !district) {
+      alert("Name, state and district are required.");
+      return;
+    }
+
+    const role = getTokenRole();
+    let endpoint = `${API_BASE_URL}/api/v1/farmers/me`;
+    const payload = { name, state, district };
+
+    if (role === "buyer") {
+      endpoint = `${API_BASE_URL}/api/v1/buyers/me`;
+      const businessName = document
+        .getElementById("profileBusiness")
+        ?.value.trim();
+      const businessType = document
+        .getElementById("profileBusinessType")
+        ?.value.trim();
+      if (!businessName) {
+        alert("Business name is required for buyers.");
+        return;
+      }
+      payload.business_name = businessName;
+      payload.business_type = businessType;
+    }
+
+    try {
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = "Saving...";
+      submitBtn.disabled = true;
+
+      const res = await fetch(endpoint, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
+
+      if (res.ok) {
+        alert("Profile updated successfully! ✅");
+        loadUserProfile();
+      } else {
+        alert(
+          extractErrorMessage(data, "Failed to update profile. Please try again."),
+        );
+      }
+    } catch (err) {
+      console.error("Error updating profile:", err);
+      alert("Server error. Please check your connection and try again.");
+    }
   });
 
 document.addEventListener("DOMContentLoaded", loadUserProfile);
+
+// ============================================================
+// FARMER DASHBOARD — STATS, SIDEBAR & RECENT ACTIVITY
+// ============================================================
+async function loadFarmerDashboard() {
+  const nameEl = document.getElementById("farmerName");
+  const sidebarName = document.getElementById("sidebarName");
+  const sidebarEmail = document.getElementById("sidebarEmail");
+  const sidebarAvatar = document.getElementById("sidebarAvatar");
+  if (!nameEl && !sidebarName) return;
+
+  const token = localStorage.getItem("token");
+  if (!token) {
+    if (nameEl) nameEl.textContent = "Guest Farmer";
+    return;
+  }
+
+  const authedFetch = (url) =>
+    fetch(`${API_BASE_URL}${url}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+  try {
+    const meRes = await authedFetch("/api/v1/auth/me");
+    const me = meRes.ok ? await meRes.json() : null;
+    if (me && me.name) {
+      const displayName = me.name;
+      if (nameEl) nameEl.textContent = displayName;
+      if (sidebarName) sidebarName.textContent = displayName;
+      if (sidebarEmail)
+        sidebarEmail.textContent = me.phone ? `+91 ${me.phone}` : "Farmer Account";
+      if (sidebarAvatar)
+        sidebarAvatar.textContent = displayName.charAt(0).toUpperCase();
+    }
+  } catch (err) {
+    console.error("Error loading farmer profile:", err);
+  }
+
+  try {
+    const [listingsRes, offersRes, ordersRes] = await Promise.all([
+      authedFetch("/api/v1/listings/my"),
+      authedFetch("/api/v1/offers/farmer"),
+      authedFetch("/api/v1/orders/farmer"),
+    ]);
+
+    const listings = listingsRes.ok ? await listingsRes.json() : [];
+    const offers = offersRes.ok ? await offersRes.json() : [];
+    const orders = ordersRes.ok ? await ordersRes.json() : [];
+
+    const activeListings = Array.isArray(listings)
+      ? listings.filter((l) => l.status === "ACTIVE").length
+      : 0;
+    const pendingOffers = Array.isArray(offers)
+      ? offers.filter((o) => o.status === "PENDING").length
+      : 0;
+    const orderCount = Array.isArray(orders) ? orders.length : 0;
+    let revenue = 0;
+    if (Array.isArray(orders)) {
+      orders.forEach((o) => {
+        revenue += parseFloat(o.total_amount || 0) || 0;
+      });
+    }
+
+    const statActive = document.getElementById("statActive");
+    const statOffers = document.getElementById("statOffers");
+    const statOrders = document.getElementById("statOrders");
+    const statRevenue = document.getElementById("statRevenue");
+    if (statActive) statActive.textContent = activeListings;
+    if (statOffers) statOffers.textContent = pendingOffers;
+    if (statOrders) statOrders.textContent = orderCount;
+    if (statRevenue)
+      statRevenue.textContent = `₹${revenue.toLocaleString("en-IN")}`;
+
+    const recent = document.getElementById("recentActivity");
+    if (recent) {
+      if (
+        activeListings === 0 &&
+        pendingOffers === 0 &&
+        orderCount === 0
+      ) {
+        return;
+      }
+      const items = [];
+      if (Array.isArray(listings)) {
+        listings.slice(0, 3).forEach((l) => {
+          items.push(`
+            <div class="flex items-center gap-3 p-3 rounded-xl bg-[#F4F8F0]/50">
+              <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0D631B] to-[#2E7D32] flex items-center justify-center text-white text-lg">🌾</div>
+              <div class="flex-1">
+                <p class="font-medium text-[#181D17]">${l.crop || "Crop"} listed ${l.status === "ACTIVE" ? "on marketplace" : `(${l.status})`}</p>
+                <p class="text-sm text-[#40493D]">${l.quantity} ${l.unit} at ₹${l.price}</p>
+              </div>
+            </div>`);
+        });
+      }
+      if (Array.isArray(orders)) {
+        orders.slice(0, 2).forEach((o) => {
+          items.push(`
+            <div class="flex items-center gap-3 p-3 rounded-xl bg-[#F4F8F0]/50">
+              <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#3B82F6] to-[#06B6D4] flex items-center justify-center text-white text-lg">📦</div>
+              <div class="flex-1">
+                <p class="font-medium text-[#181D17]">Order for ${o.crop || "produce"} ${o.status || "CONFIRMED"}</p>
+                <p class="text-sm text-[#40493D]">${o.buyer_name || "Buyer"} • ₹${o.total_amount || ""}</p>
+              </div>
+            </div>`);
+        });
+      }
+      recent.innerHTML = items.join("");
+    }
+  } catch (err) {
+    console.error("Error loading farmer dashboard stats:", err);
+  }
+}
+
+// ============================================================
+// BUYER DASHBOARD — STATS, SIDEBAR & FEATURED LISTINGS
+// ============================================================
+async function loadBuyerDashboard() {
+  const sidebarName = document.getElementById("buyerSidebarName");
+  const featured = document.getElementById("featuredListings");
+  if (!sidebarName && !featured) return;
+
+  const token = localStorage.getItem("token");
+
+  const authedFetch = (url) =>
+    fetch(`${API_BASE_URL}${url}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
+      },
+    });
+
+  try {
+    if (token) {
+      const meRes = await authedFetch("/api/v1/auth/me");
+      const me = meRes.ok ? await meRes.json() : null;
+      if (me && sidebarName) {
+        sidebarName.textContent = me.business_name || me.name || "Buyer Account";
+      }
+    }
+  } catch (err) {
+    console.error("Error loading buyer profile:", err);
+  }
+
+  try {
+    if (token) {
+      const [offersRes, ordersRes] = await Promise.all([
+        authedFetch("/api/v1/offers/buyer"),
+        authedFetch("/api/v1/orders/buyer"),
+      ]);
+
+      const offers = offersRes.ok ? await offersRes.json() : [];
+      const orders = ordersRes.ok ? await ordersRes.json() : [];
+
+      const pendingOffers = Array.isArray(offers)
+        ? offers.filter((o) => o.status === "PENDING").length
+        : 0;
+      const acceptedDeals = Array.isArray(orders)
+        ? orders.filter((o) => (o.status || "ACCEPTED") !== "REJECTED").length
+        : 0;
+      const deliveries = Array.isArray(orders)
+        ? orders.filter((o) => (o.status || "").toUpperCase() !== "COMPLETED")
+            .length
+        : 0;
+
+      const el1 = document.getElementById("statPendingOffers");
+      const el2 = document.getElementById("statAcceptedDeals");
+      const el3 = document.getElementById("statDeliveries");
+      if (el1) el1.textContent = pendingOffers;
+      if (el2) el2.textContent = acceptedDeals;
+      if (el3) el3.textContent = deliveries;
+    }
+  } catch (err) {
+    console.error("Error loading buyer dashboard stats:", err);
+  }
+
+  if (featured) {
+    try {
+      const res = await fetch(
+        `${API_BASE_URL}/api/v1/listings?${new URLSearchParams({ status: "ACTIVE" }).toString()}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token ? `Bearer ${token}` : "",
+          },
+        },
+      );
+      const data = res.ok ? await res.json() : [];
+      if (Array.isArray(data) && data.length > 0) {
+        featured.innerHTML = data
+          .slice(0, 6)
+          .map(
+            (item) => `
+          <div class="min-w-[260px] max-w-[280px] glass-card rounded-xl border border-[#E0E4DA]/60 p-4 flex flex-col justify-between hover:-translate-y-1 hover:shadow-lg transition-all duration-300 animate-fade-in-up">
+            <div>
+              <span class="inline-block px-2 py-0.5 text-xs font-semibold rounded bg-green-100 text-[#0D631B] mb-2">Verified Farmer</span>
+              <h4 class="font-bold text-[#181D17] text-base">${item.crop || "Fresh Crop"}</h4>
+              <p class="text-xs text-[#40493D] mb-3">${item.district || ""}${item.state ? ", " + item.state : ""}</p>
+              <div class="space-y-1 text-sm">
+                <p class="text-[#40493D]">Qty: <strong class="text-[#181D17]">${item.quantity} ${item.unit}</strong></p>
+                <p class="text-[#75584D] font-bold text-base">₹${item.price} / ${item.unit}</p>
+              </div>
+            </div>
+            <a href="./browse-produce.html" class="text-center w-full mt-4 py-2 bg-[#75584D] text-white text-xs font-bold rounded hover:bg-[#5c443b] transition-colors">View Details & Offer</a>
+          </div>`,
+          )
+          .join("");
+      } else {
+        featured.innerHTML = `<p class="text-sm text-[#40493D]">No produce available right now. Check back soon! 🌱</p>`;
+      }
+    } catch (err) {
+      console.error("Error loading featured listings:", err);
+    }
+  }
+}
+
+// ============================================================
+// MOBILE MENU + LOGOUT (shared across app pages)
+// ============================================================
+function setupAppChrome() {
+  const menuBtn = document.getElementById("mobileMenuBtn");
+  const overlay = document.getElementById("mobileOverlay");
+  const mobileMenu = document.getElementById("mobileMenu");
+
+  function toggleMenu(open) {
+    if (!mobileMenu || !overlay) return;
+    mobileMenu.classList.toggle("hidden", !open);
+    overlay.classList.toggle("hidden", !open);
+    document.body.style.overflow = open ? "hidden" : "";
+  }
+
+  menuBtn?.addEventListener("click", () =>
+    toggleMenu(mobileMenu.classList.contains("hidden")),
+  );
+  overlay?.addEventListener("click", () => toggleMenu(false));
+  mobileMenu?.addEventListener("click", (e) => {
+    if (e.target.tagName === "A") toggleMenu(false);
+  });
+
+  const wireLogout = (sel) => {
+    const el = document.querySelector(sel);
+    el?.addEventListener("click", (e) => {
+      e.preventDefault();
+      localStorage.clear();
+      window.location.href = "./login.html";
+    });
+  };
+  ["#sidebarLogout", "#mobileLogout", "#buyerLogout"].forEach(wireLogout);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  setupAppChrome();
+  loadFarmerDashboard();
+  loadBuyerDashboard();
+});
