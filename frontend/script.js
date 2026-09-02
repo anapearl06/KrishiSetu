@@ -483,9 +483,18 @@ document
 // ============================================================
 // MY PRODUCE (F6, F8, F9) — GET / EDIT / DELETE
 // ============================================================
-async function renderMyProduce(statusFilter = "", search = "") {
+async function renderMyProduce() {
   const produceGrid = document.getElementById("produceGrid");
   if (!produceGrid) return;
+
+  const statusFilter =
+    typeof document.getElementById("statusFilter")?.value === "string"
+      ? document.getElementById("statusFilter").value
+      : "";
+  const search =
+    typeof document.getElementById("searchInput")?.value === "string"
+      ? document.getElementById("searchInput").value
+      : "";
 
   const token = localStorage.getItem("token");
   if (!token) {
@@ -665,13 +674,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const statusFilter = document.getElementById("statusFilter");
   const searchInput = document.getElementById("searchInput");
   if (!statusFilter && !searchInput) return;
-  const refresh = () => {
-    const status = document.getElementById("statusFilter")?.value || "";
-    const term = document.getElementById("searchInput")?.value || "";
-    renderMyProduce(status, term);
-  };
-  statusFilter?.addEventListener("change", refresh);
-  searchInput?.addEventListener("input", refresh);
+  statusFilter?.addEventListener("change", renderMyProduce);
+  searchInput?.addEventListener("input", renderMyProduce);
 });
 
 // ============================================================
