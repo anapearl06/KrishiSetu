@@ -30,11 +30,11 @@ type LoginInput struct {
 }
 
 type UpdateProfileInput struct {
-	Name         string
-	BusinessName string
-	BusinessType string
-	State        string
-	District     string
+	Name         string `json:"name"`
+	BusinessName string `json:"business_name"`
+	BusinessType string `json:"business_type"`
+	State        string `json:"state"`
+	District     string `json:"district"`
 }
 
 type LoginResult struct {

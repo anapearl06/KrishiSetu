@@ -111,12 +111,13 @@
             A
           </div>
           <div>
-            <p class="text-sm font-semibold text-[#181D17]">Apex Retailers</p>
+            <p class="text-sm font-semibold text-[#181D17]" id="buyerSidebarName">Apex Retailers</p>
             <p class="text-xs text-[#40493D]">Buyer Account</p>
           </div>
         </div>
         <a
           href="./login.html"
+          id="buyerLogout"
           class="text-xs text-red-600 font-medium hover:underline"
           >Logout</a
         >
@@ -153,7 +154,7 @@
           >
             <div>
               <p class="text-sm text-[#40493D] font-medium">Pending Offers</p>
-              <h3 class="text-3xl font-bold text-[#75584D] mt-1">5</h3>
+              <h3 class="text-3xl font-bold text-[#75584D] mt-1" id="statPendingOffers">0</h3>
             </div>
             <div
               class="stat-icon w-12 h-12 rounded-xl bg-gradient-to-br from-[#75584D] to-[#9b7b6c] flex items-center justify-center text-xl text-white"
@@ -167,7 +168,7 @@
           >
             <div>
               <p class="text-sm text-[#40493D] font-medium">Accepted Deals</p>
-              <h3 class="text-3xl font-bold text-[#0D631B] mt-1">2</h3>
+              <h3 class="text-3xl font-bold text-[#0D631B] mt-1" id="statAcceptedDeals">0</h3>
             </div>
             <div
               class="stat-icon w-12 h-12 rounded-xl bg-gradient-to-br from-[#0D631B] to-[#4CAF50] flex items-center justify-center text-xl text-white"
@@ -183,7 +184,7 @@
               <p class="text-sm text-[#40493D] font-medium">
                 Active Deliveries
               </p>
-              <h3 class="text-3xl font-bold text-[#181D17] mt-1">1</h3>
+              <h3 class="text-3xl font-bold text-[#181D17] mt-1" id="statDeliveries">0</h3>
             </div>
             <div
               class="stat-icon w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-300 flex items-center justify-center text-xl text-white"
@@ -213,68 +214,7 @@
             >
           </div>
 
-          <div class="flex gap-5 overflow-x-auto pb-4">
-            <div
-              class="min-w-[260px] max-w-[280px] glass-card rounded-xl border border-[#E0E4DA]/60 p-4 flex flex-col justify-between hover:-translate-y-1 hover:shadow-lg transition-all duration-300 animate-fade-in-up"
-            >
-              <div>
-                <span
-                  class="inline-block px-2 py-0.5 text-xs font-semibold rounded bg-green-100 text-[#0D631B] mb-2"
-                  >Verified Farmer</span
-                >
-                <h4 class="font-bold text-[#181D17] text-base">
-                  Sharbati Wheat
-                </h4>
-                <p class="text-xs text-[#40493D] mb-3">
-                  Farmer: Ramesh Kumar (Meerut)
-                </p>
-                <div class="space-y-1 text-sm">
-                  <p class="text-[#40493D]">
-                    Qty: <strong class="text-[#181D17]">150 Quintals</strong>
-                  </p>
-                  <p class="text-[#75584D] font-bold text-base">
-                    ₹2,450 / Quintal
-                  </p>
-                </div>
-              </div>
-              <a
-                href="./browse-produce.html"
-                class="text-center w-full mt-4 py-2 bg-[#75584D] text-white text-xs font-bold rounded hover:bg-[#5c443b] transition-colors"
-              >
-                View Details & Offer
-              </a>
-            </div>
-
-            <div
-              class="min-w-[260px] max-w-[280px] glass-card rounded-xl border border-[#E0E4DA]/60 p-4 flex flex-col justify-between hover:-translate-y-1 hover:shadow-lg transition-all duration-300 animate-fade-in-up"
-            >
-              <div>
-                <span
-                  class="inline-block px-2 py-0.5 text-xs font-semibold rounded bg-green-100 text-[#0D631B] mb-2"
-                  >Verified Farmer</span
-                >
-                <h4 class="font-bold text-[#181D17] text-base">
-                  Red Organic Potatoes 
-                </h4>
-                <p class="text-xs text-[#40493D] mb-3">
-                  Farmer: Suresh Singh (Agra)
-                </p>
-                <div class="space-y-1 text-sm">
-                  <p class="text-[#40493D]">
-                    Qty: <strong class="text-[#181D17]">300 Quintals</strong>
-                  </p>
-                  <p class="text-[#75584D] font-bold text-base">
-                    ₹1,250 / Quintal
-                  </p>
-                </div>
-              </div>
-              <a
-                href="./browse-produce.html"
-                class="text-center w-full mt-4 py-2 bg-[#75584D] text-white text-xs font-bold rounded hover:bg-[#5c443b] transition-colors"
-              >
-                View Details & Offer
-              </a>
-            </div>
+          <div class="flex gap-5 overflow-x-auto pb-4" id="featuredListings">
           </div>
         </section>
       </main>
