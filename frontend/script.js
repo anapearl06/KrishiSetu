@@ -483,7 +483,7 @@ document
 // ============================================================
 // MY PRODUCE (F6, F8, F9) — GET / EDIT / DELETE
 // ============================================================
-async function renderMyProduce() {
+async function renderMyProduce(statusFilter = "", search = "") {
   const produceGrid = document.getElementById("produceGrid");
   if (!produceGrid) return;
 
@@ -505,17 +505,49 @@ async function renderMyProduce() {
     const data = await response.json();
 
     if (response.ok && Array.isArray(data)) {
-      if (data.length === 0) {
+      const total = data.length;
+      const active = data.filter((l) => l.status === "ACTIVE").length;
+      const pending = data.filter((l) => l.status === "PENDING").length;
+      const sold = data.filter(
+        (l) => l.status === "SOLD" || l.status === "COMPLETED",
+      ).length;
+
+      const elTotal = document.getElementById("statTotal");
+      const elActive = document.getElementById("statActive");
+      const elPending = document.getElementById("statPending");
+      const elSold = document.getElementById("statSold");
+      if (elTotal) elTotal.textContent = total;
+      if (elActive) elActive.textContent = active;
+      if (elPending) elPending.textContent = pending;
+      if (elSold) elSold.textContent = sold;
+
+      const status = (statusFilter || "").toUpperCase();
+      const term = (search || "").trim().toLowerCase();
+
+      const visible = data.filter((item) => {
+        const matchStatus = !status || (item.status || "ACTIVE") === status;
+        const matchSearch =
+          !term || (item.crop || "").toLowerCase().includes(term);
+        return matchStatus && matchSearch;
+      });
+
+      if (visible.length === 0) {
         produceGrid.innerHTML = `
           <div class="col-span-full flex flex-col items-center justify-center py-16 text-center">
             <div class="text-4xl mb-4">🌾</div>
-            <h3 class="text-lg font-bold text-[#181D17] mb-1">No produce listed yet</h3>
-            <p class="text-sm text-[#40493D]">Use the "+ Add Produce" button to post your first crop listing to the marketplace.</p>
+            <h3 class="text-lg font-bold text-[#181D17] mb-1">${
+              total === 0 ? "No produce listed yet" : "No results found"
+            }</h3>
+            <p class="text-sm text-[#40493D]">${
+              total === 0
+                ? 'Use the "+ Add Produce" button to post your first crop listing to the marketplace.'
+                : "Try adjusting your status filter or search term."
+            }</p>
           </div>`;
         return;
       }
 
-      produceGrid.innerHTML = data
+      produceGrid.innerHTML = visible
         .map(
           (item, idx) => `
         <div class="glass-card rounded-2xl border border-[#E0E4DA]/60 p-5 shadow-sm hover:-translate-y-1.5 hover:shadow-lg ksetu-fade-up" style="animation-delay:${idx * 60}ms">
@@ -628,6 +660,19 @@ async function deleteListing(id) {
 
 document.addEventListener("DOMContentLoaded", renderMyProduce);
 window.addEventListener("listingCreated", renderMyProduce);
+
+document.addEventListener("DOMContentLoaded", () => {
+  const statusFilter = document.getElementById("statusFilter");
+  const searchInput = document.getElementById("searchInput");
+  if (!statusFilter && !searchInput) return;
+  const refresh = () => {
+    const status = document.getElementById("statusFilter")?.value || "";
+    const term = document.getElementById("searchInput")?.value || "";
+    renderMyProduce(status, term);
+  };
+  statusFilter?.addEventListener("change", refresh);
+  searchInput?.addEventListener("input", refresh);
+});
 
 // ============================================================
 // F10, F11, F12 — BUYER MARKETPLACE CATALOG & DETAILS DRAWER
@@ -1373,6 +1418,15 @@ async function loadUserProfile() {
 
       const nameDisplay = document.getElementById("profileNameDisplay");
       if (nameDisplay) nameDisplay.textContent = data.name || "User Account";
+
+      const profileAvatar = document.getElementById("profileAvatar");
+      const profileRoleBadge = document.getElementById("profileRoleBadge");
+      const displayName = data.business_name || data.name || "K";
+      if (profileAvatar) profileAvatar.textContent = displayName.charAt(0).toUpperCase();
+      if (profileRoleBadge) {
+        profileRoleBadge.textContent =
+          getTokenRole() === "buyer" ? "VERIFIED BUYER" : "VERIFIED FARMER";
+      }
     }
   } catch (err) {
     console.error("Error loading profile:", err);
@@ -1460,14 +1514,11 @@ document.addEventListener("DOMContentLoaded", loadUserProfile);
 // ============================================================
 async function loadFarmerDashboard() {
   const nameEl = document.getElementById("farmerName");
-  const sidebarName = document.getElementById("sidebarName");
-  const sidebarEmail = document.getElementById("sidebarEmail");
-  const sidebarAvatar = document.getElementById("sidebarAvatar");
-  if (!nameEl && !sidebarName) return;
+  if (!nameEl) return;
 
   const token = localStorage.getItem("token");
   if (!token) {
-    if (nameEl) nameEl.textContent = "Guest Farmer";
+    nameEl.textContent = "Guest Farmer";
     return;
   }
 
@@ -1484,13 +1535,7 @@ async function loadFarmerDashboard() {
     const meRes = await authedFetch("/api/v1/auth/me");
     const me = meRes.ok ? await meRes.json() : null;
     if (me && me.name) {
-      const displayName = me.name;
-      if (nameEl) nameEl.textContent = displayName;
-      if (sidebarName) sidebarName.textContent = displayName;
-      if (sidebarEmail)
-        sidebarEmail.textContent = me.phone ? `+91 ${me.phone}` : "Farmer Account";
-      if (sidebarAvatar)
-        sidebarAvatar.textContent = displayName.charAt(0).toUpperCase();
+      nameEl.textContent = me.name;
     }
   } catch (err) {
     console.error("Error loading farmer profile:", err);
@@ -1576,9 +1621,8 @@ async function loadFarmerDashboard() {
 // BUYER DASHBOARD — STATS, SIDEBAR & FEATURED LISTINGS
 // ============================================================
 async function loadBuyerDashboard() {
-  const sidebarName = document.getElementById("buyerSidebarName");
   const featured = document.getElementById("featuredListings");
-  if (!sidebarName && !featured) return;
+  if (!featured && !document.getElementById("statPendingOffers")) return;
 
   const token = localStorage.getItem("token");
 
@@ -1590,18 +1634,6 @@ async function loadBuyerDashboard() {
         Authorization: token ? `Bearer ${token}` : "",
       },
     });
-
-  try {
-    if (token) {
-      const meRes = await authedFetch("/api/v1/auth/me");
-      const me = meRes.ok ? await meRes.json() : null;
-      if (me && sidebarName) {
-        sidebarName.textContent = me.business_name || me.name || "Buyer Account";
-      }
-    }
-  } catch (err) {
-    console.error("Error loading buyer profile:", err);
-  }
 
   try {
     if (token) {
@@ -1710,7 +1742,66 @@ function setupAppChrome() {
   ["#sidebarLogout", "#mobileLogout", "#buyerLogout"].forEach(wireLogout);
 }
 
+// ============================================================
+// SHARED SIDEBAR HYDRATION (all app pages)
+// ============================================================
+async function hydrateSidebar() {
+  const nameEl = document.getElementById("sidebarName");
+  const userNameEl = document.getElementById("sidebarUserName");
+  const roleEl = document.getElementById("sidebarUserRole");
+  const avatarEl = document.getElementById("sidebarAvatar");
+  const emailEl = document.getElementById("sidebarEmail");
+  if (!nameEl && !userNameEl && !avatarEl) return;
+
+  const token = localStorage.getItem("token");
+  if (!token) {
+    document.querySelectorAll(".sidebar-logout").forEach((a) => {
+      a.addEventListener("click", (e) => {
+        e.preventDefault();
+        localStorage.clear();
+        window.location.href = "./login.html";
+      });
+    });
+    return;
+  }
+
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/v1/auth/me`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const me = res.ok ? await res.json() : null;
+    if (me) {
+      const role = getTokenRole();
+      const displayName =
+        me.business_name || me.name || (role === "buyer" ? "Buyer" : "Farmer");
+      if (nameEl) nameEl.textContent = displayName;
+      if (userNameEl) userNameEl.textContent = displayName;
+      if (avatarEl)
+        avatarEl.textContent = (displayName || "K").charAt(0).toUpperCase();
+      if (roleEl)
+        roleEl.textContent =
+          role === "buyer" ? "Buyer Account" : "Farmer Account";
+      if (emailEl) emailEl.textContent = me.phone ? `+91 ${me.phone}` : "";
+    }
+  } catch (err) {
+    console.error("Error hydrating sidebar:", err);
+  }
+
+  document.querySelectorAll(".sidebar-logout").forEach((a) => {
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
+      localStorage.clear();
+      window.location.href = "./login.html";
+    });
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+  hydrateSidebar();
   setupAppChrome();
   loadFarmerDashboard();
   loadBuyerDashboard();

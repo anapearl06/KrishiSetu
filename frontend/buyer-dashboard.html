@@ -107,18 +107,18 @@
         <div class="flex items-center gap-3">
           <div
             class="w-10 h-10 rounded-full bg-gradient-to-br from-[#75584D] to-[#9b7b6c] flex items-center justify-center font-bold text-white"
+            id="sidebarAvatar"
           >
-            A
+            B
           </div>
           <div>
-            <p class="text-sm font-semibold text-[#181D17]" id="buyerSidebarName">Apex Retailers</p>
-            <p class="text-xs text-[#40493D]">Buyer Account</p>
+            <p class="text-sm font-semibold text-[#181D17]" id="sidebarUserName">Buyer</p>
+            <p class="text-xs text-[#40493D]" id="sidebarUserRole">Buyer Account</p>
           </div>
         </div>
         <a
           href="./login.html"
-          id="buyerLogout"
-          class="text-xs text-red-600 font-medium hover:underline"
+          class="sidebar-logout text-xs text-red-600 font-medium hover:underline"
           >Logout</a
         >
       </div>
@@ -236,12 +236,13 @@
       >
         <span class="text-base">🔎</span> Browse
       </a>
-      <a href="#my-offers" class="flex flex-col items-center text-[#40493D]">
+      <a href="./buyer-offers.html" class="flex flex-col items-center text-[#40493D]">
         <span class="text-base">📝</span> Offers
       </a>
-      <a href="#my-orders" class="flex flex-col items-center text-[#40493D]">
+      <a href="./buyer-orders.html" class="flex flex-col items-center text-[#40493D]">
         <span class="text-base">🚚</span> Orders
       </a>
     </nav>
+    <script src="./script.js"></script>
   </body>
 </html>
