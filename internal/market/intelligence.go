@@ -34,34 +34,7 @@ func CalculatePriceIntelligence(
 		MaxPrice:     latest.MaxPrice,
 		ReportedDate: latest.ArrivalDate.Format("2006-01-02"),
 		Source:       latest.Source,
-		Trend:        "Stable",
-	}
-
-	if len(records) == 1 {
-		return result
-	}
-
-	previous := records[len(records)-2]
-
-	result.PreviousPrice = previous.ModalPrice
-
-	if previous.ModalPrice == 0 {
-		return result
-	}
-
-	result.ChangePercent =
-		((latest.ModalPrice - previous.ModalPrice) /
-			previous.ModalPrice) * 100
-
-	switch {
-	case result.ChangePercent > 0:
-		result.Trend = "Rising"
-
-	case result.ChangePercent < 0:
-		result.Trend = "Falling"
-
-	default:
-		result.Trend = "Stable"
+		Trend:        "Unavailable",
 	}
 
 	return result
