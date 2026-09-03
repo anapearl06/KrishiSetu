@@ -51,3 +51,43 @@ func (h *Handler) GetPriceIntelligence(c *gin.Context) {
 		result,
 	)
 }
+
+
+func (h *Handler) GetRegionalPrices(c *gin.Context) {
+	commodity := c.Query("commodity")
+	state := c.Query("state")
+	district := c.Query("district")
+
+	if commodity == "" {
+		response.Error(
+			c,
+			http.StatusBadRequest,
+			"VALIDATION_ERROR",
+			"commodity is required",
+		)
+		return
+	}
+
+	result, err := h.service.GetRegionalPrices(
+		c.Request.Context(),
+		commodity,
+		state,
+		district,
+	)
+
+	if err != nil {
+		response.Error(
+			c,
+			http.StatusInternalServerError,
+			"MARKET_ERROR",
+			"failed to get regional prices",
+		)
+		return
+	}
+
+	response.Success(
+		c,
+		http.StatusOK,
+		result,
+	)
+}
