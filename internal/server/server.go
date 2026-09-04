@@ -15,6 +15,7 @@ import (
 	"github.com/raaj2493/KrishiSetu/internal/offer"
 	"github.com/raaj2493/KrishiSetu/internal/order"
 	"github.com/raaj2493/KrishiSetu/internal/server/response"
+	"github.com/raaj2493/KrishiSetu/internal/matching"
 
 	"gorm.io/gorm"
 )
@@ -179,6 +180,51 @@ func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 		offerRoutes.POST("/:id/reject", offerHandler.RejectOffer)
 	}
 
+	// =========================
+// Matching
+// =========================
+
+matchingRepo := matching.NewRepository(db)
+
+matchingService := matching.NewService(
+	matchingRepo,
+	listingRepo,
+	demandRepo,
+)
+
+matchingHandler := matching.NewHandler(
+	matchingService,
+)
+
+matchingRoutes := api.Group("/matching")
+matchingRoutes.Use(middleware.JWTAuth(cfg.JWTSecret))
+
+{
+	matchingRoutes.POST(
+		"/listings/:listingID/demands/:demandID",
+		matchingHandler.CreateMatch,
+	)
+
+	matchingRoutes.POST(
+		"/listings/:listingID/generate",
+		matchingHandler.GenerateMatchesForListing,
+	)
+
+	matchingRoutes.GET(
+		"/listings/:listingID",
+		matchingHandler.GetMatchesForListing,
+	)
+
+	matchingRoutes.POST(
+		"/demands/:demandID/generate",
+		matchingHandler.GenerateMatchesForDemand,
+	)
+
+	matchingRoutes.GET(
+		"/demands/:demandID",
+		matchingHandler.GetMatchesForDemand,
+	)
+}
 	// =========================
 	// Market
 	// =========================
