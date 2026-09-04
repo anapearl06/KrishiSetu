@@ -52,7 +52,6 @@ func (h *Handler) GetPriceIntelligence(c *gin.Context) {
 	)
 }
 
-
 func (h *Handler) GetRegionalPrices(c *gin.Context) {
 	commodity := c.Query("commodity")
 	state := c.Query("state")
