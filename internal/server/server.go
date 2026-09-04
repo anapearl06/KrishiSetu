@@ -187,8 +187,17 @@ func New(db *gorm.DB, cfg config.Config) *gin.Engine {
 	marketHandler := market.NewHandler(marketService)
 
 	marketRoutes := api.Group("/market")
-	marketRoutes.GET("/prices/intelligence", marketHandler.GetPriceIntelligence)
+{
+	marketRoutes.GET(
+		"/prices/intelligence",
+		marketHandler.GetPriceIntelligence,
+	)
 
+	marketRoutes.GET(
+		"/prices/regional",
+		marketHandler.GetRegionalPrices,
+	)
+}
 	orders := api.Group("/orders")
 	orders.Use(middleware.JWTAuth(cfg.JWTSecret))
 	{
