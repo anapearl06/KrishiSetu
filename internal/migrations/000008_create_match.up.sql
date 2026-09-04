@@ -20,7 +20,7 @@ CREATE TABLE matches (
 
     CONSTRAINT fk_matches_listing
         FOREIGN KEY (listing_id)
-        REFERENCES listings(id)
+        REFERENCES crop_listings(id)
         ON DELETE CASCADE,
 
     CONSTRAINT fk_matches_demand
