@@ -7,6 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	"github.com/raaj2493/KrishiSetu/internal/middleware"
 	"github.com/raaj2493/KrishiSetu/internal/server/response"
 )
 
@@ -20,8 +21,39 @@ func NewHandler(service Service) *Handler {
 	}
 }
 
+// currentUser extracts the authenticated user id and role from the
+// Gin context, following the project's JWTAuth middleware conventions.
+// Returns the user id and role, or an error if the identity is missing.
+func currentUser(c *gin.Context) (uint, string, bool) {
+	userIDValue, exists := c.Get(middleware.UserIDKey)
+	if !exists {
+		return 0, "", false
+	}
+
+	userID, ok := userIDValue.(uint)
+	if !ok {
+		return 0, "", false
+	}
+
+	roleValue, _ := c.Get(middleware.RoleKey)
+	role, _ := roleValue.(string)
+
+	return userID, role, true
+}
+
 // CreateMatch creates a match between a listing and a demand.
 func (h *Handler) CreateMatch(c *gin.Context) {
+	userID, role, ok := currentUser(c)
+	if !ok {
+		response.Error(
+			c,
+			http.StatusUnauthorized,
+			"UNAUTHORIZED",
+			"missing or invalid user identity",
+		)
+		return
+	}
+
 	listingID, err := parseID(c.Param("listingID"))
 	if err != nil {
 		response.Error(
@@ -46,6 +78,8 @@ func (h *Handler) CreateMatch(c *gin.Context) {
 
 	match, err := h.service.CreateMatch(
 		c.Request.Context(),
+		userID,
+		role,
 		listingID,
 		demandID,
 	)
@@ -64,6 +98,17 @@ func (h *Handler) CreateMatch(c *gin.Context) {
 // GenerateMatchesForListing generates relevant buyer matches
 // for a farmer listing.
 func (h *Handler) GenerateMatchesForListing(c *gin.Context) {
+	userID, _, ok := currentUser(c)
+	if !ok {
+		response.Error(
+			c,
+			http.StatusUnauthorized,
+			"UNAUTHORIZED",
+			"missing or invalid user identity",
+		)
+		return
+	}
+
 	listingID, err := parseID(c.Param("listingID"))
 	if err != nil {
 		response.Error(
@@ -77,6 +122,7 @@ func (h *Handler) GenerateMatchesForListing(c *gin.Context) {
 
 	matches, err := h.service.GenerateMatchesForListing(
 		c.Request.Context(),
+		userID,
 		listingID,
 	)
 	if err != nil {
@@ -94,6 +140,17 @@ func (h *Handler) GenerateMatchesForListing(c *gin.Context) {
 // GenerateMatchesForDemand generates relevant farmer matches
 // for a buyer demand.
 func (h *Handler) GenerateMatchesForDemand(c *gin.Context) {
+	userID, _, ok := currentUser(c)
+	if !ok {
+		response.Error(
+			c,
+			http.StatusUnauthorized,
+			"UNAUTHORIZED",
+			"missing or invalid user identity",
+		)
+		return
+	}
+
 	demandID, err := parseID(c.Param("demandID"))
 	if err != nil {
 		response.Error(
@@ -107,6 +164,7 @@ func (h *Handler) GenerateMatchesForDemand(c *gin.Context) {
 
 	matches, err := h.service.GenerateMatchesForDemand(
 		c.Request.Context(),
+		userID,
 		demandID,
 	)
 	if err != nil {
@@ -123,6 +181,17 @@ func (h *Handler) GenerateMatchesForDemand(c *gin.Context) {
 
 // GetMatchesForListing returns matches for a farmer listing.
 func (h *Handler) GetMatchesForListing(c *gin.Context) {
+	userID, _, ok := currentUser(c)
+	if !ok {
+		response.Error(
+			c,
+			http.StatusUnauthorized,
+			"UNAUTHORIZED",
+			"missing or invalid user identity",
+		)
+		return
+	}
+
 	listingID, err := parseID(c.Param("listingID"))
 	if err != nil {
 		response.Error(
@@ -136,6 +205,7 @@ func (h *Handler) GetMatchesForListing(c *gin.Context) {
 
 	matches, err := h.service.GetMatchesForListing(
 		c.Request.Context(),
+		userID,
 		listingID,
 	)
 	if err != nil {
@@ -152,6 +222,17 @@ func (h *Handler) GetMatchesForListing(c *gin.Context) {
 
 // GetMatchesForDemand returns matches for a buyer demand.
 func (h *Handler) GetMatchesForDemand(c *gin.Context) {
+	userID, _, ok := currentUser(c)
+	if !ok {
+		response.Error(
+			c,
+			http.StatusUnauthorized,
+			"UNAUTHORIZED",
+			"missing or invalid user identity",
+		)
+		return
+	}
+
 	demandID, err := parseID(c.Param("demandID"))
 	if err != nil {
 		response.Error(
@@ -165,6 +246,7 @@ func (h *Handler) GetMatchesForDemand(c *gin.Context) {
 
 	matches, err := h.service.GetMatchesForDemand(
 		c.Request.Context(),
+		userID,
 		demandID,
 	)
 	if err != nil {
@@ -211,6 +293,14 @@ func handleMatchingError(
 			c,
 			http.StatusNotFound,
 			"DEMAND_NOT_FOUND",
+			err.Error(),
+		)
+
+	case errors.Is(err, ErrUnauthorized):
+		response.Error(
+			c,
+			http.StatusForbidden,
+			"FORBIDDEN",
 			err.Error(),
 		)
 

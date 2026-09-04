@@ -1,0 +1,69 @@
+{
+  "inspection": "Complete file audit of data/raw/mandi_prices.json",
+  "resource_id": "9ef84268-d588-465a-a308-a864a43d0070",
+  "total_records": 16869,
+  "checks": {
+    "duplicate_records": {
+      "exact_full_row_duplicates": 0,
+      "case_whitespace_normalized_duplicates": 0,
+      "hidden_duplicates_differing_only_by_whitespace": 0
+    },
+    "missing_fields": {
+      "state": 0, "district": 0, "market": 0, "commodity": 0,
+      "variety": 0, "grade": 0, "arrival_date": 0,
+      "min_price": 0, "max_price": 0, "modal_price": 0,
+      "rows_with_any_empty_string": 0,
+      "rows_with_any_none": 0
+    },
+    "invalid_dates": {
+      "non_ddmmYYYY_format": 0,
+      "impossible_dates": 0,
+      "all_dates_format": "DD/MM/YYYY"
+    },
+    "price_validity": {
+      "min_price_nonnumeric_or_none": 0,
+      "max_price_nonnumeric_or_none": 0,
+      "modal_price_nonnumeric_or_none": 0,
+      "negative_prices": {"min_price": 0, "max_price": 0, "modal_price": 0},
+      "all_prices_numeric": true
+    },
+    "price_relationships": {
+      "min_price_gt_max_price": 0,
+      "modal_price_outside_min_max": 0
+    },
+    "name_consistency": {
+      "state_case_or_spelling_variants": 0,
+      "markets_appearing_under_multiple_states": 14,
+      "districts_appearing_under_multiple_states": 2,
+      "example_market_collisions": [
+        "Puttur APMC -> [Andhra Pradesh, Karnataka]",
+        "Balugaon APMC -> [Assam, Odisha]",
+        "Sirsa APMC -> [Haryana, Uttar Pradesh]",
+        "Gorakhpur APMC -> [Uttar Pradesh, Madhya Pradesh]"
+      ],
+      "example_district_collisions": [
+        "Hamirpur -> [Uttar Pradesh, Himachal Pradesh]",
+        "Pratapgarh -> [Uttar Pradesh, Rajasthan]"
+      ],
+      "cosmetic_trailing_whitespace": {
+        "state": 0, "district": 38, "market": 58,
+        "commodity": 55, "variety": 46, "grade": 0
+      },
+      "commodity_with_non_ascii_chars": 1,
+      "non_ascii_commodity": "Pea Pod/Pea Cod/\u0939\u0930\u0940 \u092e\u091f\u0930"
+    },
+    "unique_counts": {
+      "states": 28,
+      "markets": 1805,
+      "commodities": 238,
+      "districts": 476,
+      "varieties": 496,
+      "grades": 14
+    }
+  },
+  "date_range": {
+    "earliest": "2026-09-02",
+    "latest": "2026-09-02",
+    "distinct_dates": 1
+  }
+}

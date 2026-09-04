@@ -81,7 +81,7 @@
             <div class="font-bold text-[#1E1E1E] leading-tight">
               Wheat ₹2,350/q
             </div>
-            <div class="text-sm text-[#40493D]">Today's Mandi Price</div>
+            <div class="text-sm text-[#40493D]">Latest Reported Mandi Price</div>
           </div>
         </div>
 
@@ -133,7 +133,7 @@
           </div>
           <div class="text-center">
             <div class="hero-stat-value">50+</div>
-            <div class="hero-stat-label">Mandi Prices Live</div>
+            <div class="hero-stat-label">Commodities Tracked</div>
           </div>
           <div class="text-center">
             <div class="hero-stat-value gradient-heading">₹38 Cr</div>
@@ -236,14 +236,43 @@
                 Market Prices
               </h3>
               <p class="text-sm leading-relaxed text-[#40493D]">
-                Access real-time commodity pricing across different mandis. Make
-                informed decisions based on current agricultural market trends.
+                See the latest reported commodity prices across different mandis.
+                Make informed decisions based on the most recent agricultural
+                market reports.
               </p>
             </div>
           </div>
         </div>
       </section>
 </section>
+      <!-- LATEST REPORTED MARKET PRICES -->
+      <section
+        id="reported-prices"
+        class="empower-section w-full px-4 md:px-8 py-16 md:py-20"
+      >
+        <div class="max-w-7xl mx-auto">
+          <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+            <div>
+              <span class="empower-badge">📈 Latest Reported Mandi Prices</span>
+              <h2
+                class="gradient-heading text-2xl md:text-3xl font-semibold mt-4"
+              >
+                Know What Farmers Are Being Paid
+              </h2>
+              <p class="max-w-xl text-sm text-[#40493D] mt-2">
+                Prices below are the latest figures reported by mandis. They
+                reflect reporting data, not live transactions.
+              </p>
+            </div>
+          </div>
+          <div
+            id="marketPriceGrid"
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            <!-- Populated via script.js -->
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- ================= FOOTER ================= -->

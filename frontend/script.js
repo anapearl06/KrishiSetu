@@ -483,6 +483,8 @@ document
 // ============================================================
 // MY PRODUCE (F6, F8, F9) — GET / EDIT / DELETE
 // ============================================================
+let currentListings = [];
+
 async function renderMyProduce() {
   const produceGrid = document.getElementById("produceGrid");
   if (!produceGrid) return;
@@ -514,6 +516,7 @@ async function renderMyProduce() {
     const data = await response.json();
 
     if (response.ok && Array.isArray(data)) {
+      currentListings = data;
       const total = data.length;
       const active = data.filter((l) => l.status === "ACTIVE").length;
       const pending = data.filter((l) => l.status === "PENDING").length;
@@ -580,6 +583,11 @@ async function renderMyProduce() {
             </div>
             <div class="flex gap-2">
               <button onclick="openEditModal('${item.id}', ${item.price}, ${item.quantity})" class="px-3 py-1.5 bg-amber-50 text-amber-700 border border-amber-200 text-xs font-semibold rounded-xl hover:bg-amber-100 transition-colors">✏️ Edit</button>
+              ${
+                item.status === "SOLD"
+                  ? ""
+                  : `<button onclick="openListingMatches('${item.id}')" class="px-3 py-1.5 bg-[#0D631B] text-white text-xs font-semibold rounded-xl hover:bg-[#2E7D32] transition-colors">🔍 Find Matches</button>`
+              }
               <button onclick="deleteListing('${item.id}')" class="px-3 py-1.5 bg-red-50 text-red-600 border border-red-200 text-xs font-semibold rounded-xl hover:bg-red-100 transition-colors">🗑 Cancel</button>
             </div>
           </div>
@@ -927,6 +935,8 @@ document
   });
 
 // 2. Render My Demands (GET /api/v1/demands/my)
+let currentDemands = [];
+
 async function renderMyDemands() {
   const demandsGrid = document.getElementById("demandsGrid");
   if (!demandsGrid) return;
@@ -951,6 +961,7 @@ async function renderMyDemands() {
 
     const data = await res.json();
     if (res.ok && Array.isArray(data)) {
+      currentDemands = data;
       if (data.length === 0) {
         demandsGrid.innerHTML = `
           <div class="col-span-full flex flex-col items-center justify-center py-16 text-center">
@@ -976,6 +987,14 @@ async function renderMyDemands() {
               <p class="text-xs text-[#40493D]">Required: <strong class="text-[#181D17]">${item.quantity} ${item.unit}</strong></p>
               <p class="text-lg font-bold gradient-text-warm">Max ₹${item.target_price} / ${item.unit}</p>
             </div>
+            ${
+              item.status === "ACTIVE"
+                ? `<div class="flex gap-2">
+              <button onclick="openDemandEditModal('${item.id}')" class="px-3 py-1.5 bg-amber-50 text-amber-700 border border-amber-200 text-xs font-semibold rounded-xl hover:bg-amber-100 transition-colors">✏️ Edit</button>
+              <button onclick="openDemandMatches('${item.id}')" class="px-3 py-1.5 bg-[#75584D] text-white text-xs font-semibold rounded-xl hover:bg-[#5c443b] transition-colors">🔍 Find Matches</button>
+            </div>`
+                : `<a href="./browse-produce.html" class="px-3 py-1.5 bg-[#75584D] text-white text-xs font-semibold rounded-xl hover:bg-[#5c443b] transition-colors">🔍 Find Matches</a>`
+            }
           </div>
         </div>
       `,
@@ -990,6 +1009,323 @@ async function renderMyDemands() {
 }
 
 document.addEventListener("DOMContentLoaded", renderMyDemands);
+
+// ============================================================
+// DEMAND EDIT (PUT /api/v1/demands/:id)
+// ============================================================
+function findDemandInCache(id) {
+  return currentDemands.find((d) => String(d.id) === String(id)) || null;
+}
+
+function openDemandEditModal(id) {
+  const modal = document.getElementById("demandEditModal");
+  const demand = findDemandInCache(id);
+  if (!modal || !demand) return;
+
+  document.getElementById("demandEditId").value = demand.id;
+  document.getElementById("demandEditCrop").value = demand.crop_name || "";
+  document.getElementById("demandEditQuantity").value =
+    demand.quantity != null ? demand.quantity : "";
+  document.getElementById("demandEditUnit").value = demand.unit || "";
+  document.getElementById("demandEditTargetPrice").value =
+    demand.target_price != null ? demand.target_price : "";
+  document.getElementById("demandEditState").value = demand.state || "";
+  document.getElementById("demandEditDistrict").value =
+    demand.district || "";
+  const rb = demand.required_by
+    ? String(demand.required_by).slice(0, 10)
+    : "";
+  document.getElementById("demandEditRequiredBy").value = rb;
+
+  modal.classList.remove("hidden");
+}
+
+function closeDemandEditModal() {
+  document.getElementById("demandEditModal")?.classList.add("hidden");
+}
+
+document
+  .getElementById("demandEditForm")
+  ?.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const id = document.getElementById("demandEditId").value;
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Session expired. Please login again.");
+      window.location.href = "./login.html?role=buyer";
+      return;
+    }
+
+    const payload = {
+      crop_name: document.getElementById("demandEditCrop").value.trim(),
+      quantity: parseFloat(
+        document.getElementById("demandEditQuantity").value,
+      ),
+      unit: document.getElementById("demandEditUnit").value,
+      target_price: parseFloat(
+        document.getElementById("demandEditTargetPrice").value,
+      ),
+      state: document.getElementById("demandEditState").value.trim(),
+      district: document.getElementById("demandEditDistrict").value.trim(),
+      required_by:
+        document.getElementById("demandEditRequiredBy").value || "",
+    };
+
+    try {
+      const res = await fetch(
+        `${API_BASE_URL}/api/v1/demands/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(payload),
+        },
+      );
+      const data = await res.json();
+
+      if (res.ok) {
+        alert("Requirement updated successfully!");
+        closeDemandEditModal();
+        renderMyDemands();
+      } else {
+        alert(
+          extractErrorMessage(data, "Failed to update requirement."),
+        );
+      }
+    } catch (err) {
+      console.error("Error updating demand:", err);
+      alert("Server error. Please check your connection and try again.");
+    }
+  });
+
+// ============================================================
+// MATCHING UI (farmer → matched buyer demands / buyer → matched farmer listings)
+// ============================================================
+function findListingInCache(id) {
+  return currentListings.find((l) => String(l.id) === String(id)) || null;
+}
+
+function matchLevelClass(score) {
+  if (score >= 90) return "accepted";
+  if (score >= 75) return "pending";
+  if (score >= 60) return "";
+  return "rejected";
+}
+
+function matchScoreColor(pct) {
+  if (pct >= 75) return "bg-[#0D631B]";
+  if (pct >= 60) return "bg-amber-500";
+  return "bg-[#9B7B6C]";
+}
+
+function matchCardHtml(match, detail, mode) {
+  const pct = Math.round(match.score);
+  const loc = detail
+    ? `${detail.district || ""}${detail.state ? ", " + detail.state : ""}`
+    : "";
+  const title =
+    mode === "farmer"
+      ? detail
+        ? detail.crop_name || "Buyer Requirement"
+        : `Buyer Demand #${match.demand_id}`
+      : detail
+        ? detail.crop || "Farmer Listing"
+        : `Farmer Listing #${match.listing_id}`;
+
+  const reasonList =
+    match.reasons && match.reasons.length
+      ? match.reasons
+          .map(
+            (r) =>
+              `<li class="flex items-start gap-2 text-xs text-[#40493D]"><span class="text-[#0D631B] font-bold mt-0.5">✓</span><span>${r}</span></li>`,
+          )
+          .join("")
+      : `<li class="flex items-start gap-2 text-xs text-[#40493D]">No match notes available.</li>`;
+
+  return `
+    <div class="glass-card rounded-2xl border border-[#E0E4DA]/60 p-5 shadow-sm ksetu-fade-up">
+      <div class="flex justify-between items-start gap-3">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center text-lg font-bold text-white ${matchScoreColor(pct)}">${pct}%</div>
+          <div>
+            <h4 class="font-bold text-[#181D17]">${title}</h4>
+            <span class="status-badge ${matchLevelClass(pct)}">${match.level || "Match"}</span>
+          </div>
+        </div>
+        <span class="text-xs text-[#40493D]">📍 ${loc || "Location unknown"}</span>
+      </div>
+      ${
+        detail
+          ? `<div class="mt-3 pt-3 border-t border-[#F1F5EB] grid grid-cols-2 gap-2 text-xs">
+              ${
+                mode === "farmer"
+                  ? `<span class="text-[#40493D]">Required Qty: <strong class="text-[#181D17]">${detail.quantity} ${detail.unit}</strong></span>
+                     <span class="text-[#40493D]">Max Budget: <strong class="text-[#181D17]">₹${detail.target_price} / ${detail.unit}</strong></span>`
+                  : `<span class="text-[#40493D]">Qty: <strong class="text-[#181D17]">${detail.quantity} ${detail.unit}</strong></span>
+                     <span class="text-[#40493D]">Price: <strong class="text-[#181D17]">₹${detail.price} / ${detail.unit}</strong></span>`
+              }
+            </div>`
+          : ""
+      }
+      <ul class="mt-3 space-y-1.5">${reasonList}</ul>
+      <div class="mt-3 pt-3 border-t border-[#F1F5EB] grid grid-cols-2 sm:grid-cols-5 gap-2 text-center text-[10px] text-[#40493D]">
+        <div><div class="text-sm font-bold text-[#181D17]">${Math.round(match.commodity_score || 0)}</div>Commodity</div>
+        <div><div class="text-sm font-bold text-[#181D17]">${Math.round(match.quantity_score || 0)}</div>Quantity</div>
+        <div><div class="text-sm font-bold text-[#181D17]">${Math.round(match.location_score || 0)}</div>Location</div>
+        <div><div class="text-sm font-bold text-[#181D17]">${Math.round(match.price_score || 0)}</div>Price</div>
+        <div><div class="text-sm font-bold text-[#181D17]">${Math.round(match.grade_score || 0)}</div>Grade</div>
+      </div>
+      ${
+        mode === "buyer" && detail
+          ? `<a href="./browse-produce.html" class="btn-warm w-full mt-4 py-2.5 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5"><span>🤝</span> View & Make Offer</a>`
+          : ""
+      }
+    </div>`;
+}
+
+async function openListingMatches(listingId) {
+  const modal = document.getElementById("matchesModal");
+  const body = document.getElementById("matchesModalBody");
+  const title = document.getElementById("matchesModalTitle");
+  if (!modal || !body) return;
+
+  const token = localStorage.getItem("token");
+  if (!token) {
+    alert("Session expired. Please login again.");
+    window.location.href = "./login.html?role=farmer";
+    return;
+  }
+
+  title.textContent = "Matching Buyers";
+  body.innerHTML = `<p class="text-sm text-[#40493D] py-6 text-center">Finding suitable buyers for this listing…</p>`;
+  modal.classList.remove("hidden");
+
+  try {
+    const genRes = await fetch(
+      `${API_BASE_URL}/api/v1/matching/listings/${listingId}/generate`,
+      {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    );
+    const genData = await genRes.json();
+    const matches = genRes.ok && genData.data ? genData.data : [];
+
+    if (!genRes.ok) {
+      body.innerHTML = `<p class="text-sm text-red-600 py-6 text-center">Could not generate matches. Please try again.</p>`;
+      return;
+    }
+
+    if (!matches.length) {
+      body.innerHTML = `
+        <div class="flex flex-col items-center py-12 text-center">
+          <div class="text-4xl mb-3">🤝</div>
+          <h3 class="text-lg font-bold text-[#181D17] mb-1">No suitable matches found yet</h3>
+          <p class="text-sm text-[#40493D]">No active buyer requirements match this listing right now. Check back later.</p>
+        </div>`;
+      return;
+    }
+
+    let cards = "";
+    for (const m of matches) {
+      let detail = null;
+      try {
+        const dRes = await fetch(
+          `${API_BASE_URL}/api/v1/demands/${m.demand_id}`,
+          { headers: { Authorization: `Bearer ${token}` } },
+        );
+        if (dRes.ok) detail = await dRes.json();
+      } catch (e) {
+        /* ignore enrichment errors */
+      }
+      cards += matchCardHtml(m, detail, "farmer");
+    }
+    body.innerHTML = `<div class="grid grid-cols-1 gap-4">${cards}</div>`;
+  } catch (err) {
+    console.error("Error generating listing matches:", err);
+    body.innerHTML = `<p class="text-sm text-red-600 py-6 text-center">Server error. Please check your connection and try again.</p>`;
+  }
+}
+
+async function openDemandMatches(demandId) {
+  const modal = document.getElementById("matchesModal");
+  const body = document.getElementById("matchesModalBody");
+  const title = document.getElementById("matchesModalTitle");
+  if (!modal || !body) return;
+
+  const token = localStorage.getItem("token");
+  if (!token) {
+    alert("Session expired. Please login again.");
+    window.location.href = "./login.html?role=buyer";
+    return;
+  }
+
+  title.textContent = "Matching Farmers";
+  body.innerHTML = `<p class="text-sm text-[#40493D] py-6 text-center">Finding suitable farmers for this requirement…</p>`;
+  modal.classList.remove("hidden");
+
+  try {
+    const genRes = await fetch(
+      `${API_BASE_URL}/api/v1/matching/demands/${demandId}/generate`,
+      {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    );
+    const genData = await genRes.json();
+    const matches = genRes.ok && genData.data ? genData.data : [];
+
+    if (!genRes.ok) {
+      body.innerHTML = `<p class="text-sm text-red-600 py-6 text-center">Could not generate matches. Please try again.</p>`;
+      return;
+    }
+
+    if (!matches.length) {
+      body.innerHTML = `
+        <div class="flex flex-col items-center py-12 text-center">
+          <div class="text-4xl mb-3">🤝</div>
+          <h3 class="text-lg font-bold text-[#181D17] mb-1">No suitable matches found yet</h3>
+          <p class="text-sm text-[#40493D]">No active farmer listings match this requirement right now. Check back later.</p>
+        </div>`;
+      return;
+    }
+
+    let listings = [];
+    try {
+      const lRes = await fetch(
+        `${API_BASE_URL}/api/v1/listings?${new URLSearchParams({ status: "ACTIVE" }).toString()}`,
+        { headers: { Authorization: `Bearer ${token}` } },
+      );
+      if (lRes.ok) {
+        const arr = await lRes.json();
+        if (Array.isArray(arr)) listings = arr;
+      }
+    } catch (e) {
+      /* ignore enrichment errors */
+    }
+    const listingMap = {};
+    listings.forEach((l) => {
+      listingMap[String(l.id)] = l;
+    });
+
+    let cards = "";
+    matches.forEach((m) => {
+      const detail = listingMap[String(m.listing_id)] || null;
+      cards += matchCardHtml(m, detail, "buyer");
+    });
+    body.innerHTML = `<div class="grid grid-cols-1 gap-4">${cards}</div>`;
+  } catch (err) {
+    console.error("Error generating demand matches:", err);
+    body.innerHTML = `<p class="text-sm text-red-600 py-6 text-center">Server error. Please check your connection and try again.</p>`;
+  }
+}
+
+function closeMatchesModal() {
+  document.getElementById("matchesModal")?.classList.add("hidden");
+}
+
 // ============================================================
 // F20, F21 & F22 — OFFERS MANAGEMENT API INTEGRATION
 // ============================================================
@@ -1810,3 +2146,57 @@ document.addEventListener("DOMContentLoaded", () => {
   loadFarmerDashboard();
   loadBuyerDashboard();
 });
+
+// ============================================================
+// MARKET INTELLIGENCE — LATEST REPORTED MANDI PRICES (index.html)
+// ============================================================
+async function loadMarketPrices() {
+  const grid = document.getElementById("marketPriceGrid");
+  if (!grid) return;
+
+  const commodities = ["Wheat", "Potato", "Tomato", "Onion", "Paddy(Common)"];
+
+  let html = "";
+  for (const commodity of commodities) {
+    let info = null;
+    try {
+      const res = await fetch(
+        `${API_BASE_URL}/api/v1/market/prices/intelligence?${new URLSearchParams({ commodity })}`,
+      );
+      const data = await res.json();
+      if (res.ok && data && data.data) info = data.data;
+    } catch (err) {
+      console.error("Error loading market price for", commodity, err);
+    }
+
+    if (info) {
+      const freshnessLabel =
+        info.freshness === "Today" || info.freshness === "1 day old"
+          ? "Recent"
+          : info.freshness || "—";
+      html += `
+        <div class="premium-card rounded-xl p-6" style="--card-accent: linear-gradient(90deg,#4e99d9,#9cc7ee);--card-glow:rgba(78,153,217,0.14);--card-shadow:rgba(78,153,217,0.16);">
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg font-semibold text-[#1E1E1E]">${info.commodity || commodity}</h3>
+            <span class="inline-block px-2.5 py-0.5 text-[10px] font-semibold rounded-full bg-blue-100 text-[#2E6BA6]">${freshnessLabel}</span>
+          </div>
+          <p class="text-sm text-[#40493D] mt-1">Reported ₹<strong class="text-[#181D17]">${info.current_price ? info.current_price.toLocaleString("en-IN") : "—"}</strong> / quintal</p>
+          <p class="text-xs text-[#40493D] mt-2">Range: ₹${info.min_price ? info.min_price.toLocaleString("en-IN") : "—"} – ₹${info.max_price ? info.max_price.toLocaleString("en-IN") : "—"}</p>
+          <div class="mt-4 pt-3 border-t border-[#E0E4DA]/60 text-[11px] text-[#40493D] space-y-1">
+            <p>📅 Reported on: ${info.reported_date || "—"}</p>
+            <p>🏪 Source: ${info.source || "Mandi"}</p>
+          </div>
+        </div>`;
+    } else {
+      html += `
+        <div class="premium-card rounded-xl p-6 text-center" style="--card-accent: linear-gradient(90deg,#4e99d9,#9cc7ee);--card-glow:rgba(78,153,217,0.14);--card-shadow:rgba(78,153,217,0.16);">
+          <h3 class="text-lg font-semibold text-[#1E1E1E]">${commodity}</h3>
+          <p class="text-sm text-[#40493D] mt-2">Latest report not available yet.</p>
+        </div>`;
+    }
+  }
+
+  grid.innerHTML = html;
+}
+
+document.addEventListener("DOMContentLoaded", loadMarketPrices);
