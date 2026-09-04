@@ -16,7 +16,7 @@ type Service interface {
 		commodity string,
 		state string,
 		district string,
-	) ([]MarketPrice, error)
+	) ([]RegionalPriceComparison, error)
 
 	GetHistoricalPrices(
 		ctx context.Context,
@@ -56,13 +56,24 @@ func (s *service) GetRegionalPrices(
 	commodity string,
 	state string,
 	district string,
-) ([]MarketPrice, error) {
-	return s.repo.GetByCommodityAndLocation(
+) ([]RegionalPriceComparison, error) {
+
+	records, err := s.repo.GetByCommodityAndLocation(
 		ctx,
 		commodity,
 		state,
 		district,
 	)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return CalculateRegionalPriceComparison(
+		records,
+		state,
+		district,
+	), nil
 }
 
 func (s *service) GetHistoricalPrices(
@@ -79,11 +90,11 @@ func (s *service) GetHistoricalPrices(
 	)
 }
 
-
 func (s *service) GetPriceIntelligence(
 	ctx context.Context,
 	commodity string,
 ) (*PriceIntelligence, error) {
+
 	records, err := s.repo.GetHistoricalByCommodity(
 		ctx,
 		commodity,
