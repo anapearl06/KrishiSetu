@@ -97,7 +97,7 @@ func (r *repository) GetBestMatchesForListing(
 	err := r.db.
 		WithContext(ctx).
 		Where("listing_id = ?", listingID).
-		Where("score >= ?", 60).
+		Where("score >= ?", minMatchScore).
 		Order("score DESC").
 		Find(&matches).
 		Error
@@ -114,7 +114,7 @@ func (r *repository) GetBestMatchesForDemand(
 	err := r.db.
 		WithContext(ctx).
 		Where("demand_id = ?", demandID).
-		Where("score >= ?", 60).
+		Where("score >= ?", minMatchScore).
 		Order("score DESC").
 		Find(&matches).
 		Error
