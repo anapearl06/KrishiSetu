@@ -1,0 +1,29 @@
+{
+  "resource_id": "9ef84268-d588-465a-a308-a864a43d0070",
+  "source": "https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070",
+  "total_records": 16869,
+  "date_range": {
+    "min": "2026-09-02",
+    "max": "2026-09-02"
+  },
+  "num_states": 28,
+  "num_districts": 476,
+  "num_markets": 1805,
+  "num_commodities": 238,
+  "num_varieties": 496,
+  "num_grades": 14,
+  "missing_values": {
+    "state": 0,
+    "district": 0,
+    "market": 0,
+    "commodity": 0,
+    "variety": 0,
+    "grade": 0,
+    "arrival_date": 0,
+    "min_price": 0,
+    "max_price": 0,
+    "modal_price": 0
+  },
+  "duplicate_signatures": 0,
+  "duplicate_rows": 0
+}
