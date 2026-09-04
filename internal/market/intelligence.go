@@ -16,8 +16,6 @@ type PriceIntelligence struct {
 	Source       string `json:"source"`
 }
 
-
-
 func CalculatePriceIntelligence(
 	records []MarketPrice,
 ) *PriceIntelligence {
