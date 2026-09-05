@@ -28,9 +28,12 @@ const KRISHI_I18N = {
     marketPrices: "Market Prices",
     dashboard: "Dashboard",
     myProduce: "My Produce",
+    produce: "Produce",
     offersReceived: "Offers Received",
+    offers: "Offers",
     sentOffers: "Sent Offers",
     myOrders: "My Orders",
+    orders: "Orders",
     buyerDemands: "Buyer Demands",
     browseProduce: "Browse Produce",
     profileSettings: "Profile Settings",
@@ -38,18 +41,47 @@ const KRISHI_I18N = {
     verifiedUser: "VERIFIED USER",
     farmerAccount: "Farmer Account",
     buyerAccount: "Buyer Account",
+    enterPassword: "Enter password",
+    enterPhoneOrEmail: "Enter phone or email",
+    loginAsFarmer: "Login as Farmer",
+    loginAsBuyer: "Login as Buyer",
+    dontHaveAccount: "Don't have an account?",
+    passwordsMismatch: "Passwords do not match!",
+    farmerTab: "🌾 Farmer",
+    buyerTab: "🛒 Buyer",
     
     // Hero & Landing
     heroTitle: "Connect Your Produce With The Right Buyer.",
     heroDesc: "KrishiSetu helps farmers discover buyers, manage offers and understand agricultural market prices — all in one simple platform.",
     imFarmer: "🌾 I'm a Farmer!",
     imBuyer: "🛒 I'm a Buyer!",
+    empoweringAgriBadge: "🌱 Empowering Agriculture",
+    empoweringAgriTitle: "Empowering Ground Level Operations",
+    empoweringAgriDesc: "A robust platform designed for utility and reliability in the agricultural ecosystem.",
+    discoveryNetwork: "Discovery Network",
+    discoveryNetworkDesc: "Seamlessly find verified buyers and local farmers in your region. Our network bridges the gap between produce and demand efficiently.",
+    offerManagement: "Offer Management",
+    offerManagementDesc: "Negotiate and manage deals transparently. Keep track of active, pending and completed transactions in one organized dashboard.",
+    marketPricesDesc: "See the latest reported commodity prices across different mandis. Make informed decisions based on the most recent agricultural market reports.",
+    latestReportedPrices: "📈 Latest Reported Mandi Prices",
+    pricesLangTitle: "Know What Farmers Are Being Paid",
+    pricesLangDesc: "Prices below are the latest figures reported by mandis. They reflect reporting data, not live transactions.",
     activeListingsCount: "2,400+ Active Listings",
     latestMandiPrice: "Latest Reported Mandi Price",
+    wheatPriceQ: "Wheat ₹2,350/q",
     registeredFarmers: "Registered Farmers",
     verifiedBuyers: "Verified Buyers",
     commoditiesTracked: "Commodities Tracked",
     transactionsDone: "Transactions Done",
+    transactionsDoneLabel: "Transactions Done",
+    aboutUs: "About Us",
+    contactSupport: "Contact Support",
+    privacyPolicy: "Privacy Policy",
+    termsOfService: "Terms of Service",
+    farmerLogin: "Farmer Login",
+    buyerLogin: "Buyer Login",
+    farmerRegister: "Farmer Registration",
+    buyerRegister: "Buyer Registration",
     
     // Common Actions
     sellProduce: "Sell Produce",
@@ -69,6 +101,7 @@ const KRISHI_I18N = {
     edit: "Edit",
     delete: "Delete",
     viewMatches: "View Matches",
+    shopMore: "Shop More",
     
     // Stats & Dashboards
     activeListings: "Active Listings",
@@ -92,6 +125,38 @@ const KRISHI_I18N = {
     manageProduceDesc: "View, edit or delete your crop listings",
     reviewOffersDesc: "Accept or reject buyer offers",
     trackOrdersDesc: "Manage order fulfillment & delivery",
+    noProduceDesc: "Add your first produce to get started",
+    addProduceListing: "Add Produce",
+    confirmSalesOrders: "Confirmed Sales Orders",
+    myPurchaseOrders: "My Purchase Orders",
+    requirementBy: "Requirement by",
+    asap: "ASAP",
+    maxBudget: "Max",
+    noDemandsPosted: "No demands posted",
+    postRequirementPrompt: 'Click "+ Post Requirement" to broadcast your first crop demand to farmers.',
+    postRequirementBtn: "🚀 Publish Requirement",
+    cropSpecs: "Crop Specs",
+    farmerInventoryDetail: "Farmer inventory detail",
+    farmerLocation: "Farmer Location",
+    availableQuantity: "Available Quantity",
+    askingPrice: "Asking Price",
+    farmerListing: "Farmer Listing",
+    buyerRequirement: "Buyer Requirement",
+    noMatchesFound: "No suitable matches found yet",
+    noMatchesFoundDesc: "No active matches found right now. Check back later.",
+    findingFarmers: "Finding suitable farmers for this requirement…",
+    findingBuyers: "Finding suitable buyers for this listing…",
+    orderSummary: "Order Details Summary",
+    purchaseOrderSummary: "Purchase Order Summary",
+    closeSummary: "Close Summary",
+    editListing: "Edit Produce Listing",
+    editRequirement: "Edit Requirement",
+    makeOfferModalTitle: "Make an Offer",
+    makeOfferModalDesc: "Send custom pricing deal to farmer",
+    offeredPriceLabel: "Offered Price (₹)",
+    messageOptional: "Message (optional)",
+    listingDetails: "Listing",
+
     
     // Forms & Fields
     cropName: "Crop Name",
@@ -172,6 +237,17 @@ const KRISHI_I18N = {
     noOrdersDesc: "Accepted deals will automatically become sales orders here.",
     noDemandsYet: "No buyer requirements posted yet",
     serverConnecting: "Connecting to KrishiSetu secure servers...",
+    passwordsMismatch: "Passwords do not match!",
+    registerSuccess: "Registration Successful! Redirecting to Login...",
+    loginSuccess: "Login Successful!",
+    loginFailed: "Login failed! Check credentials.",
+    serverError: "Server Error! Please check your connection and try again.",
+    produce: "Produce",
+    offers: "Offers",
+    orders: "Orders",
+    featuredFreshProduce: "Featured Fresh Produce",
+    recentlyListed: "Recently listed by verified local farmers",
+    browse: "Browse",
   },
   
   hi: {
@@ -192,9 +268,12 @@ const KRISHI_I18N = {
     marketPrices: "मंडी भाव",
     dashboard: "डैशबोर्ड",
     myProduce: "मेरी फसलें",
+    produce: "फसलें",
     offersReceived: "प्राप्त प्रस्ताव",
+    offers: "प्रस्ताव",
     sentOffers: "भेजे गए प्रस्ताव",
     myOrders: "मेरे ऑर्डर",
+    orders: "ऑर्डर",
     buyerDemands: "खरीदार मांगें",
     browseProduce: "फसलें खोजें",
     profileSettings: "प्रोफ़ाइल सेटिंग्स",
@@ -202,18 +281,46 @@ const KRISHI_I18N = {
     verifiedUser: "सत्यापित उपयोगकर्ता",
     farmerAccount: "किसान खाता",
     buyerAccount: "खरीदार खाता",
+    enterPassword: "पासवर्ड दर्ज करें",
+    enterPhoneOrEmail: "मोबाइल या ईमेल दर्ज करें",
+    loginAsFarmer: "किसान के रूप में लॉगिन करें",
+    loginAsBuyer: "खरीदार के रूप में लॉगिन करें",
+    dontHaveAccount: "क्या आपके पास खाता नहीं है?",
+    farmerTab: "🌾 किसान",
+    buyerTab: "🛒 खरीदार",
     
     // Hero & Landing
     heroTitle: "अपनी फसल सीधे सही खरीदार को बेचें।",
     heroDesc: "कृषिसेतु किसानों को सीधे खरीदार खोजने, उचित मूल्य पाने और दैनिक मंडी भाव जानने में मदद करता है — बिल्कुल सरल और पारदर्शी।",
     imFarmer: "🌾 मैं किसान हूँ!",
     imBuyer: "🛒 मैं खरीदार हूँ!",
+    empoweringAgriBadge: "🌱 कृषि को सशक्त बनाते हुए",
+    empoweringAgriTitle: "जमीनी कृषि कार्यों को सशक्त बनाना",
+    empoweringAgriDesc: "कृषि पारिस्थितिकी तंत्र में उपयोगिता और विश्वसनीयता के लिए डिज़ाइन किया गया एक मजबूत प्लेटफ़ॉर्म।",
+    discoveryNetwork: "खोज नेटवर्क",
+    discoveryNetworkDesc: "अपने क्षेत्र में सत्यापित खरीदारों और स्थानीय किसानों को आसानी से खोजें। हमारा नेटवर्क फसल और मांग के बीच की दूरी को कुशलता से पाटता है।",
+    offerManagement: "प्रस्ताव प्रबंधन",
+    offerManagementDesc: "सौदों पर पारदर्शी तरीके से बातचीत करें और उन्हें प्रबंधित करें। एक व्यवस्थित डैशबोर्ड में सक्रिय, लंबित और पूर्ण सौदों का ब्यौरा रखें।",
+    marketPricesDesc: "विभिन्न मंडियों में नवीनतम कमोडिटी मूल्य देखें। ताज़ा कृषि मंडी रिपोर्ट के आधार पर सही निर्णय लें।",
+    latestReportedPrices: "📈 ताज़ा रिपोर्ट किए गए मंडी भाव",
+    pricesLangTitle: "जानें किसानों को कितना मूल्य मिल रहा है",
+    pricesLangDesc: "नीचे दिए गए मूल्य मंडियों द्वारा रिपोर्ट किए गए नवीनतम आंकड़े हैं। ये रिपोर्ट डेटा हैं, लाइव लेनदेन नहीं।",
     activeListingsCount: "२,४००+ सक्रिय फसलें",
     latestMandiPrice: "ताज़ा मंडी भाव रिपोर्ट",
+    wheatPriceQ: "गेहूँ ₹2,350/क्विंटल",
     registeredFarmers: "पंजीकृत किसान",
     verifiedBuyers: "सत्यापित खरीदार",
     commoditiesTracked: "फसलें ट्रैक की गईं",
     transactionsDone: "कुल कारोबार",
+    transactionsDoneLabel: "कुल कारोबार",
+    aboutUs: "हमारे बारे में",
+    contactSupport: "सहायता संपर्क",
+    privacyPolicy: "गोपनीयता नीति",
+    termsOfService: "सेवा की शर्तें",
+    farmerLogin: "किसान लॉगिन",
+    buyerLogin: "खरीदार लॉगिन",
+    farmerRegister: "किसान पंजीकरण",
+    buyerRegister: "खरीदार पंजीकरण",
     
     // Common Actions
     sellProduce: "फसल बेचें",
@@ -233,6 +340,7 @@ const KRISHI_I18N = {
     edit: "संशोधित करें",
     delete: "हटाएं",
     viewMatches: "मैचिंग खरीदार देखें",
+    shopMore: "और खरीदें",
     
     // Stats & Dashboards
     activeListings: "सक्रिय फसलें",
@@ -256,6 +364,37 @@ const KRISHI_I18N = {
     manageProduceDesc: "अपनी फसलों की सूची देखें, बदलें या हटाएं",
     reviewOffersDesc: "खरीदारों द्वारा दिए गए प्रस्ताव स्वीकार या अस्वीकार करें",
     trackOrdersDesc: "ऑर्डर की पूर्ति और डिलीवरी की स्थिति देखें",
+    noProduceDesc: "शुरुआत के लिए अपनी पहली फसल जोड़ें",
+    addProduceListing: "फसल जोड़ें",
+    confirmSalesOrders: "पक्के बिक्री ऑर्डर",
+    myPurchaseOrders: "मेरे खरीद ऑर्डर",
+    requirementBy: "आवश्यकता तिथि",
+    asap: "जितनी जल्दी हो",
+    maxBudget: "अधिकतम",
+    noDemandsPosted: "कोई मांग दर्ज नहीं है",
+    postRequirementPrompt: 'किसानों को अपनी पहली फसल मांग बताने के लिए "+ मांग दर्ज करें" पर क्लिक करें।',
+    postRequirementBtn: "🚀 मांग प्रकाशित करें",
+    cropSpecs: "फसल की जानकारी",
+    farmerInventoryDetail: "किसान स्टॉक विवरण",
+    farmerLocation: "किसान का स्थान",
+    availableQuantity: "उपलब्ध मात्रा",
+    askingPrice: "माँगा गया मूल्य",
+    farmerListing: "किसान की फसल",
+    buyerRequirement: "खरीदार की मांग",
+    noMatchesFound: "अभी कोई उपयुक्त मैच नहीं मिला",
+    noMatchesFoundDesc: "अभी कोई सक्रिय मैच नहीं मिला। बाद में फिर देखें।",
+    findingFarmers: "इस मांग के लिए उपयुक्त किसान खोजे जा रहे हैं…",
+    findingBuyers: "इस फसल के लिए उपयुक्त खरीदार खोजे जा रहे हैं…",
+    orderSummary: "ऑर्डर विवरण सारांश",
+    purchaseOrderSummary: "खरीद ऑर्डर सारांश",
+    closeSummary: "सारांश बंद करें",
+    editListing: "फसल लिस्टिंग संपादित करें",
+    editRequirement: "मांग संपादित करें",
+    makeOfferModalTitle: "प्रस्ताव दें",
+    makeOfferModalDesc: "किसान को कस्टम कीमत वाला सौदा भेजें",
+    offeredPriceLabel: "प्रस्तावित मूल्य (₹)",
+    messageOptional: "संदेश (वैकल्पिक)",
+    listingDetails: "लिस्टिंग",
     
     // Forms & Fields
     cropName: "फसल का नाम",
@@ -336,6 +475,17 @@ const KRISHI_I18N = {
     noOrdersDesc: "स्वीकृत सौदे अपने आप यहाँ ऑर्डर बन जाएंगे।",
     noDemandsYet: "खरीदारों की कोई मांग दर्ज नहीं है",
     serverConnecting: "सुरक्षित सर्वर से कनेक्ट हो रहा है...",
+    passwordsMismatch: "पासवर्ड मेल नहीं खाते!",
+    registerSuccess: "पंजीकरण सफल! लॉगिन पेज पर ले जाया जा रहा है...",
+    loginSuccess: "लॉगिन सफल!",
+    loginFailed: "लॉगिन विफल! क्रेडेंशियल्स की जांच करें।",
+    serverError: "सर्वर त्रुटि! कृपया अपना कनेक्शन जांचें और पुनः प्रयास करें।",
+    produce: "फसलें",
+    offers: "प्रस्ताव",
+    orders: "ऑर्डर",
+    featuredFreshProduce: "विशेष ताज़ा फसलें",
+    recentlyListed: "हाल ही में सत्यापित स्थानीय किसानों द्वारा सूचीबद्ध",
+    browse: "खोजें",
   }
 };
 
@@ -688,7 +838,7 @@ document.addEventListener("DOMContentLoaded", function () {
     buyerLoginForm.classList.add("hidden");
     if (loginFarmerTab) loginFarmerTab.classList.add("active");
     if (loginBuyerTab) loginBuyerTab.classList.remove("active");
-    if (loginTitle) loginTitle.textContent = "Farmer Login";
+    if (loginTitle) loginTitle.textContent = t("farmerLogin");
     if (loginRegisterLink)
       loginRegisterLink.href = "./register.html?role=farmer";
   }
@@ -699,7 +849,7 @@ document.addEventListener("DOMContentLoaded", function () {
     farmerLoginForm.classList.add("hidden");
     if (loginBuyerTab) loginBuyerTab.classList.add("active");
     if (loginFarmerTab) loginFarmerTab.classList.remove("active");
-    if (loginTitle) loginTitle.textContent = "Buyer Login";
+    if (loginTitle) loginTitle.textContent = t("buyerLogin");
     if (loginRegisterLink)
       loginRegisterLink.href = "./register.html?role=buyer";
   }
@@ -841,11 +991,16 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("farmerConfirmPassword")?.value || "";
 
       if (password !== confirmPassword) {
-        alert("Passwords do not match!");
+        alert(t("passwordsMismatch", "Passwords do not match!"));
         return;
       }
 
       try {
+        const submitBtn = event.target.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = "Publishing...";
+        submitBtn.disabled = true;
+
         const response = await fetch(
           `${API_BASE_URL}/api/v1/farmers/register`,
           {
@@ -862,6 +1017,8 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
         const data = await response.json();
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
         if (response.ok) {
           alert("Farmer Registration Successful! Redirecting to Login...");
           window.location.href = "./login.html?role=farmer";
@@ -896,11 +1053,16 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("buyerConfirmPassword")?.value || "";
 
       if (password !== confirmPassword) {
-        alert("Passwords do not match!");
+        alert(t("passwordsMismatch", "Passwords do not match!"));
         return;
       }
 
       try {
+        const submitBtn = event.target.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = "Publishing...";
+        submitBtn.disabled = true;
+
         const response = await fetch(`${API_BASE_URL}/api/v1/buyers/register`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -916,6 +1078,8 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         const data = await response.json();
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
         if (response.ok) {
           alert("Buyer Registration Successful! Redirecting to Login...");
           window.location.href = "./login.html?role=buyer";

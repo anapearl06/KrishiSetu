@@ -72,6 +72,7 @@
             id="loginFarmerTab"
             type="button"
             class="role-tab active flex-1 py-4 px-3 text-center text-sm font-bold transition-all duration-200"
+            data-i18n="farmerTab"
           >
             🌾 Farmer
           </button>
@@ -79,6 +80,7 @@
             id="loginBuyerTab"
             type="button"
             class="role-tab flex-1 py-4 px-3 text-center text-sm font-medium transition-all duration-200"
+            data-i18n="buyerTab"
           >
             🛒 Buyer
           </button>
@@ -88,6 +90,7 @@
           <h2
             id="loginTitle"
             class="auth-title font-semibold text-[#181D17] mb-6"
+            data-i18n="farmerLogin"
           >
             Farmer Login
           </h2>
@@ -108,6 +111,7 @@
                   maxlength="10"
                   inputmode="numeric"
                   placeholder="Enter 10-digit number"
+                  data-i18n-placeholder="enterPhone"
                   required
                   class="w-full h-12 phone-input-padded rounded-xl border border-[#BFCABA] outline-none focus:ring-2 focus:ring-[#0D631B]/20 transition-all text-sm font-medium"
                 />
@@ -125,6 +129,7 @@
                   id="farmerPassword"
                   type="password"
                   placeholder="Enter password"
+                  data-i18n-placeholder="enterPassword"
                   required
                   class="w-full h-12 px-4 rounded-xl border border-[#BFCABA] outline-none focus:ring-2 focus:ring-[#0D631B]/20 transition-all"
                 />
@@ -141,7 +146,7 @@
             <button
               type="submit"
               class="login-submit w-full h-12 bg-gradient-to-r from-[#0D631B] to-[#2E9E4F] text-white font-bold rounded-xl shadow-sm transition-all"
-              data-i18n="login"
+              data-i18n="loginAsFarmer"
             >
               Login as Farmer
             </button>
@@ -152,12 +157,14 @@
               <label
                 for="buyerPhone"
                 class="block text-sm font-medium text-[#181D17] mb-1"
+                data-i18n="phoneOrEmail"
                 >Phone / Email</label
               >
               <input
                 id="buyerPhone"
                 type="text"
                 placeholder="Enter phone or email"
+                data-i18n-placeholder="enterPhoneOrEmail"
                 required
                 class="w-full h-12 px-4 rounded-xl border border-[#BFCABA] outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all"
               />
@@ -166,6 +173,7 @@
               <label
                 for="buyerPassword"
                 class="block text-sm font-medium text-[#181D17] mb-1"
+                data-i18n="password"
                 >Password</label
               >
               <div class="password-wrap">
@@ -173,6 +181,7 @@
                   id="buyerPassword"
                   type="password"
                   placeholder="Enter password"
+                  data-i18n-placeholder="enterPassword"
                   required
                   class="w-full h-12 px-4 rounded-xl border border-[#BFCABA] outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all"
                 />
@@ -189,17 +198,19 @@
             <button
               type="submit"
               class="login-submit w-full h-12 bg-gradient-to-r from-[#75584D] to-[#9b7b6c] text-white font-bold rounded-xl shadow-sm transition-all"
+              data-i18n="loginAsBuyer"
             >
               Login as Buyer
             </button>
           </form>
 
           <div class="mt-6 text-center text-sm text-[#40493D]">
-            <span>Don't have an account? </span>
+            <span data-i18n="dontHaveAccount">Don't have an account? </span>
             <a
               id="loginRegisterLink"
               href="./register.html?role=farmer"
               class="font-bold text-[#0D631B] hover:underline"
+              data-i18n="register"
               >Register</a
             >
           </div>

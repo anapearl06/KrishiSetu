@@ -104,7 +104,7 @@
           <h1 class="text-2xl md:text-3xl font-bold gradient-text-warm" data-i18n="browseMarketplace">
             Browse Marketplace
           </h1>
-          <p class="text-sm text-[#40493D] mt-1">
+          <p class="text-sm text-[#40493D] mt-1" data-i18n="browseMarketplaceDesc">
             Filter and negotiate directly with verified farmers
           </p>
         </div>
@@ -187,10 +187,10 @@
         class="p-5 border-b border-[#CDBDB4]/50 flex items-center justify-between bg-gradient-to-r from-[#FAFAF5] to-white"
       >
         <div>
-          <h2 id="drawerCropTitle" class="text-xl font-bold gradient-text-warm">
+          <h2 id="drawerCropTitle" class="text-xl font-bold gradient-text-warm" data-i18n="cropSpecs">
             Crop Specs
           </h2>
-          <p class="text-xs text-[#40493D]">Farmer inventory detail</p>
+          <p class="text-xs text-[#40493D]" data-i18n="farmerInventoryDetail">Farmer inventory detail</p>
         </div>
         <button
           onclick="closeListingDrawer()"
@@ -203,6 +203,7 @@
       <div class="flex-1 overflow-y-auto p-6 space-y-4">
         <div class="p-4 rounded-xl bg-[#F4F8F0] border border-[#E0E4DA] glass-card">
           <span class="text-xs text-[#0D631B] font-semibold"
+            data-i18n="farmerLocation"
             >Farmer Location</span
           >
           <p id="drawerLocation" class="text-sm font-bold text-[#181D17]">
@@ -211,11 +212,11 @@
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div class="p-3 bg-gray-50 rounded-lg glass-card">
-            <span class="text-xs text-gray-500 block">Available Quantity</span>
+            <span class="text-xs text-gray-500 block" data-i18n="availableQuantity">Available Quantity</span>
             <strong id="drawerQty" class="text-[#181D17] text-sm">-</strong>
           </div>
           <div class="p-3 bg-gray-50 rounded-lg glass-card">
-            <span class="text-xs text-gray-500 block">Asking Price</span>
+            <span class="text-xs text-gray-500 block" data-i18n="askingPrice">Asking Price</span>
             <strong id="drawerPrice" class="text-[#75584D] text-sm">-</strong>
           </div>
         </div>
@@ -226,7 +227,7 @@
           onclick="openOfferModal()"
           class="btn-warm w-full py-3 text-white font-bold rounded-xl shadow-lg flex items-center justify-center gap-2"
         >
-          <span>🤝</span> Make an Offer
+          <span>🤝</span> <span data-i18n="makeAnOffer">Make an Offer</span>
         </button>
       </div>
     </div>
@@ -237,14 +238,15 @@
       class="fixed inset-0 bg-black/60 z-[60] hidden flex items-center justify-center p-4"
     >
       <div class="glass-card rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4 ksetu-fade-up">
-        <h3 class="font-bold text-lg text-[#181D17]">Make an Offer</h3>
-        <p class="text-xs text-[#40493D]">Send custom pricing deal to farmer</p>
+        <h3 class="font-bold text-lg text-[#181D17]" data-i18n="makeAnOffer">Make an Offer</h3>
+        <p class="text-xs text-[#40493D]" data-i18n="sendCustomPricingDesc">Send custom pricing deal to farmer</p>
         <div class="p-4 rounded-xl bg-[#F4F8F0] border border-[#E0E4DA]">
-          <p class="text-xs text-[#40493D]">Listing</p>
+          <p class="text-xs text-[#40493D]" data-i18n="listing">Listing</p>
           <p id="offerListingInfo" class="text-sm font-bold text-[#181D17]">-</p>
         </div>
         <div>
           <label class="block text-xs font-semibold text-[#181D17] mb-1"
+            data-i18n="quantity"
             >Quantity (in unit)</label
           >
           <input
@@ -253,11 +255,13 @@
             min="0"
             step="any"
             placeholder="Enter quantity"
+            data-i18n-placeholder="enterQuantity"
             class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20"
           />
         </div>
         <div>
           <label class="block text-xs font-semibold text-[#181D17] mb-1"
+            data-i18n="offeredPrice"
             >Offered Price (₹)</label
           >
           <input
@@ -266,17 +270,20 @@
             min="0"
             step="any"
             placeholder="Enter custom price"
+            data-i18n-placeholder="enterCustomPrice"
             class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20"
           />
         </div>
         <div>
           <label class="block text-xs font-semibold text-[#181D17] mb-1"
+            data-i18n="message"
             >Message (optional)</label
           >
           <input
             type="text"
             id="offerMessage"
             placeholder="Note for the farmer"
+            data-i18n-placeholder="noteForFarmer"
             class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20"
           />
         </div>
