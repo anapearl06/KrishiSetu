@@ -956,14 +956,288 @@
   color: #b91c1c;
 }
 
-.status-badge.delivered {
-  background: rgba(37, 99, 235, 0.1);
-  color: #1d4ed8;
+.status-badge.sold {
+  background: rgba(107, 114, 128, 0.14);
+  color: #374151;
+}
+
+/* ============================================================
+   BILINGUAL LANGUAGE SWITCHER (EN | हिन्दी)
+   ============================================================ */
+.lang-switcher {
+  display: inline-flex;
+  align-items: center;
+  background: #ffffff;
+  border: 1.5px solid #d4dcd0;
+  border-radius: 9999px;
+  padding: 2px 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  font-size: 0.8rem;
+  font-weight: 600;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+
+.lang-switcher:hover {
+  border-color: #0d631b;
+  box-shadow: 0 4px 12px rgba(13, 99, 27, 0.12);
+}
+
+.lang-btn {
+  padding: 4px 10px;
+  border-radius: 9999px;
+  color: #40493d;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.lang-btn.active {
+  background: #0d631b;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(13, 99, 27, 0.35);
+}
+
+.lang-switcher.warm .lang-btn.active {
+  background: #75584d;
+  box-shadow: 0 2px 8px rgba(117, 88, 77, 0.35);
+}
+
+/* ============================================================
+   CROP QUICK-PICKER CHIPS (Produce Drawer)
+   ============================================================ */
+.crop-chips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+  margin-bottom: 0.75rem;
+}
+
+.crop-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 0.35rem;
+  background: #ffffff;
+  border: 1.5px solid #e0e4da;
+  border-radius: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: center;
+}
+
+.crop-chip:hover {
+  border-color: #0d631b;
+  background: #f4f8f0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(13, 99, 27, 0.12);
+}
+
+.crop-chip.active {
+  border-color: #0d631b;
+  background: linear-gradient(135deg, #e7f6ea, #d1f0d7);
+  box-shadow: 0 0 0 2px #0d631b, 0 4px 14px rgba(13, 99, 27, 0.2);
+  transform: translateY(-2px);
+}
+
+.crop-chip-icon {
+  font-size: 1.45rem;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.crop-chip-name {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #181d17;
+  line-height: 1.15;
+}
+
+.crop-chip-sub {
+  font-size: 0.65rem;
+  color: #556050;
+  margin-top: 1px;
+}
+
+/* ============================================================
+   MANDI BENCHMARK PRICE HELPER CARD
+   ============================================================ */
+.mandi-benchmark-card {
+  background: linear-gradient(135deg, #f0f7ee 0%, #e5f3e4 100%);
+  border: 1.5px solid #bfe3c6;
+  border-radius: 0.9rem;
+  padding: 0.75rem 0.9rem;
+  margin-top: 0.5rem;
+  box-shadow: 0 2px 10px rgba(13, 99, 27, 0.06);
+  animation: ksetuFadeUp 0.3s ease-out;
+}
+
+.mandi-rate-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: #0d631b;
+  color: #ffffff;
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.btn-use-rate {
+  background: #ffffff;
+  color: #0d631b;
+  border: 1px solid #0d631b;
+  border-radius: 0.55rem;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.btn-use-rate:hover {
+  background: #0d631b;
+  color: #ffffff;
+}
+
+/* ============================================================
+   CATEGORY FILTER PILLS (Browse Marketplace & Demands)
+   ============================================================ */
+.cat-pills-container {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.35rem;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+.cat-pills-container::-webkit-scrollbar {
+  height: 4px;
+}
+
+.cat-pills-container::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.cat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  background: #ffffff;
+  border: 1.5px solid #e0e4da;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #40493d;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.cat-pill:hover {
+  border-color: #75584d;
+  color: #181d17;
+  transform: translateY(-1px);
+}
+
+.cat-pill.active {
+  background: linear-gradient(135deg, #75584d, #9b7b6c);
+  border-color: #75584d;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(117, 88, 77, 0.28);
+}
+
+.cat-pill.active-farmer {
+  background: linear-gradient(135deg, #0d631b, #2e7d32);
+  border-color: #0d631b;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(13, 99, 27, 0.28);
+}
+
+/* ============================================================
+   PHONE INPUT PREFIX (+91)
+   ============================================================ */
+.phone-prefix-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.phone-prefix-tag {
+  position: absolute;
+  left: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #181d17;
+  padding-right: 0.5rem;
+  border-right: 1.5px solid #bfcaba;
+  pointer-events: none;
+}
+
+.phone-input-padded {
+  padding-left: 4.2rem !important;
+}
+
+/* ============================================================
+   SERVER STATUS BANNER & SKELETON LOADERS
+   ============================================================ */
+.server-status-banner {
+  background: linear-gradient(90deg, #1e3a8a, #2563eb);
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  animation: ksetuFadeUp 0.3s ease-out;
+}
+
+.skeleton-card {
+  background: #ffffff;
+  border: 1px solid #e0e4da;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton-box {
+  background: linear-gradient(90deg, #f0f3ec 25%, #e2e8de 50%, #f0f3ec 75%);
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.5s infinite;
+  border-radius: 0.5rem;
+}
+
+@keyframes skeletonShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .ksetu-fade-up,
-  .ksetu-slide-in {
+  .ksetu-slide-in,
+  .skeleton-box {
     animation: none;
   }
 }
+

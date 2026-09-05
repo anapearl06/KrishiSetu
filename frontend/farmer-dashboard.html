@@ -81,22 +81,30 @@
         <span class="brand-name text-xl font-bold bg-gradient-to-r from-[#0D631B] to-[#2E7D32] bg-clip-text text-transparent">KrishiSetu</span>
       </a>
 
+      <!-- LANGUAGE SWITCHER IN SIDEBAR -->
+      <div class="mb-4 px-2">
+        <div class="lang-switcher w-full justify-between">
+          <button type="button" class="lang-btn active flex-1 justify-center" data-lang="en">EN</button>
+          <button type="button" class="lang-btn flex-1 justify-center" data-lang="hi">हिन्दी</button>
+        </div>
+      </div>
+
       <!-- NAVIGATION LINKS -->
       <nav class="flex flex-col gap-2 flex-1">
         <a href="./farmer-dashboard.html" class="nav-link active flex items-center gap-3 px-4 py-3 rounded-xl font-medium shadow-sm animate-fade-in-up delay-1">
-          <span class="text-lg">📊</span> Dashboard
+          <span class="text-lg">📊</span> <span data-i18n="dashboard">Dashboard</span>
         </a>
         <a href="./my-listings.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] font-medium animate-fade-in-up delay-2">
-          <span class="text-lg">🌾</span> My Produce
+          <span class="text-lg">🌾</span> <span data-i18n="myProduce">My Produce</span>
         </a>
         <a href="./farmer-offers.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] font-medium animate-fade-in-up delay-3">
-          <span class="text-lg">📥</span> Offers Received
+          <span class="text-lg">📥</span> <span data-i18n="offersReceived">Offers Received</span>
         </a>
         <a href="./farmer-orders.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] font-medium animate-fade-in-up delay-4">
-          <span class="text-lg">📦</span> My Orders
+          <span class="text-lg">📦</span> <span data-i18n="myOrders">My Orders</span>
         </a>
         <a href="./buyer-demands.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] font-medium animate-fade-in-up delay-5">
-          <span class="text-lg">📋</span> Buyer Demands
+          <span class="text-lg">📋</span> <span data-i18n="buyerDemands">Buyer Demands</span>
         </a>
       </nav>
 
@@ -109,8 +117,8 @@
             <p class="text-xs text-[#40493D] truncate" id="sidebarEmail">farmer@example.com</p>
           </div>
         </div>
-        <a href="./profile.html" class="block mt-3 px-4 py-2 text-center text-sm font-medium text-[#0D631B] hover:bg-[#F1F5EB] rounded-xl transition-colors">Profile Settings</a>
-        <button id="sidebarLogout" class="mt-2 w-full px-4 py-2 text-center text-sm font-medium text-red-600 hover:bg-red-50 rounded-xl transition-colors">Logout</button>
+        <a href="./profile.html" class="block mt-3 px-4 py-2 text-center text-sm font-medium text-[#0D631B] hover:bg-[#F1F5EB] rounded-xl transition-colors" data-i18n="profileSettings">Profile Settings</a>
+        <button id="sidebarLogout" class="mt-2 w-full px-4 py-2 text-center text-sm font-medium text-red-600 hover:bg-red-50 rounded-xl transition-colors" data-i18n="logout">Logout</button>
       </div>
     </aside>
 
@@ -121,21 +129,27 @@
           <img src="./assets/images/krishisetu_logo.png" alt="KrishiSetu" class="w-8 h-8" />
           <span class="font-bold text-lg bg-gradient-to-r from-[#0D631B] to-[#2E7D32] bg-clip-text text-transparent">KrishiSetu</span>
         </a>
-        <button id="mobileMenuBtn" class="p-2 rounded-xl hover:bg-[#F1F5EB] transition-colors" aria-label="Open menu">
-          <svg class="w-6 h-6 text-[#181D17]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-        </button>
+        <div class="flex items-center gap-2">
+          <div class="lang-switcher">
+            <button type="button" class="lang-btn active" data-lang="en">EN</button>
+            <button type="button" class="lang-btn" data-lang="hi">हि</button>
+          </div>
+          <button id="mobileMenuBtn" class="p-2 rounded-xl hover:bg-[#F1F5EB] transition-colors" aria-label="Open menu">
+            <svg class="w-6 h-6 text-[#181D17]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+          </button>
+        </div>
       </div>
       <div id="mobileMenu" class="hidden px-4 pb-4">
         <nav class="flex flex-col gap-2">
-          <a href="./farmer-dashboard.html" class="nav-link active px-4 py-3 rounded-xl">📊 Dashboard</a>
-          <a href="./my-listings.html" class="nav-link px-4 py-3 rounded-xl">🌾 My Produce</a>
-          <a href="./farmer-offers.html" class="nav-link px-4 py-3 rounded-xl">📥 Offers Received</a>
-          <a href="./farmer-orders.html" class="nav-link px-4 py-3 rounded-xl">📦 My Orders</a>
-          <a href="./buyer-demands.html" class="nav-link px-4 py-3 rounded-xl">📋 Buyer Demands</a>
+          <a href="./farmer-dashboard.html" class="nav-link active px-4 py-3 rounded-xl">📊 <span data-i18n="dashboard">Dashboard</span></a>
+          <a href="./my-listings.html" class="nav-link px-4 py-3 rounded-xl">🌾 <span data-i18n="myProduce">My Produce</span></a>
+          <a href="./farmer-offers.html" class="nav-link px-4 py-3 rounded-xl">📥 <span data-i18n="offersReceived">Offers Received</span></a>
+          <a href="./farmer-orders.html" class="nav-link px-4 py-3 rounded-xl">📦 <span data-i18n="myOrders">My Orders</span></a>
+          <a href="./buyer-demands.html" class="nav-link px-4 py-3 rounded-xl">📋 <span data-i18n="buyerDemands">Buyer Demands</span></a>
         </nav>
         <div class="pt-4 border-t border-[#E0E4DA]/60">
-          <a href="./profile.html" class="block px-4 py-2 text-center text-sm font-medium text-[#0D631B] hover:bg-[#F1F5EB] rounded-xl transition-colors">Profile Settings</a>
-          <button id="mobileLogout" class="mt-2 w-full px-4 py-2 text-center text-sm font-medium text-red-600 hover:bg-red-50 rounded-xl transition-colors">Logout</button>
+          <a href="./profile.html" class="block px-4 py-2 text-center text-sm font-medium text-[#0D631B] hover:bg-[#F1F5EB] rounded-xl transition-colors" data-i18n="profileSettings">Profile Settings</a>
+          <button id="mobileLogout" class="mt-2 w-full px-4 py-2 text-center text-sm font-medium text-red-600 hover:bg-red-50 rounded-xl transition-colors" data-i18n="logout">Logout</button>
         </div>
       </div>
     </header>
@@ -146,11 +160,11 @@
       <div class="sticky top-0 z-30 bg-white/90 backdrop-blur-xl border-b border-[#E0E4DA]/60 px-6 py-4 animate-fade-in-up">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 class="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-[#0D631B] to-[#2E7D32] bg-clip-text text-transparent">Dashboard</h1>
-            <p class="text-[#40493D] mt-1">Welcome back, <span id="farmerName" class="font-medium text-[#181D17]">Farmer</span>! Here's your farm overview.</p>
+            <h1 class="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-[#0D631B] to-[#2E7D32] bg-clip-text text-transparent" data-i18n="dashboard">Dashboard</h1>
+            <p class="text-[#40493D] mt-1" data-i18n="welcomeFarmer">Welcome back! Here's your farm overview.</p>
           </div>
           <a href="./my-listings.html" class="btn-primary inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-white font-medium text-sm shadow-lg animate-fade-in-up delay-2">
-            <span>➕</span> Sell Produce
+            <span>➕</span> <span data-i18n="sellProduce">Sell Produce</span>
           </a>
         </div>
       </div>
@@ -161,7 +175,7 @@
           <article class="glass-card stat-card gradient-border rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 animate-fade-in-up delay-1">
             <div class="flex items-center justify-between">
               <div>
-                <p class="text-sm font-medium text-[#40493D]">Active Listings</p>
+                <p class="text-sm font-medium text-[#40493D]" data-i18n="activeListings">Active Listings</p>
                 <p class="text-3xl font-bold text-[#181D17] mt-1" id="statActive">0</p>
               </div>
               <div class="stat-icon w-12 h-12 rounded-xl bg-gradient-to-br from-[#0D631B] to-[#2E7D32] flex items-center justify-center text-white text-2xl">🌾</div>
@@ -170,7 +184,7 @@
           <article class="glass-card stat-card gradient-border rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 animate-fade-in-up delay-2">
             <div class="flex items-center justify-between">
               <div>
-                <p class="text-sm font-medium text-[#40493D]">Pending Offers</p>
+                <p class="text-sm font-medium text-[#40493D]" data-i18n="pendingOffers">Pending Offers</p>
                 <p class="text-3xl font-bold text-[#181D17] mt-1" id="statOffers">0</p>
               </div>
               <div class="stat-icon w-12 h-12 rounded-xl bg-gradient-to-br from-[#F59E0B] to-[#F97316] flex items-center justify-center text-white text-2xl">📥</div>
@@ -179,7 +193,7 @@
           <article class="glass-card stat-card gradient-border rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 animate-fade-in-up delay-3">
             <div class="flex items-center justify-between">
               <div>
-                <p class="text-sm font-medium text-[#40493D]">Active Orders</p>
+                <p class="text-sm font-medium text-[#40493D]" data-i18n="activeOrders">Active Orders</p>
                 <p class="text-3xl font-bold text-[#181D17] mt-1" id="statOrders">0</p>
               </div>
               <div class="stat-icon w-12 h-12 rounded-xl bg-gradient-to-br from-[#3B82F6] to-[#06B6D4] flex items-center justify-center text-white text-2xl">📦</div>
@@ -188,7 +202,7 @@
           <article class="glass-card stat-card gradient-border rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 animate-fade-in-up delay-4">
             <div class="flex items-center justify-between">
               <div>
-                <p class="text-sm font-medium text-[#40493D]">Total Revenue</p>
+                <p class="text-sm font-medium text-[#40493D]" data-i18n="totalRevenue">Total Revenue</p>
                 <p class="text-3xl font-bold text-[#181D17] mt-1" id="statRevenue">₹0</p>
               </div>
               <div class="stat-icon w-12 h-12 rounded-xl bg-gradient-to-br from-[#8B5CF6] to-[#EC4899] flex items-center justify-center text-white text-2xl">💰</div>
@@ -200,18 +214,18 @@
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 animate-fade-in-up delay-3">
           <a href="./my-listings.html" class="glass-card gradient-border rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 group">
             <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#0D631B] to-[#2E7D32] flex items-center justify-center text-white text-2xl mb-3 group-hover:scale-110 transition-transform">🌾</div>
-            <h3 class="font-semibold text-[#181D17] mb-1">Manage Produce</h3>
-            <p class="text-sm text-[#40493D]">View, edit or delete your crop listings</p>
+            <h3 class="font-semibold text-[#181D17] mb-1" data-i18n="myProduce">Manage Produce</h3>
+            <p class="text-sm text-[#40493D]" data-i18n="manageProduceDesc">View, edit or delete your crop listings</p>
           </a>
           <a href="./farmer-offers.html" class="glass-card gradient-border rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 group">
             <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#F59E0B] to-[#F97316] flex items-center justify-center text-white text-2xl mb-3 group-hover:scale-110 transition-transform">📥</div>
-            <h3 class="font-semibold text-[#181D17] mb-1">Review Offers</h3>
-            <p class="text-sm text-[#40493D]">Accept or reject buyer offers</p>
+            <h3 class="font-semibold text-[#181D17] mb-1" data-i18n="offersReceived">Review Offers</h3>
+            <p class="text-sm text-[#40493D]" data-i18n="reviewOffersDesc">Accept or reject buyer offers</p>
           </a>
           <a href="./farmer-orders.html" class="glass-card gradient-border rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 group">
             <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#3B82F6] to-[#06B6D4] flex items-center justify-center text-white text-2xl mb-3 group-hover:scale-110 transition-transform">📦</div>
-            <h3 class="font-semibold text-[#181D17] mb-1">Track Orders</h3>
-            <p class="text-sm text-[#40493D]">Manage order fulfillment & delivery</p>
+            <h3 class="font-semibold text-[#181D17] mb-1" data-i18n="myOrders">Track Orders</h3>
+            <p class="text-sm text-[#40493D]" data-i18n="trackOrdersDesc">Manage order fulfillment & delivery</p>
           </a>
         </div>
 

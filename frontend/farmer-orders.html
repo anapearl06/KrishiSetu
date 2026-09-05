@@ -28,30 +28,38 @@
         />
         <span class="brand-name text-xl font-bold">KrishiSetu</span>
       </a>
+      <!-- LANGUAGE SWITCHER IN SIDEBAR -->
+      <div class="mb-4 px-2">
+        <div class="lang-switcher w-full justify-between">
+          <button type="button" class="lang-btn active flex-1 justify-center" data-lang="en">EN</button>
+          <button type="button" class="lang-btn flex-1 justify-center" data-lang="hi">हिन्दी</button>
+        </div>
+      </div>
+
       <nav class="flex flex-col gap-2 flex-1">
         <a
           href="./farmer-dashboard.html"
           class="nav-item-warm flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] font-medium"
         >
-          <span class="text-lg">📊</span> Dashboard
+          <span class="text-lg">📊</span> <span data-i18n="dashboard">Dashboard</span>
         </a>
         <a
           href="./my-listings.html"
           class="nav-item-warm flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] font-medium"
         >
-          <span class="text-lg">🌾</span> My Produce
+          <span class="text-lg">🌾</span> <span data-i18n="myProduce">My Produce</span>
         </a>
         <a
           href="./farmer-offers.html"
           class="nav-item-warm flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] font-medium"
         >
-          <span class="text-lg">🤝</span> Received Offers
+          <span class="text-lg">🤝</span> <span data-i18n="offersReceived">Received Offers</span>
         </a>
         <a
           href="./farmer-orders.html"
           class="nav-item-warm active flex items-center gap-3 px-4 py-3 rounded-xl font-medium shadow-sm"
         >
-          <span class="text-lg">📦</span> My Orders
+          <span class="text-lg">📦</span> <span data-i18n="myOrders">My Orders</span>
         </a>
       </nav>
       <div
@@ -66,12 +74,13 @@
           </div>
           <div>
             <p class="text-sm font-semibold text-[#181D17]" id="sidebarName">Farmer</p>
-            <p class="text-xs text-[#40493D]" id="sidebarEmail">Farmer Account</p>
+            <p class="text-xs text-[#40493D]" id="sidebarEmail" data-i18n="farmerAccount">Farmer Account</p>
           </div>
         </div>
         <a
           href="./login.html"
           class="sidebar-logout text-xs text-red-600 font-medium hover:underline"
+          data-i18n="logout"
           >Logout</a
         >
       </div>
@@ -80,22 +89,28 @@
     <!-- MAIN CONTENT AREA -->
     <div class="flex-1 lg:ml-64 pb-20 lg:pb-8">
       <header
-        class="bg-white/90 backdrop-blur-xl border-b border-[#CDBDB4]/50 sticky top-0 z-30 px-4 md:px-8 py-5 flex items-center justify-between"
+        class="bg-white/90 backdrop-blur-xl border-b border-[#CDBDB4]/50 sticky top-0 z-30 px-4 md:px-8 py-5 flex items-center justify-between gap-4"
       >
         <div>
-          <h1 class="text-2xl md:text-3xl font-bold brand-name">
+          <h1 class="text-2xl md:text-3xl font-bold brand-name" data-i18n="myOrders">
             Confirmed Sales Orders
           </h1>
           <p class="text-sm text-[#40493D] mt-1">
             Track orders generated from accepted offers
           </p>
         </div>
-        <span
-          class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#0D631B]/10 text-[#0D631B] text-sm font-semibold"
-        >
-          <span class="w-2 h-2 rounded-full bg-[#0D631B] animate-pulse"></span>
-          Active Orders
-        </span>
+        <div class="flex items-center gap-3">
+          <div class="lang-switcher lg:hidden">
+            <button type="button" class="lang-btn active" data-lang="en">EN</button>
+            <button type="button" class="lang-btn" data-lang="hi">हि</button>
+          </div>
+          <span
+            class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#0D631B]/10 text-[#0D631B] text-sm font-semibold"
+          >
+            <span class="w-2 h-2 rounded-full bg-[#0D631B] animate-pulse"></span>
+            Active Orders
+          </span>
+        </div>
       </header>
 
       <main class="max-w-7xl mx-auto px-4 md:px-8 py-6">

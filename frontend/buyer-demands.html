@@ -28,36 +28,44 @@
         />
         <span class="brand-name brand-name-warm text-xl font-bold">KrishiSetu</span>
       </a>
+      <!-- LANGUAGE SWITCHER IN SIDEBAR -->
+      <div class="mb-4 px-2">
+        <div class="lang-switcher warm w-full justify-between">
+          <button type="button" class="lang-btn active flex-1 justify-center" data-lang="en">EN</button>
+          <button type="button" class="lang-btn flex-1 justify-center" data-lang="hi">हिन्दी</button>
+        </div>
+      </div>
+
       <nav class="flex flex-col gap-2 flex-1">
         <a
           href="./buyer-dashboard.html"
           class="nav-item-warm flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] font-medium"
         >
-          <span class="text-lg">📊</span> Dashboard
+          <span class="text-lg">📊</span> <span data-i18n="dashboard">Dashboard</span>
         </a>
         <a
           href="./browse-produce.html"
           class="nav-item-warm flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] font-medium"
         >
-          <span class="text-lg">🌾</span> Browse Produce
+          <span class="text-lg">🌾</span> <span data-i18n="browseProduce">Browse Produce</span>
         </a>
         <a
           href="./buyer-demands.html"
           class="nav-item-warm active flex items-center gap-3 px-4 py-3 rounded-xl font-medium shadow-sm"
         >
-          <span class="text-lg">📢</span> My Demands
+          <span class="text-lg">📢</span> <span data-i18n="buyerDemands">My Demands</span>
         </a>
         <a
           href="./buyer-offers.html"
           class="nav-item-warm flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] font-medium"
         >
-          <span class="text-lg">🤝</span> My Sent Offers
+          <span class="text-lg">🤝</span> <span data-i18n="sentOffers">My Sent Offers</span>
         </a>
         <a
           href="./buyer-orders.html"
           class="nav-item-warm flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] font-medium"
         >
-          <span class="text-lg">📦</span> My Orders
+          <span class="text-lg">📦</span> <span data-i18n="myOrders">My Orders</span>
         </a>
       </nav>
       <div
@@ -72,12 +80,13 @@
           </div>
           <div>
             <p class="text-sm font-semibold text-[#181D17]" id="sidebarUserName">Buyer</p>
-            <p class="text-xs text-[#40493D]" id="sidebarUserRole">Buyer Account</p>
+            <p class="text-xs text-[#40493D]" id="sidebarUserRole" data-i18n="buyerAccount">Buyer Account</p>
           </div>
         </div>
         <a
           href="./login.html"
           class="sidebar-logout text-xs text-red-600 font-medium hover:underline"
+          data-i18n="logout"
           >Logout</a
         >
       </div>
@@ -86,23 +95,29 @@
     <!-- MAIN CONTENT AREA -->
     <div class="flex-1 lg:ml-64 pb-20 lg:pb-8">
       <header
-        class="bg-white/90 backdrop-blur-xl border-b border-[#CDBDB4]/50 sticky top-0 z-30 px-4 md:px-8 py-5 flex items-center justify-between"
+        class="bg-white/90 backdrop-blur-xl border-b border-[#CDBDB4]/50 sticky top-0 z-30 px-4 md:px-8 py-5 flex items-center justify-between gap-4"
       >
         <div>
-          <h1 class="text-2xl md:text-3xl font-bold gradient-text-warm">
+          <h1 class="text-2xl md:text-3xl font-bold gradient-text-warm" data-i18n="buyerDemands">
             My Demands
           </h1>
           <p class="text-sm text-[#40493D] mt-1">
             Post crop requirements and let farmers connect with you
           </p>
         </div>
-        <button
-          onclick="openDemandDrawer()"
-          aria-label="Post a new crop requirement"
-          class="btn-warm text-white font-medium px-5 py-3 rounded-xl shadow-lg text-sm flex items-center gap-2"
-        >
-          <span>➕</span> Post Requirement
-        </button>
+        <div class="flex items-center gap-3">
+          <div class="lang-switcher warm lg:hidden">
+            <button type="button" class="lang-btn active" data-lang="en">EN</button>
+            <button type="button" class="lang-btn" data-lang="hi">हि</button>
+          </div>
+          <button
+            onclick="openDemandDrawer()"
+            aria-label="Post a new crop requirement"
+            class="btn-warm text-white font-medium px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl shadow-lg text-sm flex items-center gap-2"
+          >
+            <span>➕</span> <span data-i18n="postRequirement">Post Requirement</span>
+          </button>
+        </div>
       </header>
 
       <main class="max-w-7xl mx-auto px-4 md:px-8 py-6">
@@ -172,7 +187,7 @@
 
       <form id="createDemandForm" class="flex-1 overflow-y-auto p-6 space-y-4">
         <div>
-          <label class="block text-xs font-semibold text-[#40493D] mb-1"
+          <label class="block text-xs font-semibold text-[#40493D] mb-1" data-i18n="cropName"
             >Crop Name</label
           >
           <input
@@ -180,29 +195,32 @@
             id="demandCrop"
             required
             placeholder="e.g. Mustard, Wheat, Paddy"
-            class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all"
+            data-i18n-placeholder="cropNamePlaceholder"
+            class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all font-medium"
           />
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block text-xs font-semibold text-[#40493D] mb-1"
+            <label class="block text-xs font-semibold text-[#40493D] mb-1" data-i18n="quantity"
               >Quantity</label
             >
             <input
               type="number"
               id="demandQuantity"
+              inputmode="numeric"
               required
               placeholder="500"
-              class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all"
+              data-i18n-placeholder="qtyPlaceholder"
+              class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all font-medium"
             />
           </div>
           <div>
-            <label class="block text-xs font-semibold text-[#40493D] mb-1"
+            <label class="block text-xs font-semibold text-[#40493D] mb-1" data-i18n="unit"
               >Unit</label
             >
             <select
               id="demandUnit"
-              class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all"
+              class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all font-medium"
             >
               <option value="quintal">Quintal</option>
               <option value="kg">Kg</option>
@@ -211,20 +229,22 @@
           </div>
         </div>
         <div>
-          <label class="block text-xs font-semibold text-[#40493D] mb-1"
+          <label class="block text-xs font-semibold text-[#40493D] mb-1" data-i18n="targetPrice"
             >Max Budget Price per Unit (₹)</label
           >
           <input
             type="number"
             id="demandTargetPrice"
+            inputmode="numeric"
             required
             placeholder="e.g. 5200"
-            class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all"
+            data-i18n-placeholder="pricePlaceholder"
+            class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all font-medium"
           />
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block text-xs font-semibold text-[#40493D] mb-1"
+            <label class="block text-xs font-semibold text-[#40493D] mb-1" data-i18n="state"
               >State</label
             >
             <input
@@ -232,11 +252,12 @@
               id="demandState"
               required
               placeholder="Uttar Pradesh"
-              class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all"
+              data-i18n-placeholder="statePlaceholder"
+              class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all font-medium"
             />
           </div>
           <div>
-            <label class="block text-xs font-semibold text-[#40493D] mb-1"
+            <label class="block text-xs font-semibold text-[#40493D] mb-1" data-i18n="district"
               >District / City</label
             >
             <input
@@ -244,7 +265,8 @@
               id="demandDistrict"
               required
               placeholder="Agra"
-              class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all"
+              data-i18n-placeholder="districtPlaceholder"
+              class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all font-medium"
             />
           </div>
         </div>
@@ -256,23 +278,24 @@
             type="date"
             id="demandRequiredBy"
             required
-            class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all"
+            class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all font-medium"
           />
         </div>
         <div>
-          <label class="block text-xs font-semibold text-[#40493D] mb-1"
+          <label class="block text-xs font-semibold text-[#40493D] mb-1" data-i18n="description"
             >Quality / Specification Note</label
           >
           <textarea
             id="demandDescription"
             rows="3"
             placeholder="Need moisture content under 8%..."
-            class="w-full p-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all"
+            class="w-full p-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all font-medium"
           ></textarea>
         </div>
         <button
           type="submit"
           class="btn-warm w-full h-12 text-white font-bold rounded-xl text-sm shadow-lg flex items-center justify-center gap-2"
+          data-i18n="postRequirement"
         >
           🚀 Publish Requirement
         </button>
@@ -297,37 +320,38 @@
         <form id="demandEditForm" class="space-y-3">
           <input type="hidden" id="demandEditId" />
           <div>
-            <label class="block text-xs font-semibold text-[#40493D] mb-1"
+            <label class="block text-xs font-semibold text-[#40493D] mb-1" data-i18n="cropName"
               >Crop Name</label
             >
             <input
               type="text"
               id="demandEditCrop"
               required
-              class="w-full h-10 px-3 border border-[#E0E4DA] rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all"
+              class="w-full h-10 px-3 border border-[#E0E4DA] rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all font-medium"
             />
           </div>
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="block text-xs font-semibold text-[#40493D] mb-1"
+              <label class="block text-xs font-semibold text-[#40493D] mb-1" data-i18n="quantity"
                 >Quantity</label
               >
               <input
                 type="number"
                 id="demandEditQuantity"
+                inputmode="numeric"
                 required
                 min="0"
                 step="any"
-                class="w-full h-10 px-3 border border-[#E0E4DA] rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all"
+                class="w-full h-10 px-3 border border-[#E0E4DA] rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all font-medium"
               />
             </div>
             <div>
-              <label class="block text-xs font-semibold text-[#40493D] mb-1"
+              <label class="block text-xs font-semibold text-[#40493D] mb-1" data-i18n="unit"
                 >Unit</label
               >
               <select
                 id="demandEditUnit"
-                class="w-full h-10 px-3 border border-[#E0E4DA] rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all"
+                class="w-full h-10 px-3 border border-[#E0E4DA] rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all font-medium"
               >
                 <option value="quintal">Quintal</option>
                 <option value="kg">Kg</option>
@@ -336,39 +360,40 @@
             </div>
           </div>
           <div>
-            <label class="block text-xs font-semibold text-[#40493D] mb-1"
+            <label class="block text-xs font-semibold text-[#40493D] mb-1" data-i18n="targetPrice"
               >Max Budget Price per Unit (₹)</label
             >
             <input
               type="number"
               id="demandEditTargetPrice"
+              inputmode="numeric"
               required
               min="0"
               step="any"
-              class="w-full h-10 px-3 border border-[#E0E4DA] rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all"
+              class="w-full h-10 px-3 border border-[#E0E4DA] rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all font-medium"
             />
           </div>
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="block text-xs font-semibold text-[#40493D] mb-1"
+              <label class="block text-xs font-semibold text-[#40493D] mb-1" data-i18n="state"
                 >State</label
               >
               <input
                 type="text"
                 id="demandEditState"
                 required
-                class="w-full h-10 px-3 border border-[#E0E4DA] rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all"
+                class="w-full h-10 px-3 border border-[#E0E4DA] rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all font-medium"
               />
             </div>
             <div>
-              <label class="block text-xs font-semibold text-[#40493D] mb-1"
+              <label class="block text-xs font-semibold text-[#40493D] mb-1" data-i18n="district"
                 >District / City</label
               >
               <input
                 type="text"
                 id="demandEditDistrict"
                 required
-                class="w-full h-10 px-3 border border-[#E0E4DA] rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all"
+                class="w-full h-10 px-3 border border-[#E0E4DA] rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all font-medium"
               />
             </div>
           </div>
@@ -380,7 +405,7 @@
               type="date"
               id="demandEditRequiredBy"
               required
-              class="w-full h-10 px-3 border border-[#E0E4DA] rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all"
+              class="w-full h-10 px-3 border border-[#E0E4DA] rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all font-medium"
             />
           </div>
           <div class="flex justify-end gap-2 pt-3">
@@ -388,12 +413,14 @@
               type="button"
               onclick="closeDemandEditModal()"
               class="px-4 py-2 text-sm bg-gray-100 rounded-xl font-medium hover:bg-gray-200 transition-colors"
+              data-i18n="cancel"
             >
               Cancel
             </button>
             <button
               type="submit"
               class="btn-warm px-4 py-2 text-sm text-white rounded-xl font-medium"
+              data-i18n="saveChanges"
             >
               Save Changes
             </button>

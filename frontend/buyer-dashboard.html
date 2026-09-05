@@ -59,7 +59,7 @@
     <aside
       class="hidden lg:flex flex-col w-64 bg-white/90 backdrop-blur-xl border-r border-[#CDBDB4]/50 min-h-screen p-5 fixed left-0 top-0 bottom-0 z-40 animate-slide-in-right"
     >
-      <a href="./index.html" class="brand mb-8 px-2 flex items-center gap-3">
+      <a href="./index.html" class="brand mb-6 px-2 flex items-center gap-3">
         <img
           src="./assets/images/krishisetu_logo.png"
           alt="KrishiSetu Logo"
@@ -68,36 +68,44 @@
         <span class="brand-name brand-name-warm text-xl font-bold bg-gradient-to-r from-[#75584D] to-[#9b7b6c] bg-clip-text text-transparent">KrishiSetu</span>
       </a>
 
+      <!-- LANGUAGE SWITCHER IN SIDEBAR -->
+      <div class="mb-4 px-2">
+        <div class="lang-switcher warm w-full justify-between">
+          <button type="button" class="lang-btn active flex-1 justify-center" data-lang="en">EN</button>
+          <button type="button" class="lang-btn flex-1 justify-center" data-lang="hi">हिन्दी</button>
+        </div>
+      </div>
+
       <nav class="flex flex-col gap-2 flex-1">
         <a
           href="./buyer-dashboard.html"
           class="nav-link active flex items-center gap-3 px-4 py-3 rounded-xl bg-[#75584D] text-white font-medium shadow-sm"
         >
-          <span class="text-lg">📊</span> Dashboard
+          <span class="text-lg">📊</span> <span data-i18n="dashboard">Dashboard</span>
         </a>
         <a
           href="./browse-produce.html"
           class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] hover:bg-[#F4ECE8] font-medium"
         >
-          <span class="text-lg">🔎</span> Browse Produce
+          <span class="text-lg">🔎</span> <span data-i18n="browseProduce">Browse Produce</span>
         </a>
         <a
           href="./buyer-offers.html"
           class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] hover:bg-[#F4ECE8] font-medium"
         >
-          <span class="text-lg">📝</span> Sent Offers
+          <span class="text-lg">📝</span> <span data-i18n="sentOffers">Sent Offers</span>
         </a>
         <a
           href="./buyer-orders.html"
           class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] hover:bg-[#F4ECE8] font-medium"
         >
-          <span class="text-lg">🚚</span> My Orders
+          <span class="text-lg">🚚</span> <span data-i18n="myOrders">My Orders</span>
         </a>
         <a
           href="./buyer-demands.html"
           class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] hover:bg-[#F4ECE8] font-medium"
         >
-          <span class="text-lg">📋</span> Demand
+          <span class="text-lg">📋</span> <span data-i18n="buyerDemands">Demand</span>
         </a>
       </nav>
 
@@ -113,12 +121,13 @@
           </div>
           <div>
             <p class="text-sm font-semibold text-[#181D17]" id="sidebarUserName">Buyer</p>
-            <p class="text-xs text-[#40493D]" id="sidebarUserRole">Buyer Account</p>
+            <p class="text-xs text-[#40493D]" id="sidebarUserRole" data-i18n="buyerAccount">Buyer Account</p>
           </div>
         </div>
         <a
           href="./login.html"
           class="sidebar-logout text-xs text-red-600 font-medium hover:underline"
+          data-i18n="logout"
           >Logout</a
         >
       </div>
@@ -127,23 +136,29 @@
     <!-- ================= MAIN CONTENT AREA ================= -->
     <div class="flex-1 lg:ml-64 pb-20 lg:pb-8">
       <header
-        class="bg-white/90 backdrop-blur-xl border-b border-[#CDBDB4]/50 sticky top-0 z-30 px-4 md:px-8 py-5 flex items-center justify-between"
+        class="bg-white/90 backdrop-blur-xl border-b border-[#CDBDB4]/50 sticky top-0 z-30 px-4 md:px-8 py-5 flex items-center justify-between gap-4"
       >
         <div>
-          <h1 class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#75584D] to-[#9b7b6c] bg-clip-text text-transparent">
+          <h1 class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#75584D] to-[#9b7b6c] bg-clip-text text-transparent" data-i18n="dashboard">
             Buyer Dashboard
           </h1>
-          <p class="text-sm text-[#40493D] mt-1">
+          <p class="text-sm text-[#40493D] mt-1" data-i18n="welcomeBuyer">
             Discover fresh crops directly from farmers 🌾
           </p>
         </div>
 
-        <a
-          href="./browse-produce.html"
-          class="btn-warm text-white font-medium px-5 py-3 rounded-xl shadow-lg hover:shadow-xl flex items-center gap-2 text-sm animate-fade-in-up delay-2"
-        >
-          <span>🔍</span> Browse Produce
-        </a>
+        <div class="flex items-center gap-3">
+          <div class="lang-switcher warm lg:hidden">
+            <button type="button" class="lang-btn active" data-lang="en">EN</button>
+            <button type="button" class="lang-btn" data-lang="hi">हि</button>
+          </div>
+          <a
+            href="./browse-produce.html"
+            class="btn-warm text-white font-medium px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl shadow-lg hover:shadow-xl flex items-center gap-2 text-sm animate-fade-in-up delay-2"
+          >
+            <span>🔍</span> <span data-i18n="browseProduce">Browse Produce</span>
+          </a>
+        </div>
       </header>
 
       <main class="max-w-7xl mx-auto px-4 md:px-8 py-6 space-y-8">
@@ -153,7 +168,7 @@
             class="glass-card stat-card p-6 rounded-2xl shadow-sm flex items-center justify-between animate-fade-in-up delay-1"
           >
             <div>
-              <p class="text-sm text-[#40493D] font-medium">Pending Offers</p>
+              <p class="text-sm text-[#40493D] font-medium" data-i18n="pendingOffers">Pending Offers</p>
               <h3 class="text-3xl font-bold text-[#75584D] mt-1" id="statPendingOffers">0</h3>
             </div>
             <div
@@ -167,7 +182,7 @@
             class="glass-card stat-card p-6 rounded-2xl shadow-sm flex items-center justify-between animate-fade-in-up delay-2"
           >
             <div>
-              <p class="text-sm text-[#40493D] font-medium">Accepted Deals</p>
+              <p class="text-sm text-[#40493D] font-medium" data-i18n="acceptedDeals">Accepted Deals</p>
               <h3 class="text-3xl font-bold text-[#0D631B] mt-1" id="statAcceptedDeals">0</h3>
             </div>
             <div
@@ -181,7 +196,7 @@
             class="glass-card stat-card p-6 rounded-2xl shadow-sm flex items-center justify-between animate-fade-in-up delay-3"
           >
             <div>
-              <p class="text-sm text-[#40493D] font-medium">
+              <p class="text-sm text-[#40493D] font-medium" data-i18n="activeDeliveries">
                 Active Deliveries
               </p>
               <h3 class="text-3xl font-bold text-[#181D17] mt-1" id="statDeliveries">0</h3>

@@ -29,23 +29,29 @@
 
         <!-- DESKTOP NAVIGATION -->
         <div class="hidden lg:flex items-center gap-5 xl:gap-6">
-          <a href="./index.html" class="nav-link is-active">Home</a>
-          <a href="#how-it-works" class="nav-link">How It Works</a>
-          <a href="#farmers" class="nav-link">For Farmers</a>
-          <a href="#buyers" class="nav-link">For Buyers</a>
-          <a href="#market-prices" class="nav-link">Market Prices</a>
+          <a href="./index.html" class="nav-link is-active" data-i18n="home">Home</a>
+          <a href="#how-it-works" class="nav-link" data-i18n="howItWorks">How It Works</a>
+          <a href="#farmers" class="nav-link" data-i18n="forFarmers">For Farmers</a>
+          <a href="#buyers" class="nav-link" data-i18n="forBuyers">For Buyers</a>
+          <a href="#reported-prices" class="nav-link" data-i18n="marketPrices">Market Prices</a>
         </div>
 
-        <!-- ACTION BUTTONS -->
-        <div class="flex items-center gap-1 sm:gap-2 shrink-0">
+        <!-- ACTION BUTTONS & LANGUAGE SWITCHER -->
+        <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+          <div class="lang-switcher">
+            <button type="button" class="lang-btn active" data-lang="en">EN</button>
+            <button type="button" class="lang-btn" data-lang="hi">हिन्दी</button>
+          </div>
           <a
             href="./login.html"
             class="action-link text-[#0D631B] font-medium px-3 sm:px-4 py-2 rounded-md"
+            data-i18n="login"
             >Login</a
           >
           <a
             href="./register.html"
             class="action-button bg-[#0D631B] text-white font-semibold px-4 sm:px-5 py-2.5 rounded-md shadow-sm"
+            data-i18n="register"
             >Register</a
           >
         </div>
@@ -72,7 +78,7 @@
           <span class="text-xl">🌾</span>
           <div>
             <div class="font-bold text-[#1E1E1E] leading-tight">2,400+</div>
-            <div class="text-sm text-[#40493D]">Active Listings</div>
+            <div class="text-sm text-[#40493D]" data-i18n="activeListings">Active Listings</div>
           </div>
         </div>
         <div class="hero-chip chip2">
@@ -81,24 +87,26 @@
             <div class="font-bold text-[#1E1E1E] leading-tight">
               Wheat ₹2,350/q
             </div>
-            <div class="text-sm text-[#40493D]">Latest Reported Mandi Price</div>
+            <div class="text-sm text-[#40493D]" data-i18n="latestMandiPrice">Latest Reported Mandi Price</div>
           </div>
         </div>
 
         <div
           class="relative z-10 max-w-4xl mx-auto px-4 md:px-8 text-center flex flex-col items-center gap-6 md:gap-7 py-12"
         >
-          <span class="empower-badge"
+          <span class="empower-badge" data-i18n="taglineFull"
             >🌾 Trusted by Farmers & Buyers across India</span
           >
           <h1
             class="gradient-heading text-4xl md:text-[44px] leading-tight font-bold tracking-tight"
+            data-i18n="heroTitle"
           >
             Connect Your Produce <br class="hidden sm:block" />
             With The Right Buyer.
           </h1>
           <p
             class="max-w-2xl text-base md:text-lg leading-relaxed text-[#40493D]"
+            data-i18n="heroDesc"
           >
             KrishiSetu helps farmers discover buyers, manage offers and
             understand agricultural market prices — all in one simple platform.
@@ -107,12 +115,14 @@
             <a
               href="./login.html?role=farmer"
               class="cta-button farmer-cta bg-gradient-to-r from-[#0D631B] to-[#2E9E4F] text-white font-semibold px-8 py-4 rounded-xl w-full sm:w-48 text-center shadow-lg"
+              data-i18n="imFarmer"
             >
               🌾 I'm a Farmer!
             </a>
             <a
               href="./login.html?role=buyer"
               class="cta-button buyer-cta bg-gradient-to-r from-[#75584D] to-[#9b7b6c] text-white font-semibold px-8 py-4 rounded-xl w-full sm:w-48 text-center shadow-lg"
+              data-i18n="imBuyer"
             >
               🛒 I'm a Buyer!
             </a>
@@ -125,19 +135,19 @@
         <div class="max-w-7xl mx-auto hero-stats hero-stats-grid">
           <div class="text-center">
             <div class="hero-stat-value">12K+</div>
-            <div class="hero-stat-label">Registered Farmers</div>
+            <div class="hero-stat-label" data-i18n="registeredFarmers">Registered Farmers</div>
           </div>
           <div class="text-center">
             <div class="hero-stat-value">5.2K+</div>
-            <div class="hero-stat-label">Verified Buyers</div>
+            <div class="hero-stat-label" data-i18n="verifiedBuyers">Verified Buyers</div>
           </div>
           <div class="text-center">
             <div class="hero-stat-value">50+</div>
-            <div class="hero-stat-label">Commodities Tracked</div>
+            <div class="hero-stat-label" data-i18n="commoditiesTracked">Commodities Tracked</div>
           </div>
           <div class="text-center">
             <div class="hero-stat-value gradient-heading">₹38 Cr</div>
-            <div class="hero-stat-label font-semibold">Transactions Done</div>
+            <div class="hero-stat-label font-semibold" data-i18n="transactionsDone">Transactions Done</div>
           </div>
         </div>
       </section>
