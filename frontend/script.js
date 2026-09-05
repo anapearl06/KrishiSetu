@@ -248,6 +248,7 @@ const KRISHI_I18N = {
     featuredFreshProduce: "Featured Fresh Produce",
     recentlyListed: "Recently listed by verified local farmers",
     browse: "Browse",
+    freshFarmHarvest: "Fresh farm harvest",
   },
   
   hi: {
@@ -486,6 +487,7 @@ const KRISHI_I18N = {
     featuredFreshProduce: "विशेष ताज़ा फसलें",
     recentlyListed: "हाल ही में सत्यापित स्थानीय किसानों द्वारा सूचीबद्ध",
     browse: "खोजें",
+    freshFarmHarvest: "ताज़ी फसल की उपज",
   }
 };
 
@@ -626,6 +628,12 @@ function setLanguage(lang) {
   if (document.getElementById("marketplaceCatPills")) {
     setupMarketplaceCategoryPills();
     filterAndRenderMarketCatalog();
+  }
+  if (document.getElementById("produceGrid")) {
+    renderMyProduce();
+  }
+  if (document.getElementById("demandsGrid")) {
+    renderMyDemands();
   }
   if (document.getElementById("cropQuickChipsContainer")) {
     renderCropQuickPicker();
@@ -1539,7 +1547,7 @@ function filterAndRenderMarketCatalog() {
           <span class="text-xs text-[#40493D]">${item.district || ""}${item.state ? ", " + item.state : ""}</span>
         </div>
         <h3 class="text-lg font-bold text-[#181D17]">${item.crop}</h3>
-        <p class="text-xs text-[#40493D] mt-1 line-clamp-2">${item.description || "Fresh farm harvest"}</p>
+        <p class="text-xs text-[#40493D] mt-1 line-clamp-2">${item.description || t("freshFarmHarvest", "Fresh farm harvest")}</p>
         <div class="mt-4 pt-4 border-t border-[#F1F5EB] flex items-end justify-between">
           <p class="text-xs text-[#40493D]">${t("quantity")}: <strong class="text-[#181D17]">${item.quantity} ${item.unit}</strong></p>
           <p class="text-lg font-bold gradient-text-warm">₹${Number(item.price).toLocaleString("en-IN")}/<span class="text-xs">${item.unit}</span></p>
