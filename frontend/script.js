@@ -640,6 +640,41 @@ const POPULAR_CROPS = [
   { id: "banana", nameEn: "Banana", nameHi: "केला", icon: "🍌", unit: "quintal", avgPrice: 2800, minPrice: 2500, maxPrice: 3200, category: "fruits" },
   { id: "mango", nameEn: "Mango", nameHi: "आम", icon: "🥭", unit: "quintal", avgPrice: 3500, minPrice: 2800, maxPrice: 4200, category: "fruits" },
   { id: "lentils", nameEn: "Dal", nameHi: "दाल", icon: "🫘", unit: "quintal", avgPrice: 6400, minPrice: 5800, maxPrice: 7000, category: "pulses" },
+  // Extended Hindi crop dictionary (proper names, not transliteration)
+  { id: "carrot", nameEn: "Carrot", nameHi: "गाजर", icon: "🥕", unit: "quintal", avgPrice: 1500, minPrice: 1200, maxPrice: 1900, category: "vegetables" },
+  { id: "radish", nameEn: "Radish", nameHi: "मूली", icon: "🌰", unit: "quintal", avgPrice: 1100, minPrice: 900, maxPrice: 1400, category: "vegetables" },
+  { id: "turnip", nameEn: "Turnip", nameHi: "शलजम", icon: "🥔", unit: "quintal", avgPrice: 1200, minPrice: 900, maxPrice: 1500, category: "vegetables" },
+  { id: "spinach", nameEn: "Spinach", nameHi: "पालक", icon: "🥬", unit: "quintal", avgPrice: 1400, minPrice: 1100, maxPrice: 1800, category: "vegetables" },
+  { id: "cucumber", nameEn: "Cucumber", nameHi: "खीरा", icon: "🥒", unit: "quintal", avgPrice: 1300, minPrice: 1000, maxPrice: 1700, category: "vegetables" },
+  { id: "brinjal", nameEn: "Brinjal", nameHi: "बैंगन", icon: "🍆", unit: "quintal", avgPrice: 1600, minPrice: 1300, maxPrice: 2000, category: "vegetables" },
+  { id: "bottle_gourd", nameEn: "Bottle Gourd", nameHi: "लौकी", icon: "🥒", unit: "quintal", avgPrice: 1200, minPrice: 900, maxPrice: 1500, category: "vegetables" },
+  { id: "bitter_gourd", nameEn: "Bitter Gourd", nameHi: "करेला", icon: "🥒", unit: "quintal", avgPrice: 1700, minPrice: 1400, maxPrice: 2100, category: "vegetables" },
+  { id: "chilli", nameEn: "Green Chilli", nameHi: "हरी मिर्च", icon: "🌶️", unit: "quintal", avgPrice: 2400, minPrice: 1900, maxPrice: 2900, category: "vegetables" },
+  { id: "capsicum", nameEn: "Capsicum", nameHi: "शिमला मिर्च", icon: "🫑", unit: "quintal", avgPrice: 2200, minPrice: 1800, maxPrice: 2700, category: "vegetables" },
+  { id: "peas", nameEn: "Peas", nameHi: "मटर", icon: "🫛", unit: "quintal", avgPrice: 2600, minPrice: 2100, maxPrice: 3200, category: "vegetables" },
+  { id: "beans", nameEn: "Beans", nameHi: "फलियाँ", icon: "🫘", unit: "quintal", avgPrice: 2100, minPrice: 1700, maxPrice: 2600, category: "vegetables" },
+  { id: "garlic", nameEn: "Garlic", nameHi: "लहसुन", icon: "🧄", unit: "quintal", avgPrice: 8500, minPrice: 7000, maxPrice: 10000, category: "vegetables" },
+  { id: "ginger", nameEn: "Ginger", nameHi: "अदरक", icon: "🫚", unit: "quintal", avgPrice: 7200, minPrice: 6000, maxPrice: 8800, category: "vegetables" },
+  { id: "turmeric", nameEn: "Turmeric", nameHi: "हल्दी", icon: "🟡", unit: "quintal", avgPrice: 9800, minPrice: 8200, maxPrice: 12000, category: "pulses" },
+  { id: "bajra", nameEn: "Bajra", nameHi: "बाजरा", icon: "🌾", unit: "quintal", avgPrice: 2150, minPrice: 1950, maxPrice: 2350, category: "grains" },
+  { id: "barley", nameEn: "Barley", nameHi: "जौ", icon: "🌾", unit: "quintal", avgPrice: 1800, minPrice: 1600, maxPrice: 2100, category: "grains" },
+  { id: "jowar", nameEn: "Jowar", nameHi: "ज्वार", icon: "🌾", unit: "quintal", avgPrice: 2400, minPrice: 2100, maxPrice: 2700, category: "grains" },
+  { id: "soybean", nameEn: "Soybean", nameHi: "सोयाबीन", icon: "🫘", unit: "quintal", avgPrice: 4800, minPrice: 4300, maxPrice: 5300, category: "pulses" },
+  { id: "gram", nameEn: "Gram", nameHi: "चना", icon: "🫘", unit: "quintal", avgPrice: 5300, minPrice: 4800, maxPrice: 5800, category: "pulses" },
+  { id: "moong", nameEn: "Moong", nameHi: "मूंग", icon: "🫘", unit: "quintal", avgPrice: 6600, minPrice: 6000, maxPrice: 7200, category: "pulses" },
+  { id: "urad", nameEn: "Urad", nameHi: "उड़द", icon: "🫘", unit: "quintal", avgPrice: 6800, minPrice: 6200, maxPrice: 7400, category: "pulses" },
+  { id: "rajma", nameEn: "Rajma", nameHi: "राजमा", icon: "🫘", unit: "quintal", avgPrice: 6900, minPrice: 6300, maxPrice: 7500, category: "pulses" },
+  { id: "coriander", nameEn: "Coriander", nameHi: "धनिया", icon: "🌿", unit: "quintal", avgPrice: 2600, minPrice: 2100, maxPrice: 3200, category: "vegetables" },
+  { id: "apple", nameEn: "Apple", nameHi: "सेब", icon: "🍎", unit: "quintal", avgPrice: 5200, minPrice: 4200, maxPrice: 6500, category: "fruits" },
+  { id: "orange", nameEn: "Orange", nameHi: "संतरा", icon: "🍊", unit: "quintal", avgPrice: 3800, minPrice: 3100, maxPrice: 4600, category: "fruits" },
+  { id: "grapes", nameEn: "Grapes", nameHi: "अंगूर", icon: "🍇", unit: "quintal", avgPrice: 4600, minPrice: 3800, maxPrice: 5600, category: "fruits" },
+  { id: "papaya", nameEn: "Papaya", nameHi: "पपीता", icon: "🍈", unit: "quintal", avgPrice: 2400, minPrice: 1900, maxPrice: 3000, category: "fruits" },
+  { id: "guava", nameEn: "Guava", nameHi: "अमरूद", icon: "🍈", unit: "quintal", avgPrice: 2800, minPrice: 2200, maxPrice: 3400, category: "fruits" },
+  { id: "pomegranate", nameEn: "Pomegranate", nameHi: "अनार", icon: "🍎", unit: "quintal", avgPrice: 7200, minPrice: 5800, maxPrice: 8800, category: "fruits" },
+  { id: "watermelon", nameEn: "Watermelon", nameHi: "तरबूज", icon: "🍉", unit: "quintal", avgPrice: 1400, minPrice: 1000, maxPrice: 1800, category: "fruits" },
+  { id: "coconut", nameEn: "Coconut", nameHi: "नारियल", icon: "🥥", unit: "quintal", avgPrice: 4500, minPrice: 3800, maxPrice: 5400, category: "cash" },
+  { id: "jaggery", nameEn: "Jaggery", nameHi: "गुड़", icon: "🍯", unit: "quintal", avgPrice: 5600, minPrice: 4800, maxPrice: 6400, category: "cash" },
+  { id: "tobacco", nameEn: "Tobacco", nameHi: "तंबाकू", icon: "🍂", unit: "quintal", avgPrice: 8800, minPrice: 7500, maxPrice: 10000, category: "cash" },
 ];
 
 function getCropCategory(cropName) {
@@ -660,24 +695,25 @@ function getTranslatedCropName(cropName) {
   if (!name) return cropName;
 
   const ALIASES = {
-    cauliflour: "Cauliflower",
-    cauliflowers: "Cauliflower",
-    tomatos: "Tomato",
-    tomatoes: "Tomato",
-    dal: "Dal",
-    dals: "Dal",
-    paddy: "Rice / Paddy",
-    rice: "Rice / Paddy",
-    wheat: "Wheat",
+    cauliflour: "cauliflower",
+    cauliflowers: "cauliflower",
+    tomatos: "tomato",
+    tomatoes: "tomato",
+    dal: "dal",
+    dals: "dal",
+    paddy: "rice / paddy",
+    rice: "rice / paddy",
+    wheat: "wheat",
+    rajma: "rajma",
   };
 
   const lookup = ALIASES[name] || name;
 
   const crop = POPULAR_CROPS.find(c => {
-    const e = c.nameEn.toLowerCase();
+    const e = c.nameEn.toLowerCase().trim();
     if (e === lookup) return true;
     const parts = e.split("/").map(x => x.trim());
-    if (parts.some(p => p === lookup)) return true;
+    if (parts.includes(lookup)) return true;
     if (parts.some(p => p.includes(lookup) && lookup.length >= 4)) return true;
     if (parts.some(p => lookup.includes(p) && lookup.length >= 4)) return true;
     return false;
@@ -859,6 +895,95 @@ function getTranslatedUnit(unit) {
   if (getCurrentLanguage() !== "hi") return unit;
   const translated = enToDevanagari(unit);
   return translated || unit;
+}
+
+// ============================================================
+// INDIAN LOCATION → HINDI (state + common district names)
+// ============================================================
+const INDIAN_STATES_HI = {
+  "andhra pradesh": "आंध्र प्रदेश",
+  "arunachal pradesh": "अरुणाचल प्रदेश",
+  assam: "असम",
+  bihar: "बिहार",
+  chhattisgarh: "छत्तीसगढ़",
+  goa: "गोवा",
+  gujarat: "गुजरात",
+  haryana: "हरियाणा",
+  "himachal pradesh": "हिमाचल प्रदेश",
+  "jammu and kashmir": "जम्मू और कश्मीर",
+  "jammu & kashmir": "जम्मू और कश्मीर",
+  jharkhand: "झारखंड",
+  karnataka: "कर्नाटक",
+  kerala: "केरल",
+  "madhya pradesh": "मध्य प्रदेश",
+  maharashtra: "महाराष्ट्र",
+  manipur: "मणिपुर",
+  meghalaya: "मेघालय",
+  mizoram: "मिजोरम",
+  nagaland: "नागालैंड",
+  odisha: "ओडिशा",
+  orissa: "ओडिशा",
+  punjab: "पंजाब",
+  rajasthan: "राजस्थान",
+  sikkim: "सिक्किम",
+  "tamil nadu": "तमिलनाडु",
+  telangana: "तेलंगाना",
+  "uttar pradesh": "उत्तर प्रदेश",
+  "uttarakhand": "उत्तराखंड",
+  "west bengal": "पश्चिम बंगाल",
+  "delhi": "दिल्ली",
+  "andaman & nicobar islands": "अंडमान और निकोबार द्वीपसमूह",
+  "chandigarh": "चंडीगढ़",
+  "pondicherry": "पुडुचेरी",
+  "puducherry": "पुडुचेरी",
+};
+
+const INDIAN_CITIES_HI = {
+  ghaziabad: "गाजियाबाद",
+  lucknow: "लखनऊ",
+  agra: "आगरा",
+  ranchi: "रांची",
+  delhi: "दिल्ली",
+  "new delhi": "नई दिल्ली",
+  kanpur: "कानपुर",
+  varanasi: "वाराणसी",
+  prayagraj: "प्रयागराज",
+  allahabad: "प्रयागराज",
+  mumbai: "मुंबई",
+  kolkata: "कोलकाता",
+  chennai: "चेन्नई",
+  patna: "पटना",
+  jaipur: "जयपुर",
+  pune: "पुणे",
+  hyderabad: "हैदराबाद",
+  indore: "इंदौर",
+  bhopal: "भोपाल",
+  meerut: "मेरठ",
+  noida: "नोएडा",
+  gurgaon: "गुड़गांव",
+  gurugram: "गुड़गांव",
+  lalitpur: "ललितपुर",
+  "jhansi": "झांसी",
+};
+
+function getTranslatedState(state) {
+  if (!state) return "";
+  if (getCurrentLanguage() !== "hi") return state;
+  const key = state.toLowerCase().trim();
+  return INDIAN_STATES_HI[key] || enToDevanagari(state);
+}
+
+function getTranslatedDistrict(district) {
+  if (!district) return "";
+  if (getCurrentLanguage() !== "hi") return district;
+  const key = district.toLowerCase().trim();
+  return INDIAN_CITIES_HI[key] || enToDevanagari(district);
+}
+
+function getTranslatedLocation(district, state) {
+  const d = getTranslatedDistrict(district);
+  const s = getTranslatedState(state);
+  return [d, s].filter(Boolean).join(", ");
 }
 
 function getCropCategory(cropName) {
@@ -1730,7 +1855,7 @@ async function renderMyProduce() {
                   ? "pending"
                   : "delivered"
             }">${item.status || "ACTIVE"}</span>
-            <span class="text-xs text-[#40493D]">📍 ${item.district || ""}, ${item.state || ""}</span>
+            <span class="text-xs text-[#40493D]">📍 ${getTranslatedLocation(item.district, item.state)}</span>
           </div>
           <h3 class="text-lg font-bold text-[#181D17]">${getTranslatedCropName(item.crop)}</h3>
           <p class="text-xs text-[#40493D] mt-1">${item.description || t("noDescription", "No description provided")}</p>
@@ -1906,7 +2031,7 @@ function filterAndRenderMarketCatalog() {
       <div>
         <div class="flex justify-between items-start mb-2">
           <span class="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-green-100 text-[#0D631B] flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[#0D631B]"></span>${t("verifiedUser")}</span>
-          <span class="text-xs text-[#40493D]">${item.district || ""}${item.state ? ", " + item.state : ""}</span>
+          <span class="text-xs text-[#40493D]">${getTranslatedLocation(item.district, item.state)}</span>
         </div>
         <h3 class="text-lg font-bold text-[#181D17]">${getTranslatedCropName(item.crop)}</h3>
         <p class="text-xs text-[#40493D] mt-1 line-clamp-2">${item.description || t("freshFarmHarvest", "Fresh farm harvest")}</p>
@@ -1915,7 +2040,7 @@ function filterAndRenderMarketCatalog() {
           <p class="text-lg font-bold gradient-text-warm">₹${Number(item.price).toLocaleString("en-IN")}/<span class="text-xs">${getTranslatedUnit(item.unit)}</span></p>
         </div>
       </div>
-      <button onclick="showListingDetails(${item.id}, '${getTranslatedCropName(item.crop)}', '${item.quantity} ${getTranslatedUnit(item.unit)}', '₹${item.price} / ${getTranslatedUnit(item.unit)}', '${item.district || ""}, ${item.state || ""}')" class="btn-warm w-full mt-4 py-2.5 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5">
+      <button onclick="showListingDetails(${item.id}, '${getTranslatedCropName(item.crop)}', '${item.quantity} ${getTranslatedUnit(item.unit)}', '₹${item.price} / ${getTranslatedUnit(item.unit)}', '${getTranslatedLocation(item.district, item.state)}')" class="btn-warm w-full mt-4 py-2.5 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5">
         <span>👀</span> ${t("viewDetails")}
       </button>
     </div>
@@ -2201,7 +2326,7 @@ async function renderMyDemands() {
         <div class="glass-card rounded-2xl border border-[#E0E4DA]/60 p-5 shadow-sm hover:-translate-y-1 ksetu-fade-up" style="animation-delay:${idx * 60}ms">
           <div class="flex justify-between items-start mb-2">
             <span class="status-badge pending">${item.status || "OPEN"}</span>
-            <span class="text-xs text-[#40493D]">📍 ${item.district || ""}, ${item.state || ""}</span>
+            <span class="text-xs text-[#40493D]">📍 ${getTranslatedLocation(item.district, item.state)}</span>
           </div>
           <h3 class="text-lg font-bold text-[#181D17]">${getTranslatedCropName(item.crop_name)}</h3>
           <p class="text-xs text-[#40493D] mt-1">${t("requirementBy")} ${item.required_by ? String(item.required_by).slice(0, 10) : t("asap")}</p>
@@ -2346,7 +2471,7 @@ function matchScoreColor(pct) {
 function matchCardHtml(match, detail, mode) {
   const pct = Math.round(match.score);
   const loc = detail
-    ? `${detail.district || ""}${detail.state ? ", " + detail.state : ""}`
+    ? getTranslatedLocation(detail.district, detail.state)
     : "";
   const title =
     mode === "farmer"
@@ -3260,7 +3385,7 @@ async function loadBuyerDashboard() {
             <div>
               <span class="inline-block px-2 py-0.5 text-xs font-semibold rounded bg-green-100 text-[#0D631B] mb-2">${t("verifiedFarmer", "Verified Farmer")}</span>
               <h4 class="font-bold text-[#181D17] text-base">${getTranslatedCropName(item.crop) || t("freshCrop", "Fresh Crop")}</h4>
-              <p class="text-xs text-[#40493D] mb-3">${item.district || ""}${item.state ? ", " + item.state : ""}</p>
+              <p class="text-xs text-[#40493D] mb-3">${getTranslatedLocation(item.district, item.state)}</p>
               <div class="space-y-1 text-sm">
                 <p class="text-[#40493D]">${t("qty", "Qty")}: <strong class="text-[#181D17]">${item.quantity} ${getTranslatedUnit(item.unit)}</strong></p>
                 <p class="text-[#75584D] font-bold text-base">₹${item.price} / ${getTranslatedUnit(item.unit)}</p>
