@@ -44,10 +44,10 @@ func (r *postgresRepository) FindAll(crop, state, status string, limit int) ([]C
 	query := r.db.Model(&CropListing{})
 
 	if crop != "" {
-		query = query.Where("LOWER(crop_name) LIKE ?", "%"+crop+"%")
+		query = query.Where("LOWER(crop_name) LIKE LOWER(?)", "%"+crop+"%")
 	}
 	if state != "" {
-		query = query.Where("LOWER(state) LIKE ?", "%"+state+"%")
+		query = query.Where("LOWER(state) LIKE LOWER(?)", "%"+state+"%")
 	}
 	if status != "" {
 		query = query.Where("status = ?", status)
