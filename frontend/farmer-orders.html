@@ -14,11 +14,11 @@
     />
   </head>
   <body
-    class="bg-[#F4F8F0] text-[#181D17] font-['Inter'] min-h-screen flex flex-col lg:flex-row"
+    class="role-farmer bg-[#F4F8F0] text-[#181D17] font-['Inter'] min-h-screen flex flex-col lg:flex-row"
   >
     <!-- DESKTOP SIDEBAR -->
     <aside
-      class="hidden lg:flex flex-col w-64 sidebar-glass border-r border-[#CDBDB4]/50 min-h-screen p-5 fixed left-0 top-0 bottom-0 z-40 ksetu-slide-in"
+      class="hidden lg:flex flex-col w-64 app-sidebar min-h-screen p-5 fixed left-0 top-0 bottom-0 z-40 ksetu-slide-in"
     >
       <a href="./index.html" class="brand flex items-center gap-3 mb-8 px-2">
         <img
@@ -39,25 +39,25 @@
       <nav class="flex flex-col gap-2 flex-1">
         <a
           href="./farmer-dashboard.html"
-          class="nav-item-warm flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] font-medium"
+          class="sidebar-nav"
         >
           <span class="text-lg">📊</span> <span data-i18n="dashboard">Dashboard</span>
         </a>
         <a
           href="./my-listings.html"
-          class="nav-item-warm flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] font-medium"
+          class="sidebar-nav"
         >
           <span class="text-lg">🌾</span> <span data-i18n="myProduce">My Produce</span>
         </a>
         <a
           href="./farmer-offers.html"
-          class="nav-item-warm flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] font-medium"
+          class="sidebar-nav"
         >
           <span class="text-lg">🤝</span> <span data-i18n="offersReceived">Received Offers</span>
         </a>
         <a
           href="./farmer-orders.html"
-          class="nav-item-warm active flex items-center gap-3 px-4 py-3 rounded-xl font-medium shadow-sm"
+          class="sidebar-nav active"
         >
           <span class="text-lg">📦</span> <span data-i18n="myOrders">My Orders</span>
         </a>

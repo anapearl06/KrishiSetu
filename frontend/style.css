@@ -908,19 +908,107 @@
   -webkit-backdrop-filter: blur(18px);
 }
 
-.nav-item-warm {
-  transition: all 0.2s ease;
+/* ============================================================
+   ROLE THEME VARIABLES (farmer green / buyer warm brown)
+   ============================================================ */
+
+.role-farmer {
+  --nav-border: rgba(205, 189, 180, 0.5);
+  --nav-hover: rgba(13, 99, 27, 0.09);
+  --nav-hover-text: #0d631b;
+  --nav-active-bg: linear-gradient(135deg, #0d631b, #2e7d32);
+  --nav-active-shadow: 0 6px 16px -6px rgba(13, 99, 27, 0.6);
 }
 
-.nav-item-warm:hover {
-  background: rgba(117, 88, 77, 0.08);
+.role-buyer {
+  --nav-border: rgba(205, 189, 180, 0.5);
+  --nav-hover: rgba(117, 88, 77, 0.1);
+  --nav-hover-text: #75584d;
+  --nav-active-bg: linear-gradient(135deg, #5f463c, #8c6a5b);
+  --nav-active-shadow: 0 6px 16px -6px rgba(117, 88, 77, 0.6);
+}
+
+/* ---- App sidebar container (shared across roles) ---- */
+
+.app-sidebar {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-right: 1px solid var(--nav-border, rgba(205, 189, 180, 0.5));
+}
+
+/* ---- Sidebar navigation links (single unified component) ---- */
+
+.sidebar-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  color: #40493d;
+  font-weight: 500;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.sidebar-nav:hover {
+  background: var(--nav-hover, rgba(13, 99, 27, 0.09));
+  color: var(--nav-hover-text, #0d631b);
   transform: translateX(2px);
 }
 
-.nav-item-warm.active {
-  background: linear-gradient(135deg, #75584d, #8c6a5b);
+.sidebar-nav.active {
+  background: var(--nav-active-bg, #0d631b);
   color: #ffffff;
-  box-shadow: 0 6px 16px -6px rgba(117, 88, 77, 0.55);
+  box-shadow: var(--nav-active-shadow, 0 6px 16px -6px rgba(13, 99, 27, 0.6));
+}
+
+.sidebar-nav.active:hover {
+  transform: translateX(0);
+}
+
+/* ---- Dashboard live-refresh indicator ---- */
+
+.live-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: #22c55e;
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5);
+}
+
+.live-dot-pulse {
+  animation: liveDotPulse 1.6s ease-out infinite;
+}
+
+@keyframes liveDotPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(34, 197, 94, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
+.dashboard-live-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 9999px;
+  background: #ffffff;
+  border: 1px solid var(--nav-border, rgba(205, 189, 180, 0.5));
+  color: #40493d;
+  font-size: 0.75rem;
+  font-weight: 500;
+  box-shadow: 0 2px 10px -4px rgba(0, 0, 0, 0.08);
+  white-space: nowrap;
 }
 
 .gradient-text-warm {

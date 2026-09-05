@@ -49,9 +49,6 @@
       }
       .gradient-border:hover::before { opacity: 1; }
       .stat-card:hover { transform: translateY(-4px); }
-      .nav-link { transition: all 0.2s ease; }
-      .nav-link:hover { background: rgba(13, 99, 27, 0.08); }
-      .nav-link.active { background: #0D631B; color: white; }
       .btn-primary {
         background: linear-gradient(135deg, #0D631B, #2E7D32);
         transition: all 0.2s ease;
@@ -76,11 +73,11 @@
     </style>
   </head>
   <body
-    class="bg-[#F4F8F0] text-[#181D17] font-['Inter'] min-h-screen flex flex-col lg:flex-row"
+    class="role-farmer bg-[#F4F8F0] text-[#181D17] font-['Inter'] min-h-screen flex flex-col lg:flex-row"
   >
     <!-- DESKTOP SIDEBAR -->
     <aside
-      class="hidden lg:flex flex-col w-64 bg-white/90 backdrop-blur-xl border-r border-[#E0E4DA]/60 min-h-screen p-5 fixed left-0 top-0 bottom-0 z-40 animate-slide-in-right"
+      class="hidden lg:flex flex-col w-64 app-sidebar min-h-screen p-5 fixed left-0 top-0 bottom-0 z-40 ksetu-slide-in"
     >
       <a href="./index.html" class="brand mb-6 px-2 flex items-center gap-3 animate-fade-in-up">
         <img
@@ -102,31 +99,31 @@
       <nav class="flex flex-col gap-2 flex-1">
         <a
           href="./farmer-dashboard.html"
-          class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] hover:bg-[#F1F5EB] font-medium animate-fade-in-up delay-1"
+          class="sidebar-nav animate-fade-in-up delay-1"
         >
           <span class="text-lg">📊</span> <span data-i18n="dashboard">Dashboard</span>
         </a>
         <a
           href="./my-listings.html"
-          class="nav-link active flex items-center gap-3 px-4 py-3 rounded-xl bg-[#0D631B] text-white font-medium shadow-sm animate-fade-in-up delay-2"
+          class="sidebar-nav active animate-fade-in-up delay-2"
         >
           <span class="text-lg">🌾</span> <span data-i18n="myProduce">My Produce</span>
         </a>
         <a
           href="./farmer-offers.html"
-          class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] hover:bg-[#F1F5EB] font-medium animate-fade-in-up delay-3"
+          class="sidebar-nav animate-fade-in-up delay-3"
         >
           <span class="text-lg">📥</span> <span data-i18n="offersReceived">Offers Received</span>
         </a>
         <a
           href="./farmer-orders.html"
-          class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] hover:bg-[#F1F5EB] font-medium animate-fade-in-up delay-4"
+          class="sidebar-nav animate-fade-in-up delay-4"
         >
           <span class="text-lg">📦</span> <span data-i18n="myOrders">My Orders</span>
         </a>
         <a
           href="./buyer-demands.html"
-          class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] hover:bg-[#F1F5EB] font-medium animate-fade-in-up delay-5"
+          class="sidebar-nav animate-fade-in-up delay-5"
         >
           <span class="text-lg">📋</span> <span data-i18n="buyerDemands">Buyer Demands</span>
         </a>

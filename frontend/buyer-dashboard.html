@@ -35,9 +35,6 @@
         -webkit-backdrop-filter: blur(20px);
         border: 1px solid rgba(205, 189, 180, 0.5);
       }
-      .nav-link { transition: all 0.2s ease; }
-      .nav-link:hover { background: rgba(117, 88, 77, 0.08); }
-      .nav-link.active { background: #75584D; color: white; }
       .stat-card { transition: all 0.3s ease; }
       .stat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(117, 88, 77, 0.12); }
       .stat-icon { transition: transform 0.3s ease; }
@@ -53,11 +50,11 @@
     </style>
   </head>
   <body
-    class="bg-[#F4F8F0] text-[#181D17] font-['Inter'] min-h-screen flex flex-col lg:flex-row"
+    class="role-buyer bg-[#F4F8F0] text-[#181D17] font-['Inter'] min-h-screen flex flex-col lg:flex-row"
   >
     <!-- ================= DESKTOP SIDEBAR ================= -->
     <aside
-      class="hidden lg:flex flex-col w-64 bg-white/90 backdrop-blur-xl border-r border-[#CDBDB4]/50 min-h-screen p-5 fixed left-0 top-0 bottom-0 z-40 animate-slide-in-right"
+      class="hidden lg:flex flex-col w-64 app-sidebar min-h-screen p-5 fixed left-0 top-0 bottom-0 z-40 ksetu-slide-in"
     >
       <a href="./index.html" class="brand mb-6 px-2 flex items-center gap-3">
         <img
@@ -79,31 +76,31 @@
       <nav class="flex flex-col gap-2 flex-1">
         <a
           href="./buyer-dashboard.html"
-          class="nav-link active flex items-center gap-3 px-4 py-3 rounded-xl bg-[#75584D] text-white font-medium shadow-sm"
+          class="sidebar-nav active"
         >
           <span class="text-lg">📊</span> <span data-i18n="dashboard">Dashboard</span>
         </a>
         <a
           href="./browse-produce.html"
-          class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] hover:bg-[#F4ECE8] font-medium"
+          class="sidebar-nav"
         >
           <span class="text-lg">🔎</span> <span data-i18n="browseProduce">Browse Produce</span>
         </a>
         <a
           href="./buyer-offers.html"
-          class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] hover:bg-[#F4ECE8] font-medium"
+          class="sidebar-nav"
         >
           <span class="text-lg">📝</span> <span data-i18n="sentOffers">Sent Offers</span>
         </a>
         <a
           href="./buyer-orders.html"
-          class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] hover:bg-[#F4ECE8] font-medium"
+          class="sidebar-nav"
         >
           <span class="text-lg">🚚</span> <span data-i18n="myOrders">My Orders</span>
         </a>
         <a
           href="./buyer-demands.html"
-          class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] hover:bg-[#F4ECE8] font-medium"
+          class="sidebar-nav"
         >
           <span class="text-lg">📋</span> <span data-i18n="buyerDemands">Demand</span>
         </a>
@@ -148,6 +145,10 @@
         </div>
 
         <div class="flex items-center gap-3">
+          <span class="dashboard-live-chip hidden sm:inline-flex">
+            <span id="liveDot" class="live-dot"></span>
+            <span id="dashboardFreshness">Updated —</span>
+          </span>
           <div class="lang-switcher warm lg:hidden">
             <button type="button" class="lang-btn active" data-lang="en">EN</button>
             <button type="button" class="lang-btn" data-lang="hi">हि</button>

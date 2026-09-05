@@ -54,9 +54,6 @@
       }
       .gradient-border:hover::before { opacity: 1; }
       .stat-card:hover { transform: translateY(-4px); }
-      .nav-link { transition: all 0.2s ease; }
-      .nav-link:hover { background: rgba(13, 99, 27, 0.08); }
-      .nav-link.active { background: #0D631B; color: white; }
       .btn-primary {
         background: linear-gradient(135deg, #0D631B, #2E7D32);
         transition: all 0.2s ease;
@@ -72,9 +69,9 @@
       }
     </style>
   </head>
-  <body class="bg-[#F4F8F0] text-[#181D17] font-['Inter'] min-h-screen flex flex-col lg:flex-row">
+  <body class="role-farmer bg-[#F4F8F0] text-[#181D17] font-['Inter'] min-h-screen flex flex-col lg:flex-row">
     <!-- ================= DESKTOP SIDEBAR ================= -->
-    <aside class="hidden lg:flex flex-col w-64 bg-white/90 backdrop-blur-xl border-r border-[#E0E4DA]/60 min-h-screen p-5 fixed left-0 top-0 bottom-0 z-40 animate-slide-in-right">
+    <aside class="hidden lg:flex flex-col w-64 app-sidebar min-h-screen p-5 fixed left-0 top-0 bottom-0 z-40 ksetu-slide-in">
       <!-- LOGO -->
       <a href="./index.html" class="brand mb-8 px-2 flex items-center gap-3 animate-fade-in-up">
         <img src="./assets/images/krishisetu_logo.png" alt="KrishiSetu Logo" class="brand-logo w-10 h-10" />
@@ -91,19 +88,19 @@
 
       <!-- NAVIGATION LINKS -->
       <nav class="flex flex-col gap-2 flex-1">
-        <a href="./farmer-dashboard.html" class="nav-link active flex items-center gap-3 px-4 py-3 rounded-xl font-medium shadow-sm animate-fade-in-up delay-1">
+        <a href="./farmer-dashboard.html" class="sidebar-nav active animate-fade-in-up delay-1">
           <span class="text-lg">📊</span> <span data-i18n="dashboard">Dashboard</span>
         </a>
-        <a href="./my-listings.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] font-medium animate-fade-in-up delay-2">
+        <a href="./my-listings.html" class="sidebar-nav animate-fade-in-up delay-2">
           <span class="text-lg">🌾</span> <span data-i18n="myProduce">My Produce</span>
         </a>
-        <a href="./farmer-offers.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] font-medium animate-fade-in-up delay-3">
+        <a href="./farmer-offers.html" class="sidebar-nav animate-fade-in-up delay-3">
           <span class="text-lg">📥</span> <span data-i18n="offersReceived">Offers Received</span>
         </a>
-        <a href="./farmer-orders.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] font-medium animate-fade-in-up delay-4">
+        <a href="./farmer-orders.html" class="sidebar-nav animate-fade-in-up delay-4">
           <span class="text-lg">📦</span> <span data-i18n="myOrders">My Orders</span>
         </a>
-        <a href="./buyer-demands.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-[#40493D] font-medium animate-fade-in-up delay-5">
+        <a href="./buyer-demands.html" class="sidebar-nav animate-fade-in-up delay-5">
           <span class="text-lg">📋</span> <span data-i18n="buyerDemands">Buyer Demands</span>
         </a>
       </nav>
@@ -141,11 +138,11 @@
       </div>
       <div id="mobileMenu" class="hidden px-4 pb-4">
         <nav class="flex flex-col gap-2">
-          <a href="./farmer-dashboard.html" class="nav-link active px-4 py-3 rounded-xl">📊 <span data-i18n="dashboard">Dashboard</span></a>
-          <a href="./my-listings.html" class="nav-link px-4 py-3 rounded-xl">🌾 <span data-i18n="myProduce">My Produce</span></a>
-          <a href="./farmer-offers.html" class="nav-link px-4 py-3 rounded-xl">📥 <span data-i18n="offersReceived">Offers Received</span></a>
-          <a href="./farmer-orders.html" class="nav-link px-4 py-3 rounded-xl">📦 <span data-i18n="myOrders">My Orders</span></a>
-          <a href="./buyer-demands.html" class="nav-link px-4 py-3 rounded-xl">📋 <span data-i18n="buyerDemands">Buyer Demands</span></a>
+          <a href="./farmer-dashboard.html" class="sidebar-nav active">📊 <span data-i18n="dashboard">Dashboard</span></a>
+          <a href="./my-listings.html" class="sidebar-nav">🌾 <span data-i18n="myProduce">My Produce</span></a>
+          <a href="./farmer-offers.html" class="sidebar-nav">📥 <span data-i18n="offersReceived">Offers Received</span></a>
+          <a href="./farmer-orders.html" class="sidebar-nav">📦 <span data-i18n="myOrders">My Orders</span></a>
+          <a href="./buyer-demands.html" class="sidebar-nav">📋 <span data-i18n="buyerDemands">Buyer Demands</span></a>
         </nav>
         <div class="pt-4 border-t border-[#E0E4DA]/60">
           <a href="./profile.html" class="block px-4 py-2 text-center text-sm font-medium text-[#0D631B] hover:bg-[#F1F5EB] rounded-xl transition-colors" data-i18n="profileSettings">Profile Settings</a>
@@ -163,9 +160,15 @@
             <h1 class="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-[#0D631B] to-[#2E7D32] bg-clip-text text-transparent" data-i18n="dashboard">Dashboard</h1>
             <p class="text-[#40493D] mt-1" data-i18n="welcomeFarmer">Welcome back! Here's your farm overview.</p>
           </div>
-          <a href="./my-listings.html" class="btn-primary inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-white font-medium text-sm shadow-lg animate-fade-in-up delay-2">
-            <span>➕</span> <span data-i18n="sellProduce">Sell Produce</span>
-          </a>
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <span class="dashboard-live-chip">
+              <span id="liveDot" class="live-dot"></span>
+              <span id="dashboardFreshness">Updated —</span>
+            </span>
+            <a href="./my-listings.html" class="btn-primary inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-white font-medium text-sm shadow-lg animate-fade-in-up delay-2">
+              <span>➕</span> <span data-i18n="sellProduce">Sell Produce</span>
+            </a>
+          </div>
         </div>
       </div>
 

@@ -92,6 +92,9 @@ const KRISHI_I18N = {
     manageProduceDesc: "View, edit or delete your crop listings",
     reviewOffersDesc: "Accept or reject buyer offers",
     trackOrdersDesc: "Manage order fulfillment & delivery",
+    updatedAt: "Updated",
+    noActivityYet: "No activity yet",
+    noActivityHint: "Your listings, offers and orders will appear here",
     
     // Forms & Fields
     cropName: "Crop Name",
@@ -256,6 +259,9 @@ const KRISHI_I18N = {
     manageProduceDesc: "अपनी फसलों की सूची देखें, बदलें या हटाएं",
     reviewOffersDesc: "खरीदारों द्वारा दिए गए प्रस्ताव स्वीकार या अस्वीकार करें",
     trackOrdersDesc: "ऑर्डर की पूर्ति और डिलीवरी की स्थिति देखें",
+    updatedAt: "अपडेटेड",
+    noActivityYet: "अभी कोई गतिविधि नहीं",
+    noActivityHint: "आपकी सूची, प्रस्ताव और ऑर्डर यहाँ दिखेंगे",
     
     // Forms & Fields
     cropName: "फसल का नाम",
@@ -2543,12 +2549,13 @@ document.addEventListener("DOMContentLoaded", loadUserProfile);
 // ============================================================
 async function loadFarmerDashboard() {
   const nameEl = document.getElementById("farmerName");
-  if (!nameEl) return;
+  if (!nameEl) return false;
 
   const token = localStorage.getItem("token");
   if (!token) {
     nameEl.textContent = "Guest Farmer";
-    return;
+    markDashboardFresh();
+    return false;
   }
 
   const authedFetch = (url) =>
@@ -2607,42 +2614,57 @@ async function loadFarmerDashboard() {
 
     const recent = document.getElementById("recentActivity");
     if (recent) {
-      if (
-        activeListings === 0 &&
-        pendingOffers === 0 &&
-        orderCount === 0
-      ) {
-        return;
-      }
       const items = [];
       if (Array.isArray(listings)) {
-        listings.slice(0, 3).forEach((l) => {
-          items.push(`
+        listings.slice(0, 5).forEach((l) => {
+          items.push({
+            sort: l.created_at || l.updated_at || "",
+            html: `
             <div class="flex items-center gap-3 p-3 rounded-xl bg-[#F4F8F0]/50">
               <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0D631B] to-[#2E7D32] flex items-center justify-center text-white text-lg">🌾</div>
               <div class="flex-1">
                 <p class="font-medium text-[#181D17]">${l.crop || "Crop"} listed ${l.status === "ACTIVE" ? "on marketplace" : `(${l.status})`}</p>
                 <p class="text-sm text-[#40493D]">${l.quantity} ${l.unit} at ₹${l.price}</p>
               </div>
-            </div>`);
+            </div>`,
+          });
         });
       }
       if (Array.isArray(orders)) {
-        orders.slice(0, 2).forEach((o) => {
-          items.push(`
+        orders.slice(0, 5).forEach((o) => {
+          items.push({
+            sort: o.created_at || o.updated_at || "",
+            html: `
             <div class="flex items-center gap-3 p-3 rounded-xl bg-[#F4F8F0]/50">
               <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#3B82F6] to-[#06B6D4] flex items-center justify-center text-white text-lg">📦</div>
               <div class="flex-1">
                 <p class="font-medium text-[#181D17]">Order for ${o.crop || "produce"} ${o.status || "CONFIRMED"}</p>
                 <p class="text-sm text-[#40493D]">${o.buyer_name || "Buyer"} • ₹${o.total_amount || ""}</p>
               </div>
-            </div>`);
+            </div>`,
+          });
         });
       }
-      recent.innerHTML = items.join("");
+      items.sort((a, b) => String(b.sort).localeCompare(String(a.sort)));
+
+      if (items.length === 0) {
+        recent.innerHTML = `
+          <div class="flex items-center gap-3 p-3 rounded-xl bg-[#F4F8F0]/50">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0D631B] to-[#2E7D32] flex items-center justify-center text-white text-lg">🌾</div>
+            <div class="flex-1">
+              <p class="font-medium text-[#181D17]">${t("noActivityYet", "No activity yet")}</p>
+              <p class="text-sm text-[#40493D]">${t("noActivityHint", "Your listings, offers and orders will appear here")}</p>
+            </div>
+          </div>`;
+      } else {
+        recent.innerHTML = items.map((i) => i.html).join("");
+      }
     }
+    markDashboardFresh();
+    return true;
   } catch (err) {
     console.error("Error loading farmer dashboard stats:", err);
+    return false;
   }
 }
 
@@ -2651,7 +2673,7 @@ async function loadFarmerDashboard() {
 // ============================================================
 async function loadBuyerDashboard() {
   const featured = document.getElementById("featuredListings");
-  if (!featured && !document.getElementById("statPendingOffers")) return;
+  if (!featured && !document.getElementById("statPendingOffers")) return false;
 
   const token = localStorage.getItem("token");
 
@@ -2735,6 +2757,55 @@ async function loadBuyerDashboard() {
       console.error("Error loading featured listings:", err);
     }
   }
+
+  markDashboardFresh();
+  return true;
+}
+
+// ============================================================
+// LIVE DASHBOARD REFRESH — polling + tab-focus sync
+// ============================================================
+function markDashboardFresh() {
+  const el = document.getElementById("dashboardFreshness");
+  if (!el) return;
+  const now = new Date().toLocaleTimeString("en-IN", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  el.textContent = `${t("updatedAt", "Updated")} ${now}`;
+  const dot = document.getElementById("liveDot");
+  if (dot) {
+    dot.classList.remove("live-dot-pulse");
+    void dot.offsetWidth;
+    dot.classList.add("live-dot-pulse");
+  }
+}
+
+let dashboardRefreshTimer = null;
+
+function startLiveDashboardRefresh() {
+  const isDashboard = !!(
+    document.getElementById("farmerName") ||
+    document.getElementById("featuredListings") ||
+    document.getElementById("statPendingOffers")
+  );
+  if (!isDashboard) return;
+
+  const refresh = () => {
+    if (document.visibilityState !== "visible") return;
+    if (typeof document.hasFocus === "function" && !document.hasFocus()) return;
+
+    Promise.all([loadFarmerDashboard(), loadBuyerDashboard()]);
+  };
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") refresh();
+  });
+  window.addEventListener("focus", refresh);
+  window.addEventListener("pageshow", refresh);
+
+  clearInterval(dashboardRefreshTimer);
+  dashboardRefreshTimer = setInterval(refresh, 30000);
 }
 
 // ============================================================
@@ -2838,6 +2909,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupAppChrome();
   loadFarmerDashboard();
   loadBuyerDashboard();
+  startLiveDashboardRefresh();
 });
 
 // ============================================================
