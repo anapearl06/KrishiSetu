@@ -275,6 +275,41 @@ const KRISHI_I18N = {
     postDemandHelp: "Farmers will see your demand",
     reqByDeadline: "Required By (Deadline)",
     demandDescPlaceholder: "Need moisture content under 8%...",
+    quintalUnit: "quintal",
+    sessionExpired: "Session expired. Please login again.",
+    cropListedSuccess: "Crop listed successfully! 🌾",
+    listCreateFail: "Failed to create crop listing.",
+    listingUpdated: "Listing updated successfully!",
+    listingUpdateFail: "Failed to update listing.",
+    listingCanceled: "Listing canceled successfully!",
+    listingCancelFail: "Failed to cancel listing.",
+    missingListingInfo: "Missing listing information. Please try again.",
+    validQuantityMsg: "Please enter a valid quantity.",
+    validPriceMsg: "Please enter a valid offered price.",
+    demandPosted: "Requirement posted successfully!",
+    demandPostFail: "Failed to post requirement.",
+    demandUpdated: "Requirement updated successfully!",
+    demandUpdateFail: "Failed to update requirement.",
+    offerSent: "Offer sent successfully to the farmer! 🎉",
+    offerSendFail: "Failed to send offer.",
+    offerAccepted: "Offer accepted successfully!",
+    offerRejected: "Offer rejected successfully!",
+    nameStateDistRequired: "Name, state and district are required.",
+    businessNameRequired: "Business name is required for buyers.",
+    profileUpdated: "Profile updated successfully! ✅",
+    profileUpdateFail: "Failed to update profile.",
+    publishing: "Publishing...",
+    noDescription: "No description provided",
+    failedLoadProduce: "Failed to load produce",
+    errorOccurred: "Error occurred",
+    noMessage: "No additional message",
+    noNoteFromBuyer: "No note from buyer",
+    buyerLabel: "Buyer",
+    farmerLabel: "Farmer",
+    buyerPartner: "Buyer Partner",
+    farmerPartner: "Farmer Partner",
+    produceListingFallback: "Produce Listing",
+    cropHarvest: "Crop Harvest",
   },
   
   hi: {
@@ -540,6 +575,41 @@ const KRISHI_I18N = {
     postDemandHelp: "किसान आपकी मांग देख पाएंगे",
     reqByDeadline: "आवश्यकता तिथि",
     demandDescPlaceholder: "नमी की मात्रा 8% से कम हो…",
+    quintalUnit: "क्विंटल",
+    sessionExpired: "सत्र समाप्त हो गया। कृपया फिर से लॉगिन करें।",
+    cropListedSuccess: "फसल सफलतापूर्वक लिस्ट हुई! 🌾",
+    listCreateFail: "फसल लिस्टिंग बनाने में विफल।",
+    listingUpdated: "लिस्टिंग सफलतापूर्वक अपडेट हुई!",
+    listingUpdateFail: "लिस्टिंग अपडेट करने में विफल।",
+    listingCanceled: "लिस्टिंग सफलतापूर्वक रद्द हुई!",
+    listingCancelFail: "लिस्टिंग रद्द करने में विफल।",
+    missingListingInfo: "लिस्टिंग की जानकारी अधूरी है। कृपया पुनः प्रयास करें।",
+    validQuantityMsg: "कृपया सही मात्रा दर्ज करें।",
+    validPriceMsg: "कृपया सही प्रस्तावित मूल्य दर्ज करें।",
+    demandPosted: "मांग सफलतापूर्वक दर्ज हुई!",
+    demandPostFail: "मांग दर्ज करने में विफल।",
+    demandUpdated: "मांग सफलतापूर्वक अपडेट हुई!",
+    demandUpdateFail: "मांग अपडेट करने में विफल।",
+    offerSent: "किसान को प्रस्ताव सफलतापूर्वक भेजा गया! 🎉",
+    offerSendFail: "प्रस्ताव भेजने में विफल।",
+    offerAccepted: "प्रस्ताव सफलतापूर्वक स्वीकार किया गया!",
+    offerRejected: "प्रस्ताव सफलतापूर्वक अस्वीकार किया गया!",
+    nameStateDistRequired: "नाम, राज्य और जिला आवश्यक हैं।",
+    businessNameRequired: "खरीदारों के लिए व्यापार का नाम आवश्यक है।",
+    profileUpdated: "प्रोफ़ाइल सफलतापूर्वक अपडेट हुई! ✅",
+    profileUpdateFail: "प्रोफ़ाइल अपडेट करने में विफल।",
+    publishing: "प्रकाशित हो रहा है…",
+    noDescription: "कोई विवरण नहीं दिया गया",
+    failedLoadProduce: "फसलें लोड करने में विफल",
+    errorOccurred: "त्रुटि हुई",
+    noMessage: "कोई अतिरिक्त संदेश नहीं",
+    noNoteFromBuyer: "खरीदार की ओर से कोई नोट नहीं",
+    buyerLabel: "खरीदार",
+    farmerLabel: "किसान",
+    buyerPartner: "खरीदार साथी",
+    farmerPartner: "किसान साथी",
+    produceListingFallback: "फसल लिस्टिंग",
+    cropHarvest: "फसल की उपज",
   }
 };
 
@@ -605,7 +675,182 @@ function getTranslatedCropName(cropName) {
     return false;
   });
 
-  return crop ? crop.nameHi : cropName;
+  return crop ? crop.nameHi : enToDevanagari(cropName);
+}
+
+// ============================================================
+// FALLBACK HINDI TRANSLITERATION (for any unknown / future items)
+// Converts any English word to phonetically valid Devanagari,
+// so everything renders in Hindi even for crops never seen before.
+// ============================================================
+function enToDevanagari(text) {
+  if (!text) return "";
+  const w = String(text).toLowerCase().trim();
+  if (!w) return text;
+
+  const unitWords = {
+    kg: "किग्रा",
+    kgs: "किग्रा",
+    kilogram: "किलोग्राम",
+    kilograms: "किलोग्राम",
+    gm: "ग्राम",
+    gms: "ग्राम",
+    gram: "ग्राम",
+    grams: "ग्राम",
+    quintal: "क्विंटल",
+    quintals: "क्विंटल",
+    q: "क्विंटल",
+    ton: "टन",
+    tons: "टन",
+    litre: "लीटर",
+    liter: "लीटर",
+    litres: "लीटर",
+    liters: "लीटर",
+    ml: "मिलीलीटर",
+    piece: "नग",
+    pieces: "नग",
+    dozen: "दर्जन",
+    dozens: "दर्जन",
+    bag: "बोरी",
+    bags: "बोरी",
+    sack: "बोरी",
+    sacks: "बोरी",
+    bundle: "गड्डी",
+    bundles: "गड्डी",
+    box: "बॉक्स",
+    boxes: "बॉक्स",
+    packet: "पैकेट",
+    packets: "पैकेट",
+    crate: "टोकरी",
+    crates: "टोकरी",
+    acre: "एकड़",
+    acre: "एकड़",
+    hectare: "हेक्टेयर",
+    bushel: "बुशल",
+  };
+  if (unitWords[w]) return unitWords[w];
+
+  const multichar = [
+    ["kh", "ख"], ["gh", "घ"], ["ch", "च"], ["jh", "झ"], ["th", "थ"],
+    ["dh", "ध"], ["ph", "फ"], ["bh", "भ"], ["sh", "श"], ["zh", "झ"],
+    ["ng", "ंग"], ["nk", "ंक"], ["nd", "ंड"], ["nt", "ंट"], ["mp", "ंप"],
+    ["oo", "ऊ"], ["ee", "ई"], ["aa", "आ"], ["ai", "ऐ"], ["au", "औ"],
+    ["ou", "ओ"], ["oi", "ऑ"], ["aw", "ऑ"], ["ck", "क"], ["qu", "क्व"],
+  ];
+
+  const cons = {
+    a:"ा", b:"ब", c:"क", d:"ड", e:"े", f:"फ", g:"ग", h:"ह", i:"ि",
+    j:"ज", k:"क", l:"ल", m:"म", n:"न", o:"ो", p:"प", q:"क", r:"र",
+    s:"स", t:"ट", u:"ु", v:"व", w:"व", x:"क्ष", y:"य", z:"ज़",
+  };
+  const startVowel = { a:"अ", e:"ए", i:"इ", o:"ओ", u:"उ" };
+
+  const isVowel = ch => "aeiou".includes(ch);
+  let i = 0;
+  let out = "";
+  let prevGlyph = null; // last appended consonant glyph (for halant logic)
+
+  const pushCons = (ch) => {
+    const glyph = cons[ch] || "";
+    // if previous was a consonant with no vowel yet, add halant
+    out += glyph;
+    prevGlyph = glyph;
+  };
+  const pushVowel = (matraOrStandalone) => {
+    if (prevGlyph && isConsonantGlyph(prevGlyph)) {
+      out += matraOrStandalone;
+    } else {
+      out += startVowel[matraOrStandalone] || "अ";
+    }
+    prevGlyph = null;
+  };
+  const isConsonantGlyph = (g) =>
+    g && "कखगघङचछजझञटठडढणतथदधनपफबभमयरलवशषसह".includes(g[0]);
+
+  while (i < w.length) {
+    // multi-char specials
+    let matched = false;
+    for (const [pair, glyph] of multichar) {
+      if (w.startsWith(pair, i)) {
+        // special glyphs that are standalone (vowelish) vs consonant
+        if ("ऊईआऐऔऑओ".includes(glyph)) {
+          // standalone long vowel: reset prev consonant (skip matra)
+          out += glyph;
+          prevGlyph = null;
+        } else {
+          out += glyph;
+          prevGlyph = glyph;
+          const after = w[i + pair.length];
+          if (after && !isVowel(after) && after !== " ") {
+            out += "्";
+            prevGlyph = null;
+          }
+        }
+        i += pair.length;
+        matched = true;
+        break;
+      }
+    }
+    if (matched) continue;
+
+    const ch = w[i];
+
+    // silent final / schwa 'e'
+    if (ch === "e") {
+      const next = w[i + 1];
+      if (i === w.length - 1) {
+        i++;
+        continue; // drop final silent e
+      }
+      if (next && isVowel(next)) { i++; continue; } // e before vowel -> skip
+      // 'e' after consonant before consonant -> schwa, skip
+      if (prevGlyph && isConsonantGlyph(prevGlyph) && next && "bcdfghjklmnpqrstvwxyz".includes(next)) {
+        i++;
+        continue; // skip schwa (God/garden style)
+      }
+    }
+
+    if (isVowel(ch)) {
+      const hereStart = i === 0 || !prevGlyph;
+      if (ch === "a" && i === 0) { out += "अ"; prevGlyph = null; }
+      else if (ch === "a" && hereStart) { out += "आ"; prevGlyph = null; }
+      else if (ch === "i" && (hereStart || i === 0)) { out += "इ"; prevGlyph = null; }
+      else if (ch === "e" && (hereStart || i === 0)) { out += "ए"; prevGlyph = null; }
+      else if (ch === "o" && (hereStart || i === 0)) { out += "ओ"; prevGlyph = null; }
+      else if (ch === "u" && (hereStart || i === 0)) { out += "उ"; prevGlyph = null; }
+      else { out += cons[ch]; prevGlyph = null; }
+      i++;
+      continue;
+    }
+
+    // consonants
+    if (cons[ch]) {
+      // 'r' following a vowel already emitted usually handled as consonant
+      const next = w[i + 1];
+      const nextIsVowel = next && isVowel(next);
+      pushCons(ch);
+      // if this consonant is followed by vowel, prevent halant (vowel does matra next)
+      if (!nextIsVowel && i !== w.length - 1) {
+        out += "्";
+      }
+      i++;
+      continue;
+    }
+
+    // unknown char, ignore
+    i++;
+  }
+
+  // strip trailing virama
+  if (out.endsWith("्")) out = out.slice(0, -1);
+  return out || text;
+}
+
+function getTranslatedUnit(unit) {
+  if (!unit) return unit;
+  if (getCurrentLanguage() !== "hi") return unit;
+  const translated = enToDevanagari(unit);
+  return translated || unit;
 }
 
 function getCropCategory(cropName) {
@@ -997,18 +1242,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const data = await response.json();
         if (response.ok) {
-          alert("Farmer Login Successful!");
+          alert(t("loginSuccess", "Farmer Login Successful!"));
           const token = data.data?.token || data.token;
           if (token) localStorage.setItem("token", token);
           window.location.href = "./farmer-dashboard.html";
         } else {
           alert(
-            extractErrorMessage(data, "Login failed! Check credentials."),
+            extractErrorMessage(data, t("loginFailed", "Login failed! Check credentials.")),
           );
         }
       } catch (error) {
         console.error("Error connecting to backend:", error);
-        alert("Server Error! Please check your connection and try again.");
+        alert(t("serverError", "Server Error! Please check your connection and try again."));
       }
     });
   }
@@ -1033,18 +1278,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const data = await response.json();
         if (response.ok) {
-          alert("Buyer Login Successful!");
+          alert(t("loginSuccess", "Buyer Login Successful!"));
           const token = data.data?.token || data.token;
           if (token) localStorage.setItem("token", token);
           window.location.href = "./buyer-dashboard.html";
         } else {
           alert(
-            extractErrorMessage(data, "Login failed! Check credentials."),
+            extractErrorMessage(data, t("loginFailed", "Login failed! Check credentials.")),
           );
         }
       } catch (error) {
         console.error("Error connecting to backend:", error);
-        alert("Server Error! Please check your connection and try again.");
+        alert(t("serverError", "Server Error! Please check your connection and try again."));
       }
     });
   }
@@ -1110,7 +1355,7 @@ document.addEventListener("DOMContentLoaded", function () {
       try {
         const submitBtn = event.target.querySelector('button[type="submit"]');
         const originalText = submitBtn.textContent;
-        submitBtn.textContent = "Publishing...";
+        submitBtn.textContent = t("publishing", "Publishing...");
         submitBtn.disabled = true;
 
         const response = await fetch(
@@ -1132,7 +1377,7 @@ document.addEventListener("DOMContentLoaded", function () {
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
         if (response.ok) {
-          alert("Farmer Registration Successful! Redirecting to Login...");
+          alert(t("registerSuccess", "Registration Successful! Redirecting to Login..."));
           window.location.href = "./login.html?role=farmer";
         } else {
           alert(
@@ -1141,7 +1386,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       } catch (error) {
         console.error("Error connecting to backend:", error);
-        alert("Server Error! Please check your connection and try again.");
+        alert(t("serverError", "Server Error! Please check your connection and try again."));
       }
     });
   }
@@ -1172,7 +1417,7 @@ document.addEventListener("DOMContentLoaded", function () {
       try {
         const submitBtn = event.target.querySelector('button[type="submit"]');
         const originalText = submitBtn.textContent;
-        submitBtn.textContent = "Publishing...";
+        submitBtn.textContent = t("publishing", "Publishing...");
         submitBtn.disabled = true;
 
         const response = await fetch(`${API_BASE_URL}/api/v1/buyers/register`, {
@@ -1193,7 +1438,7 @@ document.addEventListener("DOMContentLoaded", function () {
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
         if (response.ok) {
-          alert("Buyer Registration Successful! Redirecting to Login...");
+          alert(t("registerSuccess", "Registration Successful! Redirecting to Login..."));
           window.location.href = "./login.html?role=buyer";
         } else {
           alert(
@@ -1202,7 +1447,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       } catch (error) {
         console.error("Error connecting to backend:", error);
-        alert("Server Error! Please check your connection and try again.");
+        alert(t("serverError", "Server Error! Please check your connection and try again."));
       }
     });
   }
@@ -1324,7 +1569,7 @@ document
 
     const token = localStorage.getItem("token");
     if (!token) {
-      alert("Session expired. Please login again.");
+      alert(t("sessionExpired", "Session expired. Please login again."));
       window.location.href = "./login.html?role=farmer";
       return;
     }
@@ -1342,7 +1587,7 @@ document
     try {
       const submitBtn = e.target.querySelector('button[type="submit"]');
       const originalText = submitBtn.textContent;
-      submitBtn.textContent = "Publishing...";
+      submitBtn.textContent = t("publishing", "Publishing...");
       submitBtn.disabled = true;
 
       const response = await fetch(`${API_BASE_URL}/api/v1/listings`, {
@@ -1359,7 +1604,7 @@ document
       submitBtn.disabled = false;
 
       if (response.ok) {
-        alert("Crop listed successfully! 🌾");
+        alert(t("cropListedSuccess", "Crop listed successfully! 🌾"));
         const drawer = document.getElementById("createListingDrawer");
         const backdrop = document.getElementById("drawerBackdrop");
         if (drawer) drawer.classList.add("translate-x-full");
@@ -1373,11 +1618,11 @@ document
         document.querySelectorAll(".crop-chip").forEach((c) => c.classList.remove("active"));
         window.dispatchEvent(new Event("listingCreated"));
       } else {
-        alert(extractErrorMessage(data, "Failed to create crop listing."));
+        alert(extractErrorMessage(data, t("listCreateFail", "Failed to create crop listing.")));
       }
     } catch (err) {
       console.error("Error creating listing:", err);
-      alert("Server error. Please check your connection and try again.");
+      alert(t("serverError", "Server error. Please check your connection and try again."));
     }
   });
 
@@ -1440,7 +1685,9 @@ async function renderMyProduce() {
       const visible = data.filter((item) => {
         const matchStatus = !status || (item.status || "ACTIVE") === status;
         const matchSearch =
-          !term || (item.crop || "").toLowerCase().includes(term);
+          !term ||
+          (item.crop || "").toLowerCase().includes(term) ||
+          getTranslatedCropName(item.crop).toLowerCase().includes(term);
         return matchStatus && matchSearch;
       });
 
@@ -1475,12 +1722,12 @@ async function renderMyProduce() {
             <span class="text-xs text-[#40493D]">📍 ${item.district || ""}, ${item.state || ""}</span>
           </div>
           <h3 class="text-lg font-bold text-[#181D17]">${getTranslatedCropName(item.crop)}</h3>
-          <p class="text-xs text-[#40493D] mt-1">${item.description || "No description provided"}</p>
+          <p class="text-xs text-[#40493D] mt-1">${item.description || t("noDescription", "No description provided")}</p>
 
           <div class="mt-4 pt-4 border-t border-[#F1F5EB] flex justify-between items-center">
             <div>
-              <p class="text-xs text-[#40493D]">Quantity: <strong class="text-[#181D17]">${item.quantity} ${item.unit}</strong></p>
-              <p class="text-lg font-bold brand-name">₹${item.price} / ${item.unit}</p>
+              <p class="text-xs text-[#40493D]">Quantity: <strong class="text-[#181D17]">${item.quantity} ${getTranslatedUnit(item.unit)}</strong></p>
+              <p class="text-lg font-bold brand-name">₹${item.price} / ${getTranslatedUnit(item.unit)}</p>
             </div>
             <div class="flex gap-2">
               <button onclick="openEditModal('${item.id}', ${item.price}, ${item.quantity})" class="px-3 py-1.5 bg-amber-50 text-amber-700 border border-amber-200 text-xs font-semibold rounded-xl hover:bg-amber-100 transition-colors">✏️ ${t("edit")}</button>
@@ -1497,7 +1744,7 @@ async function renderMyProduce() {
         )
         .join("");
     } else {
-      produceGrid.innerHTML = `<p class="text-red-600">Failed to load produce: ${data.message || "Error occurred"}</p>`;
+      produceGrid.innerHTML = `<p class="text-red-600">${t("failedLoadProduce", "Failed to load produce")}: ${data.message || t("errorOccurred", "Error occurred")}</p>`;
     }
   } catch (err) {
     console.error("Error fetching My Produce:", err);
@@ -1541,7 +1788,7 @@ document
       });
 
       if (res.ok) {
-        alert("Listing updated successfully!");
+        alert(t("listingUpdated", "Listing updated successfully!"));
         closeEditModal();
         renderMyProduce();
       } else {
@@ -1566,7 +1813,7 @@ async function deleteListing(id) {
     });
 
     if (res.ok) {
-      alert("Listing canceled successfully!");
+      alert(t("listingCanceled", "Listing canceled successfully!"));
       renderMyProduce();
     } else {
       alert("Failed to cancel listing.");
@@ -1653,11 +1900,11 @@ function filterAndRenderMarketCatalog() {
         <h3 class="text-lg font-bold text-[#181D17]">${getTranslatedCropName(item.crop)}</h3>
         <p class="text-xs text-[#40493D] mt-1 line-clamp-2">${item.description || t("freshFarmHarvest", "Fresh farm harvest")}</p>
         <div class="mt-4 pt-4 border-t border-[#F1F5EB] flex items-end justify-between">
-          <p class="text-xs text-[#40493D]">${t("quantity")}: <strong class="text-[#181D17]">${item.quantity} ${item.unit}</strong></p>
-          <p class="text-lg font-bold gradient-text-warm">₹${Number(item.price).toLocaleString("en-IN")}/<span class="text-xs">${item.unit}</span></p>
+          <p class="text-xs text-[#40493D]">${t("quantity")}: <strong class="text-[#181D17]">${item.quantity} ${getTranslatedUnit(item.unit)}</strong></p>
+          <p class="text-lg font-bold gradient-text-warm">₹${Number(item.price).toLocaleString("en-IN")}/<span class="text-xs">${getTranslatedUnit(item.unit)}</span></p>
         </div>
       </div>
-      <button onclick="showListingDetails(${item.id}, '${getTranslatedCropName(item.crop)}', '${item.quantity} ${item.unit}', '₹${item.price} / ${item.unit}', '${item.district || ""}, ${item.state || ""}')" class="btn-warm w-full mt-4 py-2.5 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5">
+      <button onclick="showListingDetails(${item.id}, '${getTranslatedCropName(item.crop)}', '${item.quantity} ${getTranslatedUnit(item.unit)}', '₹${item.price} / ${getTranslatedUnit(item.unit)}', '${item.district || ""}, ${item.state || ""}')" class="btn-warm w-full mt-4 py-2.5 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5">
         <span>👀</span> ${t("viewDetails")}
       </button>
     </div>
@@ -1780,12 +2027,12 @@ async function submitOfferFromModal() {
   }
 
   if (!quantity || quantity <= 0) {
-    alert("Please enter a valid quantity.");
+    alert(t("validQuantityMsg", "Please enter a valid quantity."));
     return;
   }
 
   if (!price || price < 0) {
-    alert("Please enter a valid offered price.");
+    alert(t("validPriceMsg", "Please enter a valid offered price."));
     return;
   }
 
@@ -1848,7 +2095,7 @@ document
     const token = localStorage.getItem("token");
 
     if (!token) {
-      alert("Session expired. Please login again.");
+      alert(t("sessionExpired", "Session expired. Please login again."));
       window.location.href = "./login.html?role=buyer";
       return;
     }
@@ -1868,7 +2115,7 @@ document
     try {
       const submitBtn = e.target.querySelector('button[type="submit"]');
       const originalText = submitBtn.textContent;
-      submitBtn.textContent = "Publishing...";
+      submitBtn.textContent = t("publishing", "Publishing...");
       submitBtn.disabled = true;
 
       const res = await fetch(
@@ -1887,12 +2134,12 @@ document
       submitBtn.textContent = originalText;
       submitBtn.disabled = false;
       if (res.ok) {
-        alert("Requirement posted successfully!");
+        alert(t("demandPosted", "Requirement posted successfully!"));
         closeDemandDrawer();
         e.target.reset();
         renderMyDemands();
       } else {
-        alert(extractErrorMessage(data, "Failed to post requirement."));
+        alert(extractErrorMessage(data, t("demandPostFail", "Failed to post requirement.")));
       }
     } catch (err) {
       console.error("Error posting demand:", err);
@@ -1949,8 +2196,8 @@ async function renderMyDemands() {
           <p class="text-xs text-[#40493D] mt-1">${t("requirementBy")} ${item.required_by ? String(item.required_by).slice(0, 10) : t("asap")}</p>
           <div class="mt-4 pt-4 border-t border-[#F1F5EB] flex justify-between items-center">
             <div>
-              <p class="text-xs text-[#40493D]">${t("quantity")}: <strong class="text-[#181D17]">${item.quantity} ${item.unit}</strong></p>
-              <p class="text-lg font-bold gradient-text-warm">${t("maxBudget")} ₹${item.target_price} / ${item.unit}</p>
+              <p class="text-xs text-[#40493D]">${t("quantity")}: <strong class="text-[#181D17]">${item.quantity} ${getTranslatedUnit(item.unit)}</strong></p>
+              <p class="text-lg font-bold gradient-text-warm">${t("maxBudget")} ₹${item.target_price} / ${getTranslatedUnit(item.unit)}</p>
             </div>
             ${
               item.status === "ACTIVE"
@@ -2016,7 +2263,7 @@ document
     const id = document.getElementById("demandEditId").value;
     const token = localStorage.getItem("token");
     if (!token) {
-      alert("Session expired. Please login again.");
+      alert(t("sessionExpired", "Session expired. Please login again."));
       window.location.href = "./login.html?role=buyer";
       return;
     }
@@ -2051,7 +2298,7 @@ document
       const data = await res.json();
 
       if (res.ok) {
-        alert("Requirement updated successfully!");
+        alert(t("demandUpdated", "Requirement updated successfully!"));
         closeDemandEditModal();
         renderMyDemands();
       } else {
@@ -2061,7 +2308,7 @@ document
       }
     } catch (err) {
       console.error("Error updating demand:", err);
-      alert("Server error. Please check your connection and try again.");
+      alert(t("serverError", "Server error. Please check your connection and try again."));
     }
   });
 
@@ -2126,10 +2373,10 @@ function matchCardHtml(match, detail, mode) {
           ? `<div class="mt-3 pt-3 border-t border-[#F1F5EB] grid grid-cols-2 gap-2 text-xs">
               ${
                 mode === "farmer"
-                  ? `<span class="text-[#40493D]">${t("requiredQty", "Required Qty")}: <strong class="text-[#181D17]">${detail.quantity} ${detail.unit}</strong></span>
-                     <span class="text-[#40493D]">${t("maxBudget", "Max Budget")}: <strong class="text-[#181D17]">₹${detail.target_price} / ${detail.unit}</strong></span>`
-                  : `<span class="text-[#40493D]">${t("quantity", "Qty")}: <strong class="text-[#181D17]">${detail.quantity} ${detail.unit}</strong></span>
-                     <span class="text-[#40493D]">${t("price", "Price")}: <strong class="text-[#181D17]">₹${detail.price} / ${detail.unit}</strong></span>`
+                  ? `<span class="text-[#40493D]">${t("requiredQty", "Required Qty")}: <strong class="text-[#181D17]">${detail.quantity} ${getTranslatedUnit(detail.unit)}</strong></span>
+                     <span class="text-[#40493D]">${t("maxBudget", "Max Budget")}: <strong class="text-[#181D17]">₹${detail.target_price} / ${getTranslatedUnit(detail.unit)}</strong></span>`
+                  : `<span class="text-[#40493D]">${t("quantity", "Qty")}: <strong class="text-[#181D17]">${detail.quantity} ${getTranslatedUnit(detail.unit)}</strong></span>
+                     <span class="text-[#40493D]">${t("price", "Price")}: <strong class="text-[#181D17]">₹${detail.price} / ${getTranslatedUnit(detail.unit)}</strong></span>`
               }
             </div>`
           : ""
@@ -2158,7 +2405,7 @@ async function openListingMatches(listingId) {
 
   const token = localStorage.getItem("token");
   if (!token) {
-    alert("Session expired. Please login again.");
+    alert(t("sessionExpired", "Session expired. Please login again."));
     window.location.href = "./login.html?role=farmer";
     return;
   }
@@ -2222,7 +2469,7 @@ async function openDemandMatches(demandId) {
 
   const token = localStorage.getItem("token");
   if (!token) {
-    alert("Session expired. Please login again.");
+    alert(t("sessionExpired", "Session expired. Please login again."));
     window.location.href = "./login.html?role=buyer";
     return;
   }
@@ -2299,7 +2546,7 @@ function closeMatchesModal() {
 async function submitOffer(listingId, quantity, price, message = "") {
   const token = localStorage.getItem("token");
   if (!token) {
-    alert("Session expired. Please login again.");
+    alert(t("sessionExpired", "Session expired. Please login again."));
     window.location.href = "./login.html?role=buyer";
     return;
   }
@@ -2326,11 +2573,11 @@ async function submitOffer(listingId, quantity, price, message = "") {
 
     const data = await res.json();
     if (res.ok) {
-      alert("Offer sent successfully to the farmer! 🎉");
+      alert(t("offerSent", "Offer sent successfully to the farmer! 🎉"));
       if (typeof closeOfferModal === "function") closeOfferModal();
       if (typeof closeListingDrawer === "function") closeListingDrawer();
     } else {
-      alert(extractErrorMessage(data, "Failed to send offer."));
+      alert(extractErrorMessage(data, t("offerSendFail", "Failed to send offer.")));
     }
   } catch (err) {
     console.error("Error sending offer:", err);
@@ -2380,11 +2627,11 @@ async function renderBuyerOffers() {
                   : "pending"
             }">${item.status || "PENDING"}</span>
             <h3 class="text-lg font-bold text-[#181D17] mt-2">${getTranslatedCropName(item.crop) || "Produce Listing"}</h3>
-            <p class="text-xs text-[#40493D] mt-1">💬 ${item.message || "No additional message"}</p>
+            <p class="text-xs text-[#40493D] mt-1">💬 ${item.message || t("noMessage", "No additional message")}</p>
           </div>
           <div class="text-right gap-2">
             <p class="text-xs text-[#40493D]">Offered Qty: <strong class="text-[#181D17]">${item.quantity}</strong></p>
-            <p class="text-lg font-bold gradient-text-warm">₹${item.offered_price} / unit</p>
+            <p class="text-lg font-bold gradient-text-warm">₹${item.offered_price} / ${t("unit")}</p>
           </div>
         </div>
       `,
@@ -2442,12 +2689,12 @@ async function renderFarmerOffers() {
             }">${item.status || "PENDING"}</span>
             <h3 class="text-lg font-bold text-[#181D17] mt-2">${getTranslatedCropName(item.crop) || "Produce Listing"}</h3>
             <p class="text-xs text-[#40493D] mt-0.5">${t("offerFrom", "Offer from Buyer")}: <strong class="text-[#181D17]">${item.buyer_name || "Buyer"}</strong></p>
-            <p class="text-xs text-[#40493D] mt-1">💬 ${item.message || "No note from buyer"}</p>
+            <p class="text-xs text-[#40493D] mt-1">💬 ${item.message || t("noNoteFromBuyer", "No note from buyer")}</p>
           </div>
           <div class="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end">
             <div class="text-right">
               <p class="text-xs text-[#40493D]">Qty: <strong class="text-[#181D17]">${item.quantity}</strong></p>
-              <p class="text-lg font-bold brand-name">₹${item.offered_price} / unit</p>
+              <p class="text-lg font-bold brand-name">₹${item.offered_price} / ${t("unit")}</p>
             </div>
             ${
               item.status === "PENDING"
@@ -2487,10 +2734,18 @@ async function handleOfferAction(offerId, action) {
     );
 
     if (res.ok) {
-      alert(`Offer ${action}ed successfully!`);
+      alert(
+        action === "accept"
+          ? t("offerAccepted", "Offer accepted successfully!")
+          : t("offerRejected", "Offer rejected successfully!"),
+      );
       renderFarmerOffers();
     } else {
-      alert(`Failed to ${action} offer.`);
+      alert(
+        action === "accept"
+          ? t("offerAccepted", "Offer accepted successfully!")
+          : t("offerRejected", "Offer rejected successfully!"),
+      );
     }
   } catch (err) {
     console.error(`Error during offer ${action}:`, err);
@@ -2545,7 +2800,7 @@ async function renderFarmerOrders() {
               <span class="text-xs text-gray-500">Order #${item.id ? String(item.id).slice(0, 8) : "N/A"}</span>
             </div>
             <h3 class="text-lg font-bold text-[#181D17]">${getTranslatedCropName(item.crop) || "Crop Harvest"}</h3>
-            <p class="text-xs text-[#40493D]">Buyer: <strong class="text-[#181D17]">${item.buyer_name || "Buyer Partner"}</strong></p>
+            <p class="text-xs text-[#40493D]">${t("buyerLabel", "Buyer")}: <strong class="text-[#181D17]">${item.buyer_name || t("buyerPartner", "Buyer Partner")}</strong></p>
           </div>
           <div class="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end">
             <div class="text-right">
@@ -2608,7 +2863,7 @@ async function renderBuyerOrders() {
               <span class="text-xs text-gray-500">Order #${item.id ? String(item.id).slice(0, 8) : "N/A"}</span>
             </div>
             <h3 class="text-lg font-bold text-[#181D17]">${getTranslatedCropName(item.crop) || "Crop Harvest"}</h3>
-            <p class="text-xs text-[#40493D]">Farmer: <strong class="text-[#181D17]">${item.farmer_name || "Farmer Partner"}</strong></p>
+            <p class="text-xs text-[#40493D]">${t("farmerLabel", "Farmer")}: <strong class="text-[#181D17]">${item.farmer_name || t("farmerPartner", "Farmer Partner")}</strong></p>
           </div>
           <div class="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end">
             <div class="text-right">
@@ -2684,7 +2939,7 @@ async function loadUserProfile() {
 
   const token = localStorage.getItem("token");
   if (!token) {
-    alert("Session expired. Please login again.");
+    alert(t("sessionExpired", "Session expired. Please login again."));
     window.location.href = "./login.html";
     return;
   }
@@ -2745,7 +3000,7 @@ document
 
     const token = localStorage.getItem("token");
     if (!token) {
-      alert("Session expired. Please login again.");
+      alert(t("sessionExpired", "Session expired. Please login again."));
       window.location.href = "./login.html";
       return;
     }
@@ -2755,7 +3010,7 @@ document
     const district = document.getElementById("profileDistrict").value.trim();
 
     if (!name || !state || !district) {
-      alert("Name, state and district are required.");
+      alert(t("nameStateDistRequired", "Name, state and district are required."));
       return;
     }
 
@@ -2772,7 +3027,7 @@ document
         .getElementById("profileBusinessType")
         ?.value.trim();
       if (!businessName) {
-        alert("Business name is required for buyers.");
+        alert(t("businessNameRequired", "Business name is required for buyers."));
         return;
       }
       payload.business_name = businessName;
@@ -2799,7 +3054,7 @@ document
       submitBtn.disabled = false;
 
       if (res.ok) {
-        alert("Profile updated successfully! ✅");
+        alert(t("profileUpdated", "Profile updated successfully! ✅"));
         loadUserProfile();
       } else {
         alert(
@@ -2808,7 +3063,7 @@ document
       }
     } catch (err) {
       console.error("Error updating profile:", err);
-      alert("Server error. Please check your connection and try again.");
+      alert(t("serverError", "Server error. Please check your connection and try again."));
     }
   });
 
@@ -2996,8 +3251,8 @@ async function loadBuyerDashboard() {
               <h4 class="font-bold text-[#181D17] text-base">${item.crop || "Fresh Crop"}</h4>
               <p class="text-xs text-[#40493D] mb-3">${item.district || ""}${item.state ? ", " + item.state : ""}</p>
               <div class="space-y-1 text-sm">
-                <p class="text-[#40493D]">Qty: <strong class="text-[#181D17]">${item.quantity} ${item.unit}</strong></p>
-                <p class="text-[#75584D] font-bold text-base">₹${item.price} / ${item.unit}</p>
+                <p class="text-[#40493D]">Qty: <strong class="text-[#181D17]">${item.quantity} ${getTranslatedUnit(item.unit)}</strong></p>
+                <p class="text-[#75584D] font-bold text-base">₹${item.price} / ${getTranslatedUnit(item.unit)}</p>
               </div>
             </div>
             <a href="./browse-produce.html" class="text-center w-full mt-4 py-2 bg-[#75584D] text-white text-xs font-bold rounded hover:bg-[#5c443b] transition-colors">View Details & Offer</a>
@@ -3152,7 +3407,7 @@ async function loadMarketPrices() {
             <h3 class="text-lg font-semibold text-[#1E1E1E]">${cropName}</h3>
             <span class="inline-block px-2.5 py-0.5 text-[10px] font-semibold rounded-full bg-blue-100 text-[#2E6BA6]">${freshnessLabel}</span>
           </div>
-          <p class="text-sm text-[#40493D] mt-1">${t("reportedPriceLabel", "Reported")} ₹<strong class="text-[#181D17]">${info.current_price ? info.current_price.toLocaleString("en-IN") : "—"}</strong> / quintal</p>
+          <p class="text-sm text-[#40493D] mt-1">${t("reportedPriceLabel", "Reported")} ₹<strong class="text-[#181D17]">${info.current_price ? info.current_price.toLocaleString("en-IN") : "—"}</strong> / ${t("quintalUnit", "quintal")}</p>
           <p class="text-xs text-[#40493D] mt-2">${t("rangeLabel", "Range")}: ₹${info.min_price ? info.min_price.toLocaleString("en-IN") : "—"} – ₹${info.max_price ? info.max_price.toLocaleString("en-IN") : "—"}</p>
           <div class="mt-4 pt-3 border-t border-[#E0E4DA]/60 text-[11px] text-[#40493D] space-y-1">
             <p>📅 ${t("reportedOnLabel", "Reported on")}: ${info.reported_date || "—"}</p>
