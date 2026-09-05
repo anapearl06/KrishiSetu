@@ -310,6 +310,10 @@ const KRISHI_I18N = {
     farmerPartner: "Farmer Partner",
     produceListingFallback: "Produce Listing",
     cropHarvest: "Crop Harvest",
+    verifiedFarmer: "Verified Farmer",
+    freshCrop: "Fresh Crop",
+    qty: "Qty",
+    noProduceNow: "No produce available right now. Check back soon! 🌱",
   },
   
   hi: {
@@ -610,6 +614,10 @@ const KRISHI_I18N = {
     farmerPartner: "किसान साथी",
     produceListingFallback: "फसल लिस्टिंग",
     cropHarvest: "फसल की उपज",
+    verifiedFarmer: "सत्यापित किसान",
+    freshCrop: "ताज़ी फसल",
+    qty: "मात्रा",
+    noProduceNow: "अभी कोई फसल उपलब्ध नहीं है। जल्द ही फिर देखें! 🌱",
   }
 };
 
@@ -986,6 +994,9 @@ function setLanguage(lang) {
   }
   if (document.getElementById("marketPriceGrid")) {
     loadMarketPrices();
+  }
+  if (document.getElementById("featuredListings")) {
+    loadBuyerDashboard();
   }
 }
 
@@ -3247,20 +3258,20 @@ async function loadBuyerDashboard() {
             (item) => `
           <div class="min-w-[260px] max-w-[280px] glass-card rounded-xl border border-[#E0E4DA]/60 p-4 flex flex-col justify-between hover:-translate-y-1 hover:shadow-lg transition-all duration-300 animate-fade-in-up">
             <div>
-              <span class="inline-block px-2 py-0.5 text-xs font-semibold rounded bg-green-100 text-[#0D631B] mb-2">Verified Farmer</span>
-              <h4 class="font-bold text-[#181D17] text-base">${item.crop || "Fresh Crop"}</h4>
+              <span class="inline-block px-2 py-0.5 text-xs font-semibold rounded bg-green-100 text-[#0D631B] mb-2">${t("verifiedFarmer", "Verified Farmer")}</span>
+              <h4 class="font-bold text-[#181D17] text-base">${getTranslatedCropName(item.crop) || t("freshCrop", "Fresh Crop")}</h4>
               <p class="text-xs text-[#40493D] mb-3">${item.district || ""}${item.state ? ", " + item.state : ""}</p>
               <div class="space-y-1 text-sm">
-                <p class="text-[#40493D]">Qty: <strong class="text-[#181D17]">${item.quantity} ${getTranslatedUnit(item.unit)}</strong></p>
+                <p class="text-[#40493D]">${t("qty", "Qty")}: <strong class="text-[#181D17]">${item.quantity} ${getTranslatedUnit(item.unit)}</strong></p>
                 <p class="text-[#75584D] font-bold text-base">₹${item.price} / ${getTranslatedUnit(item.unit)}</p>
               </div>
             </div>
-            <a href="./browse-produce.html" class="text-center w-full mt-4 py-2 bg-[#75584D] text-white text-xs font-bold rounded hover:bg-[#5c443b] transition-colors">View Details & Offer</a>
+            <a href="./browse-produce.html" class="text-center w-full mt-4 py-2 bg-[#75584D] text-white text-xs font-bold rounded hover:bg-[#5c443b] transition-colors">${t("viewDetails")}</a>
           </div>`,
           )
           .join("");
       } else {
-        featured.innerHTML = `<p class="text-sm text-[#40493D]">No produce available right now. Check back soon! 🌱</p>`;
+        featured.innerHTML = `<p class="text-sm text-[#40493D]">${t("noProduceNow", "No produce available right now. Check back soon! 🌱")}</p>`;
       }
     } catch (err) {
       console.error("Error loading featured listings:", err);
