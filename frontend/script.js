@@ -249,6 +249,32 @@ const KRISHI_I18N = {
     recentlyListed: "Recently listed by verified local farmers",
     browse: "Browse",
     freshFarmHarvest: "Fresh farm harvest",
+    commodityScore: "Commodity",
+    quantityScore: "Quantity",
+    locationScore: "Location",
+    priceScore: "Price",
+    gradeScore: "Grade",
+    orderRef: "Order Reference",
+    status: "Status",
+    cropCommodity: "Crop Commodity",
+    agreedQty: "Agreed Quantity",
+    agreedPrice: "Agreed Unit Price",
+    recentLabel: "Recent",
+    reportedPriceLabel: "Reported",
+    rangeLabel: "Range",
+    reportedOnLabel: "Reported on",
+    sourceLabel: "Source",
+    noReportYet: "Latest report not available yet.",
+    locationUnknown: "Location unknown",
+    requiredQty: "Required Qty",
+    offerFrom: "Offer from Buyer",
+    totalAmount: "Total",
+    listedOnMarketplace: "listed on marketplace",
+    orderFor: "Order for",
+    demandSubtext: "Post crop requirements and let farmers connect with you",
+    postDemandHelp: "Farmers will see your demand",
+    reqByDeadline: "Required By (Deadline)",
+    demandDescPlaceholder: "Need moisture content under 8%...",
   },
   
   hi: {
@@ -488,6 +514,32 @@ const KRISHI_I18N = {
     recentlyListed: "हाल ही में सत्यापित स्थानीय किसानों द्वारा सूचीबद्ध",
     browse: "खोजें",
     freshFarmHarvest: "ताज़ी फसल की उपज",
+    commodityScore: "फसल",
+    quantityScore: "मात्रा",
+    locationScore: "स्थान",
+    priceScore: "मूल्य",
+    gradeScore: "ग्रेड",
+    orderRef: "ऑर्डर संदर्भ",
+    status: "स्थिति",
+    cropCommodity: "फसल वस्तु",
+    agreedQty: "सहमत मात्रा",
+    agreedPrice: "सहमत इकाई मूल्य",
+    recentLabel: "ताज़ा",
+    reportedPriceLabel: "रिपोर्ट किया गया",
+    rangeLabel: "सीमा",
+    reportedOnLabel: "रिपोर्ट तिथि",
+    sourceLabel: "स्रोत",
+    noReportYet: "अभी नवीनतम रिपोर्ट उपलब्ध नहीं है।",
+    locationUnknown: "स्थान अज्ञात",
+    requiredQty: "आवश्यक मात्रा",
+    offerFrom: "खरीदार का प्रस्ताव",
+    totalAmount: "कुल",
+    listedOnMarketplace: "बाज़ार में लिस्ट की गई",
+    orderFor: "ऑर्डर",
+    demandSubtext: "अपनी फसल मांगें दर्ज करें और किसानों को आपसे जुड़ने दें",
+    postDemandHelp: "किसान आपकी मांग देख पाएंगे",
+    reqByDeadline: "आवश्यकता तिथि",
+    demandDescPlaceholder: "नमी की मात्रा 8% से कम हो…",
   }
 };
 
@@ -505,7 +557,56 @@ const POPULAR_CROPS = [
   { id: "cotton", nameEn: "Cotton", nameHi: "कपास", icon: "🌱", unit: "quintal", avgPrice: 6620, minPrice: 6200, maxPrice: 7100, category: "cash" },
   { id: "sugarcane", nameEn: "Sugarcane", nameHi: "गन्ना", icon: "🎋", unit: "quintal", avgPrice: 350, minPrice: 320, maxPrice: 380, category: "cash" },
   { id: "groundnut", nameEn: "Groundnut", nameHi: "मूंगफली", icon: "🥜", unit: "quintal", avgPrice: 6377, minPrice: 6000, maxPrice: 6800, category: "pulses" },
+  { id: "cauliflower", nameEn: "Cauliflower", nameHi: "फूलगोभी", icon: "🥦", unit: "quintal", avgPrice: 1800, minPrice: 1500, maxPrice: 2200, category: "vegetables" },
+  { id: "cabbage", nameEn: "Cabbage", nameHi: "पत्ता गोभी", icon: "🥬", unit: "quintal", avgPrice: 1500, minPrice: 1200, maxPrice: 1900, category: "vegetables" },
+  { id: "banana", nameEn: "Banana", nameHi: "केला", icon: "🍌", unit: "quintal", avgPrice: 2800, minPrice: 2500, maxPrice: 3200, category: "fruits" },
+  { id: "mango", nameEn: "Mango", nameHi: "आम", icon: "🥭", unit: "quintal", avgPrice: 3500, minPrice: 2800, maxPrice: 4200, category: "fruits" },
+  { id: "lentils", nameEn: "Dal", nameHi: "दाल", icon: "🫘", unit: "quintal", avgPrice: 6400, minPrice: 5800, maxPrice: 7000, category: "pulses" },
 ];
+
+function getCropCategory(cropName) {
+  if (!cropName) return "other";
+  const lower = cropName.toLowerCase();
+  if (lower.includes("wheat") || lower.includes("गेहूं") || lower.includes("rice") || lower.includes("paddy") || lower.includes("धान") || lower.includes("चावल") || lower.includes("maize") || lower.includes("मक्का") || lower.includes("barley") || lower.includes("bajra") || lower.includes("jowar")) return "grains";
+  if (lower.includes("potato") || lower.includes("आलू") || lower.includes("onion") || lower.includes("प्याज") || lower.includes("tomato") || lower.includes("टमाटर") || lower.includes("cauliflower") || lower.includes("cabbage") || lower.includes("brinjal") || lower.includes("chilli") || lower.includes("garlic") || lower.includes("ginger")) return "vegetables";
+  if (lower.includes("mango") || lower.includes("आम") || lower.includes("apple") || lower.includes("सेब") || lower.includes("banana") || lower.includes("केला") || lower.includes("orange") || lower.includes("grapes") || lower.includes("papaya") || lower.includes("guava")) return "fruits";
+  if (lower.includes("mustard") || lower.includes("सरसों") || lower.includes("soybean") || lower.includes("gram") || lower.includes("चना") || lower.includes("tur") || lower.includes("arhar") || lower.includes("moong") || lower.includes("urad") || lower.includes("groundnut") || lower.includes("मूंगफली") || lower.includes("pulse")) return "pulses";
+  if (lower.includes("cotton") || lower.includes("कपास") || lower.includes("sugarcane") || lower.includes("गन्ना") || lower.includes("jute") || lower.includes("tobacco") || lower.includes("tea") || lower.includes("coffee")) return "cash";
+  return "other";
+}
+
+function getTranslatedCropName(cropName) {
+  if (!cropName) return "";
+  if (getCurrentLanguage() !== "hi") return cropName;
+  const name = String(cropName).toLowerCase().trim();
+  if (!name) return cropName;
+
+  const ALIASES = {
+    cauliflour: "Cauliflower",
+    cauliflowers: "Cauliflower",
+    tomatos: "Tomato",
+    tomatoes: "Tomato",
+    dal: "Dal",
+    dals: "Dal",
+    paddy: "Rice / Paddy",
+    rice: "Rice / Paddy",
+    wheat: "Wheat",
+  };
+
+  const lookup = ALIASES[name] || name;
+
+  const crop = POPULAR_CROPS.find(c => {
+    const e = c.nameEn.toLowerCase();
+    if (e === lookup) return true;
+    const parts = e.split("/").map(x => x.trim());
+    if (parts.some(p => p === lookup)) return true;
+    if (parts.some(p => p.includes(lookup) && lookup.length >= 4)) return true;
+    if (parts.some(p => lookup.includes(p) && lookup.length >= 4)) return true;
+    return false;
+  });
+
+  return crop ? crop.nameHi : cropName;
+}
 
 function getCropCategory(cropName) {
   if (!cropName) return "other";
@@ -637,6 +738,9 @@ function setLanguage(lang) {
   }
   if (document.getElementById("cropQuickChipsContainer")) {
     renderCropQuickPicker();
+  }
+  if (document.getElementById("marketPriceGrid")) {
+    loadMarketPrices();
   }
 }
 
@@ -1370,7 +1474,7 @@ async function renderMyProduce() {
             }">${item.status || "ACTIVE"}</span>
             <span class="text-xs text-[#40493D]">📍 ${item.district || ""}, ${item.state || ""}</span>
           </div>
-          <h3 class="text-lg font-bold text-[#181D17]">${item.crop}</h3>
+          <h3 class="text-lg font-bold text-[#181D17]">${getTranslatedCropName(item.crop)}</h3>
           <p class="text-xs text-[#40493D] mt-1">${item.description || "No description provided"}</p>
 
           <div class="mt-4 pt-4 border-t border-[#F1F5EB] flex justify-between items-center">
@@ -1379,13 +1483,13 @@ async function renderMyProduce() {
               <p class="text-lg font-bold brand-name">₹${item.price} / ${item.unit}</p>
             </div>
             <div class="flex gap-2">
-              <button onclick="openEditModal('${item.id}', ${item.price}, ${item.quantity})" class="px-3 py-1.5 bg-amber-50 text-amber-700 border border-amber-200 text-xs font-semibold rounded-xl hover:bg-amber-100 transition-colors">✏️ Edit</button>
+              <button onclick="openEditModal('${item.id}', ${item.price}, ${item.quantity})" class="px-3 py-1.5 bg-amber-50 text-amber-700 border border-amber-200 text-xs font-semibold rounded-xl hover:bg-amber-100 transition-colors">✏️ ${t("edit")}</button>
               ${
                 item.status === "SOLD"
                   ? ""
-                  : `<button onclick="openListingMatches('${item.id}')" class="px-3 py-1.5 bg-[#0D631B] text-white text-xs font-semibold rounded-xl hover:bg-[#2E7D32] transition-colors">🔍 Find Matches</button>`
+                  : `<button onclick="openListingMatches('${item.id}')" class="px-3 py-1.5 bg-[#0D631B] text-white text-xs font-semibold rounded-xl hover:bg-[#2E7D32] transition-colors">🔍 ${t("viewMatches")}</button>`
               }
-              <button onclick="deleteListing('${item.id}')" class="px-3 py-1.5 bg-red-50 text-red-600 border border-red-200 text-xs font-semibold rounded-xl hover:bg-red-100 transition-colors">🗑 Cancel</button>
+              <button onclick="deleteListing('${item.id}')" class="px-3 py-1.5 bg-red-50 text-red-600 border border-red-200 text-xs font-semibold rounded-xl hover:bg-red-100 transition-colors">🗑 ${t("delete")}</button>
             </div>
           </div>
         </div>
@@ -1546,14 +1650,14 @@ function filterAndRenderMarketCatalog() {
           <span class="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-green-100 text-[#0D631B] flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[#0D631B]"></span>${t("verifiedUser")}</span>
           <span class="text-xs text-[#40493D]">${item.district || ""}${item.state ? ", " + item.state : ""}</span>
         </div>
-        <h3 class="text-lg font-bold text-[#181D17]">${item.crop}</h3>
+        <h3 class="text-lg font-bold text-[#181D17]">${getTranslatedCropName(item.crop)}</h3>
         <p class="text-xs text-[#40493D] mt-1 line-clamp-2">${item.description || t("freshFarmHarvest", "Fresh farm harvest")}</p>
         <div class="mt-4 pt-4 border-t border-[#F1F5EB] flex items-end justify-between">
           <p class="text-xs text-[#40493D]">${t("quantity")}: <strong class="text-[#181D17]">${item.quantity} ${item.unit}</strong></p>
           <p class="text-lg font-bold gradient-text-warm">₹${Number(item.price).toLocaleString("en-IN")}/<span class="text-xs">${item.unit}</span></p>
         </div>
       </div>
-      <button onclick="showListingDetails(${item.id}, '${item.crop}', '${item.quantity} ${item.unit}', '₹${item.price} / ${item.unit}', '${item.district || ""}, ${item.state || ""}')" class="btn-warm w-full mt-4 py-2.5 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5">
+      <button onclick="showListingDetails(${item.id}, '${getTranslatedCropName(item.crop)}', '${item.quantity} ${item.unit}', '₹${item.price} / ${item.unit}', '${item.district || ""}, ${item.state || ""}')" class="btn-warm w-full mt-4 py-2.5 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5">
         <span>👀</span> ${t("viewDetails")}
       </button>
     </div>
@@ -1841,20 +1945,20 @@ async function renderMyDemands() {
             <span class="status-badge pending">${item.status || "OPEN"}</span>
             <span class="text-xs text-[#40493D]">📍 ${item.district || ""}, ${item.state || ""}</span>
           </div>
-          <h3 class="text-lg font-bold text-[#181D17]">${item.crop_name}</h3>
-          <p class="text-xs text-[#40493D] mt-1">Requirement by ${item.required_by ? String(item.required_by).slice(0, 10) : "ASAP"}</p>
+          <h3 class="text-lg font-bold text-[#181D17]">${getTranslatedCropName(item.crop_name)}</h3>
+          <p class="text-xs text-[#40493D] mt-1">${t("requirementBy")} ${item.required_by ? String(item.required_by).slice(0, 10) : t("asap")}</p>
           <div class="mt-4 pt-4 border-t border-[#F1F5EB] flex justify-between items-center">
             <div>
-              <p class="text-xs text-[#40493D]">Required: <strong class="text-[#181D17]">${item.quantity} ${item.unit}</strong></p>
-              <p class="text-lg font-bold gradient-text-warm">Max ₹${item.target_price} / ${item.unit}</p>
+              <p class="text-xs text-[#40493D]">${t("quantity")}: <strong class="text-[#181D17]">${item.quantity} ${item.unit}</strong></p>
+              <p class="text-lg font-bold gradient-text-warm">${t("maxBudget")} ₹${item.target_price} / ${item.unit}</p>
             </div>
             ${
               item.status === "ACTIVE"
                 ? `<div class="flex gap-2">
-              <button onclick="openDemandEditModal('${item.id}')" class="px-3 py-1.5 bg-amber-50 text-amber-700 border border-amber-200 text-xs font-semibold rounded-xl hover:bg-amber-100 transition-colors">✏️ Edit</button>
-              <button onclick="openDemandMatches('${item.id}')" class="px-3 py-1.5 bg-[#75584D] text-white text-xs font-semibold rounded-xl hover:bg-[#5c443b] transition-colors">🔍 Find Matches</button>
+              <button onclick="openDemandEditModal('${item.id}')" class="px-3 py-1.5 bg-amber-50 text-amber-700 border border-amber-200 text-xs font-semibold rounded-xl hover:bg-amber-100 transition-colors">✏️ ${t("edit")}</button>
+              <button onclick="openDemandMatches('${item.id}')" class="px-3 py-1.5 bg-[#75584D] text-white text-xs font-semibold rounded-xl hover:bg-[#5c443b] transition-colors">🔍 ${t("viewMatches")}</button>
             </div>`
-                : `<a href="./browse-produce.html" class="px-3 py-1.5 bg-[#75584D] text-white text-xs font-semibold rounded-xl hover:bg-[#5c443b] transition-colors">🔍 Find Matches</a>`
+                : `<a href="./browse-produce.html" class="px-3 py-1.5 bg-[#75584D] text-white text-xs font-semibold rounded-xl hover:bg-[#5c443b] transition-colors">🔍 ${t("viewMatches")}</a>`
             }
           </div>
         </div>
@@ -1989,10 +2093,10 @@ function matchCardHtml(match, detail, mode) {
   const title =
     mode === "farmer"
       ? detail
-        ? detail.crop_name || "Buyer Requirement"
+        ? getTranslatedCropName(detail.crop_name) || "Buyer Requirement"
         : `Buyer Demand #${match.demand_id}`
       : detail
-        ? detail.crop || "Farmer Listing"
+        ? getTranslatedCropName(detail.crop) || "Farmer Listing"
         : `Farmer Listing #${match.listing_id}`;
 
   const reasonList =
@@ -2015,28 +2119,28 @@ function matchCardHtml(match, detail, mode) {
             <span class="status-badge ${matchLevelClass(pct)}">${match.level || "Match"}</span>
           </div>
         </div>
-        <span class="text-xs text-[#40493D]">📍 ${loc || "Location unknown"}</span>
+        <span class="text-xs text-[#40493D]">📍 ${loc || t("locationUnknown", "Location unknown")}</span>
       </div>
       ${
         detail
           ? `<div class="mt-3 pt-3 border-t border-[#F1F5EB] grid grid-cols-2 gap-2 text-xs">
               ${
                 mode === "farmer"
-                  ? `<span class="text-[#40493D]">Required Qty: <strong class="text-[#181D17]">${detail.quantity} ${detail.unit}</strong></span>
-                     <span class="text-[#40493D]">Max Budget: <strong class="text-[#181D17]">₹${detail.target_price} / ${detail.unit}</strong></span>`
-                  : `<span class="text-[#40493D]">Qty: <strong class="text-[#181D17]">${detail.quantity} ${detail.unit}</strong></span>
-                     <span class="text-[#40493D]">Price: <strong class="text-[#181D17]">₹${detail.price} / ${detail.unit}</strong></span>`
+                  ? `<span class="text-[#40493D]">${t("requiredQty", "Required Qty")}: <strong class="text-[#181D17]">${detail.quantity} ${detail.unit}</strong></span>
+                     <span class="text-[#40493D]">${t("maxBudget", "Max Budget")}: <strong class="text-[#181D17]">₹${detail.target_price} / ${detail.unit}</strong></span>`
+                  : `<span class="text-[#40493D]">${t("quantity", "Qty")}: <strong class="text-[#181D17]">${detail.quantity} ${detail.unit}</strong></span>
+                     <span class="text-[#40493D]">${t("price", "Price")}: <strong class="text-[#181D17]">₹${detail.price} / ${detail.unit}</strong></span>`
               }
             </div>`
           : ""
       }
       <ul class="mt-3 space-y-1.5">${reasonList}</ul>
       <div class="mt-3 pt-3 border-t border-[#F1F5EB] grid grid-cols-2 sm:grid-cols-5 gap-2 text-center text-[10px] text-[#40493D]">
-        <div><div class="text-sm font-bold text-[#181D17]">${Math.round(match.commodity_score || 0)}</div>Commodity</div>
-        <div><div class="text-sm font-bold text-[#181D17]">${Math.round(match.quantity_score || 0)}</div>Quantity</div>
-        <div><div class="text-sm font-bold text-[#181D17]">${Math.round(match.location_score || 0)}</div>Location</div>
-        <div><div class="text-sm font-bold text-[#181D17]">${Math.round(match.price_score || 0)}</div>Price</div>
-        <div><div class="text-sm font-bold text-[#181D17]">${Math.round(match.grade_score || 0)}</div>Grade</div>
+        <div><div class="text-sm font-bold text-[#181D17]">${Math.round(match.commodity_score || 0)}</div>${t("commodityScore", "Commodity")}</div>
+        <div><div class="text-sm font-bold text-[#181D17]">${Math.round(match.quantity_score || 0)}</div>${t("quantityScore", "Quantity")}</div>
+        <div><div class="text-sm font-bold text-[#181D17]">${Math.round(match.location_score || 0)}</div>${t("locationScore", "Location")}</div>
+        <div><div class="text-sm font-bold text-[#181D17]">${Math.round(match.price_score || 0)}</div>${t("priceScore", "Price")}</div>
+        <div><div class="text-sm font-bold text-[#181D17]">${Math.round(match.grade_score || 0)}</div>${t("gradeScore", "Grade")}</div>
       </div>
       ${
         mode === "buyer" && detail
@@ -2275,7 +2379,7 @@ async function renderBuyerOffers() {
                   ? "rejected"
                   : "pending"
             }">${item.status || "PENDING"}</span>
-            <h3 class="text-lg font-bold text-[#181D17] mt-2">${item.crop || "Produce Listing"}</h3>
+            <h3 class="text-lg font-bold text-[#181D17] mt-2">${getTranslatedCropName(item.crop) || "Produce Listing"}</h3>
             <p class="text-xs text-[#40493D] mt-1">💬 ${item.message || "No additional message"}</p>
           </div>
           <div class="text-right gap-2">
@@ -2336,8 +2440,8 @@ async function renderFarmerOffers() {
                   ? "accepted"
                   : "rejected"
             }">${item.status || "PENDING"}</span>
-            <h3 class="text-lg font-bold text-[#181D17] mt-2">${item.crop || "Produce Listing"}</h3>
-            <p class="text-xs text-[#40493D] mt-0.5">Offer from Buyer: <strong class="text-[#181D17]">${item.buyer_name || "Buyer"}</strong></p>
+            <h3 class="text-lg font-bold text-[#181D17] mt-2">${getTranslatedCropName(item.crop) || "Produce Listing"}</h3>
+            <p class="text-xs text-[#40493D] mt-0.5">${t("offerFrom", "Offer from Buyer")}: <strong class="text-[#181D17]">${item.buyer_name || "Buyer"}</strong></p>
             <p class="text-xs text-[#40493D] mt-1">💬 ${item.message || "No note from buyer"}</p>
           </div>
           <div class="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end">
@@ -2440,16 +2544,16 @@ async function renderFarmerOrders() {
               <span class="status-badge accepted">${item.status || "CONFIRMED"}</span>
               <span class="text-xs text-gray-500">Order #${item.id ? String(item.id).slice(0, 8) : "N/A"}</span>
             </div>
-            <h3 class="text-lg font-bold text-[#181D17]">${item.crop || "Crop Harvest"}</h3>
+            <h3 class="text-lg font-bold text-[#181D17]">${getTranslatedCropName(item.crop) || "Crop Harvest"}</h3>
             <p class="text-xs text-[#40493D]">Buyer: <strong class="text-[#181D17]">${item.buyer_name || "Buyer Partner"}</strong></p>
           </div>
           <div class="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end">
             <div class="text-right">
-              <p class="text-xs text-[#40493D]">Agreed Qty: <strong class="text-[#181D17]">${item.quantity}</strong></p>
-              <p class="text-lg font-bold brand-name">Total: ₹${item.total_amount || item.quantity * item.agreed_price}</p>
+              <p class="text-xs text-[#40493D]">${t("agreedQty", "Agreed Qty")}: <strong class="text-[#181D17]">${item.quantity}</strong></p>
+              <p class="text-lg font-bold brand-name">${t("totalAmount", "Total")}: ₹${item.total_amount || item.quantity * item.agreed_price}</p>
             </div>
-            <button onclick="openOrderModal('${item.id}', '${item.crop}', '${item.quantity}', '${item.agreed_price}', '${item.total_amount || item.quantity * item.agreed_price}', '${item.buyer_name || "Buyer"}', '${item.status || "CONFIRMED"}')" class="px-4 py-2.5 bg-[#0D631B]/10 text-[#0D631B] text-xs font-bold rounded-xl hover:bg-[#0D631B] hover:text-white transition-all">
-              📄 View Summary
+            <button onclick="openOrderModal('${item.id}', '${getTranslatedCropName(item.crop)}', '${item.quantity}', '${item.agreed_price}', '${item.total_amount || item.quantity * item.agreed_price}', '${item.buyer_name || "Buyer"}', '${item.status || "CONFIRMED"}')" class="px-4 py-2.5 bg-[#0D631B]/10 text-[#0D631B] text-xs font-bold rounded-xl hover:bg-[#0D631B] hover:text-white transition-all">
+              📄 ${t("viewDetails")}
             </button>
           </div>
         </div>
@@ -2503,16 +2607,16 @@ async function renderBuyerOrders() {
               <span class="status-badge accepted">${item.status || "CONFIRMED"}</span>
               <span class="text-xs text-gray-500">Order #${item.id ? String(item.id).slice(0, 8) : "N/A"}</span>
             </div>
-            <h3 class="text-lg font-bold text-[#181D17]">${item.crop || "Crop Harvest"}</h3>
+            <h3 class="text-lg font-bold text-[#181D17]">${getTranslatedCropName(item.crop) || "Crop Harvest"}</h3>
             <p class="text-xs text-[#40493D]">Farmer: <strong class="text-[#181D17]">${item.farmer_name || "Farmer Partner"}</strong></p>
           </div>
           <div class="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end">
             <div class="text-right">
-              <p class="text-xs text-[#40493D]">Agreed Qty: <strong class="text-[#181D17]">${item.quantity}</strong></p>
-              <p class="text-lg font-bold gradient-text-warm">Total: ₹${item.total_amount || item.quantity * item.agreed_price}</p>
+              <p class="text-xs text-[#40493D]">${t("agreedQty", "Agreed Qty")}: <strong class="text-[#181D17]">${item.quantity}</strong></p>
+              <p class="text-lg font-bold gradient-text-warm">${t("totalAmount", "Total")}: ₹${item.total_amount || item.quantity * item.agreed_price}</p>
             </div>
-            <button onclick="openOrderModal('${item.id}', '${item.crop}', '${item.quantity}', '${item.agreed_price}', '${item.total_amount || item.quantity * item.agreed_price}', '${item.farmer_name || "Farmer"}', '${item.status || "CONFIRMED"}')" class="px-4 py-2.5 bg-[#75584D]/10 text-[#75584D] text-xs font-bold rounded-xl hover:bg-[#75584D] hover:text-white transition-all">
-              📄 View Summary
+            <button onclick="openOrderModal('${item.id}', '${getTranslatedCropName(item.crop)}', '${item.quantity}', '${item.agreed_price}', '${item.total_amount || item.quantity * item.agreed_price}', '${item.farmer_name || "Farmer"}', '${item.status || "CONFIRMED"}')" class="px-4 py-2.5 bg-[#75584D]/10 text-[#75584D] text-xs font-bold rounded-xl hover:bg-[#75584D] hover:text-white transition-all">
+              📄 ${t("viewDetails")}
             </button>
           </div>
         </div>
@@ -2540,17 +2644,17 @@ function openOrderModal(id, crop, qty, price, total, partner, status) {
       <p class="text-xs text-[#40493D] mt-1">Deal finalized between both parties</p>
     </div>
     <div class="grid grid-cols-2 gap-2 text-xs border-b border-[#CDBDB4]/50 pb-2">
-      <span class="text-[#40493D]">Order Reference:</span>
+      <span class="text-[#40493D]">${t("orderRef", "Order Reference")}:</span>
       <span class="font-semibold text-right text-[#181D17]">${id ? id.substring(0, 12) : "CR-8921"}...</span>
-      <span class="text-[#40493D]">Status:</span>
+      <span class="text-[#40493D]">${t("status", "Status")}:</span>
       <span class="status-badge accepted ml-auto">${status}</span>
     </div>
     <div class="grid grid-cols-2 gap-2 text-xs border-b border-[#CDBDB4]/50 py-2">
-      <span class="text-[#40493D]">Crop Commodity:</span>
+      <span class="text-[#40493D]">${t("cropCommodity", "Crop Commodity")}:</span>
       <span class="font-semibold text-right text-[#181D17]">${crop}</span>
-      <span class="text-[#40493D]">Agreed Quantity:</span>
+      <span class="text-[#40493D]">${t("agreedQty", "Agreed Quantity")}:</span>
       <span class="font-semibold text-right text-[#181D17]">${qty}</span>
-      <span class="text-[#40493D]">Agreed Unit Price:</span>
+      <span class="text-[#40493D]">${t("agreedPrice", "Agreed Unit Price")}:</span>
       <span class="font-semibold text-right text-[#181D17]">₹${price}</span>
     </div>
     <div class="flex justify-between items-center pt-3 text-base font-bold brand-name">
@@ -2793,7 +2897,7 @@ async function loadFarmerDashboard() {
             <div class="flex items-center gap-3 p-3 rounded-xl bg-[#F4F8F0]/50">
               <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0D631B] to-[#2E7D32] flex items-center justify-center text-white text-lg">🌾</div>
               <div class="flex-1">
-                <p class="font-medium text-[#181D17]">${l.crop || "Crop"} listed ${l.status === "ACTIVE" ? "on marketplace" : `(${l.status})`}</p>
+                <p class="font-medium text-[#181D17]">${getTranslatedCropName(l.crop) || "Crop"} ${t("listedOnMarketplace", "listed on marketplace")} ${l.status === "ACTIVE" ? "" : `(${l.status})`}</p>
                 <p class="text-sm text-[#40493D]">${l.quantity} ${l.unit} at ₹${l.price}</p>
               </div>
             </div>`);
@@ -2805,7 +2909,7 @@ async function loadFarmerDashboard() {
             <div class="flex items-center gap-3 p-3 rounded-xl bg-[#F4F8F0]/50">
               <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#3B82F6] to-[#06B6D4] flex items-center justify-center text-white text-lg">📦</div>
               <div class="flex-1">
-                <p class="font-medium text-[#181D17]">Order for ${o.crop || "produce"} ${o.status || "CONFIRMED"}</p>
+                <p class="font-medium text-[#181D17]">${t("orderFor", "Order for")} ${getTranslatedCropName(o.crop) || "produce"} ${o.status || "CONFIRMED"}</p>
                 <p class="text-sm text-[#40493D]">${o.buyer_name || "Buyer"} • ₹${o.total_amount || ""}</p>
               </div>
             </div>`);
@@ -3039,26 +3143,27 @@ async function loadMarketPrices() {
     if (info) {
       const freshnessLabel =
         info.freshness === "Today" || info.freshness === "1 day old"
-          ? "Recent"
+          ? t("recentLabel", "Recent")
           : info.freshness || "—";
+      const cropName = getTranslatedCropName(info.commodity || commodity);
       html += `
         <div class="premium-card rounded-xl p-6" style="--card-accent: linear-gradient(90deg,#4e99d9,#9cc7ee);--card-glow:rgba(78,153,217,0.14);--card-shadow:rgba(78,153,217,0.16);">
           <div class="flex items-center justify-between">
-            <h3 class="text-lg font-semibold text-[#1E1E1E]">${info.commodity || commodity}</h3>
+            <h3 class="text-lg font-semibold text-[#1E1E1E]">${cropName}</h3>
             <span class="inline-block px-2.5 py-0.5 text-[10px] font-semibold rounded-full bg-blue-100 text-[#2E6BA6]">${freshnessLabel}</span>
           </div>
-          <p class="text-sm text-[#40493D] mt-1">Reported ₹<strong class="text-[#181D17]">${info.current_price ? info.current_price.toLocaleString("en-IN") : "—"}</strong> / quintal</p>
-          <p class="text-xs text-[#40493D] mt-2">Range: ₹${info.min_price ? info.min_price.toLocaleString("en-IN") : "—"} – ₹${info.max_price ? info.max_price.toLocaleString("en-IN") : "—"}</p>
+          <p class="text-sm text-[#40493D] mt-1">${t("reportedPriceLabel", "Reported")} ₹<strong class="text-[#181D17]">${info.current_price ? info.current_price.toLocaleString("en-IN") : "—"}</strong> / quintal</p>
+          <p class="text-xs text-[#40493D] mt-2">${t("rangeLabel", "Range")}: ₹${info.min_price ? info.min_price.toLocaleString("en-IN") : "—"} – ₹${info.max_price ? info.max_price.toLocaleString("en-IN") : "—"}</p>
           <div class="mt-4 pt-3 border-t border-[#E0E4DA]/60 text-[11px] text-[#40493D] space-y-1">
-            <p>📅 Reported on: ${info.reported_date || "—"}</p>
-            <p>🏪 Source: ${info.source || "Mandi"}</p>
+            <p>📅 ${t("reportedOnLabel", "Reported on")}: ${info.reported_date || "—"}</p>
+            <p>🏪 ${t("sourceLabel", "Source")}: ${info.source || "Mandi"}</p>
           </div>
         </div>`;
     } else {
       html += `
         <div class="premium-card rounded-xl p-6 text-center" style="--card-accent: linear-gradient(90deg,#4e99d9,#9cc7ee);--card-glow:rgba(78,153,217,0.14);--card-shadow:rgba(78,153,217,0.16);">
-          <h3 class="text-lg font-semibold text-[#1E1E1E]">${commodity}</h3>
-          <p class="text-sm text-[#40493D] mt-2">Latest report not available yet.</p>
+          <h3 class="text-lg font-semibold text-[#1E1E1E]">${getTranslatedCropName(commodity)}</h3>
+          <p class="text-sm text-[#40493D] mt-2">${t("noReportYet", "Latest report not available yet.")}</p>
         </div>`;
     }
   }
