@@ -18,7 +18,7 @@
   >
     <!-- DESKTOP SIDEBAR -->
     <aside
-      class="hidden lg:flex flex-col w-64 app-sidebar min-h-screen p-5 fixed left-0 top-0 bottom-0 z-40 ksetu-slide-in"
+      class="hidden lg:flex flex-col w-64 app-sidebar min-h-screen p-5 fixed left-0 top-0 bottom-0 z-40"
     >
       <a href="./index.html" class="brand flex items-center gap-3 mb-8 px-2">
         <img
@@ -36,7 +36,39 @@
         </div>
       </div>
 
-      <nav class="flex flex-col gap-2 flex-1">
+      <nav class="flex flex-col gap-2 flex-1 nav-role-farmer">
+        <a
+          href="./farmer-dashboard.html"
+          class="sidebar-nav"
+        >
+          <span class="text-lg">📊</span> <span data-i18n="dashboard">Dashboard</span>
+        </a>
+        <a
+          href="./my-listings.html"
+          class="sidebar-nav"
+        >
+          <span class="text-lg">🌾</span> <span data-i18n="myProduce">My Produce</span>
+        </a>
+        <a
+          href="./farmer-offers.html"
+          class="sidebar-nav"
+        >
+          <span class="text-lg">🤝</span> <span data-i18n="offersReceived">Offers Received</span>
+        </a>
+        <a
+          href="./farmer-orders.html"
+          class="sidebar-nav"
+        >
+          <span class="text-lg">🚚</span> <span data-i18n="myOrders">My Orders</span>
+        </a>
+        <a
+          href="./buyer-demands.html"
+          class="sidebar-nav active"
+        >
+          <span class="text-lg">📋</span> <span data-i18n="buyerDemands">Buyer Demands</span>
+        </a>
+      </nav>
+      <nav class="flex flex-col gap-2 flex-1 nav-role-buyer">
         <a
           href="./buyer-dashboard.html"
           class="sidebar-nav"
@@ -113,7 +145,7 @@
           <button
             onclick="openDemandDrawer()"
             aria-label="Post a new crop requirement"
-            class="btn-warm text-white font-medium px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl shadow-lg text-sm flex items-center gap-2"
+            class="buyer-only btn-warm text-white font-medium px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl shadow-lg text-sm flex items-center gap-2"
           >
             <span>➕</span> <span data-i18n="postRequirement">Post Requirement</span>
           </button>

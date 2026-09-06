@@ -550,6 +550,12 @@ function getTokenRole() {
   }
 }
 
+function applyRoleTheme() {
+  const role = getTokenRole();
+  document.body.classList.remove("role-farmer", "role-buyer");
+  document.body.classList.add(role === "buyer" ? "role-buyer" : "role-farmer");
+}
+
 function extractErrorMessage(data, fallback) {
   if (!data) return fallback;
   if (typeof data.error === "object" && data.error.message) {
@@ -2548,12 +2554,13 @@ document.addEventListener("DOMContentLoaded", loadUserProfile);
 // FARMER DASHBOARD — STATS, SIDEBAR & RECENT ACTIVITY
 // ============================================================
 async function loadFarmerDashboard() {
-  const nameEl = document.getElementById("farmerName");
-  if (!nameEl) return false;
+  const dashboardEl = document.getElementById("recentActivity");
+  if (!dashboardEl) return false;
 
+  const nameEl = document.getElementById("sidebarName");
   const token = localStorage.getItem("token");
   if (!token) {
-    nameEl.textContent = "Guest Farmer";
+    if (nameEl) nameEl.textContent = "Guest Farmer";
     markDashboardFresh();
     return false;
   }
@@ -2785,7 +2792,7 @@ let dashboardRefreshTimer = null;
 
 function startLiveDashboardRefresh() {
   const isDashboard = !!(
-    document.getElementById("farmerName") ||
+    document.getElementById("recentActivity") ||
     document.getElementById("featuredListings") ||
     document.getElementById("statPendingOffers")
   );
@@ -2904,6 +2911,7 @@ async function hydrateSidebar() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  applyRoleTheme();
   initLanguageSwitchers();
   hydrateSidebar();
   setupAppChrome();

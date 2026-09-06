@@ -864,8 +864,8 @@
 
 .glass-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(117, 88, 77, 0.4);
-  box-shadow: 0 14px 34px -12px rgba(117, 88, 77, 0.22);
+  border-color: rgba(var(--accent-rgb, 117, 88, 77), 0.4);
+  box-shadow: 0 14px 34px -12px rgba(var(--accent-rgb, 117, 88, 77), 0.22);
 }
 
 .stat-card {
@@ -876,7 +876,7 @@
 
 .stat-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(117, 88, 77, 0.14);
+  box-shadow: 0 12px 30px rgba(var(--accent-rgb, 117, 88, 77), 0.14);
 }
 
 .stat-icon {
@@ -918,6 +918,7 @@
   --nav-hover-text: #0d631b;
   --nav-active-bg: linear-gradient(135deg, #0d631b, #2e7d32);
   --nav-active-shadow: 0 6px 16px -6px rgba(13, 99, 27, 0.6);
+  --accent-rgb: 13, 99, 27;
 }
 
 .role-buyer {
@@ -926,6 +927,23 @@
   --nav-hover-text: #75584d;
   --nav-active-bg: linear-gradient(135deg, #5f463c, #8c6a5b);
   --nav-active-shadow: 0 6px 16px -6px rgba(117, 88, 77, 0.6);
+  --accent-rgb: 117, 88, 77;
+}
+
+/* ---- Role-aware blocks on shared pages ---- */
+body.role-farmer .nav-role-buyer { display: none !important; }
+body.role-buyer .nav-role-farmer { display: none !important; }
+body.role-farmer .buyer-only { display: none !important; }
+
+/* ---- Cross-page navigation transition (progressive enhancement) ---- */
+@view-transition {
+  navigation: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
 }
 
 /* ---- App sidebar container (shared across roles) ---- */

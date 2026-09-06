@@ -71,7 +71,7 @@
   </head>
   <body class="role-farmer bg-[#F4F8F0] text-[#181D17] font-['Inter'] min-h-screen flex flex-col lg:flex-row">
     <!-- ================= DESKTOP SIDEBAR ================= -->
-    <aside class="hidden lg:flex flex-col w-64 app-sidebar min-h-screen p-5 fixed left-0 top-0 bottom-0 z-40 ksetu-slide-in">
+    <aside class="hidden lg:flex flex-col w-64 app-sidebar min-h-screen p-5 fixed left-0 top-0 bottom-0 z-40">
       <!-- LOGO -->
       <a href="./index.html" class="brand mb-8 px-2 flex items-center gap-3 animate-fade-in-up">
         <img src="./assets/images/krishisetu_logo.png" alt="KrishiSetu Logo" class="brand-logo w-10 h-10" />
@@ -88,25 +88,25 @@
 
       <!-- NAVIGATION LINKS -->
       <nav class="flex flex-col gap-2 flex-1">
-        <a href="./farmer-dashboard.html" class="sidebar-nav active animate-fade-in-up delay-1">
+        <a href="./farmer-dashboard.html" class="sidebar-nav active ">
           <span class="text-lg">📊</span> <span data-i18n="dashboard">Dashboard</span>
         </a>
-        <a href="./my-listings.html" class="sidebar-nav animate-fade-in-up delay-2">
+        <a href="./my-listings.html" class="sidebar-nav ">
           <span class="text-lg">🌾</span> <span data-i18n="myProduce">My Produce</span>
         </a>
-        <a href="./farmer-offers.html" class="sidebar-nav animate-fade-in-up delay-3">
+        <a href="./farmer-offers.html" class="sidebar-nav ">
           <span class="text-lg">📥</span> <span data-i18n="offersReceived">Offers Received</span>
         </a>
-        <a href="./farmer-orders.html" class="sidebar-nav animate-fade-in-up delay-4">
+        <a href="./farmer-orders.html" class="sidebar-nav ">
           <span class="text-lg">📦</span> <span data-i18n="myOrders">My Orders</span>
         </a>
-        <a href="./buyer-demands.html" class="sidebar-nav animate-fade-in-up delay-5">
+        <a href="./buyer-demands.html" class="sidebar-nav ">
           <span class="text-lg">📋</span> <span data-i18n="buyerDemands">Buyer Demands</span>
         </a>
       </nav>
 
       <!-- USER PROFILE SECTION -->
-      <div class="pt-4 border-t border-[#E0E4DA]/60 animate-fade-in-up delay-5">
+      <div class="pt-4 border-t border-[#E0E4DA]/60">
         <div class="flex items-center gap-3 px-3 py-2">
           <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#0D631B] to-[#4CAF50] flex items-center justify-center text-white font-bold text-lg" id="sidebarAvatar">F</div>
           <div class="flex-1 min-w-0">
@@ -165,7 +165,7 @@
               <span id="liveDot" class="live-dot"></span>
               <span id="dashboardFreshness">Updated —</span>
             </span>
-            <a href="./my-listings.html" class="btn-primary inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-white font-medium text-sm shadow-lg animate-fade-in-up delay-2">
+            <a href="./my-listings.html" class="btn-primary inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-white font-medium text-sm shadow-lg">
               <span>➕</span> <span data-i18n="sellProduce">Sell Produce</span>
             </a>
           </div>
@@ -175,7 +175,7 @@
       <!-- STATS GRID -->
       <div class="p-6 max-w-7xl mx-auto">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <article class="glass-card stat-card gradient-border rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 animate-fade-in-up delay-1">
+          <article class="glass-card stat-card gradient-border rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300">
             <div class="flex items-center justify-between">
               <div>
                 <p class="text-sm font-medium text-[#40493D]" data-i18n="activeListings">Active Listings</p>
@@ -184,7 +184,7 @@
               <div class="stat-icon w-12 h-12 rounded-xl bg-gradient-to-br from-[#0D631B] to-[#2E7D32] flex items-center justify-center text-white text-2xl">🌾</div>
             </div>
           </article>
-          <article class="glass-card stat-card gradient-border rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 animate-fade-in-up delay-2">
+          <article class="glass-card stat-card gradient-border rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300">
             <div class="flex items-center justify-between">
               <div>
                 <p class="text-sm font-medium text-[#40493D]" data-i18n="pendingOffers">Pending Offers</p>
@@ -193,7 +193,7 @@
               <div class="stat-icon w-12 h-12 rounded-xl bg-gradient-to-br from-[#F59E0B] to-[#F97316] flex items-center justify-center text-white text-2xl">📥</div>
             </div>
           </article>
-          <article class="glass-card stat-card gradient-border rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 animate-fade-in-up delay-3">
+          <article class="glass-card stat-card gradient-border rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300">
             <div class="flex items-center justify-between">
               <div>
                 <p class="text-sm font-medium text-[#40493D]" data-i18n="activeOrders">Active Orders</p>
@@ -202,7 +202,7 @@
               <div class="stat-icon w-12 h-12 rounded-xl bg-gradient-to-br from-[#3B82F6] to-[#06B6D4] flex items-center justify-center text-white text-2xl">📦</div>
             </div>
           </article>
-          <article class="glass-card stat-card gradient-border rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 animate-fade-in-up delay-4">
+          <article class="glass-card stat-card gradient-border rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300">
             <div class="flex items-center justify-between">
               <div>
                 <p class="text-sm font-medium text-[#40493D]" data-i18n="totalRevenue">Total Revenue</p>
@@ -214,7 +214,7 @@
         </div>
 
         <!-- QUICK ACTIONS -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 animate-fade-in-up delay-3">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
           <a href="./my-listings.html" class="glass-card gradient-border rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 group">
             <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#0D631B] to-[#2E7D32] flex items-center justify-center text-white text-2xl mb-3 group-hover:scale-110 transition-transform">🌾</div>
             <h3 class="font-semibold text-[#181D17] mb-1" data-i18n="myProduce">Manage Produce</h3>
@@ -233,7 +233,7 @@
         </div>
 
         <!-- RECENT ACTIVITY -->
-        <section class="glass-card gradient-border rounded-2xl p-6 shadow-sm animate-fade-in-up delay-5">
+        <section class="glass-card gradient-border rounded-2xl p-6 shadow-sm">
           <div class="flex items-center justify-between mb-4">
             <h2 class="text-xl font-bold text-[#181D17]">Recent Activity</h2>
             <a href="./my-listings.html" class="text-sm font-medium text-[#0D631B] hover:underline">View All →</a>
