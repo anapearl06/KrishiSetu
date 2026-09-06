@@ -1597,3 +1597,126 @@ footer .footer-link:hover {
   }
 }
 
+/* ============================================================
+   ROBUST GRADIENT TEXT (webkit fallback)
+   ============================================================ */
+.bg-clip-text {
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ============================================================
+   NAV-LINK ACTIVE STATE
+   ============================================================ */
+.nav-link.active,
+.nav-item-warm.active {
+  background: linear-gradient(135deg, #0d631b, #2e9e4f);
+  color: #ffffff !important;
+  font-weight: 600;
+  box-shadow: 0 4px 14px -4px rgba(13, 99, 27, 0.45);
+}
+
+.nav-link.active::after,
+.nav-item-warm.active::after {
+  display: none;
+}
+
+/* ============================================================
+   DROPDOWN SELECT POLISH
+   ============================================================ */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2340493D' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  padding-right: 2rem !important;
+  cursor: pointer;
+}
+
+/* ============================================================
+   AMBIENT PAGE BACKGROUND (subtle depth)
+   ============================================================ */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60rem 30rem at 90% -5%, rgba(46, 158, 79, 0.08), transparent 55%),
+    radial-gradient(50rem 28rem at -10% 110%, rgba(245, 158, 11, 0.06), transparent 55%);
+}
+
+/* ============================================================
+   STAT CARD & GLASS CARD ENHANCEMENTS
+   ============================================================ */
+.stat-card {
+  border: 1px solid rgba(224, 228, 218, 0.7);
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #0d631b, #2e9e4f, #4caf50);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.stat-card:hover::before {
+  opacity: 1;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(46, 158, 79, 0.25);
+}
+
+.glass-card {
+  border: 1px solid rgba(224, 228, 218, 0.65);
+  transition: transform 0.2s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.glass-card:hover {
+  box-shadow: 0 8px 28px -8px rgba(13, 99, 27, 0.12), 0 2px 8px rgba(0, 0, 0, 0.04);
+  border-color: rgba(224, 228, 218, 0.9);
+}
+
+/* ============================================================
+   SECTION HEADER ACCENT BAR
+   ============================================================ */
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(13, 99, 27, 0.15), rgba(46, 158, 79, 0.2), transparent);
+  border-radius: 9999px 9999px 0 0;
+}
+
+/* ============================================================
+   BUTTON HOVER LIFT
+   ============================================================ */
+.btn-primary,
+.btn-warm {
+  transition: transform 0.18s ease, box-shadow 0.25s ease;
+}
+
+.btn-primary:hover,
+.btn-warm:hover {
+  transform: translateY(-1px);
+}
+

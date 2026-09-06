@@ -139,25 +139,25 @@
         href="./buyer-dashboard.html"
         class="flex flex-col items-center text-[#75584D]"
       >
-        <span class="text-base">📊</span> Home
+        <span class="text-base">📊</span> <span data-i18n="home">Home</span>
       </a>
       <a
         href="./browse-produce.html"
         class="flex flex-col items-center text-[#40493D]"
       >
-        <span class="text-base">🌾</span> Browse
+        <span class="text-base">🌾</span> <span data-i18n="browseProduce">Browse</span>
       </a>
       <a
         href="./buyer-demands.html"
         class="flex flex-col items-center text-[#75584D] font-bold"
       >
-        <span class="text-base">📢</span> Demands
+        <span class="text-base">📢</span> <span data-i18n="demandNav">Demands</span>
       </a>
       <a
         href="./buyer-orders.html"
         class="flex flex-col items-center text-[#40493D]"
       >
-        <span class="text-base">📦</span> Orders
+        <span class="text-base">📦</span> <span data-i18n="orders">Orders</span>
       </a>
     </nav>
 
@@ -222,9 +222,9 @@
               id="demandUnit"
               class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all font-medium"
             >
-              <option value="quintal">Quintal</option>
-              <option value="kg">Kg</option>
-              <option value="ton">Ton</option>
+<option value="quintal" data-i18n="quintal">Quintal</option>
+        <option value="kg" data-i18n="kg">Kg</option>
+        <option value="ton" data-i18n="ton">Ton</option>
             </select>
           </div>
         </div>
@@ -247,27 +247,25 @@
             <label class="block text-xs font-semibold text-[#40493D] mb-1" data-i18n="state"
               >State</label
             >
-            <input
-              type="text"
+            <select
               id="demandState"
               required
-              placeholder="Uttar Pradesh"
-              data-i18n-placeholder="statePlaceholder"
-              class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all font-medium"
-            />
+              class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all font-medium bg-white"
+            >
+              <option value="">Select State</option>
+            </select>
           </div>
           <div>
             <label class="block text-xs font-semibold text-[#40493D] mb-1" data-i18n="district"
               >District / City</label
             >
-            <input
-              type="text"
+            <select
               id="demandDistrict"
               required
-              placeholder="Agra"
-              data-i18n-placeholder="districtPlaceholder"
-              class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all font-medium"
-            />
+              class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all font-medium bg-white"
+            >
+              <option value="">Select District</option>
+            </select>
           </div>
         </div>
         <div>
@@ -354,9 +352,9 @@
                 id="demandEditUnit"
                 class="w-full h-10 px-3 border border-[#E0E4DA] rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all font-medium"
               >
-                <option value="quintal">Quintal</option>
-                <option value="kg">Kg</option>
-                <option value="ton">Ton</option>
+<option value="quintal" data-i18n="quintal">Quintal</option>
+          <option value="kg" data-i18n="kg">Kg</option>
+          <option value="ton" data-i18n="ton">Ton</option>
               </select>
             </div>
           </div>
@@ -379,23 +377,25 @@
               <label class="block text-xs font-semibold text-[#40493D] mb-1" data-i18n="state"
                 >State</label
               >
-              <input
-                type="text"
+              <select
                 id="demandEditState"
                 required
                 class="w-full h-10 px-3 border border-[#E0E4DA] rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all font-medium"
-              />
+              >
+                <option value="">Select State</option>
+              </select>
             </div>
             <div>
               <label class="block text-xs font-semibold text-[#40493D] mb-1" data-i18n="district"
                 >District / City</label
               >
-              <input
-                type="text"
+              <select
                 id="demandEditDistrict"
                 required
                 class="w-full h-10 px-3 border border-[#E0E4DA] rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all font-medium"
-              />
+              >
+                <option value="">Select District</option>
+              </select>
             </div>
           </div>
           <div>
@@ -439,7 +439,7 @@
         class="glass-card rounded-2xl max-w-2xl w-full p-6 shadow-xl space-y-4 animate-fade-in-up max-h-[90vh] flex flex-col"
       >
         <div class="flex items-center justify-between border-b border-[#E0E4DA]/50 pb-3">
-          <h3 class="text-lg font-bold text-[#181D17]" id="matchesModalTitle">Matching Farmers</h3>
+          <h3 class="text-lg font-bold text-[#181D17]" id="matchesModalTitle" data-i18n="matchingFarmers">Matching Farmers</h3>
           <button
             onclick="closeMatchesModal()"
             class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center font-bold text-gray-500 transition-all duration-200"

@@ -95,7 +95,7 @@
           <h1 class="text-2xl md:text-3xl font-bold brand-name" data-i18n="myOrders">
             Confirmed Sales Orders
           </h1>
-          <p class="text-sm text-[#40493D] mt-1">
+          <p class="text-sm text-[#40493D] mt-1" data-i18n="orderTrackingSubtext">
             Track orders generated from accepted offers
           </p>
         </div>
@@ -108,7 +108,7 @@
             class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#0D631B]/10 text-[#0D631B] text-sm font-semibold"
           >
             <span class="w-2 h-2 rounded-full bg-[#0D631B] animate-pulse"></span>
-            Active Orders
+            <span data-i18n="orderActiveBadge">Active Orders</span>
           </span>
         </div>
       </header>
@@ -131,7 +131,7 @@
         <div
           class="flex justify-between items-center border-b border-[#CDBDB4]/50 pb-3"
         >
-          <h3 class="text-lg font-bold gradient-text-warm">
+          <h3 class="text-lg font-bold gradient-text-warm" data-i18n="orderDetailsSummary">
             Order Details Summary
           </h3>
           <button
@@ -148,6 +148,7 @@
           <button
             onclick="closeOrderModal()"
             class="btn-warm px-5 py-2.5 text-white text-xs font-bold rounded-xl"
+            data-i18n="closeSummary"
           >
             Close Summary
           </button>
@@ -163,25 +164,25 @@
         href="./farmer-dashboard.html"
         class="flex flex-col items-center text-[#0D631B]"
       >
-        <span class="text-base">📊</span> Home
+        <span class="text-base">📊</span> <span data-i18n="home">Home</span>
       </a>
       <a
         href="./my-listings.html"
         class="flex flex-col items-center text-[#40493D]"
       >
-        <span class="text-base">🌾</span> Produce
+        <span class="text-base">🌾</span> <span data-i18n="produce">Produce</span>
       </a>
       <a
         href="./farmer-offers.html"
         class="flex flex-col items-center text-[#40493D]"
       >
-        <span class="text-base">🤝</span> Offers
+        <span class="text-base">🤝</span> <span data-i18n="offers">Offers</span>
       </a>
       <a
         href="./farmer-orders.html"
         class="flex flex-col items-center text-[#0D631B] font-bold"
       >
-        <span class="text-base">📦</span> Orders
+        <span class="text-base">📦</span> <span data-i18n="orders">Orders</span>
       </a>
     </nav>
 

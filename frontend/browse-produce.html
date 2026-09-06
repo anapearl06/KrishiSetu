@@ -146,13 +146,12 @@
             </div>
             <div class="relative">
               <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">📍</span>
-              <input
+              <select
                 id="searchState"
-                type="text"
-                placeholder="State (e.g. Uttar Pradesh)"
-                data-i18n-placeholder="searchStateInput"
-                class="h-11 w-full pl-9 pr-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 focus:border-[#75584D] transition-all"
-              />
+                class="h-11 w-full pl-9 pr-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 focus:border-[#75584D] transition-all bg-white"
+              >
+                <option value="">All States</option>
+              </select>
             </div>
             <button
               type="submit"
@@ -292,6 +291,7 @@
             type="button"
             onclick="closeOfferModal()"
             class="px-4 py-2.5 text-sm bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors"
+            data-i18n="cancel"
           >
             Cancel
           </button>
@@ -299,6 +299,7 @@
             type="button"
             onclick="submitOfferFromModal()"
             class="btn-warm px-4 py-2.5 text-sm text-white font-bold rounded-xl"
+            data-i18n="sendOffer"
           >
             Send Offer 🔥
           </button>

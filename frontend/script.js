@@ -151,6 +151,15 @@ const KRISHI_I18N = {
     closeSummary: "Close Summary",
     editListing: "Edit Produce Listing",
     editRequirement: "Edit Requirement",
+    liveBids: "Live Bids",
+    orderDetailsSummary: "Order Details Summary",
+    orderTrackingSubtext: "Track orders generated from accepted offers",
+    orderActiveBadge: "Active Orders",
+    buyerOrdersSubtext: "View all completed deal confirmations with farmers",
+    matchingFarmers: "Matching Farmers",
+    matchingBuyers: "Matching Buyers",
+    findingBuyers: "Finding suitable buyers for this listing…",
+    demandNav: "Demands",
     makeOfferModalTitle: "Make an Offer",
     makeOfferModalDesc: "Send custom pricing deal to farmer",
     offeredPriceLabel: "Offered Price (₹)",
@@ -269,10 +278,25 @@ const KRISHI_I18N = {
     requiredQty: "Required Qty",
     offerFrom: "Offer from Buyer",
     totalAmount: "Total",
+    totalAmountLabel: "Total Amount",
+    orderConfirmed: "Order Confirmed",
+    dealFinalized: "Deal finalized between both parties",
+    cropCommodity: "Crop Commodity",
+    status: "Status",
     listedOnMarketplace: "listed on marketplace",
     orderFor: "Order for",
     demandSubtext: "Post crop requirements and let farmers connect with you",
     postDemandHelp: "Farmers will see your demand",
+    btnAccept: "Accept",
+    btnReject: "Reject",
+    qtyLabel: "Qty",
+    orderHash: "Order",
+    loginToViewOrders: "Please login to view orders.",
+    loginToViewOffers: "Please login to view incoming offers.",
+    noIncomingOffersYet: "No incoming offers received yet.",
+    noConfirmedOrdersYet: "No confirmed orders found.",
+    failedLoadOrders: "Failed to load orders.",
+    failedLoadOffers: "Failed to load received offers.",
     reqByDeadline: "Required By (Deadline)",
     demandDescPlaceholder: "Need moisture content under 8%...",
     quintalUnit: "quintal",
@@ -456,6 +480,15 @@ const KRISHI_I18N = {
     closeSummary: "सारांश बंद करें",
     editListing: "फसल लिस्टिंग संपादित करें",
     editRequirement: "मांग संपादित करें",
+    liveBids: "लाइव बोलियाँ",
+    orderDetailsSummary: "ऑर्डर विवरण सारांश",
+    orderTrackingSubtext: "स्वीकृत प्रस्तावों से बने ऑर्डर देखें",
+    orderActiveBadge: "सक्रिय ऑर्डर",
+    buyerOrdersSubtext: "किसानों के साथ पक्के सौदों की पुष्टि देखें",
+    matchingFarmers: "मैचिंग किसान",
+    matchingBuyers: "मैचिंग खरीदार",
+    findingBuyers: "इस लिस्टिंग के लिए उपयुक्त खरीदार खोजे जा रहे हैं…",
+    demandNav: "मांगें",
     makeOfferModalTitle: "प्रस्ताव दें",
     makeOfferModalDesc: "किसान को कस्टम कीमत वाला सौदा भेजें",
     offeredPriceLabel: "प्रस्तावित मूल्य (₹)",
@@ -573,10 +606,25 @@ const KRISHI_I18N = {
     requiredQty: "आवश्यक मात्रा",
     offerFrom: "खरीदार का प्रस्ताव",
     totalAmount: "कुल",
+    totalAmountLabel: "कुल राशि",
+    orderConfirmed: "ऑर्डर पक्का हो गया",
+    dealFinalized: "दोनों पक्षों के बीच सौदा पक्का हो गया",
+    cropCommodity: "फसल",
+    status: "स्थिति",
     listedOnMarketplace: "बाज़ार में लिस्ट की गई",
     orderFor: "ऑर्डर",
     demandSubtext: "अपनी फसल मांगें दर्ज करें और किसानों को आपसे जुड़ने दें",
     postDemandHelp: "किसान आपकी मांग देख पाएंगे",
+    btnAccept: "स्वीकारें",
+    btnReject: "अस्वीकारें",
+    qtyLabel: "मात्रा",
+    orderHash: "ऑर्डर",
+    loginToViewOrders: "ऑर्डर देखने के लिए कृपया लॉगिन करें।",
+    loginToViewOffers: "प्रस्ताव देखने के लिए कृपया लॉगिन करें।",
+    noIncomingOffersYet: "अभी कोई नया प्रस्ताव नहीं आया है।",
+    noConfirmedOrdersYet: "कोई पक्का ऑर्डर नहीं मिला।",
+    failedLoadOrders: "ऑर्डर लोड करने में विफल रहा।",
+    failedLoadOffers: "प्रस्ताव लोड करने में विफल रहा।",
     reqByDeadline: "आवश्यकता तिथि",
     demandDescPlaceholder: "नमी की मात्रा 8% से कम हो…",
     quintalUnit: "क्विंटल",
@@ -1057,11 +1105,7 @@ function setupStateDistrictPair(stateSelectId, districtSelectId, defaultState = 
     districtEl.innerHTML = `<option value="">${t("selectDistrict", "Select District")}</option>`;
   }
 
-  // Remove existing listener clone if any to avoid duplicate attachments
-  const newStateEl = stateEl.cloneNode(true);
-  stateEl.parentNode?.replaceChild(newStateEl, stateEl);
-
-  newStateEl.addEventListener("change", function() {
+  stateEl.addEventListener("change", function() {
     const selectedState = this.value;
     populateDistrictDropdown(districtEl, selectedState, "");
   });
@@ -1083,7 +1127,7 @@ function initAllLocationDropdowns() {
   
   // Search State Filter in Browse Produce
   const searchStateEl = document.getElementById("searchState");
-  if (searchStateEl && searchStateEl.tagName === "SELECT") {
+  if (searchStateEl) {
     populateStateDropdown(searchStateEl, "", t("allStates", "All States"));
   }
 }
@@ -1122,6 +1166,21 @@ function setLanguage(lang) {
   }
   if (document.getElementById("featuredListings")) {
     loadBuyerDashboard();
+  }
+  if (document.getElementById("farmerOffersList")) {
+    renderFarmerOffers();
+  }
+  if (document.getElementById("farmerOrdersList")) {
+    renderFarmerOrders();
+  }
+  if (document.getElementById("buyerOrdersList")) {
+    renderBuyerOrders();
+  }
+  if (document.getElementById("buyerOffersList")) {
+    renderBuyerOffers();
+  }
+  if (document.getElementById("browseGrid") || document.getElementById("searchState")) {
+    loadBrowseCatalog();
   }
 }
 
@@ -1780,9 +1839,9 @@ async function renderMyProduce() {
       ? document.getElementById("searchInput").value
       : "";
 
-  const token = localStorage.getItem("token");
+const token = localStorage.getItem("token");
   if (!token) {
-    produceGrid.innerHTML = `<p class="text-red-600 font-medium">Please login to view your produce listings.</p>`;
+    container.innerHTML = `<p class="text-red-600 font-medium">${t("loginToViewOrders")}</p>`;
     return;
   }
 
@@ -2546,8 +2605,8 @@ async function openListingMatches(listingId) {
     return;
   }
 
-  title.textContent = "Matching Buyers";
-  body.innerHTML = `<p class="text-sm text-[#40493D] py-6 text-center">Finding suitable buyers for this listing…</p>`;
+  title.textContent = t("matchingBuyers", "Matching Buyers");
+  body.innerHTML = `<p class="text-sm text-[#40493D] py-6 text-center">${t("findingBuyers", "Finding suitable buyers for this listing…")}</p>`;
   modal.classList.remove("hidden");
 
   try {
@@ -2610,8 +2669,8 @@ async function openDemandMatches(demandId) {
     return;
   }
 
-  title.textContent = "Matching Farmers";
-  body.innerHTML = `<p class="text-sm text-[#40493D] py-6 text-center">Finding suitable farmers for this requirement…</p>`;
+  title.textContent = t("matchingFarmers", "Matching Farmers");
+  body.innerHTML = `<p class="text-sm text-[#40493D] py-6 text-center">${t("findingFarmers", "Finding suitable farmers for this requirement…")}</p>`;
   modal.classList.remove("hidden");
 
   try {
@@ -2788,7 +2847,7 @@ async function renderFarmerOffers() {
 
   const token = localStorage.getItem("token");
   if (!token) {
-    container.innerHTML = `<p class="text-red-600 font-medium">Please login to view incoming offers.</p>`;
+    container.innerHTML = `<p class="text-red-600 font-medium">${t("loginToViewOffers")}</p>`;
     return;
   }
 
@@ -2807,7 +2866,7 @@ async function renderFarmerOffers() {
     const data = await res.json();
     if (res.ok && Array.isArray(data)) {
       if (data.length === 0) {
-        container.innerHTML = `<p class="text-[#40493D]">No incoming offers received yet.</p>`;
+        container.innerHTML = `<p class="text-[#40493D]">${t("noIncomingOffersYet")}</p>`;
         return;
       }
 
@@ -2829,15 +2888,15 @@ async function renderFarmerOffers() {
           </div>
           <div class="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end">
             <div class="text-right">
-              <p class="text-xs text-[#40493D]">Qty: <strong class="text-[#181D17]">${item.quantity}</strong></p>
+              <p class="text-xs text-[#40493D]">${t("qtyLabel")}: <strong class="text-[#181D17]">${item.quantity}</strong></p>
               <p class="text-lg font-bold brand-name">₹${item.offered_price} / ${t("unit")}</p>
             </div>
             ${
               item.status === "PENDING"
                 ? `
               <div class="flex gap-2">
-                <button onclick="handleOfferAction('${item.id}', 'accept')" class="btn-warm px-5 py-2.5 text-white text-xs font-bold rounded-xl flex items-center gap-1"><span>✅</span> Accept</button>
-                <button onclick="handleOfferAction('${item.id}', 'reject')" class="px-5 py-2.5 bg-red-50 text-red-600 border border-red-200 text-xs font-bold rounded-xl hover:bg-red-100 transition-colors">✕ Reject</button>
+                <button onclick="handleOfferAction('${item.id}', 'accept')" class="btn-warm px-5 py-2.5 text-white text-xs font-bold rounded-xl flex items-center gap-1"><span>✅</span> ${t("btnAccept")}</button>
+                <button onclick="handleOfferAction('${item.id}', 'reject')" class="px-5 py-2.5 bg-red-50 text-red-600 border border-red-200 text-xs font-bold rounded-xl hover:bg-red-100 transition-colors">✕ ${t("btnReject")}</button>
               </div>
             `
                 : ""
@@ -2848,7 +2907,7 @@ async function renderFarmerOffers() {
         )
         .join("");
     } else {
-      container.innerHTML = `<p class="text-red-600">Failed to load received offers.</p>`;
+      container.innerHTML = `<p class="text-red-600">${t("failedLoadOffers")}</p>`;
     }
   } catch (err) {
     console.error("Error fetching farmer offers:", err);
@@ -2903,7 +2962,7 @@ async function renderFarmerOrders() {
 
   const token = localStorage.getItem("token");
   if (!token) {
-    container.innerHTML = `<p class="text-red-600 font-medium">Please login to view orders.</p>`;
+    container.innerHTML = `<p class="text-red-600 font-medium">${t("loginToViewOrders")}</p>`;
     return;
   }
 
@@ -2922,7 +2981,7 @@ async function renderFarmerOrders() {
     const data = await res.json();
     if (res.ok && Array.isArray(data)) {
       if (data.length === 0) {
-        container.innerHTML = `<p class="text-[#40493D]">No confirmed orders found.</p>`;
+        container.innerHTML = `<p class="text-[#40493D]">${t("noConfirmedOrdersYet")}</p>`;
         return;
       }
 
@@ -2933,7 +2992,7 @@ async function renderFarmerOrders() {
           <div>
             <div class="flex items-center gap-2 mb-1">
               <span class="status-badge accepted">${item.status || "CONFIRMED"}</span>
-              <span class="text-xs text-gray-500">Order #${item.id ? String(item.id).slice(0, 8) : "N/A"}</span>
+              <span class="text-xs text-gray-500">${t("orderHash")} #${item.id ? String(item.id).slice(0, 8) : "N/A"}</span>
             </div>
             <h3 class="text-lg font-bold text-[#181D17]">${getTranslatedCropName(item.crop) || "Crop Harvest"}</h3>
             <p class="text-xs text-[#40493D]">${t("buyerLabel", "Buyer")}: <strong class="text-[#181D17]">${item.buyer_name || t("buyerPartner", "Buyer Partner")}</strong></p>
@@ -2952,7 +3011,7 @@ async function renderFarmerOrders() {
         )
         .join("");
     } else {
-      container.innerHTML = `<p class="text-red-600">Failed to load farmer orders.</p>`;
+      container.innerHTML = `<p class="text-red-600">${t("failedLoadOrders")}</p>`;
     }
   } catch (err) {
     console.error("Error fetching farmer orders:", err);
@@ -2966,7 +3025,7 @@ async function renderBuyerOrders() {
 
   const token = localStorage.getItem("token");
   if (!token) {
-    container.innerHTML = `<p class="text-red-600 font-medium">Please login to view orders.</p>`;
+    container.innerHTML = `<p class="text-red-600 font-medium">${t("loginToViewOrders")}</p>`;
     return;
   }
 
@@ -2985,7 +3044,7 @@ async function renderBuyerOrders() {
     const data = await res.json();
     if (res.ok && Array.isArray(data)) {
       if (data.length === 0) {
-        container.innerHTML = `<p class="text-[#40493D]">No purchase orders found.</p>`;
+        container.innerHTML = `<p class="text-[#40493D]">${t("noConfirmedOrdersYet")}</p>`;
         return;
       }
 
@@ -2996,7 +3055,7 @@ async function renderBuyerOrders() {
           <div>
             <div class="flex items-center gap-2 mb-1">
               <span class="status-badge accepted">${item.status || "CONFIRMED"}</span>
-              <span class="text-xs text-gray-500">Order #${item.id ? String(item.id).slice(0, 8) : "N/A"}</span>
+              <span class="text-xs text-gray-500">${t("orderHash")} #${item.id ? String(item.id).slice(0, 8) : "N/A"}</span>
             </div>
             <h3 class="text-lg font-bold text-[#181D17]">${getTranslatedCropName(item.crop) || "Crop Harvest"}</h3>
             <p class="text-xs text-[#40493D]">${t("farmerLabel", "Farmer")}: <strong class="text-[#181D17]">${item.farmer_name || t("farmerPartner", "Farmer Partner")}</strong></p>
@@ -3015,7 +3074,7 @@ async function renderBuyerOrders() {
         )
         .join("");
     } else {
-      container.innerHTML = `<p class="text-red-600">Failed to load buyer orders.</p>`;
+      container.innerHTML = `<p class="text-red-600">${t("failedLoadOrders")}</p>`;
     }
   } catch (err) {
     console.error("Error fetching buyer orders:", err);
@@ -3031,17 +3090,17 @@ function openOrderModal(id, crop, qty, price, total, partner, status) {
   body.innerHTML = `
     <div class="p-4 bg-gradient-to-br from-[#0D631B]/10 to-[#4CAF50]/10 rounded-xl border border-[#0D631B]/20 text-center mb-3">
       <span class="text-3xl">🎉</span>
-      <h4 class="font-bold gradient-heading text-base mt-2">Order Confirmed</h4>
-      <p class="text-xs text-[#40493D] mt-1">Deal finalized between both parties</p>
+      <h4 class="font-bold gradient-heading text-base mt-2">${t("orderConfirmed", "Order Confirmed")}</h4>
+      <p class="text-xs text-[#40493D] mt-1">${t("dealFinalized", "Deal finalized between both parties")}</p>
     </div>
     <div class="grid grid-cols-2 gap-2 text-xs border-b border-[#CDBDB4]/50 pb-2">
       <span class="text-[#40493D]">${t("orderRef", "Order Reference")}:</span>
       <span class="font-semibold text-right text-[#181D17]">${id ? id.substring(0, 12) : "CR-8921"}...</span>
-      <span class="text-[#40493D]">${t("status", "Status")}:</span>
+      <span class="text-[#40493D]">${t("status")}:</span>
       <span class="status-badge accepted ml-auto">${status}</span>
     </div>
     <div class="grid grid-cols-2 gap-2 text-xs border-b border-[#CDBDB4]/50 py-2">
-      <span class="text-[#40493D]">${t("cropCommodity", "Crop Commodity")}:</span>
+      <span class="text-[#40493D]">${t("cropCommodity")}:</span>
       <span class="font-semibold text-right text-[#181D17]">${crop}</span>
       <span class="text-[#40493D]">${t("agreedQty", "Agreed Quantity")}:</span>
       <span class="font-semibold text-right text-[#181D17]">${qty}</span>
@@ -3049,7 +3108,7 @@ function openOrderModal(id, crop, qty, price, total, partner, status) {
       <span class="font-semibold text-right text-[#181D17]">₹${price}</span>
     </div>
     <div class="flex justify-between items-center pt-3 text-base font-bold brand-name">
-      <span>Total Amount:</span>
+      <span>${t("totalAmountLabel")}:</span>
       <span class="text-xl">₹${total}</span>
     </div>
   `;
