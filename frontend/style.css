@@ -1691,6 +1691,11 @@ footer .footer-link:hover {
   animation: ksetuFadeInUp 0.3s ease-out both;
 }
 
+/* Smooth anchor scroll offset for sticky nav */
+section[id] {
+  scroll-margin-top: 4.5rem;
+}
+
 @media (max-width: 1023px) {
   .hidden-print-mobile {
     display: none !important;

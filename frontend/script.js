@@ -55,6 +55,28 @@ const KRISHI_I18N = {
     heroDesc: "KrishiSetu helps farmers discover buyers, manage offers and understand agricultural market prices — all in one simple platform.",
     imFarmer: "🌾 I'm a Farmer!",
     imBuyer: "🛒 I'm a Buyer!",
+    forFarmersBadge: "🌾 For Farmers",
+    forFarmersTitle: "Sell Your Crop at the Best Rate",
+    forFarmersDesc: "KrishiSetu connects you directly with verified buyers, live mandi rates and transparent offers — no middlemen eating into your income.",
+    farmerBenefit1: "Direct buyer offers — no commission, no middlemen.",
+    farmerBenefit2: "See live mandi rates before you decide what to sell.",
+    farmerBenefit3: "List your harvest & reach buyers across India.",
+    farmerBenefit4: "Accept or reject offers directly from your dashboard.",
+    registerAsFarmer: "Register as Farmer",
+    seeMandiRates: "See Mandi Rates",
+    forBuyersBadge: "🛒 For Buyers",
+    forBuyersTitle: "Source Fresh Produce Straight From Farms",
+    forBuyersDesc: "Skip the middlemen and buy verified, farm-fresh crops at mandi-competitive rates. Browse live listings, compare prices and send offers in one click.",
+    buyerBenefit1: "Browse live produce listings from verified farmers.",
+    buyerBenefit2: "Mandi-competitive rates with transparent pricing.",
+    buyerBenefit3: "Filter by crop & district to find exactly what you need.",
+    buyerBenefit4: "Send an offer directly to the farmer in one tap.",
+    registerAsBuyer: "Register as Buyer",
+    browseAvailableCrops: "Browse Available Crops",
+    liveRatesToday: "Live Mandi Rates Today",
+    whatFarmersAreSelling: "What Farmers Are Selling",
+    live: "LIVE",
+    loadingRates: "Loading latest mandi rates…",
     empoweringAgriBadge: "🌱 Empowering Agriculture",
     empoweringAgriTitle: "Empowering Ground Level Operations",
     empoweringAgriDesc: "A robust platform designed for utility and reliability in the agricultural ecosystem.",
@@ -385,6 +407,28 @@ const KRISHI_I18N = {
     heroDesc: "कृषिसेतु किसानों को सीधे खरीदार खोजने, उचित मूल्य पाने और दैनिक मंडी भाव जानने में मदद करता है — बिल्कुल सरल और पारदर्शी।",
     imFarmer: "🌾 मैं किसान हूँ!",
     imBuyer: "🛒 मैं खरीदार हूँ!",
+    forFarmersBadge: "🌾 किसानों के लिए",
+    forFarmersTitle: "अपनी फसल सबसे अच्छे दाम पर बेचें",
+    forFarmersDesc: "कृषिसेतु आपको सीधे सत्यापित खरीदारों, लाइव मंडी भाव और पारदर्शी प्रस्तावों से जोड़ता है — बिचौलिए नहीं रहेंगे बीच में।",
+    farmerBenefit1: "सीधे खरीदार के प्रस्ताव — कोई कमीशन नहीं, कोई बिचौलिया नहीं।",
+    farmerBenefit2: "बेचने से पहले लाइव मंडी भाव देखें।",
+    farmerBenefit3: "अपनी फसल जोड़ें और पूरे भारत के खरीदारों तक पहुँचें।",
+    farmerBenefit4: "अपने डैशबोर्ड से सीधे प्रस्ताव स्वीकार या अस्वीकार करें।",
+    registerAsFarmer: "किसान के रूप में पंजीकरण करें",
+    seeMandiRates: "मंडी भाव देखें",
+    forBuyersBadge: "🛒 खरीदारों के लिए",
+    forBuyersTitle: "किसानों से सीधे ताज़ी उपज खरीदें",
+    forBuyersDesc: "बिचौलियों को हटाकर मंडी दरों पर सत्यापित, खेत से ताज़ी फसल खरीदें। लाइव लिस्टिंग देखें, कीमतें तुलना करें और एक क्लिक में प्रस्ताव भेजें।",
+    buyerBenefit1: "सत्यापित किसानों की लाइव फसल लिस्टिंग देखें।",
+    buyerBenefit2: "मंडी के बराबर पारदर्शी दरें।",
+    buyerBenefit3: "फसल और जिले के हिसाब से छाँट कर सही उपज खोजें।",
+    buyerBenefit4: "एक टैप में किसान को सीधे प्रस्ताव भेजें।",
+    registerAsBuyer: "खरीदार के रूप में पंजीकरण करें",
+    browseAvailableCrops: "उपलब्ध फसलें देखें",
+    liveRatesToday: "आज के लाइव मंडी भाव",
+    whatFarmersAreSelling: "किसान क्या बेच रहे हैं",
+    live: "लाइव",
+    loadingRates: "नवीनतम मंडी भाव लोड हो रहे हैं…",
     empoweringAgriBadge: "🌱 कृषि को सशक्त बनाते हुए",
     empoweringAgriTitle: "जमीनी कृषि कार्यों को सशक्त बनाना",
     empoweringAgriDesc: "कृषि पारिस्थितिकी तंत्र में उपयोगिता और विश्वसनीयता के लिए डिज़ाइन किया गया एक मजबूत प्लेटफ़ॉर्म।",
@@ -1184,6 +1228,12 @@ function setLanguage(lang) {
   }
   if (document.getElementById("browseGrid") || document.getElementById("searchState")) {
     loadBrowseCatalog();
+  }
+  if (document.getElementById("homeFarmerRates")) {
+    loadHomeFarmerRates();
+  }
+  if (document.getElementById("homeBuyerListings")) {
+    loadHomeBuyerListings();
   }
 }
 
@@ -3699,3 +3749,88 @@ async function loadMarketPrices() {
 }
 
 document.addEventListener("DOMContentLoaded", loadMarketPrices);
+
+// ============================================================
+// HOME PAGE ROLE PREVIEW SECTIONS (Farmer rates + Buyer listings)
+// ============================================================
+const HOME_RATE_COMMODITIES = ["Wheat", "Potato", "Tomato", "Onion", "Rice", "Mustard"];
+const HOME_LISTING_LIMIT = 5;
+
+async function loadHomeFarmerRates() {
+  const container = document.getElementById("homeFarmerRates");
+  if (!container) return;
+  container.innerHTML = `<p class="text-sm text-[#40493D] py-4 text-center">${t("loadingRates")}</p>`;
+
+  let html = "";
+  for (const commodity of HOME_RATE_COMMODITIES) {
+    try {
+      const res = await fetch(
+        `${API_BASE_URL}/api/v1/market/prices/intelligence?${new URLSearchParams({ commodity })}`,
+      );
+      const data = await res.json();
+      const info = res.ok && data && data.data ? data.data : null;
+      const cropName = getTranslatedCropName(commodity);
+      if (info && info.current_price) {
+        html += `
+          <div class="flex items-center justify-between p-3 rounded-xl bg-[#F4F8F0]/60 hover:bg-[#F1F5EB] transition-colors border border-[#E0E4DA]/40">
+            <div class="flex items-center gap-2.5">
+              <span class="w-8 h-8 rounded-lg bg-[#0D631B]/10 flex items-center justify-center text-sm">🌾</span>
+              <span class="text-sm font-semibold text-[#1E1E1E]">${cropName}</span>
+            </div>
+            <span class="text-sm font-bold text-[#0D631B]">₹${info.current_price.toLocaleString("en-IN")}/${t("quintalUnit", "q")}</span>
+          </div>`;
+      }
+    } catch (_) { /* skip */ }
+  }
+  container.innerHTML = html || `<p class="text-sm text-[#40493D] py-4 text-center">${t("noReportYet")}</p>`;
+}
+
+async function loadHomeBuyerListings() {
+  const container = document.getElementById("homeBuyerListings");
+  if (!container) return;
+  container.innerHTML = `<p class="text-sm text-[#40493D] py-4 text-center">${t("loadingRates")}</p>`;
+
+  try {
+    const token = localStorage.getItem("token");
+    const res = await fetch(
+      `${API_BASE_URL}/api/v1/listings?status=ACTIVE`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+      },
+    );
+    const data = await res.json();
+    if (!res.ok || !Array.isArray(data) || data.length === 0) {
+      container.innerHTML = `<p class="text-sm text-[#40493D] py-4 text-center">${t("noListingsYet")}</p>`;
+      return;
+    }
+    const listings = data.slice(0, HOME_LISTING_LIMIT);
+    container.innerHTML = listings.map(item => {
+      const cropName = getTranslatedCropName(item.crop) || item.crop;
+      const unit = getTranslatedUnit(item.unit);
+      const district = getTranslatedLocation(item.district, item.state);
+      return `
+        <div class="flex items-center justify-between p-3 rounded-xl bg-[#FBF6F1]/60 hover:bg-[#FBF6F1] transition-colors border border-[#E0E4DA]/40">
+          <div class="flex items-center gap-2.5">
+            <span class="w-8 h-8 rounded-lg bg-[#75584D]/10 flex items-center justify-center text-sm">🌾</span>
+            <div>
+              <span class="text-sm font-semibold text-[#1E1E1E]">${cropName}</span>
+              <span class="text-xs text-[#40493D] block">${item.quantity} ${unit} · ${district}</span>
+            </div>
+          </div>
+          <span class="text-sm font-bold text-[#75584D]">₹${item.price.toLocaleString("en-IN")}/${unit}</span>
+        </div>`;
+    }).join("");
+  } catch (err) {
+    console.error("Error loading buyer preview:", err);
+    container.innerHTML = `<p class="text-sm text-[#40493D] py-4 text-center">${t("noListingsYet")}</p>`;
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  loadHomeFarmerRates();
+  loadHomeBuyerListings();
+});
