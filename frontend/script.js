@@ -3772,10 +3772,10 @@ async function loadHomeFarmerRates() {
       const cropName = getTranslatedCropName(commodity);
       if (info && info.current_price) {
         html += `
-          <div class="flex items-center justify-between p-3 rounded-xl bg-[#F4F8F0]/60 hover:bg-[#F1F5EB] transition-colors border border-[#E0E4DA]/40">
+          <div class="flex items-center justify-between py-2.5 border-b border-[#E0E4DA]/40 last:border-0">
             <div class="flex items-center gap-2.5">
-              <span class="w-8 h-8 rounded-lg bg-[#0D631B]/10 flex items-center justify-center text-sm">🌾</span>
-              <span class="text-sm font-semibold text-[#1E1E1E]">${cropName}</span>
+              <span class="w-8 h-8 rounded-lg bg-[#0D631B]/8 flex items-center justify-center text-sm">🌾</span>
+              <span class="text-sm font-medium text-[#1E1E1E]">${cropName}</span>
             </div>
             <span class="text-sm font-bold text-[#0D631B]">₹${info.current_price.toLocaleString("en-IN")}/${t("quintalUnit", "q")}</span>
           </div>`;
@@ -3813,11 +3813,11 @@ async function loadHomeBuyerListings() {
       const unit = getTranslatedUnit(item.unit);
       const district = getTranslatedLocation(item.district, item.state);
       return `
-        <div class="flex items-center justify-between p-3 rounded-xl bg-[#FBF6F1]/60 hover:bg-[#FBF6F1] transition-colors border border-[#E0E4DA]/40">
+        <div class="flex items-center justify-between py-2.5 border-b border-[#E0E4DA]/40 last:border-0">
           <div class="flex items-center gap-2.5">
-            <span class="w-8 h-8 rounded-lg bg-[#75584D]/10 flex items-center justify-center text-sm">🌾</span>
+            <span class="w-8 h-8 rounded-lg bg-[#75584D]/8 flex items-center justify-center text-sm">🌾</span>
             <div>
-              <span class="text-sm font-semibold text-[#1E1E1E]">${cropName}</span>
+              <span class="text-sm font-medium text-[#1E1E1E]">${cropName}</span>
               <span class="text-xs text-[#40493D] block">${item.quantity} ${unit} · ${district}</span>
             </div>
           </div>
