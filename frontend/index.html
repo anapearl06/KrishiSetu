@@ -180,7 +180,7 @@
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <!-- CARD 1 · DISCOVERY (SOFT BROWN) -->
             <div
-              id="farmers"
+              id="card-discovery"
               class="premium-card rounded-xl p-8"
               style="
                 --card-accent: linear-gradient(90deg, #a9744f, #d8a87c);
@@ -206,7 +206,7 @@
 
             <!-- CARD 2 · OFFER MANAGEMENT (LIGHT GREEN) -->
             <div
-              id="buyers"
+              id="card-offer-mgmt"
               class="premium-card rounded-xl p-8"
               style="
                 --card-accent: linear-gradient(90deg, #2e9e4f, #8bd07c);
@@ -231,7 +231,7 @@
 
             <!-- CARD 3 · MARKET PRICES (SOFT SKY BLUE) -->
             <div
-              id="market-prices"
+              id="card-market-prices"
               class="premium-card rounded-xl p-8"
               style="
                 --card-accent: linear-gradient(90deg, #4e99d9, #9cc7ee);
@@ -283,6 +283,235 @@
             class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
           >
             <!-- Populated via script.js -->
+
+      <!-- ================= FOR FARMERS ================= -->
+      <section
+        id="farmers"
+        class="w-full px-4 md:px-8 py-16 md:py-20 bg-[#F4F8F0] scroll-mt-24"
+      >
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <span class="empower-badge">🌾 For Farmers</span>
+            <h2
+              class="gradient-heading text-2xl md:text-3xl font-semibold mt-5 mb-4"
+            >
+              Sell Your Crop Directly To Buyers
+            </h2>
+            <p class="text-[#40493D] leading-relaxed mb-6">
+              No middlemen, no commission losses. List your produce in minutes
+              and reach verified buyers from across the state.
+            </p>
+            <ul class="space-y-3">
+              <li class="flex items-start gap-3">
+                <span class="premium-icon w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style="background-color: #e7f6ea; border: 1px solid #bfe3c6">🌾</span>
+                <div>
+                  <strong class="text-[#1E1E1E]">Instant Crop Listings</strong>
+                  <p class="text-sm text-[#40493D]">Post any crop with quantity, price and location directly.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="premium-icon w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style="background-color: #f3e5db; border: 1px solid #e4ccb3">🤝</span>
+                <div>
+                  <strong class="text-[#1E1E1E]">Receive & Compare Offers</strong>
+                  <p class="text-sm text-[#40493D]">Buyers send custom price bids. You decide who to sell to.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="premium-icon w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style="background-color: #e4effb; border: 1px solid #c4ddf3">📦</span>
+                <div>
+                  <strong class="text-[#1E1E1E]">Track Confirmed Orders</strong>
+                  <p class="text-sm text-[#40493D]">Every accepted offer automatically becomes a trackable order.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="premium-icon w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style="background-color: #fbdcdc; border: 1px solid #f5c2c2">📈</span>
+                <div>
+                  <strong class="text-[#1E1E1E]">Mandi Price Insights</strong>
+                  <p class="text-sm text-[#40493D]">Know the going rate before you quote your crop.</p>
+                </div>
+              </li>
+            </ul>
+            <div class="flex flex-col sm:flex-row gap-4 mt-8">
+              <a href="./register.html?role=farmer" class="cta-button farmer-cta bg-gradient-to-r from-[#0D631B] to-[#2E9E4F] text-white font-semibold px-6 py-3 rounded-xl text-center shadow-lg">Start Selling As Farmer</a>
+              <a href="./login.html?role=farmer" class="cta-button farmer-cta border border-[#0D631B] text-[#0D631B] font-semibold px-6 py-3 rounded-xl text-center hover:bg-[#0D631B]/5 transition-colors">Farmer Login</a>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-5">
+            <div class="premium-card rounded-2xl p-6" style="--card-accent: linear-gradient(90deg, #2e9e4f, #8bd07c); --card-glow: rgba(46,158,79,.14); --card-shadow: rgba(46,158,79,.12)">
+              <div class="text-center py-4">
+                <div class="text-3xl mb-2">🛡️</div>
+                <div class="text-sm text-[#40493D]">Zero Commission</div>
+              </div>
+            </div>
+            <div class="premium-card rounded-2xl p-6" style="--card-accent: linear-gradient(90deg, #a9744f, #d8a87c); --card-glow: rgba(169,116,79,.14); --card-shadow: rgba(169,116,79,.12)">
+              <div class="text-center py-4">
+                <div class="text-3xl mb-2">⚡</div>
+                <div class="text-sm text-[#40493D]">Sell in Minutes</div>
+              </div>
+            </div>
+            <div class="premium-card rounded-2xl p-6" style="--card-accent: linear-gradient(90deg, #4e99d9, #8fc3ec); --card-glow: rgba(78,153,217,.14); --card-shadow: rgba(78,153,217,.12)">
+              <div class="text-center py-4">
+                <div class="text-3xl mb-2">🌍</div>
+                <div class="text-sm text-[#40493D]">Statewide Reach</div>
+              </div>
+            </div>
+            <div class="premium-card rounded-2xl p-6" style="--card-accent: linear-gradient(90deg, #2e9e4f, #8bd07c); --card-glow: rgba(46,158,79,.14); --card-shadow: rgba(46,158,79,.12)">
+              <div class="text-center py-4">
+                <div class="text-3xl mb-2">💰</div>
+                <div class="text-sm text-[#40493D]">Better Prices</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= FOR BUYERS ================= -->
+      <section
+        id="buyers"
+        class="w-full px-4 md:px-8 py-16 md:py-20 bg-[#FAFAF5] scroll-mt-24"
+      >
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div class="order-2 lg:order-1 grid grid-cols-2 gap-5">
+            <div class="premium-card rounded-2xl p-6" style="--card-accent: linear-gradient(90deg, #a9744f, #d8a87c); --card-glow: rgba(169,116,79,.14); --card-shadow: rgba(169,116,79,.12)">
+              <div class="text-center py-4">
+                <div class="text-3xl mb-2">🔍</div>
+                <div class="text-sm text-[#40493D]">Find Local Produce</div>
+              </div>
+            </div>
+            <div class="premium-card rounded-2xl p-6" style="--card-accent: linear-gradient(90deg, #2e9e4f, #8bd07c); --card-glow: rgba(46,158,79,.14); --card-shadow: rgba(46,158,79,.12)">
+              <div class="text-center py-4">
+                <div class="text-3xl mb-2">📝</div>
+                <div class="text-sm text-[#40493D]">Custom Bids</div>
+              </div>
+            </div>
+            <div class="premium-card rounded-2xl p-6" style="--card-accent: linear-gradient(90deg, #4e99d9, #8fc3ec); --card-glow: rgba(78,153,217,.14); --card-shadow: rgba(78,153,217,.12)">
+              <div class="text-center py-4">
+                <div class="text-3xl mb-2">🧾</div>
+                <div class="text-sm text-[#40493D]">Auto Order Confirmation</div>
+              </div>
+            </div>
+            <div class="premium-card rounded-2xl p-6" style="--card-accent: linear-gradient(90deg, #2e9e4f, #8bd07c); --card-glow: rgba(46,158,79,.14); --card-shadow: rgba(46,158,79,.12)">
+              <div class="text-center py-4">
+                <div class="text-3xl mb-2">📢</div>
+                <div class="text-sm text-[#40493D]">Post Demands</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="order-1 lg:order-2">
+            <span class="empower-badge">🛒 For Buyers</span>
+            <h2
+              class="gradient-heading text-2xl md:text-3xl font-semibold mt-5 mb-4"
+            >
+              Source Fresh Crops At The Right Price
+            </h2>
+            <p class="text-[#40493D] leading-relaxed mb-6">
+              Browse verified farmer inventories, negotiate directly and lock
+              deals without stepping away from your desk.
+            </p>
+            <ul class="space-y-3">
+              <li class="flex items-start gap-3">
+                <span class="premium-icon w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style="background-color: #f3e5db; border: 1px solid #e4ccb3">🔎</span>
+                <div>
+                  <strong class="text-[#1E1E1E]">Browse Verified Produce</strong>
+                  <p class="text-sm text-[#40493D]">Filter crops by name, state and price to find the right match.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="premium-icon w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style="background-color: #e7f6ea; border: 1px solid #bfe3c6">🤝</span>
+                <div>
+                  <strong class="text-[#1E1E1E]">Negotiate With Farmers</strong>
+                  <p class="text-sm text-[#40493D]">Send competitive bids. Farmers accept or reject in real time.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="premium-icon w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style="background-color: #e4effb; border: 1px solid #c4ddf3">📦</span>
+                <div>
+                  <strong class="text-[#1E1E1E]">Track Every Order</strong>
+                  <p class="text-sm text-[#40493D]">From acceptance to delivery — see the full lifecycle.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="premium-icon w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style="background-color: #fbdcdc; border: 1px solid #f5c2c2">📢</span>
+                <div>
+                  <strong class="text-[#1E1E1E]">Post Your Demand</strong>
+                  <p class="text-sm text-[#40493D]">Tell farmers what you need — they will come to you.</p>
+                </div>
+              </li>
+            </ul>
+            <div class="flex flex-col sm:flex-row gap-4 mt-8">
+              <a href="./register.html?role=buyer" class="cta-button buyer-cta bg-gradient-to-r from-[#75584D] to-[#9b7b6c] text-white font-semibold px-6 py-3 rounded-xl text-center shadow-lg">Start Buying As Buyer</a>
+              <a href="./login.html?role=buyer" class="cta-button buyer-cta border border-[#75584D] text-[#75584D] font-semibold px-6 py-3 rounded-xl text-center hover:bg-[#75584D]/5 transition-colors">Buyer Login</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= MARKET PRICES ================= -->
+      <section
+        id="market-prices"
+        class="w-full px-4 md:px-8 py-16 md:py-20 bg-[#F4F8F0] scroll-mt-24"
+      >
+        <div class="max-w-5xl mx-auto">
+          <div class="text-center mb-10">
+            <span class="empower-badge">📈 Live Mandi Prices</span>
+            <h2
+              class="gradient-heading text-2xl md:text-3xl font-semibold mt-5 mb-4"
+            >
+              Today's Commodity Rates
+            </h2>
+            <p class="max-w-2xl mx-auto text-[#40493D]">
+              Indicative mandi rates for planning your deals. Logged-in users
+              see live, personalized market trends on their dashboard.
+            </p>
+          </div>
+
+          <div class="glass-card rounded-2xl overflow-hidden shadow-sm">
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm text-left">
+                <thead>
+                  <tr class="bg-gradient-to-r from-[#0D631B]/10 to-[#2E9E4F]/10 border-b border-[#CDBDB4]/50">
+                    <th class="px-5 py-4 font-semibold text-[#1E1E1E]">Commodity</th>
+                    <th class="px-5 py-4 font-semibold text-[#1E1E1E]">Mandi</th>
+                    <th class="px-5 py-4 font-semibold text-[#1E1E1E]">Price / Quintal</th>
+                    <th class="px-5 py-4 font-semibold text-[#1E1E1E]">Trend</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[#CDBDB4]/40">
+                  <tr class="hover:bg-[#F4F8F0] transition-colors">
+                    <td class="px-5 py-4 font-medium text-[#1E1E1E]">🌾 Wheat</td>
+                    <td class="px-5 py-4 text-[#40493D]">Agra Mandi</td>
+                    <td class="px-5 py-4 font-bold text-[#0D631B]">₹2,350</td>
+                    <td class="px-5 py-4"><span class="status-badge accepted">▲ Trending Up</span></td>
+                  </tr>
+                  <tr class="hover:bg-[#F4F8F0] transition-colors">
+                    <td class="px-5 py-4 font-medium text-[#1E1E1E]">🌶️ Red Chilli</td>
+                    <td class="px-5 py-4 text-[#40493D]">Guntur Mandi</td>
+                    <td class="px-5 py-4 font-bold text-[#0D631B]">₹8,400</td>
+                    <td class="px-5 py-4"><span class="status-badge pending">◀ Stable</span></td>
+                  </tr>
+                  <tr class="hover:bg-[#F4F8F0] transition-colors">
+                    <td class="px-5 py-4 font-medium text-[#1E1E1E]">🍚 Basmati Rice</td>
+                    <td class="px-5 py-4 text-[#40493D]">Karnal Mandi</td>
+                    <td class="px-5 py-4 font-bold text-[#0D631B]">₹4,800</td>
+                    <td class="px-5 py-4"><span class="status-badge accepted">▲ Trending Up</span></td>
+                  </tr>
+                  <tr class="hover:bg-[#F4F8F0] transition-colors">
+                    <td class="px-5 py-4 font-medium text-[#1E1E1E]">🥔 Potato</td>
+                    <td class="px-5 py-4 text-[#40493D]">Agra Mandi</td>
+                    <td class="px-5 py-4 font-bold text-[#0D631B]">₹1,150</td>
+                    <td class="px-5 py-4"><span class="status-badge rejected">▼ Slightly Down</span></td>
+                  </tr>
+                  <tr class="hover:bg-[#F4F8F0] transition-colors">
+                    <td class="px-5 py-4 font-medium text-[#1E1E1E]">🫘 Soyabean</td>
+                    <td class="px-5 py-4 text-[#40493D]">Indore Mandi</td>
+                    <td class="px-5 py-4 font-bold text-[#0D631B]">₹4,200</td>
+                    <td class="px-5 py-4"><span class="status-badge accepted">▲ Trending Up</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </section>

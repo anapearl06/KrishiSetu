@@ -2,6 +2,16 @@
    KRISHISETU CUSTOM STYLES
    ============================================================ */
 
+/* Smooth scroll for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Offset for sticky navbar on anchor scroll */
+.scroll-mt-24 {
+  scroll-margin-top: 5rem;
+}
+
 /* ============================================================
    NAVBAR / PREMIUM BRAND
    ============================================================ */
