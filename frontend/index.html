@@ -113,17 +113,17 @@
             KrishiSetu helps farmers discover buyers, manage offers and
             understand agricultural market prices — all in one simple platform.
           </p>
-          <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mt-2">
+          <div class="flex flex-col sm:flex-row gap-4 mt-2">
             <a
               href="./login.html?role=farmer"
-              class="cta-button farmer-cta bg-gradient-to-r from-[#0D631B] to-[#2E9E4F] text-white font-bold px-8 py-4 rounded-xl w-full sm:w-52 text-center shadow-lg text-[15px]"
+              class="cta-button farmer-cta bg-gradient-to-r from-[#0D631B] to-[#2E9E4F] text-white font-bold px-8 py-4 rounded-xl text-center shadow-lg text-[15px] w-full sm:w-auto whitespace-nowrap"
               data-i18n="imFarmer"
             >
               🌾 I'm a Farmer!
             </a>
             <a
               href="./login.html?role=buyer"
-              class="cta-button buyer-cta bg-gradient-to-r from-[#75584D] to-[#9b7b6c] text-white font-bold px-8 py-4 rounded-xl w-full sm:w-52 text-center shadow-lg text-[15px]"
+              class="cta-button buyer-cta bg-gradient-to-r from-[#75584D] to-[#9b7b6c] text-white font-bold px-8 py-4 rounded-xl text-center shadow-lg text-[15px] w-full sm:w-auto whitespace-nowrap"
               data-i18n="imBuyer"
             >
               🛒 I'm a Buyer!
@@ -180,7 +180,7 @@
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <!-- CARD 1 · DISCOVERY (SOFT BROWN) -->
             <div
-              id="card-discovery"
+              id="feature-discovery"
               class="premium-card rounded-xl p-8"
               style="
                 --card-accent: linear-gradient(90deg, #a9744f, #d8a87c);
@@ -206,7 +206,7 @@
 
             <!-- CARD 2 · OFFER MANAGEMENT (LIGHT GREEN) -->
             <div
-              id="card-offer-mgmt"
+              id="feature-offers"
               class="premium-card rounded-xl p-8"
               style="
                 --card-accent: linear-gradient(90deg, #2e9e4f, #8bd07c);
@@ -257,6 +257,114 @@
           </div>
         </div>
       </section>
+      <!-- ================= FOR FARMERS ================= -->
+      <section id="farmers" class="w-full px-4 md:px-8 py-20 md:py-28 bg-white">
+        <div class="max-w-6xl mx-auto">
+          <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
+            <div class="lg:col-span-3">
+              <span class="empower-badge mb-5 inline-block" data-i18n="forFarmersBadge">🌾 For Farmers</span>
+              <h2 class="text-3xl md:text-4xl font-bold text-[#1E1E1E] leading-tight mb-4" data-i18n="forFarmersTitle">
+                Sell Your Crop at the Best Rate
+              </h2>
+              <p class="text-[#40493D] text-base leading-relaxed max-w-md mb-8" data-i18n="forFarmersDesc">
+                Connect directly with verified buyers, see live mandi rates and get transparent offers — no middlemen.
+              </p>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5 mb-8">
+                <div class="flex items-center gap-3">
+                  <span class="w-10 h-10 rounded-full bg-[#E7F6EA] flex items-center justify-center text-lg shrink-0">💸</span>
+                  <span class="text-sm text-[#1E1E1E] leading-snug" data-i18n="farmerBenefit1">Direct buyer offers — no commission</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="w-10 h-10 rounded-full bg-[#E7F6EA] flex items-center justify-center text-lg shrink-0">📊</span>
+                  <span class="text-sm text-[#1E1E1E] leading-snug" data-i18n="farmerBenefit2">Live mandi rates before you sell</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="w-10 h-10 rounded-full bg-[#E7F6EA] flex items-center justify-center text-lg shrink-0">🧑‍🌾</span>
+                  <span class="text-sm text-[#1E1E1E] leading-snug" data-i18n="farmerBenefit3">Reach buyers across India</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="w-10 h-10 rounded-full bg-[#E7F6EA] flex items-center justify-center text-lg shrink-0">🤝</span>
+                  <span class="text-sm text-[#1E1E1E] leading-snug" data-i18n="farmerBenefit4">Accept or reject offers in one tap</span>
+                </div>
+              </div>
+
+              <div class="flex flex-col sm:flex-row gap-3">
+                <a href="./register.html?role=farmer" class="cta-button farmer-cta bg-gradient-to-r from-[#0D631B] to-[#2E9E4F] text-white font-bold px-8 py-3.5 rounded-xl text-center shadow-lg text-sm" data-i18n="registerAsFarmer">Register as Farmer</a>
+                <a href="#reported-prices" class="inline-flex items-center justify-center px-6 py-3.5 rounded-xl text-sm font-semibold text-[#0D631B] border border-[#0D631B]/15 hover:bg-[#F1F5EB] transition-colors" data-i18n="seeMandiRates">See Mandi Rates</a>
+              </div>
+            </div>
+
+            <div class="lg:col-span-2">
+              <div class="bg-[#F8FAF5] rounded-2xl p-6 border border-[#E0E4DA]/60">
+                <div class="flex items-center justify-between mb-5">
+                  <h3 class="text-base font-semibold text-[#1E1E1E]" data-i18n="liveRatesToday">Mandi Rates Today</h3>
+                  <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#0D631B]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#0D631B] animate-pulse"></span>
+                    <span data-i18n="live">LIVE</span>
+                  </span>
+                </div>
+                <div id="homeFarmerRates" class="space-y-2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= FOR BUYERS ================= -->
+      <section id="buyers" class="w-full px-4 md:px-8 py-20 md:py-28 bg-[#FAFAF6]">
+        <div class="max-w-6xl mx-auto">
+          <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
+            <div class="lg:col-span-2 lg:order-1">
+              <div class="bg-white rounded-2xl p-6 border border-[#E0E4DA]/60">
+                <div class="flex items-center justify-between mb-5">
+                  <h3 class="text-base font-semibold text-[#1E1E1E]" data-i18n="whatFarmersAreSelling">What Farmers Are Selling</h3>
+                  <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#75584D]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#75584D] animate-pulse"></span>
+                    <span data-i18n="live">LIVE</span>
+                  </span>
+                </div>
+                <div id="homeBuyerListings" class="space-y-2"></div>
+              </div>
+            </div>
+
+            <div class="lg:col-span-3 lg:order-2">
+              <span class="empower-badge mb-5 inline-block" data-i18n="forBuyersBadge">🛒 For Buyers</span>
+              <h2 class="text-3xl md:text-4xl font-bold text-[#1E1E1E] leading-tight mb-4" data-i18n="forBuyersTitle">
+                Source Fresh Produce Straight From Farms
+              </h2>
+              <p class="text-[#40493D] text-base leading-relaxed max-w-md mb-8" data-i18n="forBuyersDesc">
+                Buy verified, farm-fresh crops at mandi-competitive rates. Browse listings, compare prices and send offers.
+              </p>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5 mb-8">
+                <div class="flex items-center gap-3">
+                  <span class="w-10 h-10 rounded-full bg-[#F3E5DB] flex items-center justify-center text-lg shrink-0">🌾</span>
+                  <span class="text-sm text-[#1E1E1E] leading-snug" data-i18n="buyerBenefit1">Live listings from verified farmers</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="w-10 h-10 rounded-full bg-[#F3E5DB] flex items-center justify-center text-lg shrink-0">💰</span>
+                  <span class="text-sm text-[#1E1E1E] leading-snug" data-i18n="buyerBenefit2">Mandi-competitive transparent pricing</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="w-10 h-10 rounded-full bg-[#F3E5DB] flex items-center justify-center text-lg shrink-0">🔎</span>
+                  <span class="text-sm text-[#1E1E1E] leading-snug" data-i18n="buyerBenefit3">Filter by crop and district</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="w-10 h-10 rounded-full bg-[#F3E5DB] flex items-center justify-center text-lg shrink-0">💬</span>
+                  <span class="text-sm text-[#1E1E1E] leading-snug" data-i18n="buyerBenefit4">Send an offer in one tap</span>
+                </div>
+              </div>
+
+              <div class="flex flex-col sm:flex-row gap-3">
+                <a href="./register.html?role=buyer" class="cta-button buyer-cta bg-gradient-to-r from-[#75584D] to-[#9b7b6c] text-white font-bold px-8 py-3.5 rounded-xl text-center shadow-lg text-sm" data-i18n="registerAsBuyer">Register as Buyer</a>
+                <a href="./browse-produce.html" class="inline-flex items-center justify-center px-6 py-3.5 rounded-xl text-sm font-semibold text-[#75584D] border border-[#75584D]/15 hover:bg-[#FBF6F1] transition-colors" data-i18n="browseAvailableCrops">Browse Available Crops</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- LATEST REPORTED MARKET PRICES -->
       <section
         id="reported-prices"
