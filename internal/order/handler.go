@@ -21,20 +21,34 @@ func NewHandler(service Service) *Handler {
 
 // GET /api/v1/orders/:id
 func (h *Handler) GetOrder(c *gin.Context) {
+	userIDValue, exists := c.Get("user_id")
+	if !exists {
+		response.Error(c, http.StatusUnauthorized, "unauthorized_access", "unauthorized")
+		return
+	}
+
+	userID, ok := userIDValue.(uint)
+	if !ok {
+		response.Error(c, http.StatusUnauthorized, "invalid_user_id", "invalid user id")
+		return
+	}
+
 	orderID, err := strconv.ParseUint(c.Param("id"), 10, 64)
 	if err != nil {
 		response.Error(c, http.StatusBadRequest, "invalid_order_id", "invalid order id")
 		return
 	}
 
-	order, err := h.service.GetOrder(uint(orderID))
+	order, err := h.service.GetOrder(uint(orderID), userID)
 	if err != nil {
-		if errors.Is(err, ErrOrderNotFound) {
+		switch {
+		case errors.Is(err, ErrOrderNotFound):
 			response.Error(c, http.StatusNotFound, "order_not_found", err.Error())
-			return
+		case errors.Is(err, ErrUnauthorized):
+			response.Error(c, http.StatusForbidden, "forbidden", err.Error())
+		default:
+			response.Error(c, http.StatusInternalServerError, "server_error", "failed to get order")
 		}
-
-		response.Error(c, http.StatusInternalServerError, "server_error", "failed to get order")
 		return
 	}
 

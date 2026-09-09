@@ -4,7 +4,9 @@
 // Neon DB Endpoint Connected
 // ============================================================
 
-const API_BASE_URL = "https://krishisetu-api-tiau.onrender.com";
+const API_BASE_URL = (typeof window !== 'undefined' && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"))
+  ? "http://localhost:8080"
+  : "https://krishisetu-api-tiau.onrender.com";
 
 // ============================================================
 // I18N / BILINGUAL TRANSLATION SYSTEM (ENGLISH & HINDI)
@@ -400,24 +402,43 @@ const INDIAN_STATES_AND_DISTRICTS = {
   "West Bengal": ["Alipurduar", "Bankura", "Birbhum", "Cooch Behar", "Dakshin Dinajpur", "Darjeeling", "Hooghly", "Howrah", "Jalpaiguri", "Jhargram", "Kalimpong", "Kolkata", "Malda", "Murshidabad", "Nadia", "North 24 Parganas", "Paschim Bardhaman", "Paschim Medinipur", "Purba Bardhaman", "Purba Medinipur", "Purulia", "South 24 Parganas", "Uttar Dinajpur"]
 };
 
+function findStateKey(stateName) {
+  if (!stateName) return "";
+  const norm = stateName.trim().toLowerCase();
+  const keys = Object.keys(INDIAN_STATES_AND_DISTRICTS);
+  for (const key of keys) {
+    if (key.toLowerCase() === norm) {
+      return key;
+    }
+  }
+  return "";
+}
+
+function getDistrictsForState(stateName) {
+  const actualKey = findStateKey(stateName);
+  return actualKey ? (INDIAN_STATES_AND_DISTRICTS[actualKey] || []) : [];
+}
+
 function populateStateDropdown(stateSelectEl, defaultState = "", placeholder = "") {
   if (!stateSelectEl) return;
   const pText = placeholder || t("selectState", "Select State");
   const states = Object.keys(INDIAN_STATES_AND_DISTRICTS).sort();
+  const matchedStateKey = findStateKey(defaultState);
   stateSelectEl.innerHTML = `<option value="">${pText}</option>` +
-    states.map(s => `<option value="${s}" ${s.toLowerCase() === (defaultState || "").toLowerCase() ? 'selected' : ''}>${s}</option>`).join("");
+    states.map(s => `<option value="${s}" ${matchedStateKey && s.toLowerCase() === matchedStateKey.toLowerCase() ? 'selected' : ''}>${s}</option>`).join("");
 }
 
 function populateDistrictDropdown(districtSelectEl, stateName, defaultDistrict = "", placeholder = "") {
   if (!districtSelectEl) return;
   const pText = placeholder || t("selectDistrict", "Select District");
-  const districts = (INDIAN_STATES_AND_DISTRICTS[stateName] || []).sort();
+  const districts = getDistrictsForState(stateName).slice().sort();
   if (districts.length === 0) {
     districtSelectEl.innerHTML = `<option value="">${pText}</option>`;
     return;
   }
+  const normDef = (defaultDistrict || "").trim().toLowerCase();
   districtSelectEl.innerHTML = `<option value="">${pText}</option>` +
-    districts.map(d => `<option value="${d}" ${d.toLowerCase() === (defaultDistrict || "").toLowerCase() ? 'selected' : ''}>${d}</option>`).join("");
+    districts.map(d => `<option value="${d}" ${d.toLowerCase() === normDef ? 'selected' : ''}>${d}</option>`).join("");
 }
 
 function setupStateDistrictPair(stateSelectId, districtSelectId, defaultState = "", defaultDistrict = "") {
@@ -425,28 +446,27 @@ function setupStateDistrictPair(stateSelectId, districtSelectId, defaultState = 
   const districtEl = typeof districtSelectId === 'string' ? document.getElementById(districtSelectId) : districtSelectId;
   if (!stateEl || !districtEl) return;
 
+  const matchedStateKey = findStateKey(defaultState);
   populateStateDropdown(stateEl, defaultState);
-  if (defaultState && INDIAN_STATES_AND_DISTRICTS[defaultState]) {
-    populateDistrictDropdown(districtEl, defaultState, defaultDistrict);
+
+  if (matchedStateKey) {
+    populateDistrictDropdown(districtEl, matchedStateKey, defaultDistrict);
   } else {
     districtEl.innerHTML = `<option value="">${t("selectDistrict", "Select District")}</option>`;
   }
 
-  // Remove existing listener clone if any to avoid duplicate attachments
-  const newStateEl = stateEl.cloneNode(true);
-  stateEl.parentNode?.replaceChild(newStateEl, stateEl);
-
-  newStateEl.addEventListener("change", function() {
+  // Use direct onchange handler to avoid cloning nodes, preserving references and form listeners
+  stateEl.onchange = function() {
     const selectedState = this.value;
     populateDistrictDropdown(districtEl, selectedState, "");
-  });
+  };
 }
 
 function initAllLocationDropdowns() {
   // Farmer Register
-  setupStateDistrictPair("farmerState", "farmerDistrict", "Uttar Pradesh", "Lucknow");
+  setupStateDistrictPair("farmerState", "farmerDistrict", "", "");
   // Buyer Register
-  setupStateDistrictPair("buyerState", "buyerDistrict", "Uttar Pradesh", "Agra");
+  setupStateDistrictPair("buyerState", "buyerDistrict", "", "");
   // Produce Drawer
   setupStateDistrictPair("produceLocation", "produceDistrict", "", "");
   // Demand Drawer
@@ -678,6 +698,9 @@ document.addEventListener("DOMContentLoaded", function () {
   // Wire up password eye toggles
   setupPasswordToggles();
 
+  // Build cascading state → district dropdowns (register, produce, demand, profile, search)
+  initAllLocationDropdowns();
+
   // HELPER: Fetch role from URL query params
   function getRoleFromURL() {
     const params = new URLSearchParams(window.location.search);
@@ -844,13 +867,16 @@ document.addEventListener("DOMContentLoaded", function () {
       event.preventDefault();
       const name = document.getElementById("farmerName")?.value || "";
       const phone = document.getElementById("farmerPhone")?.value || "";
-      const district =
-        document.getElementById("farmerDistrict")?.value || "Default District";
-      const state =
-        document.getElementById("farmerState")?.value || "Uttar Pradesh";
+      const district = document.getElementById("farmerDistrict")?.value?.trim() || "";
+      const state = document.getElementById("farmerState")?.value?.trim() || "";
       const password = document.getElementById("farmerPassword")?.value || "";
       const confirmPassword =
         document.getElementById("farmerConfirmPassword")?.value || "";
+
+      if (!state || !district) {
+        alert("Please select both State and District.");
+        return;
+      }
 
       if (password !== confirmPassword) {
         alert("Passwords do not match!");
@@ -899,13 +925,16 @@ document.addEventListener("DOMContentLoaded", function () {
       const businessType =
         document.getElementById("businessType")?.value || "Retailer";
       const phone = document.getElementById("buyerPhone")?.value || "";
-      const district =
-        document.getElementById("buyerDistrict")?.value || "Default District";
-      const state =
-        document.getElementById("buyerState")?.value || "Uttar Pradesh";
+      const district = document.getElementById("buyerDistrict")?.value?.trim() || "";
+      const state = document.getElementById("buyerState")?.value?.trim() || "";
       const password = document.getElementById("buyerPassword")?.value || "";
       const confirmPassword =
         document.getElementById("buyerConfirmPassword")?.value || "";
+
+      if (!state || !district) {
+        alert("Please select both State and District.");
+        return;
+      }
 
       if (password !== confirmPassword) {
         alert("Passwords do not match!");
@@ -1025,8 +1054,8 @@ function openCreateListingDrawer() {
 
   // Auto-fill state and district from cached profile
   try {
-    let defState = "Uttar Pradesh";
-    let defDistrict = "Lucknow";
+    let defState = "";
+    let defDistrict = "";
     const cachedProfile = localStorage.getItem("krishisetu_profile");
     if (cachedProfile) {
       const user = JSON.parse(cachedProfile);
@@ -1550,8 +1579,8 @@ function openDemandDrawer() {
 
   // Auto-fill state and district from cached buyer profile
   try {
-    let defState = "Uttar Pradesh";
-    let defDistrict = "Agra";
+    let defState = "";
+    let defDistrict = "";
     const cachedProfile = localStorage.getItem("krishisetu_profile");
     if (cachedProfile) {
       const user = JSON.parse(cachedProfile);
@@ -1730,9 +1759,12 @@ function openDemandEditModal(id) {
   document.getElementById("demandEditUnit").value = demand.unit || "";
   document.getElementById("demandEditTargetPrice").value =
     demand.target_price != null ? demand.target_price : "";
-  document.getElementById("demandEditState").value = demand.state || "";
-  document.getElementById("demandEditDistrict").value =
-    demand.district || "";
+  setupStateDistrictPair(
+    "demandEditState",
+    "demandEditDistrict",
+    demand.state || "",
+    demand.district || ""
+  );
   const rb = demand.required_by
     ? String(demand.required_by).slice(0, 10)
     : "";
@@ -2441,9 +2473,12 @@ async function loadUserProfile() {
     if (res.ok && data) {
       document.getElementById("profileName").value = data.name || "";
       document.getElementById("profilePhone").value = data.phone || "";
-      document.getElementById("profileState").value = data.state || "";
-      document.getElementById("profileDistrict").value =
-        data.district || data.city || "";
+      setupStateDistrictPair(
+        "profileState",
+        "profileDistrict",
+        data.state || "",
+        data.district || data.city || ""
+      );
       document.getElementById("profileAddress").value =
         data.village || data.address || "";
 

@@ -90,20 +90,34 @@ func (h *Handler) CreateOffer(c *gin.Context) {
 // =========================
 
 func (h *Handler) GetOffer(c *gin.Context) {
+	userIDValue, exists := c.Get("user_id")
+	if !exists {
+		response.Error(c, http.StatusUnauthorized, "unauthorized_access", "unauthorized")
+		return
+	}
+
+	userID, ok := userIDValue.(uint)
+	if !ok {
+		response.Error(c, http.StatusUnauthorized, "invalid_user_id", "invalid user id")
+		return
+	}
+
 	id, err := strconv.ParseUint(c.Param("id"), 10, 64)
 	if err != nil {
 		response.Error(c, http.StatusBadRequest, "invalid_offer_id", "invalid offer id")
 		return
 	}
 
-	offer, err := h.service.GetOffer(uint(id))
+	offer, err := h.service.GetOffer(uint(id), userID)
 	if err != nil {
-		if errors.Is(err, ErrOfferNotFound) {
+		switch {
+		case errors.Is(err, ErrOfferNotFound), errors.Is(err, ErrListingNotFound):
 			response.Error(c, http.StatusNotFound, "offer_not_found", err.Error())
-			return
+		case errors.Is(err, ErrUnauthorized):
+			response.Error(c, http.StatusForbidden, "forbidden", err.Error())
+		default:
+			response.Error(c, http.StatusInternalServerError, "server_error", "failed to get offer")
 		}
-
-		response.Error(c, http.StatusInternalServerError, "server_error", "failed to get offer")
 		return
 	}
 
@@ -165,6 +179,18 @@ func (h *Handler) GetFarmerOffers(c *gin.Context) {
 // =========================
 
 func (h *Handler) GetListingOffers(c *gin.Context) {
+	farmerIDValue, exists := c.Get("user_id")
+	if !exists {
+		response.Error(c, http.StatusUnauthorized, "unauthorized_access", "unauthorized")
+		return
+	}
+
+	farmerID, ok := farmerIDValue.(uint)
+	if !ok {
+		response.Error(c, http.StatusUnauthorized, "invalid_user_id", "invalid user id")
+		return
+	}
+
 	listingID, err := strconv.ParseUint(
 		c.Param("listing_id"),
 		10,
@@ -176,9 +202,16 @@ func (h *Handler) GetListingOffers(c *gin.Context) {
 		return
 	}
 
-	offers, err := h.service.GetListingOffers(uint(listingID))
+	offers, err := h.service.GetListingOffers(uint(listingID), farmerID)
 	if err != nil {
-		response.Error(c, http.StatusInternalServerError, "server_error", "failed to get listing offers")
+		switch {
+		case errors.Is(err, ErrListingNotFound):
+			response.Error(c, http.StatusNotFound, "listing_not_found", err.Error())
+		case errors.Is(err, ErrUnauthorized):
+			response.Error(c, http.StatusForbidden, "forbidden", err.Error())
+		default:
+			response.Error(c, http.StatusInternalServerError, "server_error", "failed to get listing offers")
+		}
 		return
 	}
 

@@ -57,6 +57,14 @@ func (h *Handler) CreateDemand(c *gin.Context) {
 		return
 	}
 
+	role := c.GetString("role")
+	if role != "buyer" {
+		c.JSON(http.StatusForbidden, gin.H{
+			"error": "only buyers can create demands",
+		})
+		return
+	}
+
 	requiredBy, err := parseDate(req.RequiredBy)
 
 	if err != nil {

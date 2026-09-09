@@ -275,32 +275,30 @@
           />
         </div>
         <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-semibold text-[#40493D] mb-1" data-i18n="state"
-              >State</label
-            >
-            <input
-              type="text"
-              id="demandState"
-              required
-              placeholder="Uttar Pradesh"
-              data-i18n-placeholder="statePlaceholder"
-              class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all font-medium"
-            />
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-[#40493D] mb-1" data-i18n="district"
-              >District / City</label
-            >
-            <input
-              type="text"
-              id="demandDistrict"
-              required
-              placeholder="Agra"
-              data-i18n-placeholder="districtPlaceholder"
-              class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all font-medium"
-            />
-          </div>
+<div>
+              <label class="block text-xs font-semibold text-[#40493D] mb-1" data-i18n="state"
+                >State</label
+              >
+              <select
+                id="demandState"
+                required
+                class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all font-medium"
+              >
+                <option value="">Select State</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-[#40493D] mb-1" data-i18n="district"
+                >District / City</label
+              >
+              <select
+                id="demandDistrict"
+                required
+                class="w-full h-11 px-3 border border-[#E0E4DA] rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all font-medium"
+              >
+                <option value="">Select District</option>
+              </select>
+            </div>
         </div>
         <div>
           <label class="block text-xs font-semibold text-[#40493D] mb-1"
@@ -410,23 +408,25 @@
               <label class="block text-xs font-semibold text-[#40493D] mb-1" data-i18n="state"
                 >State</label
               >
-              <input
-                type="text"
+              <select
                 id="demandEditState"
                 required
                 class="w-full h-10 px-3 border border-[#E0E4DA] rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all font-medium"
-              />
+              >
+                <option value="">Select State</option>
+              </select>
             </div>
             <div>
               <label class="block text-xs font-semibold text-[#40493D] mb-1" data-i18n="district"
                 >District / City</label
               >
-              <input
-                type="text"
+              <select
                 id="demandEditDistrict"
                 required
                 class="w-full h-10 px-3 border border-[#E0E4DA] rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#75584D]/20 transition-all font-medium"
-              />
+              >
+                <option value="">Select District</option>
+              </select>
             </div>
           </div>
           <div>

@@ -23,7 +23,7 @@ var (
 type Service interface {
 	AcceptOffer(c context.Context, offerID uint, farmerID uint) (*Order, error)
 
-	GetOrder(id uint) (*Order, error)
+	GetOrder(id uint, userID uint) (*Order, error)
 
 	GetBuyerOrders(buyerID uint) ([]OrderView, error)
 
@@ -174,7 +174,7 @@ func (s *service) AcceptOffer(
 	return createdOrder, nil
 }
 
-func (s *service) GetOrder(id uint) (*Order, error) {
+func (s *service) GetOrder(id uint, userID uint) (*Order, error) {
 	order, err := s.repo.FindByID(id)
 
 	if err != nil {
@@ -183,6 +183,10 @@ func (s *service) GetOrder(id uint) (*Order, error) {
 		}
 
 		return nil, fmt.Errorf("find order: %w", err)
+	}
+
+	if order.BuyerID != userID && order.FarmerID != userID {
+		return nil, ErrUnauthorized
 	}
 
 	return order, nil

@@ -30,6 +30,12 @@ func (h *Handler) Create(c *gin.Context) {
 		return
 	}
 
+	role := c.GetString(middleware.RoleKey)
+	if role != "farmer" {
+		response.Error(c, http.StatusForbidden, "FORBIDDEN", "only farmers can create listings")
+		return
+	}
+
 	var input CreateInput
 	if err := c.ShouldBindJSON(&input); err != nil {
 		response.Error(c, http.StatusBadRequest, "BAD_REQUEST", "invalid request body")

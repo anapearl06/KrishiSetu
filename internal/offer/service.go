@@ -27,13 +27,13 @@ type Service interface {
 		message string,
 	) (*Offer, error)
 
-	GetOffer(id uint) (*Offer, error)
+	GetOffer(id uint, userID uint) (*Offer, error)
 
 	GetBuyerOffers(buyerID uint) ([]OfferView, error)
 
 	GetFarmerOffers(farmerID uint) ([]OfferView, error)
 
-	GetListingOffers(listingID uint) ([]Offer, error)
+	GetListingOffers(listingID uint, farmerID uint) ([]Offer, error)
 
 	CancelOffer(offerID uint, buyerID uint) error
 
@@ -113,7 +113,7 @@ func (s *service) CreateOffer(
 	return offer, nil
 }
 
-func (s *service) GetOffer(id uint) (*Offer, error) {
+func (s *service) GetOffer(id uint, userID uint) (*Offer, error) {
 	offer, err := s.repo.FindByID(id)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -121,6 +121,26 @@ func (s *service) GetOffer(id uint) (*Offer, error) {
 		}
 
 		return nil, fmt.Errorf("find offer: %w", err)
+	}
+
+	// Verify if userID is either the buyer of the offer or the farmer who owns the listing
+	var listing struct {
+		FarmerID uint
+	}
+	err = s.db.
+		Table("crop_listings").
+		Select("farmer_id").
+		Where("id = ?", offer.ListingID).
+		First(&listing).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, ErrListingNotFound
+		}
+		return nil, fmt.Errorf("find listing: %w", err)
+	}
+
+	if offer.BuyerID != userID && listing.FarmerID != userID {
+		return nil, ErrUnauthorized
 	}
 
 	return offer, nil
@@ -134,7 +154,26 @@ func (s *service) GetFarmerOffers(farmerID uint) ([]OfferView, error) {
 	return s.repo.FindByFarmer(farmerID)
 }
 
-func (s *service) GetListingOffers(listingID uint) ([]Offer, error) {
+func (s *service) GetListingOffers(listingID uint, farmerID uint) ([]Offer, error) {
+	var listing struct {
+		FarmerID uint
+	}
+	err := s.db.
+		Table("crop_listings").
+		Select("farmer_id").
+		Where("id = ?", listingID).
+		First(&listing).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, ErrListingNotFound
+		}
+		return nil, fmt.Errorf("find listing: %w", err)
+	}
+
+	if listing.FarmerID != farmerID {
+		return nil, ErrUnauthorized
+	}
+
 	return s.repo.FindByListing(listingID)
 }
 
